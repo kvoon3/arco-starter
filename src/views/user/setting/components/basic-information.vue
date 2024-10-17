@@ -1,3 +1,29 @@
+<script lang="ts" setup>
+import type { BasicInfoModel } from '@/api/user-center'
+import type { FormInstance } from '@arco-design/web-vue/es/form'
+import { ref } from 'vue'
+
+const formRef = ref<FormInstance>()
+const formData = ref<BasicInfoModel>({
+  email: '',
+  nickname: '',
+  countryRegion: '',
+  area: '',
+  address: '',
+  profile: '',
+})
+async function validate() {
+  const res = await formRef.value?.validate()
+  if (!res) {
+    // do some thing
+    // you also can use html-type to submit
+  }
+}
+async function reset() {
+  await formRef.value?.resetFields()
+}
+</script>
+
 <template>
   <a-form
     ref="formRef"
@@ -50,7 +76,9 @@
         v-model="formData.countryRegion"
         :placeholder="$t('userSetting.basicInfo.placeholder.area')"
       >
-        <a-option value="China">中国</a-option>
+        <a-option value="China">
+          中国
+        </a-option>
       </a-select>
     </a-form-item>
     <a-form-item
@@ -125,35 +153,9 @@
   </a-form>
 </template>
 
-<script lang="ts" setup>
-  import { ref } from 'vue';
-  import { FormInstance } from '@arco-design/web-vue/es/form';
-  import { BasicInfoModel } from '@/api/user-center';
-
-  const formRef = ref<FormInstance>();
-  const formData = ref<BasicInfoModel>({
-    email: '',
-    nickname: '',
-    countryRegion: '',
-    area: '',
-    address: '',
-    profile: '',
-  });
-  const validate = async () => {
-    const res = await formRef.value?.validate();
-    if (!res) {
-      // do some thing
-      // you also can use html-type to submit
-    }
-  };
-  const reset = async () => {
-    await formRef.value?.resetFields();
-  };
-</script>
-
 <style scoped lang="less">
   .form {
-    width: 540px;
-    margin: 0 auto;
-  }
+  width: 540px;
+  margin: 0 auto;
+}
 </style>

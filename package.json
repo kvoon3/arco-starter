@@ -18,7 +18,8 @@
     "type:check": "vue-tsc --noEmit --skipLibCheck",
     "lint-staged": "npx lint-staged",
     "up": "taze -I major",
-    "prepare": "simple-git-hooks"
+    "prepare": "simple-git-hooks",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@arco-design/web-vue": "^2.56.2",
@@ -53,6 +54,7 @@
     "consola": "^3.2.3",
     "cross-env": "^7.0.3",
     "eslint": "^9.12.0",
+    "eslint-plugin-format": "^0.1.2",
     "less": "^4.2.0",
     "lint-staged": "^15.2.10",
     "mockjs": "^1.1.0",

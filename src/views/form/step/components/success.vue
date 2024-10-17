@@ -1,3 +1,10 @@
+<script lang="ts" setup>
+const emits = defineEmits(['changeStep'])
+function oneMore() {
+  emits('changeStep', 1)
+}
+</script>
+
 <template>
   <div class="success-wrap">
     <a-result
@@ -19,31 +26,26 @@
       </a-typography-title>
       <a-typography-paragraph style="margin-bottom: 0">
         {{ $t('stepForm.form.description.text') }}
-        <a-link href="link">{{ $t('stepForm.button.view') }}</a-link>
+        <a-link href="link">
+          {{ $t('stepForm.button.view') }}
+        </a-link>
       </a-typography-paragraph>
     </div>
   </div>
 </template>
 
-<script lang="ts" setup>
-  const emits = defineEmits(['changeStep']);
-  const oneMore = () => {
-    emits('changeStep', 1);
-  };
-</script>
-
 <style scoped lang="less">
   .success-wrap {
-    text-align: center;
-  }
-  :deep(.arco-result) {
-    padding-top: 0;
-  }
-  .details-wrapper {
-    width: 895px;
-    margin-top: 54px;
-    padding: 20px;
-    text-align: left;
-    background-color: var(--color-fill-2);
-  }
+  text-align: center;
+}
+:deep(.arco-result) {
+  padding-top: 0;
+}
+.details-wrapper {
+  width: 895px;
+  margin-top: 54px;
+  padding: 20px;
+  text-align: left;
+  background-color: var(--color-fill-2);
+}
 </style>

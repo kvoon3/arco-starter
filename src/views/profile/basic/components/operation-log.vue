@@ -1,3 +1,26 @@
+<script lang="ts" setup>
+import type { operationLogRes } from '@/api/profile'
+import { queryOperationLog } from '@/api/profile'
+import useLoading from '@/hooks/loading'
+import { ref } from 'vue'
+
+const { loading, setLoading } = useLoading(true)
+const renderData = ref<operationLogRes>([])
+async function fetchData() {
+  try {
+    const { data } = await queryOperationLog()
+    renderData.value = data
+  }
+  catch {
+    // you can report use errorHandler or other
+  }
+  finally {
+    setLoading(false)
+  }
+}
+fetchData()
+</script>
+
 <template>
   <a-card class="general-card">
     <template #title>
@@ -20,11 +43,11 @@
           >
             <template #cell="{ record }">
               <p v-if="record.status === 0">
-                <span class="circle"></span>
+                <span class="circle" />
                 <span>{{ $t('basicProfile.cell.auditing') }}</span>
               </p>
               <p v-if="record.status === 1">
-                <span class="circle pass"></span>
+                <span class="circle pass" />
                 <span>{{ $t('basicProfile.cell.pass') }}</span>
               </p>
             </template>
@@ -35,9 +58,11 @@
           />
           <a-table-column :title="$t('basicProfile.column.operation')">
             <template #cell>
-              <a-button type="text">{{
-                $t('basicProfile.cell.view')
-              }}</a-button>
+              <a-button type="text">
+                {{
+                  $t('basicProfile.cell.view')
+                }}
+              </a-button>
             </template>
           </a-table-column>
         </template>
@@ -46,32 +71,12 @@
   </a-card>
 </template>
 
-<script lang="ts" setup>
-  import { ref } from 'vue';
-  import { queryOperationLog, operationLogRes } from '@/api/profile';
-  import useLoading from '@/hooks/loading';
-
-  const { loading, setLoading } = useLoading(true);
-  const renderData = ref<operationLogRes>([]);
-  const fetchData = async () => {
-    try {
-      const { data } = await queryOperationLog();
-      renderData.value = data;
-    } catch (err) {
-      // you can report use errorHandler or other
-    } finally {
-      setLoading(false);
-    }
-  };
-  fetchData();
-</script>
-
 <style scoped lang="less">
   :deep(.arco-table-th) {
-    &:last-child {
-      .arco-table-th-item-title {
-        margin-left: 16px;
-      }
+  &:last-child {
+    .arco-table-th-item-title {
+      margin-left: 16px;
     }
   }
+}
 </style>

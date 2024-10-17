@@ -1,3 +1,26 @@
+<script lang="ts" setup>
+import type { LatestActivity } from '@/api/user-center'
+import { queryLatestActivity } from '@/api/user-center'
+import useLoading from '@/hooks/loading'
+import { ref } from 'vue'
+
+const { loading, setLoading } = useLoading(true)
+const activityList = ref<LatestActivity[]>(Array.from({ length: 7 }).fill({}))
+async function fetchData() {
+  try {
+    const { data } = await queryLatestActivity()
+    activityList.value = data
+  }
+  catch {
+    // you can report use errorHandler or other
+  }
+  finally {
+    setLoading(false)
+  }
+}
+fetchData()
+</script>
+
 <template>
   <a-card class="general-card" :title="$t('userInfo.title.latestActivity')">
     <template #extra>
@@ -31,7 +54,7 @@
         >
           <template #avatar>
             <a-avatar>
-              <img :src="activity.avatar" />
+              <img :src="activity.avatar">
             </a-avatar>
           </template>
         </a-list-item-meta>
@@ -40,49 +63,29 @@
   </a-card>
 </template>
 
-<script lang="ts" setup>
-  import { ref } from 'vue';
-  import { queryLatestActivity, LatestActivity } from '@/api/user-center';
-  import useLoading from '@/hooks/loading';
-
-  const { loading, setLoading } = useLoading(true);
-  const activityList = ref<LatestActivity[]>(new Array(7).fill({}));
-  const fetchData = async () => {
-    try {
-      const { data } = await queryLatestActivity();
-      activityList.value = data;
-    } catch (err) {
-      // you can report use errorHandler or other
-    } finally {
-      setLoading(false);
-    }
-  };
-  fetchData();
-</script>
-
 <style scoped lang="less">
   .latest-activity {
-    &-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
-  .general-card :deep(.arco-list-item) {
-    padding-left: 0;
-    border-bottom: none;
-    .arco-list-item-meta-content {
-      flex: 1;
-      padding-bottom: 27px;
-      border-bottom: 1px solid var(--color-neutral-3);
-    }
-    .arco-list-item-meta-avatar {
-      padding-bottom: 27px;
-    }
-    .skeleton-item {
-      margin-top: 10px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--color-neutral-3);
-    }
+}
+.general-card :deep(.arco-list-item) {
+  padding-left: 0;
+  border-bottom: none;
+  .arco-list-item-meta-content {
+    flex: 1;
+    padding-bottom: 27px;
+    border-bottom: 1px solid var(--color-neutral-3);
   }
+  .arco-list-item-meta-avatar {
+    padding-bottom: 27px;
+  }
+  .skeleton-item {
+    margin-top: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-neutral-3);
+  }
+}
 </style>

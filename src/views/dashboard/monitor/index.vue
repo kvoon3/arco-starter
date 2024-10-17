@@ -1,3 +1,18 @@
+<script lang="ts" setup>
+import ChatPanel from './components/chat-panel.vue'
+import DataStatistic from './components/data-statistic.vue'
+import QuickOperation from './components/quick-operation.vue'
+import Studio from './components/studio.vue'
+import StudioInformation from './components/studio-information.vue'
+import StudioStatus from './components/studio-status.vue'
+</script>
+
+<script lang="ts">
+export default {
+  name: 'Monitor',
+}
+</script>
+
 <template>
   <div class="container">
     <Breadcrumb :items="['menu.dashboard', 'menu.dashboard.monitor']" />
@@ -22,66 +37,51 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-  import ChatPanel from './components/chat-panel.vue';
-  import Studio from './components/studio.vue';
-  import DataStatistic from './components/data-statistic.vue';
-  import StudioStatus from './components/studio-status.vue';
-  import QuickOperation from './components/quick-operation.vue';
-  import StudioInformation from './components/studio-information.vue';
-</script>
-
-<script lang="ts">
-  export default {
-    name: 'Monitor',
-  };
-</script>
-
 <style scoped lang="less">
   .container {
-    padding: 0 20px 20px 20px;
+  padding: 0 20px 20px 20px;
+}
+
+.layout {
+  display: flex;
+
+  &-left-side {
+    flex-basis: 300px;
   }
 
-  .layout {
-    display: flex;
-
-    &-left-side {
-      flex-basis: 300px;
-    }
-
-    &-content {
-      flex: 1;
-      padding: 0 16px;
-    }
-
-    &-right-side {
-      flex-basis: 280px;
-    }
+  &-content {
+    flex: 1;
+    padding: 0 16px;
   }
+
+  &-right-side {
+    flex-basis: 280px;
+  }
+}
 </style>
 
 <style lang="less" scoped>
   // responsive
-  @media (max-width: @screen-lg) {
-    .layout {
-      flex-wrap: wrap;
-      &-left-side {
-        flex: 1;
-        flex-basis: 100%;
-        margin-bottom: 16px;
-      }
+@media (max-width: @screen-lg) {
+  .layout {
+    flex-wrap: wrap;
+    &-left-side {
+      flex: 1;
+      flex-basis: 100%;
+      margin-bottom: 16px;
+    }
 
-      &-content {
-        flex: none;
-        flex-basis: 100%;
-        padding: 0;
-        order: -1;
-        margin-bottom: 16px;
-      }
+    &-content {
+      flex: none;
+      flex-basis: 100%;
+      padding: 0;
+      order: -1;
+      margin-bottom: 16px;
+    }
 
-      &-right-side {
-        flex-basis: 100%;
-      }
+    &-right-side {
+      flex-basis: 100%;
     }
   }
+}
 </style>

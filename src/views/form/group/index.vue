@@ -1,3 +1,28 @@
+<script lang="ts" setup>
+import type { FormInstance } from '@arco-design/web-vue/es/form'
+import useLoading from '@/hooks/loading'
+import { ref } from 'vue'
+
+const formData = ref({})
+const formRef = ref<FormInstance>()
+const { loading, setLoading } = useLoading()
+async function onSubmitClick() {
+  const res = await formRef.value?.validate()
+  if (!res) {
+    setLoading(true)
+  }
+  setTimeout(() => {
+    setLoading(false)
+  }, 1000)
+}
+</script>
+
+<script lang="ts">
+export default {
+  name: 'Group',
+}
+</script>
+
 <template>
   <div class="container">
     <Breadcrumb :items="['menu.form', 'menu.form.group']" />
@@ -14,9 +39,15 @@
                 field="video.mode"
               >
                 <a-select :placeholder="$t('groupForm.placeholder.video.mode')">
-                  <a-option value="custom">自定义</a-option>
-                  <a-option value="mode1">模式1</a-option>
-                  <a-option value="mode2">模式2</a-option>
+                  <a-option value="custom">
+                    自定义
+                  </a-option>
+                  <a-option value="mode1">
+                    模式1
+                  </a-option>
+                  <a-option value="mode2">
+                    模式2
+                  </a-option>
                 </a-select>
               </a-form-item>
             </a-col>
@@ -30,9 +61,15 @@
                     $t('groupForm.placeholder.video.acquisition.resolution')
                   "
                 >
-                  <a-option value="resolution1">分辨率1</a-option>
-                  <a-option value="resolution2">分辨率2</a-option>
-                  <a-option value="resolution3">分辨率3</a-option>
+                  <a-option value="resolution1">
+                    分辨率1
+                  </a-option>
+                  <a-option value="resolution2">
+                    分辨率2
+                  </a-option>
+                  <a-option value="resolution3">
+                    分辨率3
+                  </a-option>
                 </a-select>
               </a-form-item>
             </a-col>
@@ -46,7 +83,9 @@
                     $t('groupForm.placeholder.video.acquisition.frameRate')
                   "
                 >
-                  <template #append> fps </template>
+                  <template #append>
+                    fps
+                  </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -62,9 +101,15 @@
                     $t('groupForm.placeholder.video.encoding.resolution')
                   "
                 >
-                  <a-option value="resolution1">分辨率1</a-option>
-                  <a-option value="resolution2">分辨率2</a-option>
-                  <a-option value="resolution3">分辨率3</a-option>
+                  <a-option value="resolution1">
+                    分辨率1
+                  </a-option>
+                  <a-option value="resolution2">
+                    分辨率2
+                  </a-option>
+                  <a-option value="resolution3">
+                    分辨率3
+                  </a-option>
                 </a-select>
               </a-form-item>
             </a-col>
@@ -79,7 +124,9 @@
                   "
                   add-after="bps"
                 >
-                  <template #append> bps </template>
+                  <template #append>
+                    bps
+                  </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -93,7 +140,9 @@
                     $t('groupForm.placeholder.video.encoding.rate.max')
                   "
                 >
-                  <template #append> bps </template>
+                  <template #append>
+                    bps
+                  </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -109,7 +158,9 @@
                     $t('groupForm.placeholder.video.encoding.rate.default')
                   "
                 >
-                  <template #append> bps </template>
+                  <template #append>
+                    bps
+                  </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -123,7 +174,9 @@
                     $t('groupForm.placeholder.video.encoding.frameRate')
                   "
                 >
-                  <template #append> fps </template>
+                  <template #append>
+                    fps
+                  </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -137,7 +190,9 @@
                     $t('groupForm.placeholder.video.encoding.profile')
                   "
                 >
-                  <template #append> bps </template>
+                  <template #append>
+                    bps
+                  </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -154,9 +209,15 @@
                 field="audio.mode"
               >
                 <a-select :placeholder="$t('groupForm.placeholder.audio.mode')">
-                  <a-option value="custom">自定义</a-option>
-                  <a-option value="mode1">模式1</a-option>
-                  <a-option value="mode2">模式2</a-option>
+                  <a-option value="custom">
+                    自定义
+                  </a-option>
+                  <a-option value="mode1">
+                    模式1
+                  </a-option>
+                  <a-option value="mode2">
+                    模式2
+                  </a-option>
                 </a-select>
               </a-form-item>
             </a-col>
@@ -170,9 +231,15 @@
                     $t('groupForm.placeholder.audio.acquisition.channels')
                   "
                 >
-                  <a-option value="1">1</a-option>
-                  <a-option value="2">2</a-option>
-                  <a-option value="3">3</a-option>
+                  <a-option value="1">
+                    1
+                  </a-option>
+                  <a-option value="2">
+                    2
+                  </a-option>
+                  <a-option value="3">
+                    3
+                  </a-option>
                 </a-select>
               </a-form-item>
             </a-col>
@@ -186,7 +253,9 @@
                     $t('groupForm.placeholder.audio.encoding.channels')
                   "
                 >
-                  <template #append> bps </template>
+                  <template #append>
+                    bps
+                  </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -200,7 +269,9 @@
                 <a-input
                   :placeholder="$t('groupForm.placeholder.audio.encoding.rate')"
                 >
-                  <template #append> bps </template>
+                  <template #append>
+                    bps
+                  </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -215,7 +286,9 @@
                     $t('groupForm.placeholder.audio.encoding.profile')
                   "
                 >
-                  <template #append> fps </template>
+                  <template #append>
+                    fps
+                  </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -249,45 +322,20 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-  import { ref } from 'vue';
-  import { FormInstance } from '@arco-design/web-vue/es/form';
-  import useLoading from '@/hooks/loading';
-
-  const formData = ref({});
-  const formRef = ref<FormInstance>();
-  const { loading, setLoading } = useLoading();
-  const onSubmitClick = async () => {
-    const res = await formRef.value?.validate();
-    if (!res) {
-      setLoading(true);
-    }
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  };
-</script>
-
-<script lang="ts">
-  export default {
-    name: 'Group',
-  };
-</script>
-
 <style scoped lang="less">
   .container {
-    padding: 0 20px 40px 20px;
-    overflow: hidden;
-  }
+  padding: 0 20px 40px 20px;
+  overflow: hidden;
+}
 
-  .actions {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 60px;
-    padding: 14px 20px 14px 0;
-    background: var(--color-bg-2);
-    text-align: right;
-  }
+.actions {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60px;
+  padding: 14px 20px 14px 0;
+  background: var(--color-bg-2);
+  text-align: right;
+}
 </style>

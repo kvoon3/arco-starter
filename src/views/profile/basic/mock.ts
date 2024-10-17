@@ -1,9 +1,9 @@
-import Mock from 'mockjs';
-import setupMock, { successResponseWrap } from '@/utils/setup-mock';
+import setupMock, { successResponseWrap } from '@/utils/setup-mock'
+import Mock from 'mockjs'
 
 setupMock({
   setup() {
-    Mock.mock(new RegExp('/api/profile/basic'), () => {
+    Mock.mock(/\/api\/profile\/basic/, () => {
       return successResponseWrap({
         status: 2,
         video: {
@@ -34,9 +34,9 @@ setupMock({
             profile: 'ACC-LC',
           },
         },
-      });
-    });
-    Mock.mock(new RegExp('/api/operation/log'), () => {
+      })
+    })
+    Mock.mock(/\/api\/operation\/log/, () => {
       return successResponseWrap([
         {
           key: '1',
@@ -52,7 +52,7 @@ setupMock({
           status: 1,
           updateTime: '2020-05-13 08:00:00',
         },
-      ]);
-    });
+      ])
+    })
   },
-});
+})

@@ -1,3 +1,25 @@
+<script lang="ts" setup>
+import type { BaseInfoModel } from '@/api/form'
+import type { FormInstance } from '@arco-design/web-vue/es/form'
+import { ref } from 'vue'
+
+const emits = defineEmits(['changeStep'])
+const formRef = ref<FormInstance>()
+const formData = ref<BaseInfoModel>({
+  activityName: '',
+  channelType: '',
+  promotionTime: [],
+  promoteLink: 'https://arco.design',
+})
+
+async function onNextClick() {
+  const res = await formRef.value?.validate()
+  if (!res) {
+    emits('changeStep', 'forward', { ...formData.value })
+  }
+}
+</script>
+
 <template>
   <a-form
     ref="formRef"
@@ -85,53 +107,31 @@
   </a-form>
 </template>
 
-<script lang="ts" setup>
-  import { ref } from 'vue';
-  import { FormInstance } from '@arco-design/web-vue/es/form';
-  import { BaseInfoModel } from '@/api/form';
-
-  const emits = defineEmits(['changeStep']);
-  const formRef = ref<FormInstance>();
-  const formData = ref<BaseInfoModel>({
-    activityName: '',
-    channelType: '',
-    promotionTime: [],
-    promoteLink: 'https://arco.design',
-  });
-
-  const onNextClick = async () => {
-    const res = await formRef.value?.validate();
-    if (!res) {
-      emits('changeStep', 'forward', { ...formData.value });
-    }
-  };
-</script>
-
 <style scoped lang="less">
   .container {
-    padding: 20px;
-    .keep-margin {
-      margin-bottom: 20px;
-    }
+  padding: 20px;
+  .keep-margin {
+    margin-bottom: 20px;
   }
+}
 
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 64px 0;
-    background-color: var(--color-bg-2);
-  }
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 64px 0;
+  background-color: var(--color-bg-2);
+}
 
-  .steps {
-    margin-bottom: 36px;
-  }
+.steps {
+  margin-bottom: 36px;
+}
 
-  .form {
-    width: 500px;
-  }
+.form {
+  width: 500px;
+}
 
-  .form-content {
-    padding: 8px 50px 0 30px;
-  }
+.form-content {
+  padding: 8px 50px 0 30px;
+}
 </style>

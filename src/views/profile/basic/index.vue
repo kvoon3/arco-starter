@@ -1,3 +1,51 @@
+<script lang="ts" setup>
+import type { ProfileBasicRes } from '@/api/profile'
+import { queryProfileBasic } from '@/api/profile'
+import useLoading from '@/hooks/loading'
+import { ref } from 'vue'
+import OperationLog from './components/operation-log.vue'
+import ProfileItem from './components/profile-item.vue'
+
+const { loading, setLoading } = useLoading(true)
+const { loading: preLoading, setLoading: preSetLoading } = useLoading(true)
+const currentData = ref<ProfileBasicRes>({} as ProfileBasicRes)
+const preData = ref<ProfileBasicRes>({} as ProfileBasicRes)
+const step = ref(1)
+async function fetchCurrentData() {
+  try {
+    const { data } = await queryProfileBasic()
+    currentData.value = data
+    step.value = 2
+  }
+  catch (err) {
+    // you can report use errorHandler or other
+  }
+  finally {
+    setLoading(false)
+  }
+}
+async function fetchPreData() {
+  try {
+    const { data } = await queryProfileBasic()
+    preData.value = data
+  }
+  catch (err) {
+    // you can report use errorHandler or other
+  }
+  finally {
+    preSetLoading(false)
+  }
+}
+fetchCurrentData()
+fetchPreData()
+</script>
+
+<script lang="ts">
+export default {
+  name: 'Basic',
+}
+</script>
+
 <template>
   <div class="container">
     <Breadcrumb :items="['menu.profile', 'menu.profile.basic']" />
@@ -28,56 +76,13 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-  import { ref } from 'vue';
-  import useLoading from '@/hooks/loading';
-  import { queryProfileBasic, ProfileBasicRes } from '@/api/profile';
-  import ProfileItem from './components/profile-item.vue';
-  import OperationLog from './components/operation-log.vue';
-
-  const { loading, setLoading } = useLoading(true);
-  const { loading: preLoading, setLoading: preSetLoading } = useLoading(true);
-  const currentData = ref<ProfileBasicRes>({} as ProfileBasicRes);
-  const preData = ref<ProfileBasicRes>({} as ProfileBasicRes);
-  const step = ref(1);
-  const fetchCurrentData = async () => {
-    try {
-      const { data } = await queryProfileBasic();
-      currentData.value = data;
-      step.value = 2;
-    } catch (err) {
-      // you can report use errorHandler or other
-    } finally {
-      setLoading(false);
-    }
-  };
-  const fetchPreData = async () => {
-    try {
-      const { data } = await queryProfileBasic();
-      preData.value = data;
-    } catch (err) {
-      // you can report use errorHandler or other
-    } finally {
-      preSetLoading(false);
-    }
-  };
-  fetchCurrentData();
-  fetchPreData();
-</script>
-
-<script lang="ts">
-  export default {
-    name: 'Basic',
-  };
-</script>
-
 <style scoped lang="less">
   .container {
-    padding: 0 20px 20px 20px;
-  }
+  padding: 0 20px 20px 20px;
+}
 
-  .steps {
-    max-width: 548px;
-    margin: 0 auto 10px;
-  }
+.steps {
+  max-width: 548px;
+  margin: 0 auto 10px;
+}
 </style>

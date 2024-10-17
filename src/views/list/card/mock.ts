@@ -1,6 +1,6 @@
-import Mock from 'mockjs';
-import setupMock, { successResponseWrap } from '@/utils/setup-mock';
-import { ServiceRecord } from '@/api/list';
+import type { ServiceRecord } from '@/api/list'
+import setupMock, { successResponseWrap } from '@/utils/setup-mock'
+import Mock from 'mockjs'
 
 const qualityInspectionList: ServiceRecord[] = [
   {
@@ -63,7 +63,7 @@ const qualityInspectionList: ServiceRecord[] = [
       },
     ],
   },
-];
+]
 const theServiceList: ServiceRecord[] = [
   {
     id: 1,
@@ -102,7 +102,7 @@ const theServiceList: ServiceRecord[] = [
     enable: true,
     actionType: 'button',
   },
-];
+]
 const rulesPresetList: ServiceRecord[] = [
   {
     id: 1,
@@ -149,38 +149,38 @@ const rulesPresetList: ServiceRecord[] = [
     enable: false,
     actionType: 'switch',
   },
-];
+]
 
 setupMock({
   setup() {
     // Quality Inspection
-    Mock.mock(new RegExp('/api/list/quality-inspection'), () => {
+    Mock.mock(/\/api\/list\/quality-inspection/, () => {
       return successResponseWrap(
         qualityInspectionList.map((_, index) => ({
           ...qualityInspectionList[index % qualityInspectionList.length],
           id: Mock.Random.guid(),
-        }))
-      );
-    });
+        })),
+      )
+    })
 
     // the service
-    Mock.mock(new RegExp('/api/list/the-service'), () => {
+    Mock.mock(/\/api\/list\/the-service/, () => {
       return successResponseWrap(
         theServiceList.map((_, index) => ({
           ...theServiceList[index % theServiceList.length],
           id: Mock.Random.guid(),
-        }))
-      );
-    });
+        })),
+      )
+    })
 
     // rules preset
-    Mock.mock(new RegExp('/api/list/rules-preset'), () => {
+    Mock.mock(/\/api\/list\/rules-preset/, () => {
       return successResponseWrap(
         rulesPresetList.map((_, index) => ({
           ...rulesPresetList[index % rulesPresetList.length],
           id: Mock.Random.guid(),
-        }))
-      );
-    });
+        })),
+      )
+    })
   },
-});
+})

@@ -1,3 +1,17 @@
+<script lang="ts" setup>
+import type { CertificationRecord } from '@/api/user-center'
+import type { PropType } from 'vue'
+
+defineProps({
+  renderData: {
+    type: Array as PropType<CertificationRecord>,
+    default() {
+      return []
+    },
+  },
+})
+</script>
+
 <template>
   <a-card
     class="general-card"
@@ -20,11 +34,11 @@
         <a-table-column :title="$t('userSetting.certification.columns.status')">
           <template #cell="{ record }">
             <p v-if="record.status === 0">
-              <span class="circle"></span>
+              <span class="circle" />
               <span>{{ $t('userSetting.certification.cell.auditing') }}</span>
             </p>
             <p v-if="record.status === 1">
-              <span class="circle pass"></span>
+              <span class="circle pass" />
               <span>{{ $t('userSetting.certification.cell.pass') }}</span>
             </p>
           </template>
@@ -52,26 +66,12 @@
   </a-card>
 </template>
 
-<script lang="ts" setup>
-  import { PropType } from 'vue';
-  import { CertificationRecord } from '@/api/user-center';
-
-  defineProps({
-    renderData: {
-      type: Array as PropType<CertificationRecord>,
-      default() {
-        return [];
-      },
-    },
-  });
-</script>
-
 <style scoped lang="less">
   :deep(.arco-table-th) {
-    &:last-child {
-      .arco-table-th-item-title {
-        margin-left: 16px;
-      }
+  &:last-child {
+    .arco-table-th-item-title {
+      margin-left: 16px;
     }
   }
+}
 </style>

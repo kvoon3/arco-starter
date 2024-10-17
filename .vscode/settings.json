@@ -20,6 +20,7 @@
     "src/views/visualization/data-analysis/locale",
     "src/views/visualization/multi-dimension-data-analysis/locale"
   ],
+
   // Disable the default formatter, use eslint instead
   "prettier.enable": false,
   "editor.formatOnSave": false,

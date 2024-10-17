@@ -1,5 +1,5 @@
-import { DEFAULT_LAYOUT } from '../base';
-import { AppRouteRecordRaw } from '../types';
+import type { AppRouteRecordRaw } from '../types'
+import { DEFAULT_LAYOUT } from '../base'
 
 const FORM: AppRouteRecordRaw = {
   path: '/form',
@@ -33,6 +33,6 @@ const FORM: AppRouteRecordRaw = {
       },
     },
   ],
-};
+}
 
-export default FORM;
+export default FORM

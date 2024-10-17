@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+import ChainItem from './chain-item.vue'
+</script>
+
 <template>
   <div>
     <a-row :gutter="16">
@@ -32,7 +36,3 @@
     </a-row>
   </div>
 </template>
-
-<script lang="ts" setup>
-  import ChainItem from './chain-item.vue';
-</script>

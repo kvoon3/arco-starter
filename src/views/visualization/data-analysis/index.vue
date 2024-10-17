@@ -1,3 +1,16 @@
+<script lang="ts" setup>
+import ContentPeriodAnalysis from './components/content-period-analysis.vue'
+import ContentPublishRatio from './components/content-publish-ratio.vue'
+import PopularAuthor from './components/popular-author.vue'
+import PublicOpinion from './components/public-opinion.vue'
+</script>
+
+<script lang="ts">
+export default {
+  name: 'DataAnalysis',
+}
+</script>
+
 <template>
   <div class="container">
     <Breadcrumb
@@ -30,36 +43,23 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-  import PublicOpinion from './components/public-opinion.vue';
-  import ContentPeriodAnalysis from './components/content-period-analysis.vue';
-  import ContentPublishRatio from './components/content-publish-ratio.vue';
-  import PopularAuthor from './components/popular-author.vue';
-</script>
-
-<script lang="ts">
-  export default {
-    name: 'DataAnalysis',
-  };
-</script>
-
 <style scoped lang="less">
   .container {
-    padding: 0 20px 20px 20px;
-    margin-bottom: 20px;
-  }
+  padding: 0 20px 20px 20px;
+  margin-bottom: 20px;
+}
 
-  .space-unit {
-    background-color: var(--color-bg-2);
-    border-radius: 4px;
-  }
+.space-unit {
+  background-color: var(--color-bg-2);
+  border-radius: 4px;
+}
 
-  .title-fix {
-    margin: 0 0 12px 0;
-    font-size: 14;
-  }
-  :deep(.section-title) {
-    margin: 0 0 12px 0;
-    font-size: 14px;
-  }
+.title-fix {
+  margin: 0 0 12px 0;
+  font-size: 14;
+}
+:deep(.section-title) {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+}
 </style>

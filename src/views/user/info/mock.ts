@@ -1,10 +1,10 @@
-import Mock from 'mockjs';
-import setupMock, { successResponseWrap } from '@/utils/setup-mock';
+import setupMock, { successResponseWrap } from '@/utils/setup-mock'
+import Mock from 'mockjs'
 
 setupMock({
   setup() {
     // 最新项目
-    Mock.mock(new RegExp('/api/user/my-project/list'), () => {
+    Mock.mock(/\/api\/user\/my-project\/list/, () => {
       const contributors = [
         {
           name: '秦臻宇',
@@ -36,7 +36,7 @@ setupMock({
           avatar:
             '//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp',
         },
-      ];
+      ]
       const units = [
         {
           name: '企业级产品设计系统',
@@ -62,33 +62,33 @@ setupMock({
           name: '智能机器人',
           description: 'Intelligent Robot Project',
         },
-      ];
+      ]
       return successResponseWrap(
-        new Array(6).fill(null).map((_item, index) => ({
+        Array.from({ length: 6 }).fill(null).map((_item, index) => ({
           id: index,
           name: units[index].name,
           description: units[index].description,
           peopleNumber: Mock.Random.natural(10, 1000),
           contributors,
-        }))
-      );
-    });
+        })),
+      )
+    })
 
     // 最新动态
-    Mock.mock(new RegExp('/api/user/latest-activity'), () => {
+    Mock.mock(/\/api\/user\/latest-activity/, () => {
       return successResponseWrap(
-        new Array(7).fill(null).map((_item, index) => ({
+        Array.from({ length: 7 }).fill(null).map((_item, index) => ({
           id: index,
           title: '发布了项目 Arco Design System',
           description: '企业级产品设计系统',
           avatar:
             '//lf1-xgcdn-tos.pstatp.com/obj/vcloud/vadmin/start.8e0e4855ee346a46ccff8ff3e24db27b.png',
-        }))
-      );
-    });
+        })),
+      )
+    })
 
     // 访问量
-    Mock.mock(new RegExp('/api/user/visits'), () => {
+    Mock.mock(/\/api\/user\/visits/, () => {
       return successResponseWrap([
         {
           name: '主页访问量',
@@ -100,11 +100,11 @@ setupMock({
           visits: 5670,
           growth: 206.32,
         },
-      ]);
-    });
+      ])
+    })
 
     // 项目和团队列表
-    Mock.mock(new RegExp('/api/user/project-and-team/list'), () => {
+    Mock.mock(/\/api\/user\/project-and-team\/list/, () => {
       return successResponseWrap([
         {
           id: 1,
@@ -122,11 +122,11 @@ setupMock({
           id: 4,
           content: '他加入的团队',
         },
-      ]);
-    });
+      ])
+    })
 
     // 团队列表
-    Mock.mock(new RegExp('/api/user/my-team/list'), () => {
+    Mock.mock(/\/api\/user\/my-team\/list/, () => {
       return successResponseWrap([
         {
           id: 1,
@@ -156,7 +156,7 @@ setupMock({
           name: '内容识别插件小分队',
           peopleNumber: Mock.Random.natural(10, 100),
         },
-      ]);
-    });
+      ])
+    })
   },
-});
+})

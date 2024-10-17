@@ -1,10 +1,12 @@
+<script lang="ts" setup></script>
+
 <template>
   <a-card class="general-card" :title="$t('monitor.title.studioInfo')">
     <a-form :model="{}" layout="vertical">
       <a-form-item :label="$t('monitor.studioInfo.label.studioTitle')" required>
         <a-input
           :placeholder="`admin${$t(
-            'monitor.studioInfo.placeholder.studioTitle'
+            'monitor.studioInfo.placeholder.studioTitle',
           )}`"
         />
       </a-form-item>
@@ -27,8 +29,8 @@
         <a-input-search />
       </a-form-item>
     </a-form>
-    <a-button type="primary">{{ $t('monitor.studioInfo.btn.fresh') }}</a-button>
+    <a-button type="primary">
+      {{ $t('monitor.studioInfo.btn.fresh') }}
+    </a-button>
   </a-card>
 </template>
-
-<script lang="ts" setup></script>

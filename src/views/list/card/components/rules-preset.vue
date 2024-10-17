@@ -1,3 +1,16 @@
+<script lang="ts" setup>
+import type { ServiceRecord } from '@/api/list'
+import { queryRulesPresetList } from '@/api/list'
+import useRequest from '@/hooks/request'
+import CardWrap from './card-wrap.vue'
+
+const defaultValue: ServiceRecord[] = Array.from({ length: 6 }).fill({})
+const { loading, response: renderData } = useRequest<ServiceRecord[]>(
+  queryRulesPresetList,
+  defaultValue,
+)
+</script>
+
 <template>
   <div class="list-wrap">
     <a-typography-title class="block-title" :heading="6">
@@ -35,17 +48,5 @@
     </a-row>
   </div>
 </template>
-
-<script lang="ts" setup>
-  import { queryRulesPresetList, ServiceRecord } from '@/api/list';
-  import useRequest from '@/hooks/request';
-  import CardWrap from './card-wrap.vue';
-
-  const defaultValue: ServiceRecord[] = new Array(6).fill({});
-  const { loading, response: renderData } = useRequest<ServiceRecord[]>(
-    queryRulesPresetList,
-    defaultValue
-  );
-</script>
 
 <style scoped lang="less"></style>

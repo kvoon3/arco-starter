@@ -1,3 +1,10 @@
+<script lang="ts" setup>
+import useThemes from '@/hooks/themes'
+import ChainItem from './chain-item.vue'
+
+const { isDark } = useThemes()
+</script>
+
 <template>
   <a-card
     class="general-card"
@@ -56,10 +63,3 @@
     </a-grid>
   </a-card>
 </template>
-
-<script lang="ts" setup>
-  import useThemes from '@/hooks/themes';
-  import ChainItem from './chain-item.vue';
-
-  const { isDark } = useThemes();
-</script>

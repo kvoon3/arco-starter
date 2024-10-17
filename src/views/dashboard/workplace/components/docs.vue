@@ -36,7 +36,7 @@
 
 <style lang="less" scoped>
   .arco-card-body .arco-link {
-    margin: 10px 0;
-    color: rgb(var(--gray-8));
-  }
+  margin: 10px 0;
+  color: rgb(var(--gray-8));
+}
 </style>
