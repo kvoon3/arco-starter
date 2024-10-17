@@ -16,8 +16,8 @@
     "preview": "npm run build && vite preview --host",
     "type:check": "vue-tsc --noEmit --skipLibCheck",
     "lint-staged": "npx lint-staged",
-    "prepare": "husky install",
-    "up": "taze -I major"
+    "up": "taze -I major",
+    "prepare": "simple-git-hooks"
   },
   "dependencies": {
     "@arco-design/web-vue": "^2.56.2",
@@ -52,13 +52,13 @@
     "consola": "^3.2.3",
     "cross-env": "^7.0.3",
     "eslint": "^9.12.0",
-    "husky": "^9.1.6",
     "less": "^4.2.0",
     "lint-staged": "^15.2.10",
     "mockjs": "^1.1.0",
     "postcss-html": "^1.7.0",
     "rollup": "^4.24.0",
     "rollup-plugin-visualizer": "^5.12.0",
+    "simple-git-hooks": "^2.11.1",
     "taze": "^0.17.2",
     "typescript": "^5.6.3",
     "unplugin-vue-components": "^0.27.4",
@@ -72,6 +72,9 @@
     "bin-wrapper": "npm:bin-wrapper-china",
     "gifsicle": "5.2.0",
     "rollup": "^4.24.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
   },
   "lint-staged": {
     "*": "eslint --fix"
