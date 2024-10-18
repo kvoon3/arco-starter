@@ -1,26 +1,5 @@
 /**
- * Generate routes
- *
- * By extract routes(modules default export) and merge them to one array
- *
- * ---
- * For example,
- *
- * ## Input:
- *
- * ```
- * const pathRoutesMap = {
- *   './path/to/route': routeObject1,
- *   './path/to/route': [routeObject2, routeObject3],
- * }
- * ```
- *
- * ## Output:
- *
- * ```
- * const appRoutes = [routeObject1, routeObject2, routeObject3]
- * ```
- * ---
+ * @See `/src/router/routes/README.md` for more information
  */
 
 import type { RouteRecordNormalized } from 'vue-router'
