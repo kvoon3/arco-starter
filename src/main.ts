@@ -1,13 +1,15 @@
-import globalComponents from '~/components'
 import ArcoVue from '@arco-design/web-vue'
 import ArcoVueIcon from '@arco-design/web-vue/es/icon'
+import { VueQueryPlugin } from '@tanstack/vue-query'
 import { createApp } from 'vue'
+import globalComponents from '~/components'
 import App from './App.vue'
 import directive from './directive'
 import i18n from './locale'
 import router from './router'
 import store from './store'
 import './mock'
+
 // Styles are imported via arco-plugin. See config/plugin/arcoStyleImport.ts in the directory for details
 // 样式通过 arco-plugin 插件导入。详见目录文件 config/plugin/arcoStyleImport.ts
 // https://arco.design/docs/designlab/use-theme-package
@@ -18,6 +20,7 @@ import 'virtual:uno.css'
 
 const app = createApp(App)
 
+app.use(VueQueryPlugin)
 app.use(ArcoVue, {})
 app.use(ArcoVueIcon)
 

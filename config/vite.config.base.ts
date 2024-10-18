@@ -3,7 +3,6 @@ import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
-import { VueRouterAutoImports } from 'unplugin-vue-router'
 import { defineConfig } from 'vite'
 import SvgLoader from 'vite-svg-loader'
 import ConfigArcoStyleImportPlugin from './plugin/arcoStyleImport'
@@ -24,7 +23,6 @@ export default defineConfig({
         'vue-i18n',
         '@vueuse/head',
         '@vueuse/core',
-        VueRouterAutoImports,
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: [
