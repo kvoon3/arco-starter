@@ -1,26 +1,50 @@
+/**
+ * Generate routes
+ *
+ * By extract routes(modules default export) and merge them to one array
+ *
+ * ---
+ * For example,
+ *
+ * ## Input:
+ *
+ * ```
+ * const pathRoutesMap = {
+ *   './path/to/route': routeObject1,
+ *   './path/to/route': [routeObject2, routeObject3],
+ * }
+ * ```
+ *
+ * ## Output:
+ *
+ * ```
+ * const appRoutes = [routeObject1, routeObject2, routeObject3]
+ * ```
+ * ---
+ */
+
 import type { RouteRecordNormalized } from 'vue-router'
+import { mergeArrayable } from '@antfu/utils'
+import { objectEntries } from '@vueuse/core'
 
-const modules = import.meta.glob('./modules/*.ts', { eager: true })
-const externalModules = import.meta.glob('./externalModules/*.ts', {
-  eager: true,
-})
+type PathToRoute = string
+type PathRoutesMap = Record<PathToRoute, RouteRecordNormalized | RouteRecordNormalized []>
 
-function formatModules(_modules: any, result: RouteRecordNormalized[]) {
-  Object.keys(_modules).forEach((key) => {
-    const defaultModule = _modules[key].default
-    if (!defaultModule)
-      return
-    const moduleList = Array.isArray(defaultModule)
-      ? [...defaultModule]
-      : [defaultModule]
-    result.push(...moduleList)
-  })
-  return result
-}
+const commonPathRoutesMap: PathRoutesMap
+  = import.meta.glob('./modules/*.ts', { eager: true, import: 'default' })
 
-export const appRoutes: RouteRecordNormalized[] = formatModules(modules, [])
+const externalPathRoutesMap: PathRoutesMap
+  = import.meta.glob('./externalModules/*.ts', { eager: true, import: 'default' })
 
-export const appExternalRoutes: RouteRecordNormalized[] = formatModules(
-  externalModules,
-  [],
+const [appRoutes, appExternalRoutes]: Array<RouteRecordNormalized[]> = [
+  commonPathRoutesMap,
+  externalPathRoutesMap,
+].map(pathRoutesMap =>
+  objectEntries(pathRoutesMap).reduce(
+    (routes, [_, route]) => mergeArrayable(routes, route),
+    [] as RouteRecordNormalized[],
+  ),
 )
+
+// eslint-disable-next-line perfectionist/sort-named-exports
+export { appRoutes, appExternalRoutes }
