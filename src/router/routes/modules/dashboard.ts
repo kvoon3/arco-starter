@@ -1,7 +1,7 @@
 import type { AppRouteRecordRaw } from '../types'
 import { DEFAULT_LAYOUT } from '../base'
 
-const DASHBOARD: AppRouteRecordRaw = {
+export const routeRecord: AppRouteRecordRaw = {
   path: '/dashboard',
   name: 'dashboard',
   component: DEFAULT_LAYOUT,
@@ -36,5 +36,3 @@ const DASHBOARD: AppRouteRecordRaw = {
     /** simple end */
   ],
 }
-
-export default DASHBOARD

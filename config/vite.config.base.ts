@@ -8,12 +8,12 @@ import { defineConfig } from 'vite'
 import SvgLoader from 'vite-svg-loader'
 import ConfigArcoStyleImportPlugin from './plugin/arcoStyleImport'
 
-// import VueDevTools from 'vite-plugin-vue-devtools'
+import VueDevTools from 'vite-plugin-vue-devtools'
 
 export default defineConfig({
   plugins: [
     // DO not use it currently, See `https://github.com/posva/unplugin-vue-router/discussions/429`
-    // VueDevTools(),
+    VueDevTools(),
 
     UnoCSS(),
 

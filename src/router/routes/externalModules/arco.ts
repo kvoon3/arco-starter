@@ -1,4 +1,4 @@
-export default {
+export const routeRecord = {
   path: 'https://arco.design',
   name: 'arcoWebsite',
   meta: {

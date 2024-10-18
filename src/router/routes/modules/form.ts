@@ -1,7 +1,7 @@
 import type { AppRouteRecordRaw } from '../types'
 import { DEFAULT_LAYOUT } from '../base'
 
-const FORM: AppRouteRecordRaw = {
+export const routeRecord: AppRouteRecordRaw = {
   path: '/form',
   name: 'form',
   component: DEFAULT_LAYOUT,
@@ -34,5 +34,3 @@ const FORM: AppRouteRecordRaw = {
     },
   ],
 }
-
-export default FORM

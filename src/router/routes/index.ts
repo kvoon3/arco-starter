@@ -10,10 +10,10 @@ type PathToRoute = string
 type PathRoutesMap = Record<PathToRoute, RouteRecordNormalized | RouteRecordNormalized []>
 
 const commonPathRoutesMap: PathRoutesMap
-  = import.meta.glob('./modules/*.ts', { eager: true, import: 'default' })
+  = import.meta.glob('./modules/*.ts', { eager: true, import: 'routeRecord' })
 
 const externalPathRoutesMap: PathRoutesMap
-  = import.meta.glob('./externalModules/*.ts', { eager: true, import: 'default' })
+  = import.meta.glob('./externalModules/*.ts', { eager: true, import: 'routeRecord' })
 
 const [appRoutes, appExternalRoutes]: Array<RouteRecordNormalized[]> = [
   commonPathRoutesMap,

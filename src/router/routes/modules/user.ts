@@ -1,7 +1,7 @@
 import type { AppRouteRecordRaw } from '../types'
 import { DEFAULT_LAYOUT } from '../base'
 
-const USER: AppRouteRecordRaw = {
+export const routeRecord: AppRouteRecordRaw = {
   path: '/user',
   name: 'user',
   component: DEFAULT_LAYOUT,
@@ -34,5 +34,3 @@ const USER: AppRouteRecordRaw = {
     },
   ],
 }
-
-export default USER

@@ -1,7 +1,7 @@
 import type { AppRouteRecordRaw } from '../types'
 import { DEFAULT_LAYOUT } from '../base'
 
-const EXCEPTION: AppRouteRecordRaw = {
+export const routeRecord: AppRouteRecordRaw = {
   path: '/exception',
   name: 'exception',
   component: DEFAULT_LAYOUT,
@@ -44,5 +44,3 @@ const EXCEPTION: AppRouteRecordRaw = {
     },
   ],
 }
-
-export default EXCEPTION

@@ -1,7 +1,7 @@
 import type { AppRouteRecordRaw } from '../types'
 import { DEFAULT_LAYOUT } from '../base'
 
-const PROFILE: AppRouteRecordRaw = {
+export const routeRecord: AppRouteRecordRaw = {
   path: '/profile',
   name: 'profile',
   component: DEFAULT_LAYOUT,
@@ -24,5 +24,3 @@ const PROFILE: AppRouteRecordRaw = {
     },
   ],
 }
-
-export default PROFILE

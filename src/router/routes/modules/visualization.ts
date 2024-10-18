@@ -1,7 +1,7 @@
 import type { AppRouteRecordRaw } from '../types'
 import { DEFAULT_LAYOUT } from '../base'
 
-const VISUALIZATION: AppRouteRecordRaw = {
+export const routeRecord: AppRouteRecordRaw = {
   path: '/visualization',
   name: 'visualization',
   component: DEFAULT_LAYOUT,
@@ -35,5 +35,3 @@ const VISUALIZATION: AppRouteRecordRaw = {
     },
   ],
 }
-
-export default VISUALIZATION
