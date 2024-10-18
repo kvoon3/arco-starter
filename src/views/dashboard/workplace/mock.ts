@@ -1,5 +1,5 @@
-import type { GetParams } from '@/types/global'
-import setupMock, { successResponseWrap } from '@/utils/setup-mock'
+import type { GetParams } from '~/types/global'
+import setupMock, { successResponseWrap } from '~/utils/setup-mock'
 import dayjs from 'dayjs'
 import Mock from 'mockjs'
 import qs from 'query-string'

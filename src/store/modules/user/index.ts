@@ -1,14 +1,14 @@
 import type {
   LoginData,
-} from '@/api/user'
+} from '~/api/user'
 import type { UserState } from './types'
 import {
   getUserInfo,
   login as userLogin,
   logout as userLogout,
-} from '@/api/user'
-import { clearToken, setToken } from '@/utils/auth'
-import { removeRouteListener } from '@/utils/route-listener'
+} from '~/api/user'
+import { clearToken, setToken } from '~/utils/auth'
+import { removeRouteListener } from '~/utils/route-listener'
 import { defineStore } from 'pinia'
 import useAppStore from '../app'
 

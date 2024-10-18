@@ -2,11 +2,11 @@
 import type {
   EnterpriseCertificationModel,
   UnitCertification,
-} from '@/api/user-center'
+} from '~/api/user-center'
 import {
   queryCertification,
-} from '@/api/user-center'
-import useLoading from '@/hooks/loading'
+} from '~/api/user-center'
+import useLoading from '~/hooks/loading'
 import { ref } from 'vue'
 import CertificationRecords from './certification-records.vue'
 import EnterpriseCertification from './enterprise-certification.vue'

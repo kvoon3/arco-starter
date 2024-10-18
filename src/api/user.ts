@@ -1,4 +1,4 @@
-import type { UserState } from '@/store/modules/user/types'
+import type { UserState } from '~/store/modules/user/types'
 import type { RouteRecordNormalized } from 'vue-router'
 import axios from 'axios'
 

@@ -1,5 +1,5 @@
 import type { DirectiveBinding } from 'vue'
-import { useUserStore } from '@/store'
+import { useUserStore } from '~/store'
 
 function checkPermission(el: HTMLElement, binding: DirectiveBinding) {
   const { value } = binding

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { CertificationRecord } from '@/api/user-center'
+import type { CertificationRecord } from '~/api/user-center'
 import type { PropType } from 'vue'
 
 defineProps({

@@ -1,4 +1,4 @@
-import { useUserStore } from '@/store'
+import { useUserStore } from '~/store'
 import { Message } from '@arco-design/web-vue'
 
 import { useRouter } from 'vue-router'

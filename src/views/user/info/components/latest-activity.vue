@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { LatestActivity } from '@/api/user-center'
-import { queryLatestActivity } from '@/api/user-center'
-import useLoading from '@/hooks/loading'
+import type { LatestActivity } from '~/api/user-center'
+import { queryLatestActivity } from '~/api/user-center'
+import useLoading from '~/hooks/loading'
 import { ref } from 'vue'
 
 const { loading, setLoading } = useLoading(true)

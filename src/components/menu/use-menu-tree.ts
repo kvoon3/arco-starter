@@ -1,7 +1,7 @@
 import type { RouteRecordNormalized, RouteRecordRaw } from 'vue-router'
-import usePermission from '@/hooks/permission'
-import appClientMenus from '@/router/app-menus'
-import { useAppStore } from '@/store'
+import usePermission from '~/hooks/permission'
+import appClientMenus from '~/router/app-menus'
+import { useAppStore } from '~/store'
 import { cloneDeep } from 'lodash'
 import { computed } from 'vue'
 

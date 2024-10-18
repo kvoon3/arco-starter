@@ -3,11 +3,11 @@ import type {
   BaseInfoModel,
   ChannelInfoModel,
   UnitChannelModel,
-} from '@/api/form'
+} from '~/api/form'
 import {
   submitChannelForm,
-} from '@/api/form'
-import useLoading from '@/hooks/loading'
+} from '~/api/form'
+import useLoading from '~/hooks/loading'
 import { ref } from 'vue'
 import BaseInfo from './components/base-info.vue'
 import ChannelInfo from './components/channel-info.vue'

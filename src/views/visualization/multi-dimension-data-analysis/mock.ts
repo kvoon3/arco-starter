@@ -1,5 +1,5 @@
-import type { PostData } from '@/types/global'
-import setupMock, { successResponseWrap } from '@/utils/setup-mock'
+import type { PostData } from '~/types/global'
+import setupMock, { successResponseWrap } from '~/utils/setup-mock'
 import Mock from 'mockjs'
 
 setupMock({

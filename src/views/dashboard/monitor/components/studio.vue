@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useUserStore } from '@/store'
+import { useUserStore } from '~/store'
 
 const userInfo = useUserStore()
 </script>

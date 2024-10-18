@@ -1,4 +1,4 @@
-import { useAppStore } from '@/store'
+import { useAppStore } from '~/store'
 import { computed } from 'vue'
 
 export default function useThemes() {

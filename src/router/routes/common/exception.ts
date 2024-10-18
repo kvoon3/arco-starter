@@ -15,7 +15,7 @@ export const routeRecord: AppRouteRecordRaw = {
     {
       path: '403',
       name: '403',
-      component: () => import('@/views/exception/403/index.vue'),
+      component: () => import('~/views/exception/403/index.vue'),
       meta: {
         locale: 'menu.exception.403',
         requiresAuth: true,
@@ -25,7 +25,7 @@ export const routeRecord: AppRouteRecordRaw = {
     {
       path: '404',
       name: '404',
-      component: () => import('@/views/exception/404/index.vue'),
+      component: () => import('~/views/exception/404/index.vue'),
       meta: {
         locale: 'menu.exception.404',
         requiresAuth: true,
@@ -35,7 +35,7 @@ export const routeRecord: AppRouteRecordRaw = {
     {
       path: '500',
       name: '500',
-      component: () => import('@/views/exception/500/index.vue'),
+      component: () => import('~/views/exception/500/index.vue'),
       meta: {
         locale: 'menu.exception.500',
         requiresAuth: true,

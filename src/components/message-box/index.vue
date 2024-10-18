@@ -2,12 +2,12 @@
 import type {
   MessageListType,
   MessageRecord,
-} from '@/api/message'
+} from '~/api/message'
 import {
   queryMessageList,
   setMessageStatus,
-} from '@/api/message'
-import useLoading from '@/hooks/loading'
+} from '~/api/message'
+import useLoading from '~/hooks/loading'
 import { computed, reactive, ref, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 import List from './list.vue'

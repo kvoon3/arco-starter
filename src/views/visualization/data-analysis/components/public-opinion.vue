@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import useThemes from '@/hooks/themes'
+import useThemes from '~/hooks/themes'
 import ChainItem from './chain-item.vue'
 
 const { isDark } = useThemes()

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { PopularAuthorRes } from '@/api/visualization'
-import { queryPopularAuthor } from '@/api/visualization'
-import useLoading from '@/hooks/loading'
+import type { PopularAuthorRes } from '~/api/visualization'
+import { queryPopularAuthor } from '~/api/visualization'
+import useLoading from '~/hooks/loading'
 import { ref } from 'vue'
 
 const { loading, setLoading } = useLoading()

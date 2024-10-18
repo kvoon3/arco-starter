@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import type { TagProps } from '@/store/modules/tab-bar/types'
+import type { TagProps } from '~/store/modules/tab-bar/types'
 import type { PropType } from 'vue'
-import { DEFAULT_ROUTE_NAME, REDIRECT_ROUTE_NAME } from '@/router/constants'
-import { useTabBarStore } from '@/store'
+import { DEFAULT_ROUTE_NAME, REDIRECT_ROUTE_NAME } from '~/router/constants'
+import { useTabBarStore } from '~/store'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 

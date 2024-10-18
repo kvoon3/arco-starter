@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useAppStore } from '@/store'
+import { useAppStore } from '~/store'
 import { Message } from '@arco-design/web-vue'
 import { useClipboard } from '@vueuse/core'
 import { computed } from 'vue'

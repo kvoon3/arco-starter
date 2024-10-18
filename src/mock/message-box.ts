@@ -1,4 +1,4 @@
-import setupMock, { successResponseWrap } from '@/utils/setup-mock'
+import setupMock, { successResponseWrap } from '~/utils/setup-mock'
 import Mock from 'mockjs'
 
 const haveReadIds: number[] = []

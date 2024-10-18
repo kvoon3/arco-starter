@@ -1,5 +1,5 @@
-import { useAppStore } from '@/store'
-import { addEventListen, removeEventListen } from '@/utils/event'
+import { useAppStore } from '~/store'
+import { addEventListen, removeEventListen } from '~/utils/event'
 import { useDebounceFn } from '@vueuse/core'
 import { onBeforeMount, onBeforeUnmount, onMounted } from 'vue'
 

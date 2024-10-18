@@ -15,7 +15,7 @@ export const routeRecord: AppRouteRecordRaw = {
     {
       path: 'workplace',
       name: 'Workplace',
-      component: () => import('@/views/dashboard/workplace/index.vue'),
+      component: () => import('~/views/dashboard/workplace/index.vue'),
       meta: {
         locale: 'menu.dashboard.workplace',
         requiresAuth: true,
@@ -26,7 +26,7 @@ export const routeRecord: AppRouteRecordRaw = {
     {
       path: 'monitor',
       name: 'Monitor',
-      component: () => import('@/views/dashboard/monitor/index.vue'),
+      component: () => import('~/views/dashboard/monitor/index.vue'),
       meta: {
         locale: 'menu.dashboard.monitor',
         requiresAuth: true,

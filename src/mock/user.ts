@@ -1,10 +1,10 @@
-import type { MockParams } from '@/types/mock'
-import { isLogin } from '@/utils/auth'
+import type { MockParams } from '~/types/mock'
+import { isLogin } from '~/utils/auth'
 
 import setupMock, {
   failResponseWrap,
   successResponseWrap,
-} from '@/utils/setup-mock'
+} from '~/utils/setup-mock'
 import Mock from 'mockjs'
 
 setupMock({

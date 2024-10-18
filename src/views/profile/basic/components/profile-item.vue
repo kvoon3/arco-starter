@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ProfileBasicRes } from '@/api/profile'
+import type { ProfileBasicRes } from '~/api/profile'
 import type { PropType } from 'vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'

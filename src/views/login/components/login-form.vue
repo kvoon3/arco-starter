@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import type { LoginData } from '@/api/user'
+import type { LoginData } from '~/api/user'
 import type { ValidatedError } from '@arco-design/web-vue/es/form/interface'
-import useLoading from '@/hooks/loading'
-import { useUserStore } from '@/store'
+import useLoading from '~/hooks/loading'
+import { useUserStore } from '~/store'
 import { Message } from '@arco-design/web-vue'
 import { useStorage } from '@vueuse/core'
 import { reactive, ref } from 'vue'

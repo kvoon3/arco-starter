@@ -15,7 +15,7 @@ export const routeRecord: AppRouteRecordRaw = {
     {
       path: 'search-table', // The midline path complies with SEO specifications
       name: 'SearchTable',
-      component: () => import('@/views/list/search-table/index.vue'),
+      component: () => import('~/views/list/search-table/index.vue'),
       meta: {
         locale: 'menu.list.searchTable',
         requiresAuth: true,
@@ -25,7 +25,7 @@ export const routeRecord: AppRouteRecordRaw = {
     {
       path: 'card',
       name: 'Card',
-      component: () => import('@/views/list/card/index.vue'),
+      component: () => import('~/views/list/card/index.vue'),
       meta: {
         locale: 'menu.list.cardList',
         requiresAuth: true,

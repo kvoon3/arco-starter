@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { BasicInfoModel } from '@/api/user-center'
+import type { BasicInfoModel } from '~/api/user-center'
 import type { FormInstance } from '@arco-design/web-vue/es/form'
 import { ref } from 'vue'
 

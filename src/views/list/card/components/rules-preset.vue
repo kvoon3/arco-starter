@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { ServiceRecord } from '@/api/list'
-import { queryRulesPresetList } from '@/api/list'
-import useRequest from '@/hooks/request'
+import type { ServiceRecord } from '~/api/list'
+import { queryRulesPresetList } from '~/api/list'
+import useRequest from '~/hooks/request'
 import CardWrap from './card-wrap.vue'
 
 const defaultValue: ServiceRecord[] = Array.from({ length: 6 }).fill({})

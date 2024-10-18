@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import useChartOption from '@/hooks/chart-option'
+import useChartOption from '~/hooks/chart-option'
 
 const { chartOption } = useChartOption((isDark) => {
   return {

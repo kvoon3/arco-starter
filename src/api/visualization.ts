@@ -1,4 +1,4 @@
-import type { GeneralChart } from '@/types/global'
+import type { GeneralChart } from '~/types/global'
 import axios from 'axios'
 
 export interface ChartDataRecord {

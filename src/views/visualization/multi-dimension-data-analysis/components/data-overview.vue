@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import type { ToolTipFormatterParams } from '@/types/echarts'
+import type { ToolTipFormatterParams } from '~/types/echarts'
 import type { LineSeriesOption } from 'echarts'
-import { queryDataOverview } from '@/api/visualization'
-import useChartOption from '@/hooks/chart-option'
-import useLoading from '@/hooks/loading'
-import useThemes from '@/hooks/themes'
+import { queryDataOverview } from '~/api/visualization'
+import useChartOption from '~/hooks/chart-option'
+import useLoading from '~/hooks/loading'
+import useThemes from '~/hooks/themes'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
