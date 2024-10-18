@@ -1,12 +1,12 @@
 <script lang="ts" setup>
+import { Message } from '@arco-design/web-vue'
+import { useDark, useFullscreen, useToggle } from '@vueuse/core'
+import { computed, inject, ref } from 'vue'
 import Menu from '~/components/menu/index.vue'
 import useLocale from '~/hooks/locale'
 import useUser from '~/hooks/user'
 import { LOCALE_OPTIONS } from '~/locale'
 import { useAppStore, useUserStore } from '~/store'
-import { Message } from '@arco-design/web-vue'
-import { useDark, useFullscreen, useToggle } from '@vueuse/core'
-import { computed, inject, ref } from 'vue'
 import MessageBox from '../message-box/index.vue'
 
 const appStore = useAppStore()

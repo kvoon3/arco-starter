@@ -1,7 +1,7 @@
-import type { HttpResponse } from '~/api/interceptor'
 import type { AxiosResponse } from 'axios'
 import type { UnwrapRef } from 'vue'
 import { ref } from 'vue'
+import type { HttpResponse } from '~/api/interceptor'
 import useLoading from './loading'
 
 // use to fetch list

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import type { PopularAuthorRes } from '~/api/visualization'
 import { queryPopularAuthor } from '~/api/visualization'
 import useLoading from '~/hooks/loading'
-import { ref } from 'vue'
 
 const { loading, setLoading } = useLoading()
 const tableData = ref<PopularAuthorRes>({ list: [] })

@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { PolicyParams, PolicyRecord } from '~/api/list'
-import type { Pagination } from '~/types/global'
 import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface'
 import type { TableColumnData } from '@arco-design/web-vue/es/table/interface'
-import { queryPolicyList } from '~/api/list'
-import useLoading from '~/hooks/loading'
 import cloneDeep from 'lodash/cloneDeep'
 import Sortable from 'sortablejs'
 import { computed, nextTick, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import type { PolicyParams, PolicyRecord } from '~/api/list'
+import { queryPolicyList } from '~/api/list'
+import useLoading from '~/hooks/loading'
+import type { Pagination } from '~/types/global'
 
   type SizeProps = 'mini' | 'small' | 'medium' | 'large'
   type Column = TableColumnData & { checked?: true }

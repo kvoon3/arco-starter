@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { CertificationRecord } from '~/api/user-center'
 import type { PropType } from 'vue'
+import type { CertificationRecord } from '~/api/user-center'
 
 defineProps({
   renderData: {

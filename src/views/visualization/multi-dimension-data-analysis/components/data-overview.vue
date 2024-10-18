@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import type { ToolTipFormatterParams } from '~/types/echarts'
 import type { LineSeriesOption } from 'echarts'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { queryDataOverview } from '~/api/visualization'
 import useChartOption from '~/hooks/chart-option'
 import useLoading from '~/hooks/loading'
 import useThemes from '~/hooks/themes'
-import { computed, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
+import type { ToolTipFormatterParams } from '~/types/echarts'
 
 function tooltipItemsHtmlString(items: ToolTipFormatterParams[]) {
   return items
@@ -17,7 +17,7 @@ function tooltipItemsHtmlString(items: ToolTipFormatterParams[]) {
             el.color
           }" class="tooltip-item-icon"></span><span>${el.seriesName}</span>
         </p>
-        <span class="tooltip-value">${el.value.toLocaleString()}</span>
+        <span class="tooltip-value">${el.value?.toLocaleString()}</span>
       </div>`,
     )
     .reverse()

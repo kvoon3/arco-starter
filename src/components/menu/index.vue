@@ -1,11 +1,11 @@
 <script lang="tsx">
 import type { RouteMeta, RouteRecordRaw } from 'vue-router'
-import { useAppStore } from '~/store'
-import { openWindow, regexUrl } from '~/utils'
-import { listenerRouteChange } from '~/utils/route-listener'
 import { compile, computed, defineComponent, h, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
+import { useAppStore } from '~/store'
+import { openWindow, regexUrl } from '~/utils'
+import { listenerRouteChange } from '~/utils/route-listener'
 import useMenuTree from './use-menu-tree'
 
 export default defineComponent({

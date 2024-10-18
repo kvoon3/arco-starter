@@ -1,8 +1,8 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import type { ProfileBasicRes } from '~/api/profile'
 import { queryProfileBasic } from '~/api/profile'
 import useLoading from '~/hooks/loading'
-import { ref } from 'vue'
 import OperationLog from './components/operation-log.vue'
 import ProfileItem from './components/profile-item.vue'
 

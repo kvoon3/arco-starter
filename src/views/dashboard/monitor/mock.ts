@@ -1,9 +1,9 @@
+import Mock from 'mockjs'
+
 import setupMock, {
   successResponseWrap,
   // failResponseWrap,
 } from '~/utils/setup-mock'
-
-import Mock from 'mockjs'
 
 setupMock({
   setup() {

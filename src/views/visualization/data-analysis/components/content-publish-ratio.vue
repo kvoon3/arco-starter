@@ -1,14 +1,14 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import type {
   ContentPublishRecord,
 } from '~/api/visualization'
-import type { ToolTipFormatterParams } from '~/types/echarts'
 import {
   queryContentPublish,
 } from '~/api/visualization'
 import useChartOption from '~/hooks/chart-option'
 import useLoading from '~/hooks/loading'
-import { ref } from 'vue'
+import type { ToolTipFormatterParams } from '~/types/echarts'
 
 function tooltipItemsHtmlString(items: ToolTipFormatterParams[]) {
   return items

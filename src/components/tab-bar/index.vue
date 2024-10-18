@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import type { RouteLocationNormalized } from 'vue-router'
+import { computed, onUnmounted, ref, watch } from 'vue'
 import { useAppStore, useTabBarStore } from '~/store'
 import {
   listenerRouteChange,
   removeRouteListener,
 } from '~/utils/route-listener'
-import { computed, onUnmounted, ref, watch } from 'vue'
 import tabItem from './tab-item.vue'
 
 const appStore = useAppStore()

@@ -1,15 +1,15 @@
 <script lang="ts" setup>
+import type { CSSProperties, PropType } from 'vue'
+import { ref } from 'vue'
 import type {
   PublicOpinionAnalysis,
   PublicOpinionAnalysisRes,
 } from '~/api/visualization'
-import type { CSSProperties, PropType } from 'vue'
 import {
   queryPublicOpinionAnalysis,
 } from '~/api/visualization'
 import useChartOption from '~/hooks/chart-option'
 import useLoading from '~/hooks/loading'
-import { ref } from 'vue'
 
 const props = defineProps({
   title: {

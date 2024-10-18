@@ -4,9 +4,9 @@ import type {
   FileItem,
   RequestOption,
 } from '@arco-design/web-vue/es/upload/interfaces'
+import { ref } from 'vue'
 import { userUploadApi } from '~/api/user-center'
 import { useUserStore } from '~/store'
-import { ref } from 'vue'
 
 const userStore = useUserStore()
 const file = {

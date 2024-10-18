@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import type {
   EnterpriseCertificationModel,
   UnitCertification,
@@ -7,7 +8,6 @@ import {
   queryCertification,
 } from '~/api/user-center'
 import useLoading from '~/hooks/loading'
-import { ref } from 'vue'
 import CertificationRecords from './certification-records.vue'
 import EnterpriseCertification from './enterprise-certification.vue'
 

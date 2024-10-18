@@ -1,8 +1,8 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import type { ChatRecord } from '~/api/message'
 import { queryChatList } from '~/api/message'
 import useLoading from '~/hooks/loading'
-import { ref } from 'vue'
 import ChatList from './chat-list.vue'
 
 const { loading, setLoading } = useLoading(true)

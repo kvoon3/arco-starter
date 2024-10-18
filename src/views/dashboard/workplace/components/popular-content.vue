@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { TableData } from '@arco-design/web-vue/es/table/interface'
+import { ref } from 'vue'
 import { queryPopularList } from '~/api/dashboard'
 import useLoading from '~/hooks/loading'
-import { ref } from 'vue'
 
 const type = ref('text')
 const { loading, setLoading } = useLoading()

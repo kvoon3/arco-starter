@@ -1,8 +1,8 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import type { operationLogRes } from '~/api/profile'
 import { queryOperationLog } from '~/api/profile'
 import useLoading from '~/hooks/loading'
-import { ref } from 'vue'
 
 const { loading, setLoading } = useLoading(true)
 const renderData = ref<operationLogRes>([])

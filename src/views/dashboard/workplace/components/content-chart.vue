@@ -1,12 +1,12 @@
 <script lang="ts" setup>
+import { graphic } from 'echarts'
+import { ref } from 'vue'
 import type { ContentDataRecord } from '~/api/dashboard'
-import type { ToolTipFormatterParams } from '~/types/echarts'
-import type { AnyObject } from '~/types/global'
 import { queryContentData } from '~/api/dashboard'
 import useChartOption from '~/hooks/chart-option'
 import useLoading from '~/hooks/loading'
-import { graphic } from 'echarts'
-import { ref } from 'vue'
+import type { ToolTipFormatterParams } from '~/types/echarts'
+import type { AnyObject } from '~/types/global'
 
 function graphicFactory(side: AnyObject) {
   return {

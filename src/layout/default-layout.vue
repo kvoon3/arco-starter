@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { computed, onMounted, provide, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import Footer from '~/components/footer/index.vue'
 import Menu from '~/components/menu/index.vue'
 import NavBar from '~/components/navbar/index.vue'
@@ -6,8 +8,6 @@ import TabBar from '~/components/tab-bar/index.vue'
 import usePermission from '~/hooks/permission'
 import useResponsive from '~/hooks/responsive'
 import { useAppStore, useUserStore } from '~/store'
-import { computed, onMounted, provide, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
 import PageLayout from './page-layout.vue'
 
 const isInit = ref(false)

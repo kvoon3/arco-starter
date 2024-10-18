@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { ChatRecord } from '~/api/message'
 import type { PropType } from 'vue'
+import type { ChatRecord } from '~/api/message'
 
 defineProps({
   itemData: {

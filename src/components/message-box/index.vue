@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { computed, reactive, ref, toRefs } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type {
   MessageListType,
   MessageRecord,
@@ -8,8 +10,6 @@ import {
   setMessageStatus,
 } from '~/api/message'
 import useLoading from '~/hooks/loading'
-import { computed, reactive, ref, toRefs } from 'vue'
-import { useI18n } from 'vue-i18n'
 import List from './list.vue'
 
 interface TabItem {

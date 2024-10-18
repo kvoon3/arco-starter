@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { BasicInfoModel } from '~/api/user-center'
 import type { FormInstance } from '@arco-design/web-vue/es/form'
 import { ref } from 'vue'
+import type { BasicInfoModel } from '~/api/user-center'
 
 const formRef = ref<FormInstance>()
 const formData = ref<BasicInfoModel>({

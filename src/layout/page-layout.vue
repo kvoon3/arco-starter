@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useTabBarStore } from '~/store'
 import { computed } from 'vue'
+import { useTabBarStore } from '~/store'
 
 const tabBarStore = useTabBarStore()
 

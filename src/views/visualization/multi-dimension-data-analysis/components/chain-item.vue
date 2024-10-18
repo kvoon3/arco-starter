@@ -1,9 +1,9 @@
 <script lang="ts" setup>
+import { computed, ref } from 'vue'
 import type { DataChainGrowth } from '~/api/visualization'
 import { queryDataChainGrowth } from '~/api/visualization'
 import useChartOption from '~/hooks/chart-option'
 import useLoading from '~/hooks/loading'
-import { computed, ref } from 'vue'
 
 const props = defineProps({
   title: {

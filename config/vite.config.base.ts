@@ -4,10 +4,10 @@ import VueJsx from '@vitejs/plugin-vue-jsx'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig } from 'vite'
-import SvgLoader from 'vite-svg-loader'
-import ConfigArcoStyleImportPlugin from './plugin/arcoStyleImport'
-
 import VueDevTools from 'vite-plugin-vue-devtools'
+import SvgLoader from 'vite-svg-loader'
+
+import ConfigArcoStyleImportPlugin from './plugin/arcoStyleImport'
 
 export default defineConfig({
   plugins: [

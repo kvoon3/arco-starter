@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { BaseInfoModel } from '~/api/form'
 import type { FormInstance } from '@arco-design/web-vue/es/form'
 import { ref } from 'vue'
+import type { BaseInfoModel } from '~/api/form'
 
 const emits = defineEmits(['changeStep'])
 const formRef = ref<FormInstance>()
