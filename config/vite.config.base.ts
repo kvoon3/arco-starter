@@ -55,6 +55,7 @@ export default defineConfig({
 
     ConfigArcoStyleImportPlugin(),
   ],
+
   resolve: {
     alias: [
       {
@@ -76,9 +77,11 @@ export default defineConfig({
     ],
     extensions: ['.ts', '.js'],
   },
+
   define: {
     'process.env': {},
   },
+
   css: {
     preprocessorOptions: {
       less: {
@@ -91,4 +94,5 @@ export default defineConfig({
       },
     },
   },
+
 })

@@ -10,7 +10,7 @@ const locale = computed(() => {
   switch (currentLocale.value) {
     case 'zh-CN':
       return zhCN
-    case 'en-US':
+    case 'en':
       return enUS
     default:
       return enUS
