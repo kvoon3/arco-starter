@@ -3,8 +3,6 @@ import ContentPeriodAnalysis from './components/content-period-analysis.vue'
 import ContentPublishRatio from './components/content-publish-ratio.vue'
 import PopularAuthor from './components/popular-author.vue'
 import PublicOpinion from './components/public-opinion.vue'
-
-const { t } = useI18n()
 </script>
 
 <script lang="ts">
@@ -45,26 +43,25 @@ export default {
       </a-space>
     </div>
   </div>
-  mplate>
-
-  <style scoped lang="less">
-    .container {
-    padding: 0 20px 20px 20px;
-    margin-bottom: 20px;
-    }
-
-    .space-unit {
-    background-color: var(--color-bg-2);
-    border-radius: 4px;
-    }
-
-    .title-fix {
-    margin: 0 0 12px 0;
-    font-size: 14;
-    }
-    :deep(.section-title) {
-    margin: 0 0 12px 0;
-    font-size: 14px;
-    }
-  </style>
 </template>
+
+<style scoped lang="less">
+.container {
+  padding: 0 20px 20px 20px;
+  margin-bottom: 20px;
+}
+
+.space-unit {
+  background-color: var(--color-bg-2);
+  border-radius: 4px;
+}
+
+.title-fix {
+  margin: 0 0 12px 0;
+  font-size: 14;
+}
+:deep(.section-title) {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+}
+</style>

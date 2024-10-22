@@ -322,7 +322,6 @@ export default {
       </div>
     </a-form>
   </div>
-  </div>
 </template>
 
 <style scoped lang="less">
