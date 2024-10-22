@@ -1,4 +1,6 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const { t } = useI18n()
+</script>
 
 <script lang="ts">
 export default {
@@ -13,14 +15,14 @@ export default {
       <a-result
         class="result"
         status="404"
-        :subtitle="$t('exception.result.404.description')"
+        :subtitle="t('exception.result.404.description')"
       />
       <div class="operation-row">
         <a-button key="again" style="margin-right: 16px">
-          {{ $t('exception.result.404.retry') }}
+          {{ t('exception.result.404.retry') }}
         </a-button>
         <a-button key="back" type="primary">
-          {{ $t('exception.result.404.back') }}
+          {{ t('exception.result.404.back') }}
         </a-button>
       </div>
     </div>

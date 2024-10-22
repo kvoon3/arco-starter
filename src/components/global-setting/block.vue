@@ -1,14 +1,8 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { useAppStore } from '~/store'
+import { useAppStore } from '~/stores/app'
 import FormWrapper from './form-wrapper.vue'
 
-interface OptionsProps {
-  name: string
-  key: string
-  type?: string
-  defaultVal?: boolean | string | number
-}
 defineProps({
   title: {
     type: String,
@@ -21,6 +15,15 @@ defineProps({
     },
   },
 })
+
+const { t } = useI18n()
+
+interface OptionsProps {
+  name: string
+  key: string
+  type?: string
+  defaultVal?: boolean | string | number
+}
 const appStore = useAppStore()
 async function handleChange({
   key,
@@ -50,7 +53,7 @@ async function handleChange({
       {{ title }}
     </h5>
     <div v-for="option in options" :key="option.name" class="switch-wrapper">
-      <span>{{ $t(option.name) }}</span>
+      <span>{{ t(option.name) }}</span>
       <FormWrapper
         :type="option.type || 'switch'"
         :name="option.key"

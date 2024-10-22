@@ -4,7 +4,9 @@ import { queryInspectionList } from '~/api/list'
 import useRequest from '~/hooks/request'
 import CardWrap from './card-wrap.vue'
 
-const defaultValue: ServiceRecord[] = Array.from({ length: 3 }).fill({})
+const { t } = useI18n()
+
+const defaultValue: ServiceRecord[] = Array.from({ length: 3 }).fill({}) as any[]
 const { loading, response: renderData } = useRequest<ServiceRecord[]>(
   queryInspectionList,
   defaultValue,
@@ -14,7 +16,7 @@ const { loading, response: renderData } = useRequest<ServiceRecord[]>(
 <template>
   <div class="list-wrap">
     <a-typography-title class="block-title" :heading="6">
-      {{ $t('cardList.tab.title.content') }}
+      {{ t('cardList.tab.title.content') }}
     </a-typography-title>
     <a-row class="list-row" :gutter="24">
       <a-col
@@ -28,7 +30,7 @@ const { loading, response: renderData } = useRequest<ServiceRecord[]>(
       >
         <div class="card-wrap empty-wrap">
           <a-card :bordered="false" hoverable>
-            <a-result :status="null" :title="$t('cardList.content.action')">
+            <a-result :status="null" :title="t('cardList.content.action')">
               <template #icon>
                 <icon-plus style="font-size: 20px" />
               </template>
@@ -54,8 +56,8 @@ const { loading, response: renderData } = useRequest<ServiceRecord[]>(
           :default-value="item.enable"
           :action-type="item.actionType"
           :icon="item.icon"
-          :open-txt="$t('cardList.content.inspection')"
-          :close-txt="$t('cardList.content.delete')"
+          :open-txt="t('cardList.content.inspection')"
+          :close-txt="t('cardList.content.delete')"
           :show-tag="false"
         >
           <a-descriptions

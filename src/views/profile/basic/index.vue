@@ -6,6 +6,8 @@ import useLoading from '~/hooks/loading'
 import OperationLog from './components/operation-log.vue'
 import ProfileItem from './components/profile-item.vue'
 
+const { t } = useI18n()
+
 const { loading, setLoading } = useLoading(true)
 const { loading: preLoading, setLoading: preSetLoading } = useLoading(true)
 const currentData = ref<ProfileBasicRes>({} as ProfileBasicRes)
@@ -50,19 +52,19 @@ export default {
   <div class="container">
     <Breadcrumb :items="['menu.profile', 'menu.profile.basic']" />
     <a-space direction="vertical" :size="16" fill>
-      <a-card class="general-card" :title="$t('basicProfile.title.form')">
+      <a-card class="general-card" :title="t('basicProfile.title.form')">
         <template #extra>
           <a-space>
-            <a-button>{{ $t('basicProfile.cancel') }}</a-button>
+            <a-button>{{ t('basicProfile.cancel') }}</a-button>
             <a-button type="primary">
-              {{ $t('basicProfile.goBack') }}
+              {{ t('basicProfile.goBack') }}
             </a-button>
           </a-space>
         </template>
         <a-steps v-model:current="step" line-less class="steps">
-          <a-step>{{ $t('basicProfile.steps.commit') }}</a-step>
-          <a-step>{{ $t('basicProfile.steps.approval') }}</a-step>
-          <a-step>{{ $t('basicProfile.steps.finish') }}</a-step>
+          <a-step>{{ t('basicProfile.steps.commit') }}</a-step>
+          <a-step>{{ t('basicProfile.steps.approval') }}</a-step>
+          <a-step>{{ t('basicProfile.steps.finish') }}</a-step>
         </a-steps>
       </a-card>
       <a-card class="general-card">

@@ -32,8 +32,11 @@ const props = defineProps({
   },
 })
 
+const { t } = useI18n()
+
 function barChartOptionsFactory() {
   const data = ref<any>([])
+  // @ts-expect-error type error
   const { chartOption } = useChartOption(() => {
     return {
       grid: {
@@ -126,6 +129,7 @@ function lineChartOptionsFactory() {
 
 function pieChartOptionsFactory() {
   const data = ref<any>([])
+  // @ts-expect-error type error
   const { chartOption } = useChartOption(() => {
     return {
       grid: {
@@ -239,7 +243,7 @@ fetchData({ quota: props.quota })
           />
           <div class="desc">
             <a-typography-text type="secondary" class="label">
-              {{ $t('dataAnalysis.card.yesterday') }}
+              {{ t('dataAnalysis.card.yesterday') }}
             </a-typography-text>
             <a-typography-text type="danger">
               {{ renderData.growth }}

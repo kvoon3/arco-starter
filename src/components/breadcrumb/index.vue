@@ -9,6 +9,8 @@ defineProps({
     },
   },
 })
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -17,7 +19,7 @@ defineProps({
       <icon-apps />
     </a-breadcrumb-item>
     <a-breadcrumb-item v-for="item in items" :key="item">
-      {{ $t(item) }}
+      {{ t(item) }}
     </a-breadcrumb-item>
   </a-breadcrumb>
 </template>

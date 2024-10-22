@@ -96,8 +96,8 @@ const columns = computed(() => {
       :pagination="false"
     />
     <a-typography-text type="secondary" class="data-statistic-list-tip">
-      {{ $t('monitor.list.tip.rotations') }} {{ data.length }}
-      {{ $t('monitor.list.tip.rest') }}
+      {{ t('monitor.list.tip.rotations') }} {{ data.length }}
+      {{ t('monitor.list.tip.rest') }}
     </a-typography-text>
   </div>
 </template>

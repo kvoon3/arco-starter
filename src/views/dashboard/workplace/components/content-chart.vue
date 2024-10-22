@@ -8,6 +8,8 @@ import useLoading from '~/hooks/loading'
 import type { ToolTipFormatterParams } from '~/types/echarts'
 import type { AnyObject } from '~/types/global'
 
+const { t } = useI18n()
+
 function graphicFactory(side: AnyObject) {
   return {
     type: 'text',
@@ -195,10 +197,10 @@ fetchData()
       :body-style="{
         paddingTop: '20px',
       }"
-      :title="$t('workplace.contentData')"
+      :title="t('workplace.contentData')"
     >
       <template #extra>
-        <a-link>{{ $t('workplace.viewMore') }}</a-link>
+        <a-link>{{ t('workplace.viewMore') }}</a-link>
       </template>
       <Chart height="289px" :option="chartOption" />
     </a-card>

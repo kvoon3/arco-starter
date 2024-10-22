@@ -1,8 +1,6 @@
 import { Message } from '@arco-design/web-vue'
 import { useRouter } from 'vue-router'
 
-import { useUserStore } from '~/store'
-
 export default function useUser() {
   const router = useRouter()
   const userStore = useUserStore()

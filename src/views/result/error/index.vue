@@ -1,4 +1,6 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const { t } = useI18n()
+</script>
 
 <script lang="ts">
 export default {
@@ -13,16 +15,16 @@ export default {
       <a-result
         class="result"
         status="error"
-        :title="$t('error.result.title')"
-        :subtitle="$t('error.result.subTitle')"
+        :title="t('error.result.title')"
+        :subtitle="t('error.result.subTitle')"
       >
         <template #extra>
           <a-space class="operation-wrap" :size="16">
             <a-button key="again" type="secondary">
-              {{ $t('error.result.goBack') }}
+              {{ t('error.result.goBack') }}
             </a-button>
             <a-button key="back" type="primary">
-              {{ $t('error.result.retry') }}
+              {{ t('error.result.retry') }}
             </a-button>
           </a-space>
         </template>
@@ -30,18 +32,18 @@ export default {
 
       <div class="details-wrapper">
         <a-typography-title :heading="6" style="margin-top: 0">
-          {{ $t('error.detailTitle') }}
+          {{ t('error.detailTitle') }}
         </a-typography-title>
         <a-typography-paragraph style="margin-bottom: 0">
           <ol>
             <li>
-              {{ $t('error.detailLine.record') }}
+              {{ t('error.detailLine.record') }}
               <a-link>
                 <IconLink />
-                {{ $t('error.detailLine.record.link') }}
+                {{ t('error.detailLine.record.link') }}
               </a-link>
             </li>
-            <li>{{ $t('error.detailLine.auth') }}</li>
+            <li>{{ t('error.detailLine.auth') }}</li>
           </ol>
         </a-typography-paragraph>
       </div>

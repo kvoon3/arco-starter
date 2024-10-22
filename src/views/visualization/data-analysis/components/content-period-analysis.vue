@@ -5,6 +5,8 @@ import useChartOption from '~/hooks/chart-option'
 import useLoading from '~/hooks/loading'
 import type { ToolTipFormatterParams } from '~/types/echarts'
 
+const { t } = useI18n()
+
 function tooltipItemsHtmlString(items: ToolTipFormatterParams[]) {
   return items
     .map(
@@ -208,7 +210,7 @@ fetchData()
   <a-spin :loading="loading" style="width: 100%">
     <a-card class="general-card" :header-style="{ paddingBottom: '16px' }">
       <template #title>
-        {{ $t('dataAnalysis.contentPeriodAnalysis') }}
+        {{ t('dataAnalysis.contentPeriodAnalysis') }}
       </template>
       <Chart style="width: 100%; height: 370px" :option="chartOption" />
     </a-card>

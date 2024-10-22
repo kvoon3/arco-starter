@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { useUserStore } from '~/store'
+const { t } = useI18n()
 
 const userInfo = useUserStore()
 </script>
 
 <template>
-  <a-card class="general-card" :title="$t('monitor.title.studioPreview')">
+  <a-card class="general-card" :title="t('monitor.title.studioPreview')">
     <template #extra>
       <icon-more />
     </template>
@@ -21,12 +21,12 @@ const userInfo = useUserStore()
               <img :src="userInfo.avatar">
             </a-avatar>
             <a-typography-text>
-              {{ userInfo.name }} {{ $t('monitor.studioPreview.studio') }}
+              {{ userInfo.name }} {{ t('monitor.studioPreview.studio') }}
             </a-typography-text>
           </a-space>
         </div>
         <a-typography-text type="secondary">
-          36,000 {{ $t('monitor.studioPreview.watching') }}
+          36,000 {{ t('monitor.studioPreview.watching') }}
         </a-typography-text>
       </div>
     </div>

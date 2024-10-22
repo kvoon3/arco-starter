@@ -5,9 +5,15 @@ import { computed, inject, ref } from 'vue'
 import Menu from '~/components/menu/index.vue'
 import useLocale from '~/hooks/locale'
 import useUser from '~/hooks/user'
-import { LOCALE_OPTIONS } from '~/locale'
-import { useAppStore, useUserStore } from '~/store'
 import MessageBox from '../message-box/index.vue'
+
+const LOCALE_OPTIONS = [
+  { label: '中文', value: 'zh-CN' },
+  { label: 'English', value: 'en-US' },
+]
+
+const { t } = useI18n()
+const router = useRouter()
 
 const appStore = useAppStore()
 const userStore = useUserStore()
@@ -94,7 +100,7 @@ const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void
     </div>
     <ul class="right-side">
       <li>
-        <a-tooltip :content="$t('settings.search')">
+        <a-tooltip :content="t('settings.search')">
           <a-button class="nav-btn" type="outline" shape="circle">
             <template #icon>
               <icon-search />
@@ -103,7 +109,7 @@ const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void
         </a-tooltip>
       </li>
       <li>
-        <a-tooltip :content="$t('settings.language')">
+        <a-tooltip :content="t('settings.language')">
           <a-button
             class="nav-btn"
             type="outline"
@@ -135,8 +141,8 @@ const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void
         <a-tooltip
           :content="
             theme === 'light'
-              ? $t('settings.navbar.theme.toDark')
-              : $t('settings.navbar.theme.toLight')
+              ? t('settings.navbar.theme.toDark')
+              : t('settings.navbar.theme.toLight')
           "
         >
           <a-button
@@ -153,7 +159,7 @@ const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void
         </a-tooltip>
       </li>
       <li>
-        <a-tooltip :content="$t('settings.navbar.alerts')">
+        <a-tooltip :content="t('settings.navbar.alerts')">
           <div class="message-box-trigger">
             <a-badge :count="9" dot>
               <a-button
@@ -183,8 +189,8 @@ const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void
         <a-tooltip
           :content="
             isFullscreen
-              ? $t('settings.navbar.screen.toExit')
-              : $t('settings.navbar.screen.toFull')
+              ? t('settings.navbar.screen.toExit')
+              : t('settings.navbar.screen.toFull')
           "
         >
           <a-button
@@ -201,7 +207,7 @@ const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void
         </a-tooltip>
       </li>
       <li>
-        <a-tooltip :content="$t('settings.title')">
+        <a-tooltip :content="t('settings.title')">
           <a-button
             class="nav-btn"
             type="outline"
@@ -227,23 +233,23 @@ const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void
               <a-space @click="switchRoles">
                 <icon-tag />
                 <span>
-                  {{ $t('messageBox.switchRoles') }}
+                  {{ t('messageBox.switchRoles') }}
                 </span>
               </a-space>
             </a-doption>
             <a-doption>
-              <a-space @click="$router.push({ name: 'Info' })">
+              <a-space @click="router.push({ name: 'Info' })">
                 <icon-user />
                 <span>
-                  {{ $t('messageBox.userCenter') }}
+                  {{ t('messageBox.userCenter') }}
                 </span>
               </a-space>
             </a-doption>
             <a-doption>
-              <a-space @click="$router.push({ name: 'Setting' })">
+              <a-space @click="router.push({ name: 'Setting' })">
                 <icon-settings />
                 <span>
-                  {{ $t('messageBox.userSettings') }}
+                  {{ t('messageBox.userSettings') }}
                 </span>
               </a-space>
             </a-doption>
@@ -251,7 +257,7 @@ const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void
               <a-space @click="handleLogout">
                 <icon-export />
                 <span>
-                  {{ $t('messageBox.logout') }}
+                  {{ t('messageBox.logout') }}
                 </span>
               </a-space>
             </a-doption>

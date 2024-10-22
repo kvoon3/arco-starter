@@ -10,6 +10,8 @@ import useChartOption from '~/hooks/chart-option'
 import useLoading from '~/hooks/loading'
 import type { ToolTipFormatterParams } from '~/types/echarts'
 
+const { t } = useI18n()
+
 function tooltipItemsHtmlString(items: ToolTipFormatterParams[]) {
   return items
     .map(
@@ -155,10 +157,10 @@ fetchData()
   <a-spin :loading="loading" style="width: 100%">
     <a-card class="general-card" :header-style="{ paddingBottom: '14px' }">
       <template #title>
-        {{ $t('dataAnalysis.contentPublishRatio') }}
+        {{ t('dataAnalysis.contentPublishRatio') }}
       </template>
       <template #extra>
-        <a-link>{{ $t('workplace.viewMore') }}</a-link>
+        <a-link>{{ t('workplace.viewMore') }}</a-link>
       </template>
       <Chart style="width: 100%; height: 347px" :option="chartOption" />
     </a-card>

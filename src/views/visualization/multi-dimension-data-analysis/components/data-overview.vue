@@ -256,7 +256,7 @@ fetchData()
   <a-spin :loading="loading" style="width: 100%">
     <a-card
       class="general-card"
-      :title="$t('multiDAnalysis.card.title.dataOverview')"
+      :title="t('multiDAnalysis.card.title.dataOverview')"
     >
       <a-row justify="space-between">
         <a-col v-for="(item, idx) in renderData" :key="idx" :span="6">

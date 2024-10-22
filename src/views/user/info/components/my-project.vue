@@ -3,7 +3,9 @@ import type { MyProjectRecord } from '~/api/user-center'
 import { queryMyProjectList } from '~/api/user-center'
 import useRequest from '~/hooks/request'
 
-const defaultValue = Array.from({ length: 6 }).fill({} as MyProjectRecord)
+const { t } = useI18n()
+
+const defaultValue: MyProjectRecord[] = Array.from({ length: 6 }).fill({}) as any[]
 const { loading, response: projectList } = useRequest<MyProjectRecord[]>(
   queryMyProjectList,
   defaultValue,
@@ -11,9 +13,9 @@ const { loading, response: projectList } = useRequest<MyProjectRecord[]>(
 </script>
 
 <template>
-  <a-card class="general-card" :title="$t('userInfo.title.myProject')">
+  <a-card class="general-card" :title="t('userInfo.title.myProject')">
     <template #extra>
-      <a-link>{{ $t('userInfo.showMore') }}</a-link>
+      <a-link>{{ t('userInfo.showMore') }}</a-link>
     </template>
     <a-row :gutter="16">
       <a-col

@@ -3,7 +3,9 @@ import type { MyTeamRecord } from '~/api/user-center'
 import { queryMyTeamList } from '~/api/user-center'
 import useRequest from '~/hooks/request'
 
-const defaultValue: MyTeamRecord[] = Array.from({ length: 4 }).fill({})
+const { t } = useI18n()
+
+const defaultValue: MyTeamRecord[] = Array.from({ length: 4 }).fill({}) as any[]
 const { loading, response: teamList } = useRequest<MyTeamRecord[]>(
   queryMyTeamList,
   defaultValue,
@@ -13,7 +15,7 @@ const { loading, response: teamList } = useRequest<MyTeamRecord[]>(
 <template>
   <a-card
     class="general-card"
-    :title="$t('userInfo.tab.title.team')"
+    :title="t('userInfo.tab.title.team')"
     :header-style="{ paddingBottom: '18px' }"
     :body-style="{ paddingBottom: '12px' }"
   >

@@ -12,7 +12,11 @@ const props = defineProps({
     default: 0,
   },
 })
+
 const emit = defineEmits(['itemClick'])
+
+const { t } = useI18n()
+
 function allRead() {
   emit('itemClick', [...props.renderList])
 }
@@ -93,11 +97,11 @@ const showMax = 3
       >
         <div class="footer-wrap">
           <a-link @click="allRead">
-            {{ $t('messageBox.allRead') }}
+            {{ t('messageBox.allRead') }}
           </a-link>
         </div>
         <div class="footer-wrap">
-          <a-link>{{ $t('messageBox.viewMore') }}</a-link>
+          <a-link>{{ t('messageBox.viewMore') }}</a-link>
         </div>
       </a-space>
     </template>

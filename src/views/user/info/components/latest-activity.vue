@@ -4,8 +4,10 @@ import type { LatestActivity } from '~/api/user-center'
 import { queryLatestActivity } from '~/api/user-center'
 import useLoading from '~/hooks/loading'
 
+const { t } = useI18n()
+
 const { loading, setLoading } = useLoading(true)
-const activityList = ref<LatestActivity[]>(Array.from({ length: 7 }).fill({}))
+const activityList = ref<LatestActivity[]>(Array.from({ length: 7 }).fill({}) as any)
 async function fetchData() {
   try {
     const { data } = await queryLatestActivity()
@@ -22,9 +24,9 @@ fetchData()
 </script>
 
 <template>
-  <a-card class="general-card" :title="$t('userInfo.title.latestActivity')">
+  <a-card class="general-card" :title="t('userInfo.title.latestActivity')">
     <template #extra>
-      <a-link>{{ $t('userInfo.viewAll') }}</a-link>
+      <a-link>{{ t('userInfo.viewAll') }}</a-link>
     </template>
     <a-list :bordered="false">
       <a-list-item

@@ -3,8 +3,7 @@ import type { PropType } from 'vue'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { DEFAULT_ROUTE_NAME, REDIRECT_ROUTE_NAME } from '~/router/constants'
-import { useTabBarStore } from '~/store'
-import type { TagProps } from '~/store/modules/tab-bar/types'
+import type { TagProps } from '~/stores/tab-bar'
 
 const props = defineProps({
   itemData: {
@@ -18,6 +17,8 @@ const props = defineProps({
     default: 0,
   },
 })
+
+const { t } = useI18n()
 
 enum Eaction {
   reload = 'reload',
@@ -122,11 +123,11 @@ async function actionSelect(value: any) {
   >
     <span
       class="arco-tag arco-tag-size-medium arco-tag-checked"
-      :class="{ 'link-activated': itemData.fullPath === $route.fullPath }"
+      :class="{ 'link-activated': itemData.fullPath === route.fullPath }"
       @click="goto(itemData)"
     >
       <span class="tag-link">
-        {{ $t(itemData.title) }}
+        {{ t(itemData.title) }}
       </span>
       <span
         class="arco-icon-hover arco-tag-icon-hover arco-icon-hover-size-medium arco-tag-close-btn"

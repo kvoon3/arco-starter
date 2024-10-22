@@ -229,7 +229,7 @@ export default {
 <template>
   <div class="container">
     <Breadcrumb :items="['menu.list', 'menu.list.searchTable']" />
-    <a-card class="general-card" :title="$t('menu.list.searchTable')">
+    <a-card class="general-card" :title="t('menu.list.searchTable')">
       <a-row>
         <a-col :flex="1">
           <a-form
@@ -242,50 +242,50 @@ export default {
               <a-col :span="8">
                 <a-form-item
                   field="number"
-                  :label="$t('searchTable.form.number')"
+                  :label="t('searchTable.form.number')"
                 >
                   <a-input
                     v-model="formModel.number"
-                    :placeholder="$t('searchTable.form.number.placeholder')"
+                    :placeholder="t('searchTable.form.number.placeholder')"
                   />
                 </a-form-item>
               </a-col>
               <a-col :span="8">
-                <a-form-item field="name" :label="$t('searchTable.form.name')">
+                <a-form-item field="name" :label="t('searchTable.form.name')">
                   <a-input
                     v-model="formModel.name"
-                    :placeholder="$t('searchTable.form.name.placeholder')"
+                    :placeholder="t('searchTable.form.name.placeholder')"
                   />
                 </a-form-item>
               </a-col>
               <a-col :span="8">
                 <a-form-item
                   field="contentType"
-                  :label="$t('searchTable.form.contentType')"
+                  :label="t('searchTable.form.contentType')"
                 >
                   <a-select
                     v-model="formModel.contentType"
                     :options="contentTypeOptions"
-                    :placeholder="$t('searchTable.form.selectDefault')"
+                    :placeholder="t('searchTable.form.selectDefault')"
                   />
                 </a-form-item>
               </a-col>
               <a-col :span="8">
                 <a-form-item
                   field="filterType"
-                  :label="$t('searchTable.form.filterType')"
+                  :label="t('searchTable.form.filterType')"
                 >
                   <a-select
                     v-model="formModel.filterType"
                     :options="filterTypeOptions"
-                    :placeholder="$t('searchTable.form.selectDefault')"
+                    :placeholder="t('searchTable.form.selectDefault')"
                   />
                 </a-form-item>
               </a-col>
               <a-col :span="8">
                 <a-form-item
                   field="createdTime"
-                  :label="$t('searchTable.form.createdTime')"
+                  :label="t('searchTable.form.createdTime')"
                 >
                   <a-range-picker
                     v-model="formModel.createdTime"
@@ -296,12 +296,12 @@ export default {
               <a-col :span="8">
                 <a-form-item
                   field="status"
-                  :label="$t('searchTable.form.status')"
+                  :label="t('searchTable.form.status')"
                 >
                   <a-select
                     v-model="formModel.status"
                     :options="statusOptions"
-                    :placeholder="$t('searchTable.form.selectDefault')"
+                    :placeholder="t('searchTable.form.selectDefault')"
                   />
                 </a-form-item>
               </a-col>
@@ -315,13 +315,13 @@ export default {
               <template #icon>
                 <icon-search />
               </template>
-              {{ $t('searchTable.form.search') }}
+              {{ t('searchTable.form.search') }}
             </a-button>
             <a-button @click="reset">
               <template #icon>
                 <icon-refresh />
               </template>
-              {{ $t('searchTable.form.reset') }}
+              {{ t('searchTable.form.reset') }}
             </a-button>
           </a-space>
         </a-col>
@@ -334,12 +334,12 @@ export default {
               <template #icon>
                 <icon-plus />
               </template>
-              {{ $t('searchTable.operation.create') }}
+              {{ t('searchTable.operation.create') }}
             </a-button>
             <a-upload action="/">
               <template #upload-button>
                 <a-button>
-                  {{ $t('searchTable.operation.import') }}
+                  {{ t('searchTable.operation.import') }}
                 </a-button>
               </template>
             </a-upload>
@@ -353,15 +353,15 @@ export default {
             <template #icon>
               <icon-download />
             </template>
-            {{ $t('searchTable.operation.download') }}
+            {{ t('searchTable.operation.download') }}
           </a-button>
-          <a-tooltip :content="$t('searchTable.actions.refresh')">
+          <a-tooltip :content="t('searchTable.actions.refresh')">
             <div class="action-icon" @click="search">
               <icon-refresh size="18" />
             </div>
           </a-tooltip>
           <a-dropdown @select="handleSelectDensity">
-            <a-tooltip :content="$t('searchTable.actions.density')">
+            <a-tooltip :content="t('searchTable.actions.density')">
               <div class="action-icon">
                 <icon-line-height size="18" />
               </div>
@@ -377,7 +377,7 @@ export default {
               </a-doption>
             </template>
           </a-dropdown>
-          <a-tooltip :content="$t('searchTable.actions.columnSetting')">
+          <a-tooltip :content="t('searchTable.actions.columnSetting')">
             <a-popover
               trigger="click"
               position="bl"
@@ -455,20 +455,20 @@ export default {
                 src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/ea8b09190046da0ea7e070d83c5d1731.svg~tplv-49unhts6dw-image.image"
               >
             </a-avatar>
-            {{ $t(`searchTable.form.contentType.${record.contentType}`) }}
+            {{ t(`searchTable.form.contentType.${record.contentType}`) }}
           </a-space>
         </template>
         <template #filterType="{ record }">
-          {{ $t(`searchTable.form.filterType.${record.filterType}`) }}
+          {{ t(`searchTable.form.filterType.${record.filterType}`) }}
         </template>
         <template #status="{ record }">
           <span v-if="record.status === 'offline'" class="circle" />
           <span v-else class="circle pass" />
-          {{ $t(`searchTable.form.status.${record.status}`) }}
+          {{ t(`searchTable.form.status.${record.status}`) }}
         </template>
         <template #operations>
           <a-button v-permission="['admin']" type="text" size="small">
-            {{ $t('searchTable.columns.operations.view') }}
+            {{ t('searchTable.columns.operations.view') }}
           </a-button>
         </template>
       </a-table>

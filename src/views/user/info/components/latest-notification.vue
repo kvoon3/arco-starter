@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import useLoading from '~/hooks/loading'
 
+const { t } = useI18n()
+
 const { loading, setLoading } = useLoading(true)
 setTimeout(() => {
   setLoading(false)
@@ -8,13 +10,13 @@ setTimeout(() => {
 </script>
 
 <template>
-  <a-card class="general-card" :title="$t('userInfo.title.latestNotification')">
+  <a-card class="general-card" :title="t('userInfo.title.latestNotification')">
     <a-skeleton v-if="loading" :animation="true">
       <a-skeleton-line :rows="3" />
     </a-skeleton>
     <a-result v-else status="404">
       <template #subtitle>
-        {{ $t('userInfo.nodata') }}
+        {{ t('userInfo.nodata') }}
       </template>
     </a-result>
   </a-card>

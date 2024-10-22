@@ -4,7 +4,9 @@ import { queryRulesPresetList } from '~/api/list'
 import useRequest from '~/hooks/request'
 import CardWrap from './card-wrap.vue'
 
-const defaultValue: ServiceRecord[] = Array.from({ length: 6 }).fill({})
+const { t } = useI18n()
+
+const defaultValue: ServiceRecord[] = Array.from({ length: 6 }).fill({}) as any[]
 const { loading, response: renderData } = useRequest<ServiceRecord[]>(
   queryRulesPresetList,
   defaultValue,
@@ -14,7 +16,7 @@ const { loading, response: renderData } = useRequest<ServiceRecord[]>(
 <template>
   <div class="list-wrap">
     <a-typography-title class="block-title" :heading="6">
-      {{ $t('cardList.tab.title.preset') }}
+      {{ t('cardList.tab.title.preset') }}
     </a-typography-title>
     <a-row class="list-row" :gutter="24">
       <a-col
@@ -35,7 +37,7 @@ const { loading, response: renderData } = useRequest<ServiceRecord[]>(
           :description="item.description"
           :default-value="item.enable"
           :action-type="item.actionType"
-          :tag-text="$t('cardList.preset.tag')"
+          :tag-text="t('cardList.preset.tag')"
         >
           <template #skeleton>
             <a-skeleton :animation="true">

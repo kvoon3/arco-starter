@@ -2,6 +2,8 @@
 import useChartOption from '~/hooks/chart-option'
 import useLoading from '~/hooks/loading'
 
+const { t } = useI18n()
+
 const { loading } = useLoading()
 const { chartOption } = useChartOption((isDark) => {
   // echarts support https://echarts.apache.org/zh/theme-builder.html
@@ -104,7 +106,7 @@ const { chartOption } = useChartOption((isDark) => {
       }"
     >
       <template #title>
-        {{ $t('workplace.categoriesPercent') }}
+        {{ t('workplace.categoriesPercent') }}
       </template>
       <Chart height="310px" :option="chartOption" />
     </a-card>

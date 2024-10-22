@@ -1,5 +1,4 @@
 import type { AppRouteRecordRaw } from '../types'
-import { DEFAULT_LAYOUT } from '../base'
 
 export const routeRecord: AppRouteRecordRaw = {
   path: '/result',

@@ -19,6 +19,9 @@ const props = defineProps({
     default: '',
   },
 })
+
+const { t } = useI18n()
+
 const { loading, setLoading } = useLoading(true)
 const count = ref(0)
 const growth = ref(100)

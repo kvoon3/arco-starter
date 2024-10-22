@@ -4,6 +4,8 @@ import { ref } from 'vue'
 import { queryPopularList } from '~/api/dashboard'
 import useLoading from '~/hooks/loading'
 
+const { t } = useI18n()
+
 const type = ref('text')
 const { loading, setLoading } = useLoading()
 const renderList = ref<TableData[]>()
@@ -34,10 +36,10 @@ fetchData('text')
       :body-style="{ padding: '17px 20px 21px 20px' }"
     >
       <template #title>
-        {{ $t('workplace.popularContent') }}
+        {{ t('workplace.popularContent') }}
       </template>
       <template #extra>
-        <a-link>{{ $t('workplace.viewMore') }}</a-link>
+        <a-link>{{ t('workplace.viewMore') }}</a-link>
       </template>
       <a-space direction="vertical" :size="10" fill>
         <a-radio-group
@@ -46,13 +48,13 @@ fetchData('text')
           @change="typeChange as any"
         >
           <a-radio value="text">
-            {{ $t('workplace.popularContent.text') }}
+            {{ t('workplace.popularContent.text') }}
           </a-radio>
           <a-radio value="image">
-            {{ $t('workplace.popularContent.image') }}
+            {{ t('workplace.popularContent.image') }}
           </a-radio>
           <a-radio value="video">
-            {{ $t('workplace.popularContent.video') }}
+            {{ t('workplace.popularContent.video') }}
           </a-radio>
         </a-radio-group>
         <a-table

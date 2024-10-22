@@ -1,5 +1,5 @@
 import type { AppRouteRecordRaw } from '../types'
-import { DEFAULT_LAYOUT } from '../base'
+import { DEFAULT_LAYOUT } from '~/layout'
 
 export const routeRecord: AppRouteRecordRaw = {
   path: '/form',

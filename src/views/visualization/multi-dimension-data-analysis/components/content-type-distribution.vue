@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import useChartOption from '~/hooks/chart-option'
 
+const { t } = useI18n()
+
 const { chartOption } = useChartOption((isDark) => {
   return {
     grid: {
@@ -93,7 +95,7 @@ const { chartOption } = useChartOption((isDark) => {
 <template>
   <a-card
     class="general-card"
-    :title="$t('multiDAnalysis.card.title.contentTypeDistribution')"
+    :title="t('multiDAnalysis.card.title.contentTypeDistribution')"
     :header-style="{ paddingBottom: 0 }"
   >
     <Chart style="height: 222px" :option="chartOption" />

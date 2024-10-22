@@ -97,7 +97,7 @@ fetchSourceData()
         </template>
         <a-result v-if="!renderList.length" status="404">
           <template #subtitle>
-            {{ $t('messageBox.noContent') }}
+            {{ t('messageBox.noContent') }}
           </template>
         </a-result>
         <List
@@ -108,7 +108,7 @@ fetchSourceData()
       </a-tab-pane>
       <template #extra>
         <a-button type="text" @click="emptyList">
-          {{ $t('messageBox.tab.button') }}
+          {{ t('messageBox.tab.button') }}
         </a-button>
       </template>
     </a-tabs>

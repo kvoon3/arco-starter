@@ -4,6 +4,8 @@ import type { PopularAuthorRes } from '~/api/visualization'
 import { queryPopularAuthor } from '~/api/visualization'
 import useLoading from '~/hooks/loading'
 
+const { t } = useI18n()
+
 const { loading, setLoading } = useLoading()
 const tableData = ref<PopularAuthorRes>({ list: [] })
 async function fetchData() {
@@ -26,10 +28,10 @@ fetchData()
   <a-spin :loading="loading" style="width: 100%">
     <a-card class="general-card" :header-style="{ paddingBottom: '14px' }">
       <template #title>
-        {{ $t('dataAnalysis.popularAuthor') }}
+        {{ t('dataAnalysis.popularAuthor') }}
       </template>
       <template #extra>
-        <a-link>{{ $t('workplace.viewMore') }}</a-link>
+        <a-link>{{ t('workplace.viewMore') }}</a-link>
       </template>
       <a-table
         :data="tableData.list"
@@ -40,22 +42,22 @@ fetchData()
       >
         <template #columns>
           <a-table-column
-            :title="$t('dataAnalysis.popularAuthor.column.ranking')"
+            :title="t('dataAnalysis.popularAuthor.column.ranking')"
             data-index="ranking"
           />
           <a-table-column
-            :title="$t('dataAnalysis.popularAuthor.column.author')"
+            :title="t('dataAnalysis.popularAuthor.column.author')"
             data-index="author"
           />
           <a-table-column
-            :title="$t('dataAnalysis.popularAuthor.column.content')"
+            :title="t('dataAnalysis.popularAuthor.column.content')"
             data-index="contentCount"
             :sortable="{
               sortDirections: ['ascend', 'descend'],
             }"
           />
           <a-table-column
-            :title="$t('dataAnalysis.popularAuthor.column.click')"
+            :title="t('dataAnalysis.popularAuthor.column.click')"
             data-index="clickCount"
             :sortable="{
               sortDirections: ['ascend', 'descend'],

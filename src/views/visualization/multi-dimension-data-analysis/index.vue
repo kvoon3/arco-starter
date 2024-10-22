@@ -4,6 +4,8 @@ import ContentTypeDistribution from './components/content-type-distribution.vue'
 import DataChainGrowth from './components/data-chain-growth.vue'
 import DataOverview from './components/data-overview.vue'
 import UserActions from './components/user-actions.vue'
+
+const { t } = useI18n()
 </script>
 
 <script lang="ts">

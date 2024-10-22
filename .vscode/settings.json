@@ -68,5 +68,7 @@
     "scss",
     "pcss",
     "postcss"
-  ]
+  ],
+  "autoHide.enable": false,
+  "autoHide.mode": "auto"
 }

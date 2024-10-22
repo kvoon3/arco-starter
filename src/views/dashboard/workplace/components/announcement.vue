@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+const { t } = useI18n()
 const list = [
   {
     type: 'orangered',
@@ -31,12 +32,12 @@ const list = [
 <template>
   <a-card
     class="general-card"
-    :title="$t('workplace.announcement')"
+    :title="t('workplace.announcement')"
     :header-style="{ paddingBottom: '0' }"
     :body-style="{ padding: '15px 20px 13px 20px' }"
   >
     <template #extra>
-      <a-link>{{ $t('workplace.viewMore') }}</a-link>
+      <a-link>{{ t('workplace.viewMore') }}</a-link>
     </template>
     <div>
       <div v-for="(item, idx) in list" :key="idx" class="item">

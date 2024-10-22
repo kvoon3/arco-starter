@@ -5,6 +5,8 @@ import { queryChatList } from '~/api/message'
 import useLoading from '~/hooks/loading'
 import ChatList from './chat-list.vue'
 
+const { t } = useI18n()
+
 const { loading, setLoading } = useLoading(true)
 const chatData = ref<ChatRecord[]>([])
 async function fetchData() {
@@ -25,7 +27,7 @@ fetchData()
 <template>
   <a-card
     class="general-card chat-panel"
-    :title="$t('monitor.title.chatPanel')"
+    :title="t('monitor.title.chatPanel')"
     :bordered="false"
     :header-style="{ paddingBottom: '0' }"
     :body-style="{
@@ -38,11 +40,11 @@ fetchData()
     <a-space :size="8">
       <a-select style="width: 86px" default-value="all">
         <a-option value="all">
-          {{ $t('monitor.chat.options.all') }}
+          {{ t('monitor.chat.options.all') }}
         </a-option>
       </a-select>
       <a-input-search
-        :placeholder="$t('monitor.chat.placeholder.searchCategory')"
+        :placeholder="t('monitor.chat.placeholder.searchCategory')"
       />
       <a-button type="text">
         <icon-download />
@@ -61,7 +63,7 @@ fetchData()
           </template>
         </a-Input>
         <a-button type="primary">
-          {{ $t('monitor.chat.update') }}
+          {{ t('monitor.chat.update') }}
         </a-button>
       </a-space>
     </div>

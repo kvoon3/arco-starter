@@ -1,4 +1,6 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const { t } = useI18n()
+</script>
 
 <template>
   <a-list :bordered="false">
@@ -6,18 +8,18 @@
       <a-list-item-meta>
         <template #avatar>
           <a-typography-paragraph>
-            {{ $t('userSetting.SecuritySettings.form.label.password') }}
+            {{ t('userSetting.SecuritySettings.form.label.password') }}
           </a-typography-paragraph>
         </template>
         <template #description>
           <div class="content">
             <a-typography-paragraph>
-              {{ $t('userSetting.SecuritySettings.placeholder.password') }}
+              {{ t('userSetting.SecuritySettings.placeholder.password') }}
             </a-typography-paragraph>
           </div>
           <div class="operation">
             <a-link>
-              {{ $t('userSetting.SecuritySettings.button.update') }}
+              {{ t('userSetting.SecuritySettings.button.update') }}
             </a-link>
           </div>
         </template>
@@ -27,20 +29,20 @@
       <a-list-item-meta>
         <template #avatar>
           <a-typography-paragraph>
-            {{ $t('userSetting.SecuritySettings.form.label.securityQuestion') }}
+            {{ t('userSetting.SecuritySettings.form.label.securityQuestion') }}
           </a-typography-paragraph>
         </template>
         <template #description>
           <div class="content">
             <a-typography-paragraph class="tip">
               {{
-                $t('userSetting.SecuritySettings.placeholder.securityQuestion')
+                t('userSetting.SecuritySettings.placeholder.securityQuestion')
               }}
             </a-typography-paragraph>
           </div>
           <div class="operation">
             <a-link>
-              {{ $t('userSetting.SecuritySettings.button.settings') }}
+              {{ t('userSetting.SecuritySettings.button.settings') }}
             </a-link>
           </div>
         </template>
@@ -50,7 +52,7 @@
       <a-list-item-meta>
         <template #avatar>
           <a-typography-paragraph>
-            {{ $t('userSetting.SecuritySettings.form.label.phone') }}
+            {{ t('userSetting.SecuritySettings.form.label.phone') }}
           </a-typography-paragraph>
         </template>
         <template #description>
@@ -61,7 +63,7 @@
           </div>
           <div class="operation">
             <a-link>
-              {{ $t('userSetting.SecuritySettings.button.update') }}
+              {{ t('userSetting.SecuritySettings.button.update') }}
             </a-link>
           </div>
         </template>
@@ -71,18 +73,18 @@
       <a-list-item-meta>
         <template #avatar>
           <a-typography-paragraph>
-            {{ $t('userSetting.SecuritySettings.form.label.email') }}
+            {{ t('userSetting.SecuritySettings.form.label.email') }}
           </a-typography-paragraph>
         </template>
         <template #description>
           <div class="content">
             <a-typography-paragraph class="tip">
-              {{ $t('userSetting.SecuritySettings.placeholder.email') }}
+              {{ t('userSetting.SecuritySettings.placeholder.email') }}
             </a-typography-paragraph>
           </div>
           <div class="operation">
             <a-link>
-              {{ $t('userSetting.SecuritySettings.button.update') }}
+              {{ t('userSetting.SecuritySettings.button.update') }}
             </a-link>
           </div>
         </template>

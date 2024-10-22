@@ -3,7 +3,7 @@ import { Message } from '@arco-design/web-vue'
 import { useClipboard } from '@vueuse/core'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useAppStore } from '~/store'
+import { useAppStore } from '~/stores/app'
 import Block from './block.vue'
 
 const emit = defineEmits(['cancel'])
@@ -72,17 +72,17 @@ function setVisible() {
     :width="300"
     unmount-on-close
     :visible="visible"
-    :cancel-text="$t('settings.close')"
-    :ok-text="$t('settings.copySettings')"
+    :cancel-text="t('settings.close')"
+    :ok-text="t('settings.copySettings')"
     @ok="copySettings"
     @cancel="cancel"
   >
     <template #title>
-      {{ $t('settings.title') }}
+      {{ t('settings.title') }}
     </template>
-    <Block :options="contentOpts" :title="$t('settings.content')" />
-    <Block :options="othersOpts" :title="$t('settings.otherSettings')" />
-    <a-alert>{{ $t('settings.alertContent') }}</a-alert>
+    <Block :options="contentOpts" :title="t('settings.content')" />
+    <Block :options="othersOpts" :title="t('settings.otherSettings')" />
+    <a-alert>{{ t('settings.alertContent') }}</a-alert>
   </a-drawer>
 </template>
 

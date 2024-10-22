@@ -1,4 +1,6 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const { t } = useI18n()
+</script>
 
 <template>
   <a-grid :cols="24" :row-gap="16" class="panel">
@@ -14,7 +16,7 @@
           >
         </a-avatar>
         <a-statistic
-          :title="$t('workplace.onlineContent')"
+          :title="t('workplace.onlineContent')"
           :value="373.5"
           :precision="1"
           :value-from="0"
@@ -22,7 +24,7 @@
           show-group-separator
         >
           <template #suffix>
-            W+ <span class="unit">{{ $t('workplace.pecs') }}</span>
+            W+ <span class="unit">{{ t('workplace.pecs') }}</span>
           </template>
         </a-statistic>
       </a-space>
@@ -39,14 +41,14 @@
           >
         </a-avatar>
         <a-statistic
-          :title="$t('workplace.putIn')"
+          :title="t('workplace.putIn')"
           :value="368"
           :value-from="0"
           animation
           show-group-separator
         >
           <template #suffix>
-            <span class="unit">{{ $t('workplace.pecs') }}</span>
+            <span class="unit">{{ t('workplace.pecs') }}</span>
           </template>
         </a-statistic>
       </a-space>
@@ -63,14 +65,14 @@
           >
         </a-avatar>
         <a-statistic
-          :title="$t('workplace.newDay')"
+          :title="t('workplace.newDay')"
           :value="8874"
           :value-from="0"
           animation
           show-group-separator
         >
           <template #suffix>
-            <span class="unit">{{ $t('workplace.pecs') }}</span>
+            <span class="unit">{{ t('workplace.pecs') }}</span>
           </template>
         </a-statistic>
       </a-space>
@@ -88,7 +90,7 @@
           >
         </a-avatar>
         <a-statistic
-          :title="$t('workplace.newFromYesterday')"
+          :title="t('workplace.newFromYesterday')"
           :value="2.8"
           :precision="1"
           :value-from="0"

@@ -7,7 +7,6 @@ import NavBar from '~/components/navbar/index.vue'
 import TabBar from '~/components/tab-bar/index.vue'
 import usePermission from '~/hooks/permission'
 import useResponsive from '~/hooks/responsive'
-import { useAppStore, useUserStore } from '~/store'
 import PageLayout from './page-layout.vue'
 
 const isInit = ref(false)

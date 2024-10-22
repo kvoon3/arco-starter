@@ -6,7 +6,8 @@ import type {
 } from '@arco-design/web-vue/es/upload/interfaces'
 import { ref } from 'vue'
 import { userUploadApi } from '~/api/user-center'
-import { useUserStore } from '~/store'
+
+const { t } = useI18n()
 
 const userStore = useUserStore()
 const file = {
@@ -122,7 +123,7 @@ function customRequest(options: RequestOption) {
         }"
       >
         <template #label="{ label }">
-          {{ $t(label) }} :
+          {{ t(label) }} :
         </template>
         <template #value="{ value, data }">
           <a-tag

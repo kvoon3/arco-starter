@@ -2,6 +2,8 @@
 import useChartOption from '~/hooks/chart-option'
 import useLoading from '~/hooks/loading'
 
+const { t } = useI18n()
+
 const { chartOption } = useChartOption((isDark) => {
   const graphicElementStyle = {
     textAlign: 'center',
@@ -220,7 +222,7 @@ const { loading } = useLoading(false)
   <a-spin :loading="loading" style="width: 100%">
     <a-card
       class="general-card"
-      :title="$t('multiDAnalysis.card.title.contentPublishingSource')"
+      :title="t('multiDAnalysis.card.title.contentPublishingSource')"
     >
       <Chart style="width: 100%; height: 300px" :option="chartOption" />
     </a-card>

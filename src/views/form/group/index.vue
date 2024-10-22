@@ -3,6 +3,8 @@ import type { FormInstance } from '@arco-design/web-vue/es/form'
 import { ref } from 'vue'
 import useLoading from '~/hooks/loading'
 
+const { t } = useI18n()
+
 const formData = ref({})
 const formRef = ref<FormInstance>()
 const { loading, setLoading } = useLoading()
@@ -24,21 +26,21 @@ export default {
 </script>
 
 <template>
-  <div class="container">
+  <div>
     <Breadcrumb :items="['menu.form', 'menu.form.group']" />
     <a-form ref="formRef" layout="vertical" :model="formData">
       <a-space direction="vertical" :size="16">
         <a-card class="general-card">
           <template #title>
-            {{ $t('groupForm.title.video') }}
+            {{ t('groupForm.title.video') }}
           </template>
           <a-row :gutter="80">
             <a-col :span="8">
               <a-form-item
-                :label="$t('groupForm.form.label.video.mode')"
+                :label="t('groupForm.form.label.video.mode')"
                 field="video.mode"
               >
-                <a-select :placeholder="$t('groupForm.placeholder.video.mode')">
+                <a-select :placeholder="t('groupForm.placeholder.video.mode')">
                   <a-option value="custom">
                     自定义
                   </a-option>
@@ -53,12 +55,12 @@ export default {
             </a-col>
             <a-col :span="8">
               <a-form-item
-                :label="$t('groupForm.form.label.video.acquisition.resolution')"
+                :label="t('groupForm.form.label.video.acquisition.resolution')"
                 field="video.acquisition.resolution"
               >
                 <a-select
                   :placeholder="
-                    $t('groupForm.placeholder.video.acquisition.resolution')
+                    t('groupForm.placeholder.video.acquisition.resolution')
                   "
                 >
                   <a-option value="resolution1">
@@ -75,12 +77,12 @@ export default {
             </a-col>
             <a-col :span="8">
               <a-form-item
-                :label="$t('groupForm.form.label.video.acquisition.frameRate')"
+                :label="t('groupForm.form.label.video.acquisition.frameRate')"
                 field="video.acquisition.frameRate"
               >
                 <a-input
                   :placeholder="
-                    $t('groupForm.placeholder.video.acquisition.frameRate')
+                    t('groupForm.placeholder.video.acquisition.frameRate')
                   "
                 >
                   <template #append>
@@ -93,12 +95,12 @@ export default {
           <a-row :gutter="80">
             <a-col :span="8">
               <a-form-item
-                :label="$t('groupForm.form.label.video.encoding.resolution')"
+                :label="t('groupForm.form.label.video.encoding.resolution')"
                 field="video.encoding.resolution"
               >
                 <a-select
                   :placeholder="
-                    $t('groupForm.placeholder.video.encoding.resolution')
+                    t('groupForm.placeholder.video.encoding.resolution')
                   "
                 >
                   <a-option value="resolution1">
@@ -115,12 +117,12 @@ export default {
             </a-col>
             <a-col :span="8">
               <a-form-item
-                :label="$t('groupForm.form.label.video.encoding.rate.min')"
+                :label="t('groupForm.form.label.video.encoding.rate.min')"
                 field="video.encoding.rate.min"
               >
                 <a-input
                   :placeholder="
-                    $t('groupForm.placeholder.video.encoding.rate.min')
+                    t('groupForm.placeholder.video.encoding.rate.min')
                   "
                   add-after="bps"
                 >
@@ -132,12 +134,12 @@ export default {
             </a-col>
             <a-col :span="8">
               <a-form-item
-                :label="$t('groupForm.form.label.video.encoding.rate.max')"
+                :label="t('groupForm.form.label.video.encoding.rate.max')"
                 field="video.encoding.rate.max"
               >
                 <a-input
                   :placeholder="
-                    $t('groupForm.placeholder.video.encoding.rate.max')
+                    t('groupForm.placeholder.video.encoding.rate.max')
                   "
                 >
                   <template #append>
@@ -150,12 +152,12 @@ export default {
           <a-row :gutter="80">
             <a-col :span="8">
               <a-form-item
-                :label="$t('groupForm.form.label.video.encoding.rate.default')"
+                :label="t('groupForm.form.label.video.encoding.rate.default')"
                 field="video.encoding.rate.default"
               >
                 <a-input
                   :placeholder="
-                    $t('groupForm.placeholder.video.encoding.rate.default')
+                    t('groupForm.placeholder.video.encoding.rate.default')
                   "
                 >
                   <template #append>
@@ -166,12 +168,12 @@ export default {
             </a-col>
             <a-col :span="8">
               <a-form-item
-                :label="$t('groupForm.form.label.video.encoding.frameRate')"
+                :label="t('groupForm.form.label.video.encoding.frameRate')"
                 field="video.encoding.frameRate"
               >
                 <a-input
                   :placeholder="
-                    $t('groupForm.placeholder.video.encoding.frameRate')
+                    t('groupForm.placeholder.video.encoding.frameRate')
                   "
                 >
                   <template #append>
@@ -182,12 +184,12 @@ export default {
             </a-col>
             <a-col :span="8">
               <a-form-item
-                :label="$t('groupForm.form.label.video.encoding.profile')"
+                :label="t('groupForm.form.label.video.encoding.profile')"
                 field="video.encoding.profile"
               >
                 <a-input
                   :placeholder="
-                    $t('groupForm.placeholder.video.encoding.profile')
+                    t('groupForm.placeholder.video.encoding.profile')
                   "
                 >
                   <template #append>
@@ -200,15 +202,15 @@ export default {
         </a-card>
         <a-card class="general-card">
           <template #title>
-            {{ $t('groupForm.title.audio') }}
+            {{ t('groupForm.title.audio') }}
           </template>
           <a-row :gutter="80">
             <a-col :span="8">
               <a-form-item
-                :label="$t('groupForm.form.label.audio.mode')"
+                :label="t('groupForm.form.label.audio.mode')"
                 field="audio.mode"
               >
-                <a-select :placeholder="$t('groupForm.placeholder.audio.mode')">
+                <a-select :placeholder="t('groupForm.placeholder.audio.mode')">
                   <a-option value="custom">
                     自定义
                   </a-option>
@@ -223,12 +225,12 @@ export default {
             </a-col>
             <a-col :span="8">
               <a-form-item
-                :label="$t('groupForm.form.label.audio.acquisition.channels')"
+                :label="t('groupForm.form.label.audio.acquisition.channels')"
                 field="audio.acquisition.channels"
               >
                 <a-select
                   :placeholder="
-                    $t('groupForm.placeholder.audio.acquisition.channels')
+                    t('groupForm.placeholder.audio.acquisition.channels')
                   "
                 >
                   <a-option value="1">
@@ -245,12 +247,12 @@ export default {
             </a-col>
             <a-col :span="8">
               <a-form-item
-                :label="$t('groupForm.form.label.audio.encoding.channels')"
+                :label="t('groupForm.form.label.audio.encoding.channels')"
                 field="audio.encoding.channels"
               >
                 <a-input
                   :placeholder="
-                    $t('groupForm.placeholder.audio.encoding.channels')
+                    t('groupForm.placeholder.audio.encoding.channels')
                   "
                 >
                   <template #append>
@@ -263,11 +265,11 @@ export default {
           <a-row :gutter="80">
             <a-col :span="8">
               <a-form-item
-                :label="$t('groupForm.form.label.audio.encoding.rate')"
+                :label="t('groupForm.form.label.audio.encoding.rate')"
                 field="audio.encoding.rate"
               >
                 <a-input
-                  :placeholder="$t('groupForm.placeholder.audio.encoding.rate')"
+                  :placeholder="t('groupForm.placeholder.audio.encoding.rate')"
                 >
                   <template #append>
                     bps
@@ -278,12 +280,12 @@ export default {
 
             <a-col :span="8">
               <a-form-item
-                :label="$t('groupForm.form.label.audio.encoding.profile')"
+                :label="t('groupForm.form.label.audio.encoding.profile')"
                 field="audio.encoding.profile"
               >
                 <a-input
                   :placeholder="
-                    $t('groupForm.placeholder.audio.encoding.profile')
+                    t('groupForm.placeholder.audio.encoding.profile')
                   "
                 >
                   <template #append>
@@ -296,14 +298,14 @@ export default {
         </a-card>
         <a-card class="general-card" :bordered="false">
           <template #title>
-            {{ $t('groupForm.title.description') }}
+            {{ t('groupForm.title.description') }}
           </template>
           <a-form-item
-            :label="$t('groupForm.form.label.parameterDescription')"
+            :label="t('groupForm.form.label.parameterDescription')"
             field="audio.approvers"
           >
             <a-textarea
-              :placeholder="$t('groupForm.placeholder.description')"
+              :placeholder="t('groupForm.placeholder.description')"
             />
           </a-form-item>
         </a-card>
@@ -311,14 +313,15 @@ export default {
       <div class="actions">
         <a-space>
           <a-button>
-            {{ $t('groupForm.reset') }}
+            {{ t('groupForm.reset') }}
           </a-button>
           <a-button type="primary" :loading="loading" @click="onSubmitClick">
-            {{ $t('groupForm.submit') }}
+            {{ t('groupForm.submit') }}
           </a-button>
         </a-space>
       </div>
     </a-form>
+  </div>
   </div>
 </template>
 

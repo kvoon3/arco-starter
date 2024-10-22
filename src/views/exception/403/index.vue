@@ -1,4 +1,6 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const { t } = useI18n()
+</script>
 
 <script lang="ts">
 export default {
@@ -13,10 +15,10 @@ export default {
       <a-result
         class="result"
         status="403"
-        :subtitle="$t('exception.result.403.description')"
+        :subtitle="t('exception.result.403.description')"
       />
       <a-button key="back" type="primary">
-        {{ $t('exception.result.403.back') }}
+        {{ t('exception.result.403.back') }}
       </a-button>
     </div>
   </div>

@@ -13,6 +13,8 @@ import BaseInfo from './components/base-info.vue'
 import ChannelInfo from './components/channel-info.vue'
 import Success from './components/success.vue'
 
+const { t } = useI18n()
+
 const { loading, setLoading } = useLoading(false)
 const step = ref(1)
 const submitModel = ref<UnitChannelModel>({} as UnitChannelModel)
@@ -65,7 +67,7 @@ export default {
     <a-spin :loading="loading" style="width: 100%">
       <a-card class="general-card">
         <template #title>
-          {{ $t('stepForm.step.title') }}
+          {{ t('stepForm.step.title') }}
         </template>
         <div class="wrapper">
           <a-steps
@@ -74,14 +76,14 @@ export default {
             line-less
             class="steps"
           >
-            <a-step :description="$t('stepForm.step.subTitle.baseInfo')">
-              {{ $t('stepForm.step.title.baseInfo') }}
+            <a-step :description="t('stepForm.step.subTitle.baseInfo')">
+              {{ t('stepForm.step.title.baseInfo') }}
             </a-step>
-            <a-step :description="$t('stepForm.step.subTitle.channel')">
-              {{ $t('stepForm.step.title.channel') }}
+            <a-step :description="t('stepForm.step.subTitle.channel')">
+              {{ t('stepForm.step.title.channel') }}
             </a-step>
-            <a-step :description="$t('stepForm.step.subTitle.finish')">
-              {{ $t('stepForm.step.title.finish') }}
+            <a-step :description="t('stepForm.step.subTitle.finish')">
+              {{ t('stepForm.step.title.finish') }}
             </a-step>
           </a-steps>
           <keep-alive>

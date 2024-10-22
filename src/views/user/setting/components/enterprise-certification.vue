@@ -10,6 +10,9 @@ const props = defineProps({
     required: true,
   },
 })
+
+const { t } = useI18n()
+
 const renderData = computed(() => {
   const {
     accountType,
@@ -66,11 +69,11 @@ const renderData = computed(() => {
 <template>
   <a-card
     class="general-card"
-    :title="$t('userSetting.certification.title.enterprise')"
+    :title="t('userSetting.certification.title.enterprise')"
     :header-style="{ padding: '0px 20px 16px 20px' }"
   >
     <template #extra>
-      <a-link>{{ $t('userSetting.certification.extra.enterprise') }}</a-link>
+      <a-link>{{ t('userSetting.certification.extra.enterprise') }}</a-link>
     </template>
     <a-descriptions
       class="card-content"
@@ -86,7 +89,7 @@ const renderData = computed(() => {
       }"
     >
       <template #label="{ label }">
-        {{ $t(label) }} :
+        {{ t(label) }} :
       </template>
       <template #value="{ value, data }">
         <a-tag

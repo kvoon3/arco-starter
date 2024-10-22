@@ -1,7 +1,6 @@
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { Message, Modal } from '@arco-design/web-vue'
 import axios from 'axios'
-import { useUserStore } from '~/store'
 import { getToken } from '~/utils/auth'
 
 export interface HttpResponse<T = unknown> {
@@ -15,7 +14,9 @@ if (import.meta.env.VITE_API_BASE_URL) {
   axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL
 }
 
+
 axios.interceptors.request.use(
+  // @ts-expect-error type error
   (config: AxiosRequestConfig) => {
     // let each request carry token
     // this example using the JWT token
@@ -37,6 +38,7 @@ axios.interceptors.request.use(
 )
 // add response interceptors
 axios.interceptors.response.use(
+  // @ts-expect-error type error
   (response: AxiosResponse<HttpResponse>) => {
     const res = response.data
     // if the custom code is not 20000, it is judged as an error.
