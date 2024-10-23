@@ -3,24 +3,17 @@ import { Message } from '@arco-design/web-vue'
 import { useDark, useFullscreen, useToggle } from '@vueuse/core'
 import { computed, inject, ref } from 'vue'
 import Menu from '~/components/menu/index.vue'
-import useLocale from '~/hooks/locale'
 import useUser from '~/hooks/user'
+import { availableLocales, loadLanguageAsync } from '~/modules/i18n'
 import MessageBox from '../message-box/index.vue'
 
-const LOCALE_OPTIONS = [
-  { label: '中文', value: 'zh-CN' },
-  { label: 'English', value: 'en-US' },
-]
-
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const router = useRouter()
 
 const appStore = useAppStore()
 const userStore = useUserStore()
 const { logout } = useUser()
-const { changeLocale, currentLocale } = useLocale()
 const { isFullscreen, toggle: toggleFullScreen } = useFullscreen()
-const locales = [...LOCALE_OPTIONS]
 const avatar = computed(() => {
   return userStore.avatar
 })
@@ -40,14 +33,17 @@ const isDark = useDark({
   },
 })
 const toggleTheme = useToggle(isDark)
+
 function handleToggleTheme() {
   toggleTheme()
 }
+
 function setVisible() {
   appStore.updateSettings({ globalSettings: true })
 }
+
 const refBtn = ref()
-const triggerBtn = ref()
+
 function setPopoverVisible() {
   const event = new MouseEvent('click', {
     view: window,
@@ -56,22 +52,25 @@ function setPopoverVisible() {
   })
   refBtn.value.dispatchEvent(event)
 }
+
 function handleLogout() {
   logout()
 }
-function setDropDownVisible() {
-  const event = new MouseEvent('click', {
-    view: window,
-    bubbles: true,
-    cancelable: true,
-  })
-  triggerBtn.value.dispatchEvent(event)
-}
+
 async function switchRoles() {
   const res = await userStore.switchRoles()
   Message.success(res as string)
 }
+
 const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void
+
+async function toggleLocales() {
+  // change to some real logic
+  const locales = availableLocales
+  const newLocale = locales[(locales.indexOf(locale.value) + 1) % locales.length]
+  await loadLanguageAsync(newLocale)
+  locale.value = newLocale
+}
 </script>
 
 <template>
@@ -114,28 +113,13 @@ const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void
             class="nav-btn"
             type="outline"
             shape="circle"
-            @click="setDropDownVisible"
+            @click="toggleLocales"
           >
             <template #icon>
               <icon-language />
             </template>
           </a-button>
         </a-tooltip>
-        <a-dropdown trigger="click" @select="changeLocale as any">
-          <div ref="triggerBtn" class="trigger-btn" />
-          <template #content>
-            <a-doption
-              v-for="item in locales"
-              :key="item.value"
-              :value="item.value"
-            >
-              <template #icon>
-                <icon-check v-show="item.value === currentLocale" />
-              </template>
-              {{ item.label }}
-            </a-doption>
-          </template>
-        </a-dropdown>
       </li>
       <li>
         <a-tooltip

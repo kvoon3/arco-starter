@@ -3,23 +3,22 @@ import enUS from '@arco-design/web-vue/es/locale/lang/en-us'
 import zhCN from '@arco-design/web-vue/es/locale/lang/zh-cn'
 import { computed } from 'vue'
 import GlobalSetting from '~/components/global-setting/index.vue'
-import useLocale from '~/hooks/locale'
 
-const { currentLocale } = useLocale()
-const locale = computed(() => {
-  switch (currentLocale.value) {
-    case 'zh-CN':
-      return zhCN
-    case 'en':
-      return enUS
-    default:
-      return enUS
-  }
+const { locale } = useI18n()
+
+const arcoLang = computed(() => ({
+  'zh-CN': zhCN,
+  'en': enUS,
+}[locale.value]))
+
+watchEffect(() => {
+  console.log('locale.value', locale.value)
+  console.log('arcoLang.value', arcoLang.value)
 })
 </script>
 
 <template>
-  <a-config-provider :locale="locale">
+  <a-config-provider :locale="arcoLang">
     <router-view />
     <GlobalSetting />
   </a-config-provider>
