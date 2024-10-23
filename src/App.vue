@@ -10,11 +10,6 @@ const arcoLang = computed(() => ({
   'zh-CN': zhCN,
   'en': enUS,
 }[locale.value]))
-
-watchEffect(() => {
-  console.log('locale.value', locale.value)
-  console.log('arcoLang.value', arcoLang.value)
-})
 </script>
 
 <template>
