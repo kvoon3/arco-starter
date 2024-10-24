@@ -52,6 +52,5 @@
   "i18n-ally.localesPaths": [
     "locales"
   ],
-  "i18n-ally.sortKeys": true,
-  "autoHide.mode": "auto"
+  "i18n-ally.sortKeys": true
 }
