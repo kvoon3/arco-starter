@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@9.12.2",
+  "packageManager": "pnpm@9.12.3",
   "description": "Arco Design Pro for Vue",
   "author": "ArcoDesign Team",
   "license": "MIT",
@@ -23,9 +23,9 @@
   },
   "dependencies": {
     "@antfu/utils": "^0.7.10",
-    "@arco-design/web-vue": "^2.56.2",
-    "@tanstack/vue-query": "^5.59.13",
-    "@tanstack/vue-query-devtools": "^5.59.13",
+    "@arco-design/web-vue": "^2.56.3",
+    "@tanstack/vue-query": "^5.59.16",
+    "@tanstack/vue-query-devtools": "^5.59.16",
     "@unocss/reset": "^0.63.6",
     "@vueuse/core": "^11.1.0",
     "axios": "^1.7.7",
@@ -46,9 +46,10 @@
     "@arco-plugins/vite-vue": "^1.4.5",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
+    "@modyfi/vite-plugin-yaml": "^1.1.0",
     "@types/lodash": "^4.17.12",
     "@types/mockjs": "^1.0.10",
-    "@types/node": "^22.7.8",
+    "@types/node": "^22.8.1",
     "@types/nprogress": "^0.2.3",
     "@types/sortablejs": "^1.15.8",
     "@unhead/vue": "^1.11.10",
@@ -64,7 +65,7 @@
     "lint-staged": "^15.2.10",
     "mockjs": "^1.1.0",
     "postcss-html": "^1.7.0",
-    "rollup": "^4.24.0",
+    "rollup": "^4.24.2",
     "rollup-plugin-visualizer": "^5.12.0",
     "simple-git-hooks": "^2.11.1",
     "taze": "^0.17.2",
@@ -72,18 +73,18 @@
     "unocss": "^0.63.6",
     "unplugin-auto-import": "^0.18.3",
     "unplugin-vue-components": "^0.27.4",
-    "vite": "^5.4.9",
+    "vite": "^5.4.10",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-imagemin": "^0.6.1",
-    "vite-plugin-vue-devtools": "^7.5.2",
+    "vite-plugin-vue-devtools": "^7.5.4",
     "vite-svg-loader": "^5.1.0",
     "vue-router": "^4.4.5",
-    "vue-tsc": "^2.1.6"
+    "vue-tsc": "^2.1.8"
   },
   "resolutions": {
     "bin-wrapper": "npm:bin-wrapper-china",
     "gifsicle": "5.2.0",
-    "rollup": "^4.24.0"
+    "rollup": "^4.24.2"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"

@@ -1,4 +1,5 @@
 import { resolve } from 'node:path'
+import ViteYaml from '@modyfi/vite-plugin-yaml'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import UnoCSS from 'unocss/vite'
@@ -49,6 +50,8 @@ export default defineConfig({
   },
 
   plugins: [
+    ViteYaml(),
+
     // DO not use it currently, See `https://github.com/posva/unplugin-vue-router/discussions/429`
     VueDevTools(),
 
