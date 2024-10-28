@@ -2,6 +2,10 @@ import type { Locale } from 'vue-i18n'
 import { createI18n } from 'vue-i18n'
 import type { UserModule } from '~/types'
 
+const DEFAULT_LOCALE = 'zh-CN'
+
+const cashedLocaleName = useLocalStorage('locale-name', DEFAULT_LOCALE)
+
 // Import i18n resources
 // https://vitejs.dev/guide/features.html#glob-import
 //
@@ -25,6 +29,9 @@ function setI18nLanguage(lang: Locale) {
   i18n.global.locale.value = lang as any
   if (typeof document !== 'undefined')
     document.querySelector('html')?.setAttribute('lang', lang)
+
+  cashedLocaleName.value = lang
+
   return lang
 }
 
@@ -58,5 +65,5 @@ export async function loadLanguageAsync(lang: string): Promise<Locale> {
 
 export const install: UserModule = ({ app }) => {
   app.use(i18n)
-  loadLanguageAsync('en')
+  loadLanguageAsync(cashedLocaleName.value)
 }

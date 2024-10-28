@@ -2,6 +2,8 @@
 import Footer from '~/components/footer/index.vue'
 import LoginBanner from './components/banner.vue'
 import LoginForm from './components/login-form.vue'
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -12,7 +14,7 @@ import LoginForm from './components/login-form.vue'
         src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image"
       >
       <div class="logo-text">
-        Arco Design Pro
+        {{ t('project.name') }}
       </div>
     </div>
     <LoginBanner />

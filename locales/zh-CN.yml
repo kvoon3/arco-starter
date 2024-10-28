@@ -1,0 +1,15 @@
+login:
+  form:
+    forgetPassword: 忘记密码
+    login: 登录
+    password:
+      errMsg: 用户密码未填写
+      placeholder: 用户密码
+    register: 注册
+    rememberPassword: 记住密码
+    title: 登录
+    userName:
+      errMsg: 用户名未填写
+      placeholder: 用户名
+project:
+  name: 微喇企业管理系统

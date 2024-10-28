@@ -1,0 +1,15 @@
+login:
+  form:
+    forgetPassword: forget the password
+    login: Login
+    password:
+      errMsg: User password is not filled in
+      placeholder: User password
+    register: register
+    rememberPassword: Remember password
+    title: Login
+    userName:
+      errMsg: Username is not filled in
+      placeholder: username
+project:
+  name: Weila Enterprise Management System
