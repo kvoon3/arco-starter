@@ -1,6 +1,6 @@
 import type { UserModule } from './types'
 import { createWebHistory } from 'vue-router'
-import globalComponents from '../src/components'
+import globalComponents from '~/components'
 import App from './App.vue'
 import directive from './directive'
 
@@ -12,12 +12,12 @@ import { NOT_FOUND_ROUTE, REDIRECT_MAIN } from './router/routes/base'
 import { setup } from './setup'
 
 import './mock'
-import '../src/api/interceptor'
+import '~/api/interceptor'
 
 // Styles are imported via arco-plugin. See config/plugin/arcoStyleImport.ts in the directory for details
 // 样式通过 arco-plugin 插件导入。详见目录文件 config/plugin/arcoStyleImport.ts
 // https://arco.design/docs/designlab/use-theme-package
-import '../src/assets/style/global.less'
+import '~/assets/style/global.less'
 
 import '@unocss/reset/tailwind.css'
 import 'virtual:uno.css'

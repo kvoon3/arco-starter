@@ -14,7 +14,7 @@
     "dev": "vite --config ./config/vite.config.dev.ts",
     "build": "vue-tsc --noEmit && vite-ssg build -c ./config/vite.config.prod.ts",
     "report": "cross-env REPORT=true npm run build",
-    "preview": "npm run build && vite preview --host",
+    "preview": "pnpm run build && vite preview --host",
     "typecheck": "vue-tsc --noEmit --skipLibCheck",
     "lint-staged": "npx lint-staged",
     "up": "taze -I major",
