@@ -12,4 +12,4 @@ login:
       errMsg: Username is not filled in
       placeholder: username
 project:
-  name: Weila Enterprise Management System
+  name: Weila enterprise management system

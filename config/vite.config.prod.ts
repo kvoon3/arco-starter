@@ -1,19 +1,16 @@
+import DistZip from 'unplugin-dist-zip/vite'
+import ImageMin from 'unplugin-imagemin/vite'
 import { mergeConfig } from 'vite'
+import { name } from '../package.json'
 import configArcoResolverPlugin from './plugin/arcoResolver'
 import configCompressPlugin from './plugin/compress'
-import configImageminPlugin from './plugin/imagemin'
 import configVisualizerPlugin from './plugin/visualizer'
 import baseConfig from './vite.config.base'
 
 export default mergeConfig(
+  baseConfig,
   {
     mode: 'production',
-    plugins: [
-      configCompressPlugin('gzip'),
-      configVisualizerPlugin(),
-      configArcoResolverPlugin(),
-      configImageminPlugin(),
-    ],
     build: {
       rollupOptions: {
         output: {
@@ -26,6 +23,26 @@ export default mergeConfig(
       },
       chunkSizeWarningLimit: 2000,
     },
+    plugins: [
+      configCompressPlugin('gzip'),
+      configVisualizerPlugin(),
+      configArcoResolverPlugin(),
+      // @ts-expect-error type error
+      ImageMin(),
+      DistZip({
+        filename() {
+          const date = new Date()
+
+          const formattedDate = date.getFullYear().toString()
+            + (date.getMonth() + 1).toString().padStart(2, '0')
+            + date.getDate().toString().padStart(2, '0')
+            + date.getHours().toString().padStart(2, '0')
+            + date.getMinutes().toString().padStart(2, '0')
+            + date.getSeconds().toString().padStart(2, '0')
+
+          return `${name}_${formattedDate}`
+        },
+      }),
+    ],
   },
-  baseConfig,
 )
