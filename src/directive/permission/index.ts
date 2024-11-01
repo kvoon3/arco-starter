@@ -1,9 +1,10 @@
 import type { DirectiveBinding } from 'vue'
+import { storeToRefs } from 'pinia'
 
 function checkPermission(el: HTMLElement, binding: DirectiveBinding) {
   const { value } = binding
   const userStore = useUserStore()
-  const { role } = userStore
+  const { role } = storeToRefs(userStore)
 
   if (Array.isArray(value)) {
     if (value.length > 0) {

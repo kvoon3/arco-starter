@@ -11,6 +11,7 @@ export const install: UserModule = ({ isClient, router }) => {
         NProgress.start()
     })
     router.afterEach(() => {
+      console.log('sdlfk')
       NProgress.done()
     })
   }

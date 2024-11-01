@@ -49,6 +49,21 @@ export default defineConfig({
     },
   },
 
+  server: {
+    cors: true,
+    proxy: {
+      '/v1': {
+        target: 'http://192.168.0.125:8088',
+        changeOrigin: true,
+        configure(proxy) {
+          proxy.on('error', (error) => {
+            console.log('error', error)
+          })
+        },
+      },
+    },
+  },
+
   plugins: [
     ViteYaml(),
 
@@ -75,6 +90,7 @@ export default defineConfig({
         'src/composables',
         'src/stores',
         'src/layout',
+        'src/utils',
       ],
       vueTemplate: true,
     }),

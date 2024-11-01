@@ -15,7 +15,7 @@ const userStore = useUserStore()
 const { logout } = useUser()
 const { isFullscreen, toggle: toggleFullScreen } = useFullscreen()
 const avatar = computed(() => {
-  return userStore.avatar
+  return userStore.userInfo?.avatar
 })
 const theme = computed(() => {
   return appStore.theme
@@ -58,8 +58,8 @@ function handleLogout() {
 }
 
 async function switchRoles() {
-  const res = await userStore.switchRoles()
-  Message.success(res as string)
+  // const res = await userStore.switchRoles()
+  Message.success('todo')
 }
 
 const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void

@@ -8,9 +8,12 @@ export {}
 declare global {
   const DEFAULT_LAYOUT: typeof import('./layout/index')['DEFAULT_LAYOUT']
   const EffectScope: typeof import('vue')['EffectScope']
+  const FIRST_LAYOUT: typeof import('./layout/index')['FIRST_LAYOUT']
   const PAGE_LAYOUT: typeof import('./layout/index')['PAGE_LAYOUT']
+  const addEventListen: typeof import('./utils/event')['addEventListen']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const clearToken: typeof import('./utils/auth')['clearToken']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -34,20 +37,41 @@ declare global {
   const defineComponent: typeof import('vue')['defineComponent']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
+  const env: typeof import('./utils/env')['default']
   const extendRef: typeof import('@vueuse/core')['extendRef']
+  const failResponseWrap: typeof import('./utils/setup-mock')['failResponseWrap']
+  const genRootRouteRecord: typeof import('./utils/route')['genRootRouteRecord']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
+  const getToken: typeof import('./utils/auth')['getToken']
   const h: typeof import('vue')['h']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
   const injectLocal: typeof import('@vueuse/core')['injectLocal']
+  const inspect: typeof import('./utils/inspect')['inspect']
+  const isArray: typeof import('./utils/is')['isArray']
+  const isBlob: typeof import('./utils/is')['isBlob']
   const isDefined: typeof import('@vueuse/core')['isDefined']
+  const isEmptyObject: typeof import('./utils/is')['isEmptyObject']
+  const isExist: typeof import('./utils/is')['isExist']
+  const isFile: typeof import('./utils/is')['isFile']
+  const isFunction: typeof import('./utils/is')['isFunction']
+  const isLogin: typeof import('./utils/auth')['isLogin']
+  const isNull: typeof import('./utils/is')['isNull']
+  const isNumber: typeof import('./utils/is')['isNumber']
+  const isObject: typeof import('./utils/is')['isObject']
   const isProxy: typeof import('vue')['isProxy']
   const isReactive: typeof import('vue')['isReactive']
   const isReadonly: typeof import('vue')['isReadonly']
   const isRef: typeof import('vue')['isRef']
+  const isRegExp: typeof import('./utils/is')['isRegExp']
+  const isString: typeof import('./utils/is')['isString']
+  const isUndefined: typeof import('./utils/is')['isUndefined']
+  const isWindow: typeof import('./utils/is')['isWindow']
+  const listenerRouteChange: typeof import('./utils/route-listener')['listenerRouteChange']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const markRaw: typeof import('vue')['markRaw']
+  const monitor: typeof import('./utils/monitor')['default']
   const nextTick: typeof import('vue')['nextTick']
   const onActivated: typeof import('vue')['onActivated']
   const onBeforeMount: typeof import('vue')['onBeforeMount']
@@ -69,6 +93,7 @@ declare global {
   const onUnmounted: typeof import('vue')['onUnmounted']
   const onUpdated: typeof import('vue')['onUpdated']
   const onWatcherCleanup: typeof import('vue')['onWatcherCleanup']
+  const openWindow: typeof import('./utils/index')['openWindow']
   const pausableWatch: typeof import('@vueuse/core')['pausableWatch']
   const provide: typeof import('vue')['provide']
   const provideLocal: typeof import('@vueuse/core')['provideLocal']
@@ -85,12 +110,20 @@ declare global {
   const refDefault: typeof import('@vueuse/core')['refDefault']
   const refThrottled: typeof import('@vueuse/core')['refThrottled']
   const refWithControl: typeof import('@vueuse/core')['refWithControl']
+  const regexUrl: typeof import('./utils/index')['regexUrl']
+  const removeEventListen: typeof import('./utils/event')['removeEventListen']
+  const removeRouteListener: typeof import('./utils/route-listener')['removeRouteListener']
   const resolveComponent: typeof import('vue')['resolveComponent']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
+  const safeSubmit: typeof import('./utils/form')['safeSubmit']
+  const setRouteEmitter: typeof import('./utils/route-listener')['setRouteEmitter']
+  const setToken: typeof import('./utils/auth')['setToken']
+  const setupMock: typeof import('./utils/setup-mock')['default']
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
+  const successResponseWrap: typeof import('./utils/setup-mock')['successResponseWrap']
   const syncRef: typeof import('@vueuse/core')['syncRef']
   const syncRefs: typeof import('@vueuse/core')['syncRefs']
   const templateRef: typeof import('@vueuse/core')['templateRef']
@@ -280,6 +313,7 @@ declare global {
   const useWindowFocus: typeof import('@vueuse/core')['useWindowFocus']
   const useWindowScroll: typeof import('@vueuse/core')['useWindowScroll']
   const useWindowSize: typeof import('@vueuse/core')['useWindowSize']
+  const utils: typeof import('./utils/index')['default']
   const watch: typeof import('vue')['watch']
   const watchArray: typeof import('@vueuse/core')['watchArray']
   const watchAtMost: typeof import('@vueuse/core')['watchAtMost']
@@ -310,7 +344,9 @@ declare module 'vue' {
   interface ComponentCustomProperties {
     readonly DEFAULT_LAYOUT: UnwrapRef<typeof import('./layout/index')['DEFAULT_LAYOUT']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly FIRST_LAYOUT: UnwrapRef<typeof import('./layout/index')['FIRST_LAYOUT']>
     readonly PAGE_LAYOUT: UnwrapRef<typeof import('./layout/index')['PAGE_LAYOUT']>
+    readonly addEventListen: UnwrapRef<typeof import('./utils/event')['addEventListen']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
@@ -337,19 +373,23 @@ declare module 'vue' {
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
+    readonly genRootRouteRecord: UnwrapRef<typeof import('./utils/route')['genRootRouteRecord']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly injectLocal: UnwrapRef<typeof import('@vueuse/core')['injectLocal']>
+    readonly inspect: UnwrapRef<typeof import('./utils/inspect')['inspect']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
     readonly isProxy: UnwrapRef<typeof import('vue')['isProxy']>
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
+    readonly listenerRouteChange: UnwrapRef<typeof import('./utils/route-listener')['listenerRouteChange']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
+    readonly monitor: UnwrapRef<typeof import('./utils/monitor')['default']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>
     readonly onBeforeMount: UnwrapRef<typeof import('vue')['onBeforeMount']>
@@ -369,6 +409,7 @@ declare module 'vue' {
     readonly onUnmounted: UnwrapRef<typeof import('vue')['onUnmounted']>
     readonly onUpdated: UnwrapRef<typeof import('vue')['onUpdated']>
     readonly onWatcherCleanup: UnwrapRef<typeof import('vue')['onWatcherCleanup']>
+    readonly openWindow: UnwrapRef<typeof import('./utils/index')['openWindow']>
     readonly pausableWatch: UnwrapRef<typeof import('@vueuse/core')['pausableWatch']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
     readonly provideLocal: UnwrapRef<typeof import('@vueuse/core')['provideLocal']>
@@ -385,9 +426,13 @@ declare module 'vue' {
     readonly refDefault: UnwrapRef<typeof import('@vueuse/core')['refDefault']>
     readonly refThrottled: UnwrapRef<typeof import('@vueuse/core')['refThrottled']>
     readonly refWithControl: UnwrapRef<typeof import('@vueuse/core')['refWithControl']>
+    readonly regexUrl: UnwrapRef<typeof import('./utils/index')['regexUrl']>
+    readonly removeEventListen: UnwrapRef<typeof import('./utils/event')['removeEventListen']>
+    readonly removeRouteListener: UnwrapRef<typeof import('./utils/route-listener')['removeRouteListener']>
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
+    readonly setRouteEmitter: UnwrapRef<typeof import('./utils/route-listener')['setRouteEmitter']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
@@ -579,6 +624,7 @@ declare module 'vue' {
     readonly useWindowFocus: UnwrapRef<typeof import('@vueuse/core')['useWindowFocus']>
     readonly useWindowScroll: UnwrapRef<typeof import('@vueuse/core')['useWindowScroll']>
     readonly useWindowSize: UnwrapRef<typeof import('@vueuse/core')['useWindowSize']>
+    readonly utils: UnwrapRef<typeof import('./utils/index')['default']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>
     readonly watchArray: UnwrapRef<typeof import('@vueuse/core')['watchArray']>
     readonly watchAtMost: UnwrapRef<typeof import('@vueuse/core')['watchAtMost']>

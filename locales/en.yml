@@ -1,15 +1,51 @@
+account:
+  txt: Account
 login:
   form:
     forgetPassword: forget the password
     login: Login
     password:
-      errMsg: User password is not filled in
-      placeholder: User password
+      errMsg: password is not filled in
+      placeholder: password
     register: register
     rememberPassword: Remember password
     title: Login
     userName:
-      errMsg: Username is not filled in
+      errMsg: username is not filled in
       placeholder: username
+  type:
+    phone: phone
+    username: account
 project:
   name: Weila enterprise management system
+register:
+  form:
+    getSMS: Get SMS
+    imgVerifyCode:
+      errMsg: image verify code is needed
+      placeholder: image verify code
+    login: login
+    password:
+      errMsg: password need be filled
+    phone:
+      errMsg: Enter correct phone number
+      placeholder: your phone number
+    sendSMS: send
+    submit: submit
+    successMsg: Success
+    title: Register
+    verifyCode:
+      errMsg: verify code is needed
+      placeholder: verify code
+reset-pwd:
+  form:
+    phone:
+      errMsg: Enter correct phone number
+      placeholder: your phone number
+    title: Reset Password
+sendSMS:
+  success:
+    hint: Sent successfully, please pay attention to your message
+menu:
+  contact: Contact
+  workbench: Workbench

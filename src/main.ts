@@ -11,9 +11,6 @@ import { NOT_FOUND_ROUTE, REDIRECT_MAIN } from './router/routes/base'
 
 import { setup } from './setup'
 
-import './mock'
-import '~/api/interceptor'
-
 // Styles are imported via arco-plugin. See config/plugin/arcoStyleImport.ts in the directory for details
 // 样式通过 arco-plugin 插件导入。详见目录文件 config/plugin/arcoStyleImport.ts
 // https://arco.design/docs/designlab/use-theme-package
@@ -22,29 +19,55 @@ import '~/assets/style/global.less'
 import '@unocss/reset/tailwind.css'
 import 'virtual:uno.css'
 
+const routes = [
+  {
+    path: '',
+    component: () => import('~/layout/first.vue'),
+    meta: {
+      requiresAuth: false,
+    },
+    children: [
+      {
+        name: 'Login',
+        path: 'login',
+        alias: '',
+        component: () => import('~/views/login/index.vue'),
+        meta: {
+          requiresAuth: false,
+        },
+      },
+      {
+        name: 'Register',
+        path: 'register',
+        component: () => import('~/views/register/index.vue'),
+        meta: {
+          requiresAuth: false,
+        },
+      },
+      {
+        name: 'ResetPassword',
+        path: 'reset-password',
+        component: () => import('~/views/reset-password/index.vue'),
+        meta: {
+          requiresAuth: false,
+        },
+      },
+    ],
+  },
+  ...appRoutes,
+  REDIRECT_MAIN,
+  NOT_FOUND_ROUTE,
+]
+
+console.log('routes', routes)
+
 setup(
   // the root component
   App,
   // vue-router options
   {
     history: createWebHistory(),
-    routes: [
-      {
-        path: '/',
-        redirect: 'login',
-      },
-      {
-        path: '/login',
-        name: 'login',
-        component: () => import('~/views/login/index.vue'),
-        meta: {
-          requiresAuth: false,
-        },
-      },
-      ...appRoutes,
-      REDIRECT_MAIN,
-      NOT_FOUND_ROUTE,
-    ],
+    routes,
     scrollBehavior() {
       return { top: 0 }
     },
