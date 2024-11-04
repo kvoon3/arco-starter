@@ -5,7 +5,8 @@ import Message from '@arco-design/web-vue/es/message'
 import { useMutation, useQuery } from '@tanstack/vue-query'
 import md5 from 'md5'
 import { h } from 'vue'
-import { weilaApi } from '~/api'
+import { weilaRequest } from '~/api'
+import { weilaFetch } from '~/api/instances/fetcher'
 import type { OnSubmitParams } from '~/types'
 
 const router = useRouter()
@@ -35,22 +36,19 @@ const form = reactive<Form>({
   password: '',
 })
 
-inspect(form)
+$inspect(form)
 
-const { data: verifyCodeImg, refetch } = useQuery({
+const { data: verifyCodeImg, refetch, error } = useQuery({
   queryKey: ['verifyCodeImg'],
   refetchOnWindowFocus: false,
   queryFn: async () => {
-    const res = await fetch('/v1/corp/web/get-verifycode-image?width=150&height=50')
+    const blob = await weilaFetch<Blob>('/v1/corp/web/get-verifycode-image?width=150&height=50')
 
-    if (!res.ok)
-      throw new Error('Network response was not ok')
-
-    const data = await res.blob()
-
-    return URL.createObjectURL(data)
+    return URL.createObjectURL(blob)
   },
 })
+
+$inspect(error)
 
 const { mutate: sendSMS } = useMutation({
   async mutationFn(params: {
@@ -59,7 +57,7 @@ const { mutate: sendSMS } = useMutation({
     sms_type: 'regist'
     verify_code: string
   }) {
-    await weilaApi.post('/v1/corp/web/send-sms-verifycode', params)
+    await weilaRequest.post('/v1/corp/web/send-sms-verifycode', params)
   },
   onSuccess() {
     Message.success({
@@ -77,7 +75,7 @@ const { mutate: sendSMS } = useMutation({
 
 const { mutate: register } = useMutation({
   async mutationFn(params: Omit<Form, 'img_verify_code'>) {
-    const { data: { user_name } } = await weilaApi.post<{
+    const { data: { user_name } } = await weilaRequest.post<{
       user_name: string
       country_code: string
       password: string // temp password

@@ -55,11 +55,6 @@ export default defineConfig({
       '/v1': {
         target: 'http://192.168.0.125:8088',
         changeOrigin: true,
-        configure(proxy) {
-          proxy.on('error', (error) => {
-            console.log('error', error)
-          })
-        },
       },
     },
   },

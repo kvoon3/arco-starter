@@ -59,8 +59,6 @@ const routes = [
   NOT_FOUND_ROUTE,
 ]
 
-console.log('routes', routes)
-
 setup(
   // the root component
   App,

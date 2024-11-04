@@ -32,8 +32,6 @@ export default defineComponent({
     const selectedKey = ref<string[]>([])
 
     const goto = (item: RouteRecordRaw) => {
-      console.log('item', item)
-
       // Open external link
       if (regexUrl.test(item.path)) {
         openWindow(item.path)
@@ -43,19 +41,9 @@ export default defineComponent({
       // Eliminate external link side effects
       const { hideInMenu, activeMenu } = item.meta as RouteMeta
       if (route.name === item.name && !hideInMenu && !activeMenu) {
-        console.log('item', item)
-        console.log('route.name', route.name)
-        console.log('item.name', item.name)
-        console.log('hideInMenu', hideInMenu)
-        console.log('activeMenu', activeMenu)
-
         selectedKey.value = [item.name as string]
         return
       }
-
-      const to = item.name
-      console.log('to', to)
-
       // Trigger router change
       router.push({
         name: item.name,

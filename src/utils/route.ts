@@ -42,7 +42,5 @@ export function genRootRouteRecord(routeRecord: AppRouteRecordRaw | AppRouteReco
     })
   }
 
-  console.log('rootRouteRecords', rootRouteRecords)
-
   return rootRouteRecords
 }

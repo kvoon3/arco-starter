@@ -1,7 +1,7 @@
 import type { RouteRecordNormalized } from 'vue-router'
 import axios from 'axios'
 import md5 from 'md5'
-import { weilaApi } from '.'
+import { weilaRequest } from '.'
 
 export interface LoginModel {
   user: {
@@ -58,7 +58,7 @@ export async function login(
 
   const type = unref(loginType)
 
-  const { data } = await weilaApi.post<LoginModel>(
+  const { data } = await weilaRequest.post<LoginModel>(
     `/v1/corp/web/login-by-${type}`,
     {
       [type === 'phone' ? 'phone' : 'user_name']: account,

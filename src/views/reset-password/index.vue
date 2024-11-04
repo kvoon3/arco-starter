@@ -3,7 +3,7 @@ import { objectKeys } from '@antfu/utils'
 import Message from '@arco-design/web-vue/es/message'
 import { useMutation, useQuery } from '@tanstack/vue-query'
 import { omit } from 'lodash'
-import { weilaApi } from '~/api'
+import { weilaRequest } from '~/api'
 import type { OnSubmitParams } from '~/types'
 
 const router = useRouter()
@@ -26,7 +26,7 @@ const form = reactive<Form>({
   country_code: '86',
 })
 
-inspect(form)
+$inspect(form)
 
 const { data: verifyCodeImg, refetch } = useQuery({
   queryKey: ['verifyCodeImg'],
@@ -50,7 +50,7 @@ const { mutate: sendSMS } = useMutation({
     sms_type: 'reset-password'
     verify_code: string
   }) {
-    await weilaApi.post('/v1/corp/web/send-sms-verifycode', params)
+    await weilaRequest.post('/v1/corp/web/send-sms-verifycode', params)
   },
   onSuccess() {
     Message.success({
@@ -68,7 +68,7 @@ const { mutate: sendSMS } = useMutation({
 
 const { mutate } = useMutation({
   async mutationFn(params: Omit<Form, 'img_verify_code'>) {
-    await weilaApi.post<{
+    await weilaRequest.post<{
       user_name: string
       country_code: string
       password: string

@@ -6,7 +6,7 @@ import { isFunction } from '@antfu/utils'
  * @see https://svelte.dev/docs/svelte/$inspect
  * @author kvoon
  */
-export function inspect(...args: MaybeRefOrGetter[]) {
+export function $inspect(...args: MaybeRefOrGetter[]) {
   /* eslint-disable no-console */
   let logFn = console.log
   // TODO: change type

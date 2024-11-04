@@ -6,7 +6,7 @@ import { NOT_FOUND, WHITE_LIST } from '../constants'
 import { appRoutes } from '../routes'
 
 export default function setupPermissionGuard(router: Router) {
-  router.beforeEach(async (to, from, next) => {
+  router.beforeEach(async (to, _, next) => {
     const appStore = useAppStore()
     const userStore = useUserStore()
     const Permission = usePermission()

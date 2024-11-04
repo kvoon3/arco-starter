@@ -46,7 +46,7 @@ const { mutate, isPending, data } = useMutation({
   },
 })
 
-inspect(data)
+$inspect(data)
 
 function handleSubmit({ values, errors }: OnSubmitParams<Form>) {
   if (errors && objectKeys(errors).length)

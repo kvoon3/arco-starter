@@ -6,6 +6,7 @@
 // biome-ignore lint: disable
 export {}
 declare global {
+  const $inspect: typeof import('./utils/inspect')['$inspect']
   const DEFAULT_LAYOUT: typeof import('./layout/index')['DEFAULT_LAYOUT']
   const EffectScope: typeof import('vue')['EffectScope']
   const FIRST_LAYOUT: typeof import('./layout/index')['FIRST_LAYOUT']
@@ -342,6 +343,7 @@ import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
+    readonly $inspect: UnwrapRef<typeof import('./utils/inspect')['$inspect']>
     readonly DEFAULT_LAYOUT: UnwrapRef<typeof import('./layout/index')['DEFAULT_LAYOUT']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly FIRST_LAYOUT: UnwrapRef<typeof import('./layout/index')['FIRST_LAYOUT']>
@@ -380,7 +382,6 @@ declare module 'vue' {
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly injectLocal: UnwrapRef<typeof import('@vueuse/core')['injectLocal']>
-    readonly inspect: UnwrapRef<typeof import('./utils/inspect')['inspect']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
     readonly isProxy: UnwrapRef<typeof import('vue')['isProxy']>
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>
@@ -590,7 +591,6 @@ declare module 'vue' {
     readonly useStyleTag: UnwrapRef<typeof import('@vueuse/core')['useStyleTag']>
     readonly useSupported: UnwrapRef<typeof import('@vueuse/core')['useSupported']>
     readonly useSwipe: UnwrapRef<typeof import('@vueuse/core')['useSwipe']>
-    readonly useTabBarStore: UnwrapRef<typeof import('./stores/tab-bar')['useTabBarStore']>
     readonly useTemplateRef: UnwrapRef<typeof import('vue')['useTemplateRef']>
     readonly useTemplateRefsList: UnwrapRef<typeof import('@vueuse/core')['useTemplateRefsList']>
     readonly useTextDirection: UnwrapRef<typeof import('@vueuse/core')['useTextDirection']>
