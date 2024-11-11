@@ -1,18 +1,10 @@
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import type { WeilaRes } from '..'
+import { Message } from '@arco-design/web-vue'
 import axios from 'axios'
-import { access_token, app_id, app_sign, timestamp } from '~/shared/states'
-
-import defaultConfig from '../api.config'
-
-interface WeilaRes<T = undefined> {
-  data: T
-
-  errmsg: string
-  errcode: number
-
-  code?: number
-  msg?: string
-}
+import { access_token, app_id, app_sign, isNeedRefresh, timestamp } from '~/shared/states'
+import defaultConfig, { publicApi, WeilaErrorCode } from '..'
+import { tryRefreshToken } from '../refresh'
 
 interface WeilaRequestInstance extends AxiosInstance {
   post: <T = any, R = WeilaRes<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>) => Promise<R>
@@ -44,6 +36,13 @@ weilaRequest.interceptors.request.use(
       }
     }
 
+    if (
+      isNeedRefresh.value
+      && !config.url?.endsWith('refresh')
+    ) {
+      tryRefreshToken()
+    }
+
     return config
   },
   (error) => {
@@ -54,14 +53,22 @@ weilaRequest.interceptors.request.use(
 weilaRequest.interceptors.response.use(
   // @ts-expect-error type error
   (response: AxiosResponse<WeilaRes>) => {
-    if (response.data.errcode === 0 || response.data?.code === 200) {
+    const { errcode, code } = response.data
+
+    if (errcode === WeilaErrorCode.SUCCESS || code === 200) {
       return response.data
     }
+    else if (errcode === WeilaErrorCode.TOKEN_INVALID) {
+      location.href = '/login'
+    }
     else {
-      throw new Error(response.data.errmsg)
+      const message = `${response.data.errcode} ${response.data.errmsg}`
+      Message.error(message)
+      throw new Error(message)
     }
   },
-  (error) => {
+  (error: Error) => {
+    Message.error(error.message)
     return Promise.reject(error)
   },
 )

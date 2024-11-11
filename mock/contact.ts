@@ -1,0 +1,215 @@
+import type { MockMethod } from 'vite-plugin-mock'
+import type { WeilaRes } from '~/api'
+
+const urlRes: Array<[string, WeilaRes<any>]> = [
+  [
+    '/v1/corp/web/get-address-list',
+    {
+      errcode: 0,
+      errmsg: '请求成功',
+      data: {
+        address_list: {
+          version: 1730434624,
+          members: [
+            {
+              user_id: 1253444,
+              dept_id: 0,
+              country_code: '86',
+              phone: '13353236154',
+              type: 255,
+              tts: 1,
+              loc_share: 0,
+              track: 0,
+              state: 0,
+              created: 1730274537,
+              user_num: '70015325',
+              sex: 0,
+              name: 'ent19949504',
+              avatar: 'http://favicon.weila.hk/default/user.png',
+            },
+          ],
+          depts: [
+            {
+              id: 6,
+              name: '研发部2',
+              members: [
+                {
+                  user_id: 1253446,
+                  dept_id: 6,
+                  country_code: '86',
+                  phone: '18611111111',
+                  type: 0,
+                  tts: 1,
+                  loc_share: 0,
+                  track: 0,
+                  state: 0,
+                  created: 1730279383,
+                  user_num: '70011173',
+                  sex: 0,
+                  name: '222222',
+                  avatar: 'http://favicon.weila.hk/default/user.png',
+                },
+                {
+                  user_id: 1253448,
+                  dept_id: 6,
+                  country_code: '86',
+                  phone: '18611111111',
+                  type: 1,
+                  tts: 1,
+                  loc_share: 0,
+                  track: 0,
+                  state: 0,
+                  created: 1730434624,
+                  user_num: '30015839',
+                  sex: 0,
+                  name: '222222',
+                  avatar: 'http://favicon.weila.hk/default/group.png',
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  ],
+  ['/v1/corp/web/dept-create', {
+    errcode: 0,
+    errmsg: '请求成功',
+    data: {
+      id: 1,
+      name: '研发部',
+    },
+  }],
+  ['/v1/corp/web/dept-change', {
+    errcode: 0,
+    errmsg: '请求成功',
+    data: {
+      id: 1,
+      name: '研发部12',
+    },
+  }],
+  ['/v1/corp/web/dept-delete', {
+    errcode: 0,
+    errmsg: '请求成功',
+  }],
+  ['/v1/corp/web/dept-getall', {
+    errcode: 0,
+    errmsg: '请求成功',
+    data: {
+      depts: [
+        {
+          id: 1,
+          name: '研发部12',
+        },
+        {
+          id: 2,
+          name: '研发部2',
+        },
+        {
+          id: 3,
+          name: '研发部2',
+        },
+        {
+          id: 4,
+          name: '研发部2',
+        },
+        {
+          id: 5,
+          name: '研发部2',
+        },
+      ],
+    },
+  }],
+  ['/v1/corp/web/member-create', {
+    errcode: 0,
+    errmsg: '请求成功',
+    data: {
+      user_id: 1253449,
+      org_num: 100073,
+      dept_id: 6,
+      country_code: '86',
+      phone: '18611111111',
+      type: 0,
+      tts: 0,
+      loc_share: 0,
+      track: 0,
+      state: 0,
+      created: 1730453120,
+      user_num: '70013070',
+      sex: 0,
+      name: '222222',
+      avatar: 'http://favicon.weila.hk/default/user.png',
+    },
+  }],
+  ['/v1/corp/web/member-add-device', {
+    errcode: 0,
+    errmsg: '请求成功',
+    data: {
+      user_id: 1253448,
+      org_num: 100073,
+      dept_id: 6,
+      country_code: '86',
+      phone: '18611111111',
+      type: 1,
+      tts: 0,
+      loc_share: 0,
+      track: 1,
+      state: 0,
+      created: 1730453616,
+      user_num: '30015839',
+      sex: 0,
+      name: '222222',
+      avatar: 'http://favicon.weila.hk/default/group.png',
+    },
+  }],
+  ['/v1/corp/web/member-change', {
+    errcode: 0,
+    errmsg: '请求成功',
+    data: {
+      user_id: 1253437,
+      org_num: 100021,
+      dept_id: 1,
+      country_code: '86',
+      phone: '1862222222',
+      type: 2,
+      state: 0,
+      created: 1730196254,
+      user_num: '70010607',
+      sex: 1,
+      name: '33333',
+      avatar: 'http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100021/u/1253437/a/4b00bbb0.jpg',
+    },
+  }],
+  ['/v1/corp/web/member-change-state', {
+    errcode: 0,
+    errmsg: '请求成功',
+    data: {
+      user_id: 1253443,
+      org_num: 100021,
+      dept_id: 1,
+      country_code: '86',
+      phone: '1862222222',
+      type: 0,
+      state: 1,
+      created: 1730267118,
+      user_num: '70012325',
+      sex: 1,
+      name: '33333',
+      avatar: 'http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100021/u/1253443/a/58785cbe.jpg',
+    },
+  }],
+  ['/v1/corp/web/member-delete', {
+    errcode: 0,
+    errmsg: '请求成功',
+  }],
+  ['/v1/corp/web/member-reset-password', {
+    errcode: 0,
+    errmsg: '请求成功',
+  }],
+]
+
+export default urlRes.map(([url, response]) => ({
+  url,
+  method: 'post',
+  response,
+})) as MockMethod[]

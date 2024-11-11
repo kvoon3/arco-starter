@@ -4,6 +4,7 @@ import type { UserModule } from './types'
 import { isClient } from '@vueuse/core'
 import { createApp } from 'vue'
 import { createRouter } from 'vue-router'
+import { handleHotUpdate } from 'vue-router/auto-routes'
 
 // NOTE: imitate from [vite-ssg](https://github.com/antfu-collective/vite-ssg)
 export function setup(
@@ -31,4 +32,6 @@ export function setup(
   })
 
   app.mount(el)
+  if (import.meta.hot)
+    handleHotUpdate(router)
 }

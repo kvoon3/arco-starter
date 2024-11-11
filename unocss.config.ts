@@ -15,12 +15,23 @@ export default defineConfig({
   // ...
   theme: {
     colors: {
-      primary: themeColor,
+      primary: {
+        DEFAULT: themeColor,
+        100: '#d0dfff',
+        200: '#a2beff',
+        300: '#739eff',
+        400: '#457dff',
+        500: '#165dff',
+        600: '#124acc',
+        700: '#0d3899',
+        800: '#092566',
+        900: '#041333',
+      },
     },
   },
   shortcuts: [
-    ['bg-base', 'bg-white dark:bg-black'],
-    ['bg-base-2', 'bg-neutral-1 dark:bg-dark'],
+    ['list-btn', 'hover:op100 hover:bg-gray-200 dark:hover:bg-#343435 w-full rounded px4 py2 text-start leading-loose op75 transition-all duration-80 active:color-primary visited:color-primary flex items-center gap-2'],
+    ['bg-base', 'bg-white dark:bg-dark'],
     ['text-base', 'text-gray-800 dark:text-white'],
     ['position-center', 'position-x-center position-y-center'],
     ['position-x-center', 'left-50% translate-x--50%'],

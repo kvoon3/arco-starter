@@ -1,5 +1,9 @@
 import axios from 'axios'
 
+/**
+ * NOTE: arco mock
+ */
+
 export interface MessageRecord {
   id: number
   type: string

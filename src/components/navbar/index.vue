@@ -3,8 +3,8 @@ import { Message } from '@arco-design/web-vue'
 import { useDark, useFullscreen, useToggle } from '@vueuse/core'
 import { computed, inject, ref } from 'vue'
 import Menu from '~/components/menu/index.vue'
-import useUser from '~/hooks/user'
 import { availableLocales, loadLanguageAsync } from '~/modules/i18n'
+import { access_token, isDark, last_login_time, refresh_token } from '~/shared/states'
 import MessageBox from '../message-box/index.vue'
 
 const { t, locale } = useI18n()
@@ -12,64 +12,31 @@ const router = useRouter()
 
 const appStore = useAppStore()
 const userStore = useUserStore()
-const { logout } = useUser()
 const { isFullscreen, toggle: toggleFullScreen } = useFullscreen()
 const avatar = computed(() => {
   return userStore.userInfo?.avatar
 })
-const theme = computed(() => {
-  return appStore.theme
-})
 const topMenu = computed(() => appStore.topMenu && appStore.menu)
-const isDark = useDark({
-  selector: 'body',
-  attribute: 'arco-theme',
-  valueDark: 'dark',
-  valueLight: 'light',
-  storageKey: 'arco-theme',
-  onChanged(dark: boolean) {
-    // overridden default behavior
-    appStore.toggleTheme(dark)
-  },
-})
 const toggleTheme = useToggle(isDark)
-
-function handleToggleTheme() {
-  toggleTheme()
-}
 
 function setVisible() {
   appStore.updateSettings({ globalSettings: true })
 }
 
-const refBtn = ref()
-
-function setPopoverVisible() {
-  const event = new MouseEvent('click', {
-    view: window,
-    bubbles: true,
-    cancelable: true,
-  })
-  refBtn.value.dispatchEvent(event)
-}
-
-function handleLogout() {
-  logout()
-}
-
-async function switchRoles() {
-  // const res = await userStore.switchRoles()
-  Message.success('todo')
-}
-
 const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void
 
 async function toggleLocales() {
-  // change to some real logic
   const locales = availableLocales
   const newLocale = locales[(locales.indexOf(locale.value) + 1) % locales.length]
   await loadLanguageAsync(newLocale)
   locale.value = newLocale
+}
+
+function logout() {
+  access_token.value = ''
+  refresh_token.value = ''
+  last_login_time.value = -1
+  router.push('/login')
 }
 </script>
 
@@ -85,7 +52,7 @@ async function toggleLocales() {
           :style="{ margin: 0, fontSize: '18px' }"
           :heading="5"
         >
-          Arco Pro
+          {{ t('project.name') }}
         </a-typography-title>
         <icon-menu-fold
           v-if="!topMenu && appStore.device === 'mobile'"
@@ -98,15 +65,6 @@ async function toggleLocales() {
       <Menu v-if="topMenu" />
     </div>
     <ul class="right-side">
-      <li>
-        <a-tooltip :content="t('settings.search')">
-          <a-button class="nav-btn" type="outline" shape="circle">
-            <template #icon>
-              <icon-search />
-            </template>
-          </a-button>
-        </a-tooltip>
-      </li>
       <li>
         <a-tooltip :content="t('settings.language')">
           <a-button
@@ -122,52 +80,17 @@ async function toggleLocales() {
         </a-tooltip>
       </li>
       <li>
-        <a-tooltip
-          :content="
-            theme === 'light'
-              ? t('settings.navbar.theme.toDark')
-              : t('settings.navbar.theme.toLight')
-          "
+        <a-button
+          class="nav-btn"
+          type="outline"
+          shape="circle"
+          @click="toggleTheme()"
         >
-          <a-button
-            class="nav-btn"
-            type="outline"
-            shape="circle"
-            @click="handleToggleTheme"
-          >
-            <template #icon>
-              <icon-moon-fill v-if="theme === 'dark'" />
-              <icon-sun-fill v-else />
-            </template>
-          </a-button>
-        </a-tooltip>
-      </li>
-      <li>
-        <a-tooltip :content="t('settings.navbar.alerts')">
-          <div class="message-box-trigger">
-            <a-badge :count="9" dot>
-              <a-button
-                class="nav-btn"
-                type="outline"
-                shape="circle"
-                @click="setPopoverVisible"
-              >
-                <icon-notification />
-              </a-button>
-            </a-badge>
-          </div>
-        </a-tooltip>
-        <a-popover
-          trigger="click"
-          :arrow-style="{ display: 'none' }"
-          :content-style="{ padding: 0, minWidth: '400px' }"
-          content-class="message-popover"
-        >
-          <div ref="refBtn" class="ref-btn" />
-          <template #content>
-            <MessageBox />
+          <template #icon>
+            <icon-moon-fill v-if="!isDark" />
+            <icon-sun-fill v-else />
           </template>
-        </a-popover>
+        </a-button>
       </li>
       <li>
         <a-tooltip
@@ -214,31 +137,7 @@ async function toggleLocales() {
           </a-avatar>
           <template #content>
             <a-doption>
-              <a-space @click="switchRoles">
-                <icon-tag />
-                <span>
-                  {{ t('messageBox.switchRoles') }}
-                </span>
-              </a-space>
-            </a-doption>
-            <a-doption>
-              <a-space @click="router.push({ name: 'Info' })">
-                <icon-user />
-                <span>
-                  {{ t('messageBox.userCenter') }}
-                </span>
-              </a-space>
-            </a-doption>
-            <a-doption>
-              <a-space @click="router.push({ name: 'Setting' })">
-                <icon-settings />
-                <span>
-                  {{ t('messageBox.userSettings') }}
-                </span>
-              </a-space>
-            </a-doption>
-            <a-doption>
-              <a-space @click="handleLogout">
+              <a-space @click="logout">
                 <icon-export />
                 <span>
                   {{ t('messageBox.logout') }}

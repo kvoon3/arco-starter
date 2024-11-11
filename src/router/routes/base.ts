@@ -14,7 +14,7 @@ export const REDIRECT_MAIN: RouteRecordRaw = {
     {
       path: '/redirect/:path',
       name: REDIRECT_ROUTE_NAME,
-      component: () => import('~/views/redirect/index.vue'),
+      component: () => import('~/pages/redirect/index.vue'),
       meta: {
         requiresAuth: true,
         hideInMenu: true,
@@ -26,5 +26,5 @@ export const REDIRECT_MAIN: RouteRecordRaw = {
 export const NOT_FOUND_ROUTE: RouteRecordRaw = {
   path: '/:pathMatch(.*)*',
   name: 'notFound',
-  component: () => import('~/views/not-found/index.vue'),
+  component: () => import('~/pages/not-found/index.vue'),
 }

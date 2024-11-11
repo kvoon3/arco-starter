@@ -1,7 +1,11 @@
 import type { RouteRecordNormalized } from 'vue-router'
 import axios from 'axios'
 import md5 from 'md5'
-import { weilaRequest } from '.'
+import { weilaRequest } from './instances/request'
+
+/**
+ * NOTE: arco mock
+ */
 
 export interface LoginModel {
   user: {
@@ -32,6 +36,8 @@ export interface LoginModel {
     device_ver: number
   }
   access_token: string
+  refresh_token?: string
+  expires_in?: number
 }
 
 export interface LoginData {
@@ -59,7 +65,7 @@ export async function login(
   const type = unref(loginType)
 
   const { data } = await weilaRequest.post<LoginModel>(
-    `/v1/corp/web/login-by-${type}`,
+    `/corp/web/login-by-${type}`,
     {
       [type === 'phone' ? 'phone' : 'user_name']: account,
       password: md5(password),

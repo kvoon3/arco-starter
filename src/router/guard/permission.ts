@@ -41,7 +41,7 @@ export default function setupPermissionGuard(router: Router) {
         next()
       }
       else {
-        next(NOT_FOUND)
+        next('/login')
       }
     }
     else {

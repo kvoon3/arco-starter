@@ -7,12 +7,12 @@ export default function setupUserLoginInfoGuard(router: Router) {
       next()
     }
     else {
-      if (to.name === 'Login') {
+      if (to.name === '/login/') {
         next()
         return
       }
       next({
-        name: 'Login',
+        path: '/login/',
         query: {
           redirect: to.name,
           ...to.query,

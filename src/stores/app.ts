@@ -7,7 +7,6 @@ import { getMenuList } from '~/api/user'
 import defaultSettings from '~/config/settings.json'
 
 interface AppState {
-  theme: string
   colorWeak: boolean
   navbar: boolean
   menu: boolean
@@ -47,17 +46,6 @@ export const useAppStore = defineStore('app', {
       this.$patch(partial)
     },
 
-    // Change theme color
-    toggleTheme(dark: boolean) {
-      if (dark) {
-        this.theme = 'dark'
-        document.body.setAttribute('arco-theme', 'dark')
-      }
-      else {
-        this.theme = 'light'
-        document.body.removeAttribute('arco-theme')
-      }
-    },
     toggleDevice(device: string) {
       this.device = device
     },

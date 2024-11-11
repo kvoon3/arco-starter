@@ -4,14 +4,24 @@ export const routeRecord = genRootRouteRecord({
   children: [
     {
       path: 'contact',
-      component: () => import('~/views/contact/index.vue'),
+      component: () => import('~/pages/contact/index.vue'),
       meta: {
         locale: 'menu.contact',
         requiresAuth: true,
-        icon: 'icon-user',
-        order: 0,
+        icon: 'icon-user-group',
+        order: 1,
         roles: ['*'],
       },
+      children: [
+        {
+          path: 'group',
+          component: () => import('~/pages/contact/group.vue'),
+        },
+        {
+          path: 'org',
+          component: () => import('~/pages/contact/org.vue'),
+        },
+      ],
     },
   ],
 })

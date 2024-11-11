@@ -1,7 +1,6 @@
 <script lang="tsx">
 import type { RouteMeta, RouteRecordRaw } from 'vue-router'
 import { compile, computed, defineComponent, h, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { useAppStore } from '~/stores/app'
 import { openWindow, regexUrl } from '~/utils'
@@ -44,10 +43,15 @@ export default defineComponent({
         selectedKey.value = [item.name as string]
         return
       }
-      // Trigger router change
-      router.push({
-        name: item.name,
-      })
+
+      const to = item.meta?.isRootLevel
+        ? item.meta.firstChildPath
+        : { name: item.name }
+
+      if (to)
+        router.push(to)
+      else
+        throw new Error('not find route')
     }
     const findMenuOpenKeys = (target: string) => {
       const result: string[] = []

@@ -4,7 +4,7 @@ export const routeRecord = genRootRouteRecord({
   children: [
     {
       path: 'workbench',
-      component: () => import('~/views/workbench/index.vue'),
+      component: () => import('~/pages/workbench/index.vue'),
       meta: {
         locale: 'menu.workbench',
         requiresAuth: true,

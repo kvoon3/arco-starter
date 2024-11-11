@@ -4,8 +4,15 @@ import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+// import InlineEnum from 'unplugin-inline-enum/vite'
+import Components from 'unplugin-vue-components/vite'
+import VueMacros from 'unplugin-vue-macros/vite'
+import { VueRouterAutoImports } from 'unplugin-vue-router'
+import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'vite'
-import VueDevTools from 'vite-plugin-vue-devtools'
+import { viteMockServe as ViteMockServe } from 'vite-plugin-mock'
+// import VueDevTools from 'vite-plugin-vue-devtools'
+import Layouts from 'vite-plugin-vue-layouts'
 import SvgLoader from 'vite-svg-loader'
 import ConfigArcoStyleImportPlugin from './plugin/arcoStyleImport'
 
@@ -60,12 +67,25 @@ export default defineConfig({
   },
 
   plugins: [
+
+    ViteMockServe({
+      enable: true,
+    }),
+
     ViteYaml(),
 
+    // InlineEnum(),
+
     // DO not use it currently, See `https://github.com/posva/unplugin-vue-router/discussions/429`
-    VueDevTools(),
+    // VueDevTools(),
 
     UnoCSS(),
+
+    // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
+    Layouts({
+      layoutsDirs: 'src/layout',
+      defaultLayout: 'default',
+    }),
 
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
@@ -74,10 +94,11 @@ export default defineConfig({
         'vue-i18n',
         '@vueuse/head',
         '@vueuse/core',
+        'pinia',
+        VueRouterAutoImports,
         {
-          from: 'vue-router',
-          imports: ['useRouter', 'useRoute'],
-          type: false,
+          from: '@vueuse/components',
+          imports: ['UseImage'],
         },
       ],
       dts: 'src/auto-imports.d.ts',
@@ -91,17 +112,24 @@ export default defineConfig({
     }),
 
     // https://github.com/antfu/unplugin-vue-components
-    // Components({
-    //   // allow auto load markdown components under `./src/components/`
-    //   extensions: ['vue', 'md'],
-    //   // allow auto import and register components used in markdown
-    //   include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-    //   dts: 'src/components.d.ts',
-    // }),
+    Components({
+      // allow auto load markdown components under `./src/components/`
+      extensions: ['vue', 'md'],
+      // allow auto import and register components used in markdown
+      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+      dts: 'src/components.d.ts',
+    }),
 
-    Vue(),
-
-    VueJsx(),
+    VueMacros({
+      plugins: {
+        vue: Vue(),
+        vueJsx: VueJsx(),
+        vueRouter: VueRouter({
+          extensions: ['.vue', '.setup.tsx'],
+          exclude: ['**/components/**'],
+        }),
+      },
+    }),
 
     SvgLoader({ svgoConfig: {} }),
 

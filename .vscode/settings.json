@@ -55,6 +55,8 @@
   "i18n-ally.sortKeys": true,
   "cSpell.words": [
     "axios",
+    "doption",
     "weila"
-  ]
+  ],
+  "autoHide.mode": "manual"
 }

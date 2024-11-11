@@ -1,5 +1,18 @@
 account:
   txt: Account
+binding-phone-form:
+  err-msg:
+    password: password required
+    phone-number: phone number Required
+    verify-code: message code Required
+    verify-image-code: verify image code required
+  title: Binding Phone
+button:
+  delete: Delete
+  edit: Edit
+  send: Send
+  submit: Submit
+confirm-password: Confirm Password
 login:
   form:
     forgetPassword: forget the password
@@ -16,8 +29,20 @@ login:
   type:
     phone: phone
     username: account
+member-state:
+  enabled: Enabled
+  paused: Paused
+menu:
+  contact: Contact
+  me: Me
+  message: Message
+  workbench: Workbench
+message:
+  success: Success
+password: Password
+phone-number: Phone Number
 project:
-  name: Weila enterprise management system
+  name: Weila Enterprise Manager
 register:
   form:
     getSMS: Get SMS
@@ -37,6 +62,10 @@ register:
     verifyCode:
       errMsg: verify code is needed
       placeholder: verify code
+reset-password:
+  button: Reset Password
+reset-password-form:
+  title: Reset Password
 reset-pwd:
   form:
     phone:
@@ -46,6 +75,11 @@ reset-pwd:
 sendSMS:
   success:
     hint: Sent successfully, please pay attention to your message
-menu:
-  contact: Contact
-  workbench: Workbench
+sms-code: Message Code
+track-type:
+  close: Close
+  high: High
+  keep: Keep
+  low: Low
+  medium: Medium
+verify-image-code: Verify Image Code

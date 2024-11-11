@@ -18,26 +18,30 @@ export function genRootRouteRecord(routeRecord: AppRouteRecordRaw | AppRouteReco
     if (!routeRecord.children?.length)
       continue
 
-    const [children] = routeRecord.children
+    const [firstChildren, ...restChildren] = routeRecord.children
 
-    const name = children.name?.toString() || upperFirst(children.path.split('/').at(-1) || '')
+    const name = firstChildren.name?.toString() || upperFirst(firstChildren.path.split('/').at(-1) || '')
 
     rootRouteRecords.push({
       ...routeRecord,
       name,
-      redirect: children.path,
+      redirect: firstChildren.path,
       meta: {
-        ...children.meta,
+        ...firstChildren.meta,
         hideChildrenInMenu: true,
+        isRootLevel: true,
+        // TODO: better path generation
+        firstChildPath: `${routeRecord.path}/${firstChildren.path}`,
       },
       children: [
         {
-          ...children,
+          ...firstChildren,
           meta: {
-            ...children.meta,
+            ...firstChildren.meta,
             activeMenu: name,
           },
         },
+        ...restChildren,
       ],
     })
   }

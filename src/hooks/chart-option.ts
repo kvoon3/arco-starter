@@ -1,5 +1,6 @@
 import type { EChartsOption } from 'echarts'
 import { computed } from 'vue'
+import { isDark } from '~/shared/states'
 
 // for code hints
 // import { SeriesOption } from 'echarts';
@@ -10,10 +11,6 @@ interface optionsFn {
 }
 
 export default function useChartOption(sourceOption: optionsFn) {
-  const appStore = useAppStore()
-  const isDark = computed(() => {
-    return appStore.theme === 'dark'
-  })
   // echarts support https://echarts.apache.org/zh/theme-builder.html
   // It's not used here
   // TODO echarts themes
