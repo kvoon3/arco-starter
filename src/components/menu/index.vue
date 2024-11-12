@@ -1,6 +1,32 @@
+<!--
+  NOTE: Arco 模板的 menu 主要针对二级菜单场景使用，对一级菜单的适配较差，而本项目此处只有一级菜单，故重写了该组件
+
+  Arco 模板 一级菜单存在的问题(https://github.com/arco-design/arco-design-pro-vue/issues/85#issuecomment-1142289501):
+    1. 无法重定向一级菜单，只实现了展开/折叠功能
+    2. 根据 issue 内的解决方案配置菜单后，可以重定向，但是无法高亮显示
+
+  本项目解决方案:
+    1. 重写该组件，直接使用一级菜单
+    2. 不再手动配置整个路由，配置菜单时，前往 `src/pages/**/*.vue` 页面进行菜单配置，默认不配置不会出现在菜单中
+
+    ```vue
+    <script setup>
+    definePage({
+      meta: {
+        menu: {
+          label: '菜单名称',
+          icon: 'icon-name', // arco icon 组件名
+          order: 1,
+        },
+      }
+    })
+    </script>
+    ```
+ -->
+
 <script setup lang="ts">
-import type { RouteMeta, RouteRecordRaw } from 'vue-router'
-import { isString, toString } from '@antfu/utils'
+import type { RouteRecordRaw } from 'vue-router'
+import { isString } from '@antfu/utils'
 import { routes } from 'vue-router/auto-routes'
 
 const router = useRouter()
@@ -16,7 +42,6 @@ function* traverse(routes: RouteRecordRaw[]): Generator<RouteRecordRaw> {
   }
 }
 
-// @unocss-include
 const menus = ref<{
   label: string
   path: string
@@ -26,7 +51,7 @@ const menus = ref<{
 
 for (const route of traverse(routes)) {
   const { menu } = route.meta || {}
-  // FIXME: type
+  // TODO: improve type
   const path = route.name as string
 
   if (menu) {
@@ -60,172 +85,3 @@ function goto(path: string) {
     </a-menu-item>
   </a-menu>
 </template>
-
-<!-- <script lang="tsx">
-import type { RouteMeta, RouteRecordRaw } from 'vue-router'
-import { compile, computed, defineComponent, h, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useAppStore } from '~/stores/app'
-import { openWindow, regexUrl } from '~/utils'
-import { listenerRouteChange } from '~/utils/route-listener'
-import useMenuTree from './use-menu-tree'
-
-export default defineComponent({
-  emit: ['collapse'],
-  setup() {
-    const { t } = useI18n()
-    const appStore = useAppStore()
-    const router = useRouter()
-    const route = useRoute()
-    const { menuTree } = useMenuTree()
-    const collapsed = computed({
-      get() {
-        if (appStore.device === 'desktop')
-          return appStore.menuCollapse
-        return false
-      },
-      set(value: boolean) {
-        appStore.updateSettings({ menuCollapse: value })
-      },
-    })
-
-    const topMenu = computed(() => appStore.topMenu)
-    const openKeys = ref<string[]>([])
-    const selectedKey = ref<string[]>([])
-
-    const goto = (item: RouteRecordRaw) => {
-      // Open external link
-      if (regexUrl.test(item.path)) {
-        openWindow(item.path)
-        selectedKey.value = [item.name as string]
-        return
-      }
-      // Eliminate external link side effects
-      const { hideInMenu, activeMenu } = item.meta as RouteMeta
-      if (route.name === item.name && !hideInMenu && !activeMenu) {
-        selectedKey.value = [item.name as string]
-        return
-      }
-
-      const to = item.meta?.isRootLevel
-        ? item.meta.firstChildPath
-        : { name: item.name }
-
-      if (to)
-        router.push(to)
-      else
-        throw new Error('not find route')
-    }
-    const findMenuOpenKeys = (target: string) => {
-      const result: string[] = []
-      let isFind = false
-      const backtrack = (item: RouteRecordRaw, keys: string[]) => {
-        if (item.name === target) {
-          isFind = true
-          result.push(...keys)
-          return
-        }
-        if (item.children?.length) {
-          item.children.forEach((el) => {
-            backtrack(el, [...keys, el.name as string])
-          })
-        }
-      }
-      menuTree.value.forEach((el: RouteRecordRaw) => {
-        if (isFind)
-          return // Performance optimization
-        backtrack(el, [el.name as string])
-      })
-      return result
-    }
-    listenerRouteChange((newRoute) => {
-      const { requiresAuth, activeMenu, hideInMenu } = newRoute.meta
-      if (requiresAuth && (!hideInMenu || activeMenu)) {
-        const menuOpenKeys = findMenuOpenKeys(
-          (activeMenu || newRoute.name) as string,
-        )
-
-        const keySet = new Set([...menuOpenKeys, ...openKeys.value])
-        openKeys.value = [...keySet]
-
-        selectedKey.value = [
-          activeMenu || menuOpenKeys[menuOpenKeys.length - 1],
-        ]
-      }
-    }, true)
-    const setCollapse = (val: boolean) => {
-      if (appStore.device === 'desktop')
-        appStore.updateSettings({ menuCollapse: val })
-    }
-
-    const renderSubMenu = () => {
-      function travel(_route: RouteRecordRaw[], nodes = []) {
-        if (_route) {
-          _route.forEach((element) => {
-            // This is demo, modify nodes as needed
-            const icon = element?.meta?.icon
-              ? () => h(compile(`<${element?.meta?.icon}/>`))
-              : null
-            const node
-                = element?.children && element?.children.length !== 0
-                  ? (
-                      <a-sub-menu
-                        key={element?.name}
-                        v-slots={{
-                          icon,
-                          title: () => h(compile(t(element?.meta?.locale || ''))),
-                        }}
-                      >
-                        {travel(element?.children)}
-                      </a-sub-menu>
-                    )
-                  : (
-                      <a-menu-item
-                        key={element?.name}
-                        v-slots={{ icon }}
-                        onClick={() => goto(element)}
-                      >
-                        {t(element?.meta?.locale || '')}
-                      </a-menu-item>
-                    )
-            nodes.push(node as never)
-          })
-        }
-        return nodes
-      }
-      return travel(menuTree.value)
-    }
-
-    return () => (
-      <a-menu
-        mode={topMenu.value ? 'horizontal' : 'vertical'}
-        v-model:collapsed={collapsed.value}
-        v-model:open-keys={openKeys.value}
-        show-collapse-button={appStore.device !== 'mobile'}
-        auto-open={false}
-        selected-keys={selectedKey.value}
-        auto-open-selected={true}
-        level-indent={34}
-        style="height: 100%;width:100%;"
-        onCollapse={setCollapse}
-      >
-        {renderSubMenu()}
-      </a-menu>
-    )
-  },
-})
-</script>
-
-<style lang="less" scoped>
-  :deep(.arco-menu-inner) {
-  .arco-menu-inline-header {
-    display: flex;
-    align-items: center;
-  }
-  .arco-icon {
-    &:not(.arco-icon-down) {
-      font-size: 18px;
-    }
-  }
-}
-</style> -->

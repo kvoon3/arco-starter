@@ -9,6 +9,12 @@ import { weilaRequest } from '~/api/instances/request'
 import { sendVerifySms } from '~/api/verify-sms'
 import type { OnSubmitParams } from '~/types'
 
+definePage({
+  meta: {
+    layout: 'first',
+  },
+})
+
 const router = useRouter()
 const { t } = useI18n()
 const errorMessage = ref('')

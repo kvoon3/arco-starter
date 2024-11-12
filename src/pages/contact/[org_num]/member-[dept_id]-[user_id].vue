@@ -6,12 +6,12 @@ import { UseImage } from '@vueuse/components'
 import type { MemberModel } from '~/api/contact'
 import { TrackType } from '~/api/contact'
 import { weilaRequest } from '~/api/instances/request'
-import { themeColor } from '~/config/settings.json'
 
 const { t } = useI18n()
 const route = useRoute('/contact/[org_num]/member-[dept_id]-[user_id]')
 const router = useRouter()
 
+const { themeColor } = useAppStore()
 const contactStore = useContactStore()
 const { data: contact } = storeToRefs(contactStore)
 const { refetch } = contactStore
@@ -51,19 +51,28 @@ const data = computed(() => {
       'user_num',
       'user_id',
       'state',
+      'dept_id',
+      'type',
+      'sex',
     ].includes(key)) {
       continue
     }
-    else if (key === 'sex') {
-      _data.push({
-        label: key,
-        value: value === 0 ? 'Male' : 'Female',
-      })
-    }
     else if (key === 'track') {
       _data.push({
-        label: key,
+        label: t('track'),
         value: TrackTypeNameMap[value as TrackType],
+      })
+    }
+    else if (key === 'created') {
+      _data.push({
+        label: t('created'),
+        value: new Date(value).toLocaleString(),
+      })
+    }
+    else if (key === 'loc_share') {
+      _data.push({
+        label: t('loc_share'),
+        value: value ? t('open') : t('close'),
       })
     }
     else {
@@ -171,7 +180,15 @@ const { mutate: resetMemberPassword } = useMutation({
 </script>
 
 <template>
-  <div class="p-4" bg-base>
+  <div p4 bg-base>
+    <a-breadcrumb>
+      <a-breadcrumb-item v-if="dept" cursor-pointer @click="router.push(`/contact/${route.params.org_num}/dept-${route.params.dept_id}`)">
+        {{ dept?.name }}
+      </a-breadcrumb-item>
+      <a-breadcrumb-item v-if="member">
+        {{ member?.name }}
+      </a-breadcrumb-item>
+    </a-breadcrumb>
     <div v-if="member" class="w-full overflow-hidden rounded-lg shadow-md">
       <div class="p-6">
         <div flex justify-between>
@@ -182,9 +199,13 @@ const { mutate: resetMemberPassword } = useMutation({
               class="mr-4 h-16 w-16 rounded-full"
             />
             <div>
-              <h2 class="text-2xl text-gray-800 font-bold dark:text-white">
-                {{ member.name }}
-              </h2>
+              <div class="flex items-center">
+                <h2 class="mr-2 text-2xl text-gray-800 font-bold dark:text-white">
+                  {{ member.name }}
+                </h2>
+                <i v-if="member.sex === 0" i-carbon-gender-male class="text-blue-500" />
+                <i v-else-if="member.sex === 1" i-carbon-gender-female i- class="text-pink-500" />
+              </div>
               <p class="text-gray-600 dark:text-gray-300">
                 {{ member.user_num }}
               </p>

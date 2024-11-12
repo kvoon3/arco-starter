@@ -4,12 +4,14 @@ import { useMutation, useQuery } from '@tanstack/vue-query'
 import { UseImage } from '@vueuse/components'
 import { weilaFetch } from '~/api/instances/fetcher'
 import { weilaRequest } from '~/api/instances/request'
-import { themeColor } from '~/config/settings.json'
 import AddMembersModal from './add-members-modal.vue'
 
 const { groupId } = defineProps<{
   groupId: number
 }>()
+
+const { t } = useI18n()
+const { themeColor } = useAppStore()
 
 enum Sex {
   Male,
@@ -97,7 +99,7 @@ const addMemberModalVisible = ref(false)
 <template>
   <div>
     <h2 text-lg leading-loose>
-      Members
+      {{ t('group.settings.members') }}
     </h2>
     <div v-if="members">
       <button v-for="member in members" :key="member.user_id" m2 size-18 inline-flex flex-col items-center justify-center gap2 @click="changeMemberModalVisible = true">
@@ -121,19 +123,17 @@ const addMemberModalVisible = ref(false)
         <div size-10 rounded-lg bg-coolgray-200 op70 hover:op100>
           <i i-carbon-add inline-block size-10 color-black />
         </div>
-        <span>Add</span>
+        <span>{{ t('button.add') }}</span>
       </button>
       <button m2 size-18 inline-flex flex-col items-center justify-center gap2 @click="deleteMemberModalVisible = true">
         <div size-10 rounded-lg bg-coolgray-200 op70 hover:op100>
           <i i-carbon-subtract inline-block size-10 color-black />
         </div>
-        <span>Remove</span>
+        <span>{{ t('button.remove') }}</span>
       </button>
     </div>
     <!-- TODO: use antd ui  -->
-    <p v-else>
-      Loading members...
-    </p>
+    <a-empty v-else />
   </div>
 
   <AddMembersModal v-model:visible="addMemberModalVisible" :group-id="groupId" />

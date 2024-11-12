@@ -9,6 +9,8 @@ const emit = defineEmits(['onSuccess', 'onError'])
 
 const addMemberModalVisible = defineModel<boolean>('visible')
 
+const { t } = useI18n()
+
 interface AddMemberPayload {
   group_id: number
   member_ids: number[]
@@ -36,9 +38,9 @@ const { mutate: addMember } = useMutation({
 </script>
 
 <template>
-  <a-modal v-model:visible="addMemberModalVisible" title="Add Members" @before-ok="(done) => addMember(addMemberForm, { onSuccess: () => done(true), onError: () => done(false) })">
+  <a-modal v-model:visible="addMemberModalVisible" :title="t('button.add-member')" @before-ok="(done) => addMember(addMemberForm, { onSuccess: () => done(true), onError: () => done(false) })">
     <a-form :model="addMemberForm" layout="vertical">
-      <a-form-item label="Member IDs" name="member_ids">
+      <a-form-item label="ID" name="member_ids">
         <a-input-tag
           v-model="addMemberForm.member_ids"
           :min-tag-text-length="1"

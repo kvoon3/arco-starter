@@ -100,7 +100,6 @@ async function deleteGroups() {
         {{ t('group.my-groups') }}
       </h1>
     </div>
-
     <div class="flex items-center justify-between text-lg">
       <div space-x-2>
         <a-button type="outline" @click="() => toggleMultiCheck()">

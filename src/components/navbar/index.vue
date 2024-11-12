@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-import { Message } from '@arco-design/web-vue'
-import { useDark, useFullscreen, useToggle } from '@vueuse/core'
-import { computed, inject, ref } from 'vue'
+import { useFullscreen, useToggle } from '@vueuse/core'
+import { computed, inject } from 'vue'
 import Menu from '~/components/menu/index.vue'
 import { availableLocales, loadLanguageAsync } from '~/modules/i18n'
 import { access_token, isDark, last_login_time, refresh_token } from '~/shared/states'
-import MessageBox from '../message-box/index.vue'
 
 const { t, locale } = useI18n()
 const router = useRouter()
@@ -19,9 +17,9 @@ const avatar = computed(() => {
 const topMenu = computed(() => appStore.topMenu && appStore.menu)
 const toggleTheme = useToggle(isDark)
 
-function setVisible() {
-  appStore.updateSettings({ globalSettings: true })
-}
+// function setVisible() {
+//   appStore.updateSettings({ globalSettings: true })
+// }
 
 const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void
 
@@ -113,7 +111,7 @@ function logout() {
           </a-button>
         </a-tooltip>
       </li>
-      <li>
+      <!-- <li>
         <a-tooltip :content="t('settings.title')">
           <a-button
             class="nav-btn"
@@ -126,7 +124,7 @@ function logout() {
             </template>
           </a-button>
         </a-tooltip>
-      </li>
+      </li> -->
       <li>
         <a-dropdown trigger="click">
           <a-avatar

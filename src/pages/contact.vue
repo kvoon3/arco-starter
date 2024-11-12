@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import Message from '@arco-design/web-vue/es/message'
-import { useMutation, useQuery } from '@tanstack/vue-query'
+import { useQuery } from '@tanstack/vue-query'
 import { UseImage } from '@vueuse/components'
-import md5 from 'md5'
 import { reactive } from 'vue'
 import type { DepartmentModel, MemberModel } from '~/api/contact'
 import { corpFetcher } from '~/api/corp'
-import { weilaFetch } from '~/api/instances/fetcher'
-import { weilaRequest } from '~/api/instances/request'
-import { themeColor } from '~/config/settings.json'
 import OrgForm from './contact/components/org-form.vue'
+
+definePage({
+  meta: {
+    menu: { label: 'menu.contact', order: 1, icon: 'icon-user-group' },
+  },
+})
 
 const { t } = useI18n()
 const router = useRouter()
@@ -25,7 +26,7 @@ const { data: corp } = useQuery({
 
 const contactStore = useContactStore()
 
-const { updateOrgNumber, refetch: refetchContact } = contactStore
+const { updateOrgNumber } = contactStore
 const { data: contact } = storeToRefs(contactStore)
 
 watchEffect(() => {
@@ -34,87 +35,6 @@ watchEffect(() => {
 })
 
 const orgForm = templateRef('orgForm')
-
-interface NewMemberPayload {
-  org_num: number
-  name: string
-  password: string
-  dept_id: number
-  sex: number
-  avatar: string
-  phone: string
-  tts: number
-  loc_share: number
-}
-
-const createMemberModalVisible = ref(false)
-const createMemberForm = reactive<NewMemberPayload>({
-  org_num: 0,
-  name: '',
-  password: '',
-  dept_id: 0,
-  sex: 0,
-  avatar: '',
-  phone: '',
-  tts: 0,
-  loc_share: 0,
-})
-
-$inspect(createMemberForm)
-
-const { mutate: createMember } = useMutation({
-  mutationFn: (payload: NewMemberPayload) => {
-    return weilaFetch('/corp/web/member-create', {
-      body: {
-        ...payload,
-        password: md5(payload.password),
-        tts: payload.tts ? 1 : 0,
-        loc_share: payload.loc_share ? 1 : 0,
-      },
-    })
-  },
-  onSuccess() {
-    createMemberModalVisible.value = false
-    refetchContact()
-  },
-})
-
-interface DeleteDeptPayload {
-  org_num: number
-  dept_id: number
-}
-
-const { mutate: deleteDept } = useMutation({
-  mutationFn: (payload: DeleteDeptPayload) => {
-    return weilaRequest.post('/corp/web/dept-delete', payload)
-  },
-  onSuccess() {
-    refetchContact()
-  },
-})
-
-interface EditDeptPayload {
-  org_num: number
-  dept_id: number
-  name: string
-}
-
-const editDeptModalVisible = ref(false)
-const editDeptForm = reactive<EditDeptPayload>({
-  org_num: 0,
-  dept_id: 0,
-  name: '',
-})
-
-const { mutate: editDept } = useMutation({
-  mutationFn: (payload: EditDeptPayload) => {
-    return weilaRequest.post('/corp/web/dept-change', payload)
-  },
-  onSuccess() {
-    Message.success('Success')
-    refetchContact()
-  },
-})
 
 function selectNode(
   [id]: [string],
@@ -130,31 +50,96 @@ function selectNode(
     router.push(`/contact/${corp?.value?.num}/member-${dept_id}-${user_id}`)
   }
 }
+
+const selectedKeys = ref<string[]>([])
+$inspect(selectedKeys)
+const unfoldedDeptId = ref<string[]>([])
+$inspect(unfoldedDeptId)
+watch(unfoldedDeptId, ([id]) => {
+  if (id)
+    router.push(`/contact/${corp?.value?.num}/dept-${id}`)
+})
 </script>
 
 <template>
   <div h-full flex>
     <section h-full w80 border-r-1 p2 bg-base>
-      <button class="list-btn" @click="router.push('/contact/group')">
+      <!-- <button class="list-btn" @click="router.push('/contact/group')">
         <i i-ph-person-duotone inline-block /> {{ t('group.my-groups') }}
       </button>
       <a-divider orientation="left">
-        Organazition
+        {{ t('organazition') }}
       </a-divider>
       <button v-if="corp" class="list-btn" @click="router.push('/contact/org')">
         <UseImage :src="corp.avatar" class="size-6 rounded" alt="corp avatar">
           <template #loading>
-            <i i-ph-user-circle-dashed-duotone size-6 animate-pulse />
+            <i i-ph-user-circle-duotone size-6 animate-pulse />
           </template>
           <template #error>
-            <i i-ph-user-circle-dashed-duotone size-6 />
+            <i i-ph-user-circle-duotone size-6 />
           </template>
         </UseImage>
         {{ corp.name }}
-      </button>
-      <!-- <button class="list-btn" @click="router.push(`/contact/${corp?.num}/details`)">
-        <i i-carbon-text-new-line />  Organizational structure
       </button> -->
+
+      <a-menu v-model:selected-keys="selectedKeys" v-model:open-keys="unfoldedDeptId">
+        <a-menu-item @click="router.push('/contact/group')">
+          <template #icon>
+            <i i-ph-users-three-duotone inline-block />
+          </template>
+          {{ t('group.my-groups') }}
+        </a-menu-item>
+
+        <a-menu-item-group :title="t('organazition')">
+          <a-menu-item v-if="corp" @click="router.push('/contact/org')">
+            <template #icon>
+              <UseImage :src="corp.avatar" class="size-6 rounded" alt="corp avatar">
+                <template #loading>
+                  <i i-ph-user-circle-duotone size-6 animate-pulse />
+                </template>
+                <template #error>
+                  <i i-ph-user-circle-duotone size-6 />
+                </template>
+              </UseImage>
+            </template>
+            {{ corp.name }}
+          </a-menu-item>
+          <a-menu-item v-else @click="createCorpModalState.visible = true">
+            <template #icon>
+              <i i-ph-plus-circle-duotone inline-block />
+            </template>
+            {{ t('corp.create.form.title') }}
+          </a-menu-item>
+          <!-- <a-sub-menu v-for="dept in contact?.depts" :key="dept.id" selectable>
+            <template #icon>
+              <i i-ph-folder-duotone inline-block />
+            </template>
+            <template #title>
+              {{ dept.name }}
+            </template>
+            <a-menu-item v-for="member in dept.members" :key="member.user_id" @click="selectNode([String(member.user_id)], { node: member })">
+              <template #icon>
+                <UseImage :src="member.avatar" class="size-5 rounded" alt="member avatar">
+                  <template #loading>
+                    <i i-ph-user-circle-duotone size-5 animate-pulse />
+                  </template>
+                  <template #error>
+                    <i i-ph-user-circle-duotone size-5 />
+                  </template>
+                </UseImage>
+              </template>
+              {{ member.name }}
+            </a-menu-item>
+          </a-sub-menu>
+          <a-menu-item @click="createCorpModalState.visible = true">
+            <template #icon>
+              <i i-ph-plus-circle-duotone inline-block />
+            </template>
+            {{ t('dept.create') }}
+          </a-menu-item> -->
+        </a-menu-item-group>
+      </a-menu>
+
       <!-- @vue-expect-error type error when use custom field names -->
       <a-tree
         :data="contact?.depts"
@@ -167,11 +152,9 @@ function selectNode(
         @select="selectNode"
       />
       <button class="list-btn" @click="() => createCorpModalState.visible = true">
-        <i i-ph-plus inline-block /> Create Organazition
+        <i i-ph-plus inline-block /> {{ t('dept.create') }}
       </button>
-      <a-modal
-        v-model:visible="createCorpModalState.visible" title="Create Organazition"
-      >
+      <a-modal v-model:visible="createCorpModalState.visible" :title="t('corp.create.form.title')">
         <OrgForm ref="orgForm" />
       </a-modal>
     </section>
@@ -179,45 +162,4 @@ function selectNode(
       <RouterView />
     </section>
   </div>
-
-  <a-modal v-model:visible="editDeptModalVisible" title="Edit Department" @before-ok="(done) => editDept(editDeptForm, { onSuccess: () => done(true) })">
-    <a-form :model="editDeptForm">
-      <a-form-item field="name" label="Name" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
-        <a-input v-model="editDeptForm.name" placeholder="Enter department name" />
-      </a-form-item>
-    </a-form>
-  </a-modal>
-
-  <a-modal v-model:visible="createMemberModalVisible" title="Create Member" @before-ok="(done) => createMember(createMemberForm, { onSuccess: () => done(true) })">
-    <a-form :model="createMemberForm">
-      <a-form-item field="name" label="Name" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
-        <a-input v-model="createMemberForm.name" placeholder="Enter name" />
-      </a-form-item>
-      <a-form-item field="phone" label="Phone" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
-        <a-input v-model="createMemberForm.phone" placeholder="Enter phone number" />
-      </a-form-item>
-      <a-form-item field="password" label="Password" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
-        <a-input-password v-model="createMemberForm.password" placeholder="Enter password" />
-      </a-form-item>
-      <a-form-item field="sex" label="Gender" :validate-trigger="['change', 'blur']">
-        <a-radio-group v-model="createMemberForm.sex">
-          <a-radio :value="0">
-            Male
-          </a-radio>
-          <a-radio :value="1">
-            Female
-          </a-radio>
-        </a-radio-group>
-      </a-form-item>
-      <a-form-item field="avatar" label="Avatar" :validate-trigger="['change', 'blur']">
-        <AvatarUploader v-model:src="createMemberForm.avatar" />
-      </a-form-item>
-      <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
-        <a-switch v-model="createMemberForm.tts" :checked-color="themeColor" unchecked-color="#ddd" />
-      </a-form-item>
-      <a-form-item field="loc_share" label="Location Sharing" :validate-trigger="['change', 'blur']">
-        <a-switch v-model="createMemberForm.loc_share" :checked-color="themeColor" unchecked-color="#ddd" />
-      </a-form-item>
-    </a-form>
-  </a-modal>
 </template>

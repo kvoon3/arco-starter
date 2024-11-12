@@ -5,11 +5,12 @@ import md5 from 'md5'
 import type { MemberModel, TrackType } from '~/api/contact'
 import { weilaRequest } from '~/api/instances/request'
 import { sendVerifySms } from '~/api/verify-sms'
-import { themeColor } from '~/config/settings.json'
 
 const { t } = useI18n()
 const router = useRouter()
 const route = useRoute('/contact/[org_num]/dept-[dept_id]')
+
+const { themeColor } = useAppStore()
 
 const contactStore = useContactStore()
 const { refetch: refetchContact } = contactStore
@@ -126,6 +127,11 @@ const { mutate: sendSMS, isPending } = useMutation({
 <template>
   <div>
     <div p4 space-y-4>
+      <a-breadcrumb>
+        <a-breadcrumb-item v-if="dept">
+          {{ dept.name }}
+        </a-breadcrumb-item>
+      </a-breadcrumb>
       <div flex gap2>
         <a-button
           type="primary"

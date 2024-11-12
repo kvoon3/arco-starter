@@ -1,4 +1,6 @@
-export default {
+// WARNING: Do not modify it: This i18n config is outdated(from old arco)
+// current config file: '/locales'
+export const OLD_MESSAGE = {
   'menu.dashboard': '仪表盘',
   'menu.server.dashboard': '仪表盘-服务端',
   'menu.server.workplace': '工作台-服务端',

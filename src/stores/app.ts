@@ -4,7 +4,7 @@ import { Notification } from '@arco-design/web-vue'
 import { defineStore } from 'pinia'
 import { getMenuList } from '~/api/user'
 
-import defaultSettings from '~/config/settings.json'
+import { defaultArcoSettings } from '~/shared/const'
 
 interface AppState {
   colorWeak: boolean
@@ -25,7 +25,7 @@ interface AppState {
 }
 
 export const useAppStore = defineStore('app', {
-  state: (): AppState => ({ ...defaultSettings }),
+  state: (): AppState => ({ ...defaultArcoSettings }),
 
   getters: {
     appCurrentSetting(state: AppState): AppState {

@@ -2,6 +2,7 @@
 import addMembersModal from './components/add-members-modal.vue'
 import Settings from './components/settings.vue'
 
+const { t } = useI18n()
 const route = useRoute('/message/[group_id]-[group_name]')
 const messages = ref([
   { id: 1, sender: 'Alice', content: 'Hello everyone!' },
@@ -85,7 +86,7 @@ const settingsVisible = ref(false)
     unmount-on-close
   >
     <template #title>
-      Group Settings
+      {{ t('group.settings.title') }}
     </template>
     <Settings :group-id="Number(route.params.group_id)" />
   </a-drawer>

@@ -40,7 +40,7 @@ const editUserInfoModalState = reactive({
 
 <template>
   <div class="w-full p2">
-    <a-breadcrumb>
+    <a-breadcrumb mb4>
       <RouterLink to="/me">
         <a-breadcrumb-item>Me</a-breadcrumb-item>
       </RouterLink>
