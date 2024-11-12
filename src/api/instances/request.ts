@@ -3,7 +3,7 @@ import type { WeilaRes } from '..'
 import { Message } from '@arco-design/web-vue'
 import axios from 'axios'
 import { access_token, app_id, app_sign, isNeedRefresh, timestamp } from '~/shared/states'
-import defaultConfig, { publicApi, WeilaErrorCode } from '..'
+import defaultConfig, { WeilaErrorCode } from '..'
 import { tryRefreshToken } from '../refresh'
 
 interface WeilaRequestInstance extends AxiosInstance {

@@ -14,7 +14,6 @@ declare module 'vue' {
     Footer: typeof import('./components/footer/index.vue')['default']
     FormWrapper: typeof import('./components/global-setting/form-wrapper.vue')['default']
     GlobalSetting: typeof import('./components/global-setting/index.vue')['default']
-    ImageUploader: typeof import('./components/ImageUploader.vue')['default']
     List: typeof import('./components/message-box/list.vue')['default']
     LoginBanner: typeof import('./components/login-banner/index.vue')['default']
     MemberList: typeof import('./components/MemberList.vue')['default']

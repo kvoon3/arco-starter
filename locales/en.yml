@@ -1,5 +1,7 @@
 account:
   txt: Account
+avatar: Avatar
+batch-operation: Batch Operation
 binding-phone-form:
   err-msg:
     password: password required
@@ -7,12 +9,38 @@ binding-phone-form:
     verify-code: message code Required
     verify-image-code: verify image code required
   title: Binding Phone
+burst-mode: Burst Mode
 button:
+  add-device: Add Device
+  add-member: Add Member
+  create: Create
   delete: Delete
   edit: Edit
+  reset-password: Reset Password
   send: Send
   submit: Submit
+change-member:
+  form:
+    avatar:
+      label: Avatar
+    gender:
+      label: gender
+    loc_share:
+      label: location share
+    name:
+      label: name
+    phone:
+      label: phone
+    title: Change Member
 confirm-password: Confirm Password
+delete:
+  modal:
+    content: Are you sure your want to delete?
+    hint: This action cannot be undone
+    title: Delete
+gender: Gender
+group:
+  my-groups: My Groups
 login:
   form:
     forgetPassword: forget the password
@@ -29,9 +57,29 @@ login:
   type:
     phone: phone
     username: account
+male: Male
+female: Female
+member:
+  form:
+    avatar:
+      label: Avatar
+    gender:
+      label: Gender
+    loc_share:
+      label: Share Location
+    name:
+      label: Label
+    password:
+      label: Password
+    phone:
+      label: Phoen
+    track:
+      label: Track
+  state: State
 member-state:
   enabled: Enabled
-  paused: Paused
+  paused: paused
+members: Members
 menu:
   contact: Contact
   me: Me
@@ -39,6 +87,17 @@ menu:
   workbench: Workbench
 message:
   success: Success
+name: Name
+org:
+  created-date: Created Date
+  devices: Devices
+  groups: Groups
+  members: Members
+org-form:
+  avatar:
+    label: Avatar
+  name:
+    label: Name
 password: Password
 phone-number: Phone Number
 project:
@@ -64,6 +123,10 @@ register:
       placeholder: verify code
 reset-password:
   button: Reset Password
+  form:
+    password:
+      label: new password
+    title: Reset Password
 reset-password-form:
   title: Reset Password
 reset-pwd:
@@ -72,6 +135,7 @@ reset-pwd:
       errMsg: Enter correct phone number
       placeholder: your phone number
     title: Reset Password
+selected: Selected
 sendSMS:
   success:
     hint: Sent successfully, please pay attention to your message
@@ -82,4 +146,7 @@ track-type:
   keep: Keep
   low: Low
   medium: Medium
+user:
+  gender: Gender
+  phone: Phone
 verify-image-code: Verify Image Code

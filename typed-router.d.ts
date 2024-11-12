@@ -31,7 +31,7 @@ declare module 'vue-router/auto-routes' {
     '/me/binding-phone': RouteRecordInfo<'/me/binding-phone', '/me/binding-phone', Record<never, never>, Record<never, never>>,
     '/me/reset-password': RouteRecordInfo<'/me/reset-password', '/me/reset-password', Record<never, never>, Record<never, never>>,
     '/message': RouteRecordInfo<'/message', '/message', Record<never, never>, Record<never, never>>,
-    '/message/[group_id]': RouteRecordInfo<'/message/[group_id]', '/message/:group_id', { group_id: ParamValue<true> }, { group_id: ParamValue<false> }>,
+    '/message/[group_id]-[group_name]': RouteRecordInfo<'/message/[group_id]-[group_name]', '/message/:group_id-:group_name', { group_id: ParamValue<true>, group_name: ParamValue<true> }, { group_id: ParamValue<false>, group_name: ParamValue<false> }>,
     '/not-found/': RouteRecordInfo<'/not-found/', '/not-found', Record<never, never>, Record<never, never>>,
     '/redirect/': RouteRecordInfo<'/redirect/', '/redirect', Record<never, never>, Record<never, never>>,
     '/register/': RouteRecordInfo<'/register/', '/register', Record<never, never>, Record<never, never>>,

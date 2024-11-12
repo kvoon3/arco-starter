@@ -6,6 +6,8 @@ import { ref } from 'vue'
 import { weilaFetch } from '~/api/instances/fetcher'
 import { weilaRequest } from '~/api/instances/request'
 
+const { t } = useI18n()
+
 const { data: groups, refetch } = useQuery<{
   id: number
   name: string
@@ -41,7 +43,7 @@ const form = ref<CreateGroupPayload>({
 })
 
 const [isMultiCheck, toggleMultiCheck] = useToggle(false)
-const checkedGroup = ref([])
+const checkedGroup = ref<number[]>([])
 
 $inspect(checkedGroup)
 
@@ -93,19 +95,22 @@ async function deleteGroups() {
 
 <template>
   <div p4 space-y-4>
-    <div class="flex items-center justify-between bg-gray-100">
+    <div class="flex items-center justify-between">
       <h1 class="text-2xl font-bold">
-        Groups
+        {{ t('group.my-groups') }}
       </h1>
     </div>
 
     <div class="flex items-center justify-between text-lg">
       <div space-x-2>
-        <a-button @click="() => toggleMultiCheck()">
+        <a-button type="outline" @click="() => toggleMultiCheck()">
+          <template #icon>
+            <IconCheck />
+          </template>
           {{
             isMultiCheck
-              ? `Selected: ${checkedGroup.length} / ${groups?.length || 0}`
-              : 'Batch Operation'
+              ? `${t('selected')} ${checkedGroup.length} / ${groups?.length || 0}`
+              : t('batch-operation')
           }}
         </a-button>
       </div>
@@ -114,10 +119,13 @@ async function deleteGroups() {
           <template #icon>
             <IconDelete />
           </template>
-          Delete
+          {{ t('button.delete') }}
         </a-button>
         <a-button type="primary" class="bg-blue-500 hover:bg-blue-600" @click="showModal">
-          Create Group
+          <template #icon>
+            <IconPlus />
+          </template>
+          {{ t('button.create') }}
         </a-button>
       </div>
     </div>
@@ -126,7 +134,7 @@ async function deleteGroups() {
       <a-checkbox-group v-model:model-value="checkedGroup" w-full space-y-1 bg-base>
         <button v-for="group in groups" :key="group.id" class="flex items-center list-btn">
           <a-checkbox v-show="isMultiCheck" :value="group.id" />
-          <RouterLink :to="`/message/${group.id}`" flex grow-1>
+          <RouterLink :to="`/message/${group.id}-${group.name}`" flex grow-1>
             <UseImage
               :src="group.avatar"
               class="mr-4 h-12 w-12 rounded-full"
@@ -146,7 +154,7 @@ async function deleteGroups() {
                 {{ group.name }}
               </h2>
               <p class="text-sm text-gray-500">
-                Members: {{ group.user_count }}
+                {{ t('members') }}: {{ group.user_count }}
               </p>
             </div>
             <span class="text-sm text-gray-400">Created: {{ new Date(group.created * 1000).toLocaleDateString() }}</span>
@@ -159,22 +167,27 @@ async function deleteGroups() {
       <div v-for="group in groups" :key="group.id" class="flex items-center list-btn"></div>
     </div> -->
 
-    <a-modal v-model:visible="deleteModalVisible" title="Confirm Deletion" @ok="deleteGroups">
-      <p>Are you sure you want to delete {{ checkedGroup.length }} group(s)?</p>
-      <p color-red>
-        This action cannot be undone.
-      </p>
+    <a-modal v-model:visible="deleteModalVisible" :title="t('delete.modal.title')" @ok="deleteGroups">
+      <p>
+        {{ t('delete.modal.content') }}
+        <span color-red>{{ t('delete.modal.hint') }}</span>
+      </P>
+      <ul>
+        <li v-for="checked, key in checkedGroup" :key>
+          ID: {{ checked }}
+        </li>
+      </ul>
     </a-modal>
 
     <a-modal v-model:visible="visible" title="Create Group" @before-ok="(done) => createGroup(form, { onSuccess: () => done(true) })">
       <a-form :model="form" layout="vertical">
-        <a-form-item label="Group Name" field="name" :validate-trigger="['blur', 'change']" :rules="{ required: true }">
+        <a-form-item :label="t('name')" field="name" :validate-trigger="['blur', 'change']" :rules="{ required: true }">
           <a-input v-model="form.name" />
         </a-form-item>
-        <a-form-item label="Avatar URL" field="avatar">
+        <a-form-item :label="t('avatar')" field="avatar">
           <AvatarUploader v-model:src="form.avatar" />
         </a-form-item>
-        <a-form-item label="Burst Mode">
+        <a-form-item :label="t('burst-mode')">
           <a-input-number
             v-model="form.burst_mode"
             :min="0"

@@ -11,6 +11,7 @@ import { weilaRequest } from '~/api/instances/request'
 import { themeColor } from '~/config/settings.json'
 import OrgForm from './contact/components/org-form.vue'
 
+const { t } = useI18n()
 const router = useRouter()
 
 const createCorpModalState = reactive({
@@ -135,7 +136,7 @@ function selectNode(
   <div h-full flex>
     <section h-full w80 border-r-1 p2 bg-base>
       <button class="list-btn" @click="router.push('/contact/group')">
-        <i i-ph-person-duotone inline-block /> My Group
+        <i i-ph-person-duotone inline-block /> {{ t('group.my-groups') }}
       </button>
       <a-divider orientation="left">
         Organazition
@@ -164,56 +165,7 @@ function selectNode(
         }"
         :block-node="true"
         @select="selectNode"
-      >
-        <template #extra="nodeData">
-          <a-dropdown
-            v-if="nodeData.id"
-            position="br"
-            trigger="hover"
-            class="absolute right-2 w-fit"
-          >
-            <i i-carbon-overflow-menu-horizontal />
-            <template #content>
-              <a-doption
-                @click="() => deleteDept({
-                  org_num: corp!.num,
-                  dept_id: nodeData.id,
-                })"
-              >
-                <template #icon>
-                  <IconDelete />
-                </template>
-                <span>Delete</span>
-              </a-doption>
-              <a-doption
-                @click="() => {
-                  editDeptForm.org_num = corp!.num
-                  editDeptForm.dept_id = nodeData.id
-                  editDeptForm.name = nodeData.name
-                  editDeptModalVisible = true
-                }"
-              >
-                <template #icon>
-                  <IconEdit />
-                </template>
-                <span>Edit</span>
-              </a-doption>
-              <a-doption
-                @click="() => {
-                  createMemberForm.org_num = corp!.num
-                  createMemberForm.dept_id = nodeData.id
-                  createMemberModalVisible = true
-                }"
-              >
-                <template #icon>
-                  <IconPlus />
-                </template>
-                <span>Add</span>
-              </a-doption>
-            </template>
-          </a-dropdown>
-        </template>
-      </a-tree>
+      />
       <button class="list-btn" @click="() => createCorpModalState.visible = true">
         <i i-ph-plus inline-block /> Create Organazition
       </button>

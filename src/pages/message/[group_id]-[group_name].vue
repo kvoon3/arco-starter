@@ -2,8 +2,7 @@
 import addMembersModal from './components/add-members-modal.vue'
 import Settings from './components/settings.vue'
 
-const route = useRoute('/message/[group_id]')
-const groupName = ref('Group Chat')
+const route = useRoute('/message/[group_id]-[group_name]')
 const messages = ref([
   { id: 1, sender: 'Alice', content: 'Hello everyone!' },
   { id: 2, sender: 'Bob', content: 'Hi Alice, how are you?' },
@@ -27,10 +26,10 @@ const settingsVisible = ref(false)
 </script>
 
 <template>
-  <main class="h-full w-full flex flex-col bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100">
-    <header class="chat-header flex items-center justify-between bg-gray-100 p-4 dark:bg-gray-700">
+  <main class="h-full w-full flex flex-col text-gray-900 bg-base dark:text-gray-100">
+    <header class="chat-header flex items-center justify-between bg-gray-100 p-4 dark:bg-dark-300">
       <h1 class="text-2xl font-bold">
-        {{ groupName }}
+        {{ route.params.group_name }}
       </h1>
       <nav class="space-x-2">
         <a-button
@@ -50,7 +49,7 @@ const settingsVisible = ref(false)
 
     <section class="chat-messages flex-grow overflow-y-auto p-4">
       <ul class="space-y-4">
-        <li v-for="message in messages" :key="message.id" class="rounded-lg bg-gray-50 p-3 dark:bg-gray-700">
+        <li v-for="message in messages" :key="message.id" class="rounded-lg bg-gray-50 p-3 dark:bg-dark-800">
           <strong class="font-semibold">{{ message.sender }}:</strong>
           <p class="mt-1">
             {{ message.content }}
@@ -59,13 +58,13 @@ const settingsVisible = ref(false)
       </ul>
     </section>
 
-    <footer class="chat-input bg-gray-100 p-4 dark:bg-gray-700">
+    <footer class="chat-input p-4 bg-base">
       <form class="flex" @submit.prevent="sendMessage">
         <input
           v-model="newMessage"
           type="text"
           placeholder="输入消息..."
-          class="flex-grow border border-gray-300 rounded-l p-2 dark:border-gray-600 dark:bg-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="dark:bg-black-600 flex-grow border border-gray-300 rounded-l p-2 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
         <button
           type="submit"

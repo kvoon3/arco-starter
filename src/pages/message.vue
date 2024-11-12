@@ -4,6 +4,16 @@ import { UseImage } from '@vueuse/components'
 import { RouterLink } from 'vue-router'
 import { weilaFetch } from '~/api/instances/fetcher'
 
+definePage({
+  meta: {
+    menu: {
+      label: 'menu.message',
+      icon: 'icon-user',
+      order: 0,
+    },
+  },
+})
+
 interface GroupModel {
   id: number
   name: string
@@ -17,7 +27,7 @@ interface GroupModel {
   created: number
 }
 
-const route = useRoute('/message/[group_id]')
+const route = useRoute('/message/[group_id]-[group_name]')
 
 const { data: groups } = useQuery<GroupModel[]>({
   queryKey: ['groups'],
@@ -30,7 +40,7 @@ const { data: groups } = useQuery<GroupModel[]>({
     <section h-full w80 p2 bg-base>
       <RouterLink
         v-for="group in groups"
-        :key="group.id" :to="`/message/${group.id}`"
+        :key="group.id" :to="`/message/${group.id}-${group.name}`"
         class="flex items-center gap-2 list-btn"
         :class="route.params.group_id && group.id === Number(route.params.group_id)
           ? 'bg-gray-100 dark:bg-dark-2'

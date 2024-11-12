@@ -53,7 +53,7 @@ const { mutate: submit, isPending: isSubmiting } = useMutation({
       </RouterLink>
       <a-breadcrumb-item>Binding Phone</a-breadcrumb-item>
     </a-breadcrumb>
-    <div class="mx-auto mt-8 max-w-md rounded-lg bg-white p-6 shadow-md">
+    <div class="mx-auto max-w-md rounded-lg p-6 shadow-md bg-base">
       <h2 class="mb-6 text-center text-2xl font-bold">
         {{ t('binding-phone-form.title') }}
       </h2>

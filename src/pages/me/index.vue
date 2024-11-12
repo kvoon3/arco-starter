@@ -2,6 +2,18 @@
 import { useQuery } from '@tanstack/vue-query'
 import { weilaFetch } from '~/api/instances/fetcher'
 
+const { t } = useI18n()
+
+definePage({
+  meta: {
+    menu: {
+      label: 'menu.me',
+      order: 3,
+      icon: 'icon-user',
+    },
+  },
+})
+
 interface User {
   id: number
   num: string
@@ -27,8 +39,13 @@ const editUserInfoModalState = reactive({
 </script>
 
 <template>
-  <div class="w-full p-4">
-    <div v-if="data" class="rounded-lg bg-white p-6 shadow-md transition-colors duration-200 dark:bg-gray-800">
+  <div class="w-full p2">
+    <a-breadcrumb>
+      <RouterLink to="/me">
+        <a-breadcrumb-item>Me</a-breadcrumb-item>
+      </RouterLink>
+    </a-breadcrumb>
+    <div v-if="data" class="rounded-lg p-6 shadow-md transition-colors duration-200 bg-base">
       <div flex justify-between>
         <div class="mb-6 flex items-center">
           <img :src="data.avatar" :alt="data.name" class="mr-4 h-16 w-16 rounded-full">
@@ -48,18 +65,19 @@ const editUserInfoModalState = reactive({
       </div>
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div class="text-gray-700 dark:text-gray-300">
-          <p><span class="font-medium">Gender:</span> {{ data.sex === 0 ? 'Male' : 'Female' }}</p>
+          <p><span class="font-medium">{{ t('user.gender') }}:</span> {{ data.sex === 0 ? t('male') : t('famale') }}</p>
           <p>
-            <span class="font-medium">Phone:</span> +{{ data.country_code }} {{ data.bind_phone }}
-            <a-button ml2 inline-flex gap2 size="small" @click="router.push('/me/binding-phone')">
-              <i i-ph-pen />
-              Change
+            <span class="font-medium">{{ t('user.phone') }}:</span> +{{ data.country_code }} {{ data.bind_phone }}
+            <a-button inline-flex size="small" @click="router.push('/me/binding-phone')">
+              <template #icon>
+                <i i-ph-pen />
+              </template>
             </a-button>
           </p>
           <p class="mt-4">
             <a-button inline-flex gap2 size="small" @click="router.push('/me/reset-password')">
               <i i-ph-lock-key />
-              Reset Password
+              {{ t('button.reset-password') }}
             </a-button>
           </p>
         </div>

@@ -4,6 +4,8 @@ import { useRoute, useRouter } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 
+// FIXME: type error
+// @ts-expect-error type error
 const gotoPath = route.params.path as string
 
 router.replace({ path: gotoPath })

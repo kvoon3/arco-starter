@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 function back() {
   // warning： Go to the node that has the permission
-  router.push({ name: 'Workplace' })
+  router.push('/workbench')
 }
 </script>
 

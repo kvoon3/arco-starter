@@ -63,7 +63,6 @@ const urlRes: Array<[string, WeilaRes<any>]> = [
       },
     },
   }],
-
 ]
 
 export default urlRes.map(([url, response]) => ({

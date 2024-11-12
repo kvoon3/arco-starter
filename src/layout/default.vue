@@ -43,7 +43,7 @@ watch(
   () => userStore.role,
   (roleValue) => {
     if (roleValue && !permission.accessRouter(route))
-      router.push({ name: 'notFound' })
+      router.push('/not-found')
   },
 )
 const drawerVisible = ref(false)

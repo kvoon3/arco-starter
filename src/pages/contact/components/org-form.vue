@@ -14,6 +14,8 @@ const form = reactive({
   avatar: '',
 })
 
+const { t } = useI18n()
+
 // For arco use
 async function submit() {
   const url = type.value === 'create'
@@ -46,10 +48,10 @@ defineExpose({
 
 <template>
   <a-form :model="form">
-    <a-form-item field="name" label="Name">
+    <a-form-item field="name" :label="t('org-form.name.label')">
       <a-input v-model="form.name" />
     </a-form-item>
-    <a-form-item field="avatar" label="Avatar">
+    <a-form-item field="avatar" :label="t('org-form.avatar.label')">
       <avatar-uploader v-model:src="form.avatar" />
     </a-form-item>
   </a-form>

@@ -172,7 +172,7 @@ const { mutate: resetMemberPassword } = useMutation({
 
 <template>
   <div class="p-4" bg-base>
-    <div v-if="member" class="w-full overflow-hidden rounded-lg bg-white shadow-md dark:bg-gray-800">
+    <div v-if="member" class="w-full overflow-hidden rounded-lg shadow-md">
       <div class="p-6">
         <div flex justify-between>
           <div class="mb-4 flex items-center">
@@ -204,7 +204,7 @@ const { mutate: resetMemberPassword } = useMutation({
         </div>
         <a-descriptions :data="data" bordered />
         <div class="mt-6 flex items-center">
-          <span class="mr-2 text-gray-700 dark:text-gray-300">State: {{ MemberStateNameMap[member.state] }}</span>
+          <span class="mr-2 text-gray-700 dark:text-gray-300">{{ t('member.state') }}: {{ MemberStateNameMap[member.state] }}</span>
           <!-- @vue-expect-error type error -->
           <a-switch
             v-model="memberState"
@@ -217,53 +217,53 @@ const { mutate: resetMemberPassword } = useMutation({
         </div>
       </div>
     </div>
-    <div v-else class="text-center text-gray-700 dark:text-gray-300">
-      No member information available.
-    </div>
+    <a-empty v-else />
   </div>
-  <a-modal v-model:visible="deleteMemberModalVisible" title="Delete Member" @before-ok="(done) => deleteMember(void 0, { onSuccess: () => done(true), onError: () => done(false) })">
+  <a-modal v-model:visible="deleteMemberModalVisible" :title="t('delete.modal.title')" @before-ok="(done) => deleteMember(void 0, { onSuccess: () => done(true), onError: () => done(false) })">
     <div>
-      <p>Are you sure you want to delete this member?</p>
+      <p>
+        {{ t('delete.modal.content') }}
+      </p>
       <p color-red>
-        This action cannot be undone.
+        {{ t('delete.modal.hint') }}
       </p>
     </div>
   </a-modal>
 
-  <a-modal v-model:visible="changeMemberModalVisible" title="Change Member" @before-ok="(done) => changeMember(changeMemberForm, { onSuccess: () => done(true), onError: () => done(false) })">
+  <a-modal v-model:visible="changeMemberModalVisible" :title="t('change-member.form.title')" @before-ok="(done) => changeMember(changeMemberForm, { onSuccess: () => done(true), onError: () => done(false) })">
     <a-form :model="changeMemberForm">
-      <a-form-item field="name" label="Name" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
+      <a-form-item field="name" :label="t('change-member.form.name.label')" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
         <a-input v-model="changeMemberForm.name" placeholder="Enter name" />
       </a-form-item>
-      <a-form-item field="phone" label="Phone" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
+      <a-form-item field="phone" :label="t('change-member.form.phone.label')" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
         <a-input v-model="changeMemberForm.phone" placeholder="Enter phone number" />
       </a-form-item>
-      <a-form-item field="sex" label="Gender" :validate-trigger="['change', 'blur']">
+      <a-form-item field="sex" :label="t('change-member.form.gender.label')" :validate-trigger="['change', 'blur']">
         <a-radio-group v-model="changeMemberForm.sex">
           <a-radio :value="0">
-            Male
+            {{ t('male') }}
           </a-radio>
           <a-radio :value="1">
-            Female
+            {{ t('female') }}
           </a-radio>
         </a-radio-group>
       </a-form-item>
-      <a-form-item field="avatar" label="Avatar" :validate-trigger="['change', 'blur']">
+      <a-form-item field="avatar" :label="t('change-member.form.avatar.label')" :validate-trigger="['change', 'blur']">
         <AvatarUploader v-model:src="changeMemberForm.avatar" />
       </a-form-item>
       <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
         <a-switch v-model="changeMemberForm.tts" :checked-color="themeColor" unchecked-color="#ddd" />
       </a-form-item>
-      <a-form-item field="loc_share" label="Location Sharing" :validate-trigger="['change', 'blur']">
+      <a-form-item field="loc_share" :label="t('change-member.form.loc_share.label')" :validate-trigger="['change', 'blur']">
         <a-switch v-model="changeMemberForm.loc_share" :checked-color="themeColor" unchecked-color="#ddd" />
       </a-form-item>
     </a-form>
   </a-modal>
 
-  <a-modal v-model:visible="resetMemberPasswordModalVisible" title="Reset Password" @before-ok="(done) => resetMemberPassword(resetMemberPasswordForm, { onSuccess: () => done(true), onError: () => done(false) })">
+  <a-modal v-model:visible="resetMemberPasswordModalVisible" :title="t('reset-password.form.title')" @before-ok="(done) => resetMemberPassword(resetMemberPasswordForm, { onSuccess: () => done(true), onError: () => done(false) })">
     <a-form :model="resetMemberPasswordForm">
-      <a-form-item field="password" label="new password" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
-        <a-input v-model="resetMemberPasswordForm.password" placeholder="Enter password" />
+      <a-form-item field="password" :label="t('reset-password.form.password.label')" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
+        <a-input v-model="resetMemberPasswordForm.password" />
       </a-form-item>
     </a-form>
   </a-modal>

@@ -1,3 +1,47 @@
+account:
+  txt: 账号
+avatar: 头像
+batch-operation: 批量操作
+binding-phone-form:
+  err-msg:
+    password: 密码为必填项
+    phone-number: 手机号为必填项
+    verify-code: 短信验证码为必填项
+    verify-image-code: 图形验证码为必选项
+  title: 绑定手机号
+burst-mode: 突发模式
+button:
+  add-device: 添加设备
+  add-member: 添加成员
+  create: 创建
+  delete: 删除
+  edit: 编辑
+  reset-password: 重置密码
+  send: 发送
+  submit: 提交
+change-member:
+  form:
+    avatar:
+      label: 头像
+    gender:
+      label: 性别
+    loc_share:
+      label: 位置共享
+    name:
+      label: 名称
+    phone:
+      label: 电话
+    title: 更改成员
+confirm-password: 确认密码
+delete:
+  modal:
+    content: 您确定要删除吗？
+    hint: 此操作无法撤销
+    title: 删除
+female: 女
+gender: 性别
+group:
+  my-groups: 我的群组
 login:
   form:
     forgetPassword: 忘记密码
@@ -11,5 +55,97 @@ login:
     userName:
       errMsg: 用户名未填写
       placeholder: 用户名
+  type:
+    phone: 手机号
+    username: 账号
+male: 男
+member:
+  form:
+    avatar:
+      label: 头像
+    gender:
+      label: 性别
+    loc_share:
+      label: 分享位置
+    name:
+      label: 标签
+    password:
+      label: 密码
+    phone:
+      label: 手机号
+    track:
+      label: 轨迹
+  state: 状态
+member-state:
+  enabled: 启用
+  paused: 暂停
+menu:
+  contact: 通讯录
+  me: 我
+  message: 消息
+  workbench: 工作台
+message:
+  success: 成功
+name: 名字
+org:
+  created-date: 创建日期
+  devices: 设备
+  groups: 群组
+  members: 成员
+org-form:
+  avatar:
+    label: 头像
+  name:
+    label: 名字
+password: 密码
+phone-number: 电话号码
 project:
   name: 微喇企业管理系统
+register:
+  form:
+    getSMS: 获取短信
+    imgVerifyCode:
+      errMsg: 图像验证码为必填项
+      placeholder: 图像验证码
+    login: 登录
+    password:
+      errMsg: 密码为必填项
+    phone:
+      errMsg: 输入正确的电话号码
+      placeholder: 你的电话号码
+    sendSMS: 发送
+    submit: 提交
+    successMsg: 成功
+    title: 注册
+    verifyCode:
+      errMsg: 验证码为必填项
+      placeholder: 验证代码
+reset-password:
+  button: 重置密码
+  form:
+    password:
+      label: 新密码
+    title: 重置密码
+reset-password-form:
+  title: 重置密码
+reset-pwd:
+  form:
+    phone:
+      errMsg: 输入正确的电话号码
+      placeholder: 你的电话号码
+    title: 重置密码
+selected: 已选择
+sendSMS:
+  success:
+    hint: 发送成功，请注意您的消息。
+sms-code: 短信验证码
+track-type:
+  close: 关闭
+  high: 高
+  keep: 保持
+  low: 低
+  medium: 中等
+user:
+  gender: 性别
+  phone: 电话
+verify-image-code: 验证图像代码

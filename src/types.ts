@@ -1,12 +1,11 @@
 import type { ValidatedError } from '@arco-design/web-vue/es/form/interface'
 
 import type { App } from 'vue'
-import type { Router } from 'vue-router'
-import type { AppRouteRecordRaw } from './router/routes/types'
+import type { Router, RouteRecordRaw } from 'vue-router'
 
 export type UserModule = (ctx: {
   isClient: boolean
-  route: AppRouteRecordRaw[]
+  route: RouteRecordRaw[]
   router: Router
   app: App<Element>
 }) => void

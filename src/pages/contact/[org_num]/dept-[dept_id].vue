@@ -134,14 +134,14 @@ const { mutate: sendSMS, isPending } = useMutation({
           <template #icon>
             <IconUserAdd />
           </template>
-          Add Member
+          {{ t('button.add-member') }}
         </a-button>
 
         <a-button type="primary" @click="addDeviceModalVisible = true">
           <template #icon>
             <IconRobotAdd />
           </template>
-          Add Device
+          {{ t('button.add-device') }}
         </a-button>
       </div>
 
@@ -154,16 +154,16 @@ const { mutate: sendSMS, isPending } = useMutation({
 
   <a-modal v-model:visible="createMemberModalVisible" title="Create Member" @before-ok="(done) => createMember(createMemberForm, { onSuccess: () => done(true), onError: () => done(false) })">
     <a-form :model="createMemberForm">
-      <a-form-item field="name" label="Name" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
+      <a-form-item field="name" :label="t('member.form.name.label')" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
         <a-input v-model="createMemberForm.name" placeholder="Enter name" />
       </a-form-item>
-      <a-form-item field="phone" label="Phone" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
+      <a-form-item field="phone" :label="t('member.form.phone.label')" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
         <a-input v-model="createMemberForm.phone" placeholder="Enter phone number" />
       </a-form-item>
-      <a-form-item field="password" label="Password" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
+      <a-form-item field="password" :label="t('member.form.password.label')" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
         <a-input-password v-model="createMemberForm.password" placeholder="Enter password" />
       </a-form-item>
-      <a-form-item field="sex" label="Gender" :validate-trigger="['change', 'blur']">
+      <a-form-item field="sex" :label="t('member.form.gender.label')" :validate-trigger="['change', 'blur']">
         <a-radio-group v-model="createMemberForm.sex">
           <a-radio :value="0">
             Male
@@ -173,13 +173,13 @@ const { mutate: sendSMS, isPending } = useMutation({
           </a-radio>
         </a-radio-group>
       </a-form-item>
-      <a-form-item field="avatar" label="Avatar" :validate-trigger="['change', 'blur']">
+      <a-form-item field="avatar" :label="t('member.form.avatar.label')" :validate-trigger="['change', 'blur']">
         <AvatarUploader v-model:src="createMemberForm.avatar" />
       </a-form-item>
       <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
         <a-switch v-model="createMemberForm.tts" :checked-color="themeColor" unchecked-color="#ddd" />
       </a-form-item>
-      <a-form-item field="loc_share" label="Location Sharing" :validate-trigger="['change', 'blur']">
+      <a-form-item field="loc_share" :label="t('member.form.loc_share.label')" :validate-trigger="['change', 'blur']">
         <a-switch v-model="createMemberForm.loc_share" :checked-color="themeColor" unchecked-color="#ddd" />
       </a-form-item>
     </a-form>
@@ -206,10 +206,10 @@ const { mutate: sendSMS, isPending } = useMutation({
           </a-button>
         </div>
       </a-form-item>
-      <a-form-item field="name" label="Name" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
+      <a-form-item field="name" :label="t('name')" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
         <a-input v-model="addDeviceForm.name" placeholder="Enter name" />
       </a-form-item>
-      <a-form-item field="sex" label="Gender" :validate-trigger="['change', 'blur']">
+      <a-form-item field="sex" :label="t('gender')" :validate-trigger="['change', 'blur']">
         <a-radio-group v-model="addDeviceForm.sex">
           <a-radio :value="0">
             Male
@@ -219,16 +219,16 @@ const { mutate: sendSMS, isPending } = useMutation({
           </a-radio>
         </a-radio-group>
       </a-form-item>
-      <a-form-item field="avatar" label="Avatar" :validate-trigger="['change', 'blur']">
+      <a-form-item field="avatar" :label="t('member.form.avatar.label')" :validate-trigger="['change', 'blur']">
         <AvatarUploader v-model:src="addDeviceForm.avatar" />
       </a-form-item>
       <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
         <a-switch v-model="addDeviceForm.tts" :checked-color="themeColor" unchecked-color="#ddd" />
       </a-form-item>
-      <a-form-item field="loc_share" label="Location Sharing" :validate-trigger="['change', 'blur']">
+      <a-form-item field="loc_share" :label="t('member.form.loc_share.label')" :validate-trigger="['change', 'blur']">
         <a-switch v-model="addDeviceForm.loc_share" :checked-color="themeColor" unchecked-color="#ddd" />
       </a-form-item>
-      <a-form-item field="track" label="Track" :validate-trigger="['change', 'blur']">
+      <a-form-item field="track" :label="t('member.form.track.label')" :validate-trigger="['change', 'blur']">
         <a-switch v-model="addDeviceForm.track" :checked-color="themeColor" unchecked-color="#ddd" />
       </a-form-item>
     </a-form>

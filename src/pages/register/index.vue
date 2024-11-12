@@ -55,20 +55,23 @@ const { mutate: sendSMS } = useMutation({
 
 const { mutate: register } = useMutation({
   async mutationFn(params: Omit<Form, 'img_verify_code'>) {
-    const { data: { user_name } } = await weilaRequest.post<{
+    const { data } = await weilaRequest.post<{
       user_name: string
       country_code: string
       password: string // temp password
     }>('/regist', params)
 
+    if (!data)
+      throw new Error('Request Error')
+
     Modal.info({
       title: t('register.form.successMsg'),
       content: () => [
-        h('span', undefined, `${t('account.txt')}: ${user_name}`),
+        h('span', undefined, `${t('account.txt')}: ${data.user_name}`),
       ],
       onBeforeOk() {
         return isSupported.value
-          ? copy(user_name)
+          ? copy(data.user_name)
           : Promise.resolve()
       },
     })

@@ -1,4 +1,67 @@
-<script lang="tsx">
+<script setup lang="ts">
+import type { RouteMeta, RouteRecordRaw } from 'vue-router'
+import { isString, toString } from '@antfu/utils'
+import { routes } from 'vue-router/auto-routes'
+
+const router = useRouter()
+const { t } = useI18n()
+
+function* traverse(routes: RouteRecordRaw[]): Generator<RouteRecordRaw> {
+  for (const route of routes) {
+    if (route.children && route.children.length > 0) {
+      yield * traverse(route.children)
+    }
+
+    yield route
+  }
+}
+
+// @unocss-include
+const menus = ref<{
+  label: string
+  path: string
+  icon?: string
+  order: number
+}[]>([])
+
+for (const route of traverse(routes)) {
+  const { menu } = route.meta || {}
+  // FIXME: type
+  const path = route.name as string
+
+  if (menu) {
+    const {
+      order = 99,
+    } = menu
+    menus.value.push(
+      isString(menu)
+        ? { label: menu, path, icon: undefined, order }
+        : { label: menu.label, path, icon: menu.icon, order },
+    )
+
+    menus.value.sort((a, b) => a.order - b.order)
+  }
+}
+
+const selectedKeys = ref<string[]>([])
+
+function goto(path: string) {
+  router.push(path)
+}
+</script>
+
+<template>
+  <a-menu v-model:selected-keys="selectedKeys" mode="pop">
+    <a-menu-item v-for="menu in menus" :key="menu.path" @click="() => goto(menu.path)">
+      <template #icon>
+        <component :is="menu.icon" v-if="menu.icon" />
+      </template>
+      {{ t(menu.label) }}
+    </a-menu-item>
+  </a-menu>
+</template>
+
+<!-- <script lang="tsx">
 import type { RouteMeta, RouteRecordRaw } from 'vue-router'
 import { compile, computed, defineComponent, h, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -165,4 +228,4 @@ export default defineComponent({
     }
   }
 }
-</style>
+</style> -->
