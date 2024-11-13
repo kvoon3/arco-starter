@@ -63,7 +63,7 @@ watch(unfoldedDeptId, ([id]) => {
 
 <template>
   <div h-full flex>
-    <section h-full w80 border-r-1 p2 bg-base>
+    <section h-full w80 border-r-1 dark:border-gray-700 p2 bg-base>
       <!-- <button class="list-btn" @click="router.push('/contact/group')">
         <i i-ph-person-duotone inline-block /> {{ t('group.my-groups') }}
       </button>

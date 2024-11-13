@@ -358,10 +358,7 @@ declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
     readonly $inspect: UnwrapRef<typeof import('./utils/inspect')['$inspect']>
-    readonly DEFAULT_LAYOUT: UnwrapRef<typeof import('./layout/index')['DEFAULT_LAYOUT']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
-    readonly FIRST_LAYOUT: UnwrapRef<typeof import('./layout/index')['FIRST_LAYOUT']>
-    readonly PAGE_LAYOUT: UnwrapRef<typeof import('./layout/index')['PAGE_LAYOUT']>
     readonly UseImage: UnwrapRef<typeof import('@vueuse/components')['UseImage']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
     readonly addEventListen: UnwrapRef<typeof import('./utils/event')['addEventListen']>

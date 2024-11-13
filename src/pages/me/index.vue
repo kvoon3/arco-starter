@@ -42,7 +42,7 @@ const editUserInfoModalState = reactive({
   <div class="w-full p2">
     <a-breadcrumb mb4>
       <RouterLink to="/me">
-        <a-breadcrumb-item>Me</a-breadcrumb-item>
+        <a-breadcrumb-item>{{t('breadcrumb.me')}}</a-breadcrumb-item>
       </RouterLink>
     </a-breadcrumb>
     <div v-if="data" class="rounded-lg p-6 shadow-md transition-colors duration-200 bg-base">

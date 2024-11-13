@@ -9,6 +9,10 @@ binding-phone-form:
     verify-code: 短信验证码为必填项
     verify-image-code: 图形验证码为必选项
   title: 绑定手机号
+breadcrumb:
+  binding-phone: 绑定手机
+  me: 我
+  reset-password: 重置密码
 btn:
   create: 创建
 burst-mode: 突发模式

@@ -43,9 +43,12 @@ const form = ref<CreateGroupPayload>({
 })
 
 const [isMultiCheck, toggleMultiCheck] = useToggle(false)
-const checkedGroup = ref<number[]>([])
+const checkedGroupIds = ref<number[]>([])
+const checkedGroup = computed(() => checkedGroupIds.value.map((id) => 
+  groups.value?.find(group => group.id === id)
+))
 
-$inspect(checkedGroup)
+$inspect(checkedGroupIds)
 
 function showModal() {
   visible.value = true
@@ -62,7 +65,7 @@ const { mutate: createGroup } = useMutation({
 
 const deleteModalVisible = ref(false)
 async function deleteGroups() {
-  const checkedIds = checkedGroup.value
+  const checkedIds = checkedGroupIds.value
   let hasError = false
 
   try {
@@ -88,7 +91,7 @@ async function deleteGroups() {
     Message.error('An error occurred while deleting groups')
   }
 
-  checkedGroup.value = []
+  checkedGroupIds.value = []
   refetch()
 }
 </script>
@@ -108,13 +111,13 @@ async function deleteGroups() {
           </template>
           {{
             isMultiCheck
-              ? `${t('selected')} ${checkedGroup.length} / ${groups?.length || 0}`
+              ? `${t('selected')} ${checkedGroupIds.length} / ${groups?.length || 0}`
               : t('batch-operation')
           }}
         </a-button>
       </div>
       <div space-x-2>
-        <a-button v-if="isMultiCheck && checkedGroup.length" status="danger" @click="deleteModalVisible = true">
+        <a-button v-if="isMultiCheck && checkedGroupIds.length" status="danger" @click="deleteModalVisible = true">
           <template #icon>
             <IconDelete />
           </template>
@@ -130,7 +133,7 @@ async function deleteGroups() {
     </div>
 
     <div>
-      <a-checkbox-group v-model:model-value="checkedGroup" w-full space-y-1 bg-base>
+      <a-checkbox-group v-model:model-value="checkedGroupIds" w-full space-y-1 bg-base>
         <button v-for="group in groups" :key="group.id" class="flex items-center list-btn">
           <a-checkbox v-show="isMultiCheck" :value="group.id" />
           <RouterLink :to="`/message/${group.id}-${group.name}`" flex grow-1>
@@ -171,9 +174,9 @@ async function deleteGroups() {
         {{ t('delete.modal.content') }}
         <span color-red>{{ t('delete.modal.hint') }}</span>
       </P>
-      <ul>
-        <li v-for="checked, key in checkedGroup" :key>
-          ID: {{ checked }}
+      <ul list-decimal list-inside>
+        <li v-for="group, key in checkedGroup" :key>
+          {{ group?.name }}({{ group?.id }})
         </li>
       </ul>
     </a-modal>

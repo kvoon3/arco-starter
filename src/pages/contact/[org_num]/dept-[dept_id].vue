@@ -158,7 +158,7 @@ const { mutate: sendSMS, isPending } = useMutation({
     </div>
   </div>
 
-  <a-modal v-model:visible="createMemberModalVisible" title="Create Member" @before-ok="(done) => createMember(createMemberForm, { onSuccess: () => done(true), onError: () => done(false) })">
+  <a-modal v-model:visible="createMemberModalVisible" :title="t('button.add-member')" @before-ok="(done) => createMember(createMemberForm, { onSuccess: () => done(true), onError: () => done(false) })">
     <a-form :model="createMemberForm">
       <a-form-item field="name" :label="t('member.form.name.label')" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
         <a-input v-model="createMemberForm.name" placeholder="Enter name" />
@@ -191,7 +191,7 @@ const { mutate: sendSMS, isPending } = useMutation({
     </a-form>
   </a-modal>
 
-  <a-modal v-model:visible="addDeviceModalVisible" title="Add Device" @before-ok="(done) => addDevice(addDeviceForm, { onSuccess: () => done(true) })">
+  <a-modal v-model:visible="addDeviceModalVisible" :title="t('button.add-device')" @before-ok="(done) => addDevice(addDeviceForm, { onSuccess: () => done(true) })">
     <a-form :model="addDeviceForm" max-h-60vh w-fit of-scroll>
       <a-form-item :label="t('phone-number')" field="phone" :rules="[{ required: true, message: t('binding-phone-form.err-msg.phone-number') }]" :validate-trigger="['blur', 'change']">
         <a-input v-model="addDeviceForm.phone" />

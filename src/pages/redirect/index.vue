@@ -1,6 +1,12 @@
 <script lang="ts" setup>
 import { useRoute, useRouter } from 'vue-router'
 
+definePage({
+  meta: {
+    requiresAuth: false,
+  },
+})
+
 const router = useRouter()
 const route = useRoute()
 

@@ -45,19 +45,8 @@ const data = computed(() => {
     return _data
 
   for (const [key, value] of objectEntries(member.value)) {
-    if ([
-      'name',
-      'avatar',
-      'user_num',
-      'user_id',
-      'state',
-      'dept_id',
-      'type',
-      'sex',
-    ].includes(key)) {
-      continue
-    }
-    else if (key === 'track') {
+
+    if (key === 'track') {
       _data.push({
         label: t('track'),
         value: TrackTypeNameMap[value as TrackType],
@@ -75,7 +64,7 @@ const data = computed(() => {
         value: value ? t('open') : t('close'),
       })
     }
-    else {
+    else if(key === 'phone' || key === 'tts') {
       _data.push({
         label: key,
         value: String(value),

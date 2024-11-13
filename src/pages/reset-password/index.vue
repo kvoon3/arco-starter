@@ -10,6 +10,12 @@ const router = useRouter()
 const { t } = useI18n()
 const errorMessage = ref('')
 
+definePage({
+  meta: {
+    requiresAuth: false
+  }
+})
+
 interface Form {
   phone: string
   verify_code: string

@@ -9,6 +9,10 @@ binding-phone-form:
     verify-code: message code Required
     verify-image-code: verify image code required
   title: Binding Phone
+breadcrumb:
+  binding-phone: binding phone
+  me: me
+  reset-password: reset password
 btn:
   create: create
 burst-mode: Burst Mode

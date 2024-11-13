@@ -51,9 +51,9 @@ const { mutate: submit, isPending: isSubmiting } = useMutation({
   <div p2>
     <a-breadcrumb>
       <RouterLink to="/me">
-        <a-breadcrumb-item>Me</a-breadcrumb-item>
+        <a-breadcrumb-item>{{ t('breadcrumb.me') }}</a-breadcrumb-item>
       </RouterLink>
-      <a-breadcrumb-item>Reset Password</a-breadcrumb-item>
+      <a-breadcrumb-item>{{ t('breadcrumb.reset-password') }}</a-breadcrumb-item>
     </a-breadcrumb>
     <div class="mx-auto mt-8 max-w-md rounded-lg p-6 shadow-md bg-base">
       <h2 class="mb-6 text-center text-2xl font-bold">

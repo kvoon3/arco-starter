@@ -9,6 +9,7 @@ import type { OnSubmitParams } from '~/types'
 definePage({
   meta: {
     layout: 'first',
+    requiresAuth: false,
   },
 })
 

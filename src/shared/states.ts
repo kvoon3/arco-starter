@@ -24,10 +24,12 @@ watch(access_token, (token) => {
 })
 
 export const isLogin = computed(() =>
-  access_token.value
-  && refresh_token.value
-  && last_login_time
-  && expires_in,
+  Boolean(
+    access_token.value
+    && refresh_token.value
+    && last_login_time.value
+    && expires_in.value,
+  ),
 )
 export const isNeedRefresh = computed(() =>
   isLogin
