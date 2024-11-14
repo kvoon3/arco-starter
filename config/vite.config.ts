@@ -1,7 +1,6 @@
 import { resolve } from 'node:path'
 import ViteYaml from '@modyfi/vite-plugin-yaml'
 import Vue from '@vitejs/plugin-vue'
-import VueJsx from '@vitejs/plugin-vue-jsx'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 // import InlineEnum from 'unplugin-inline-enum/vite'
@@ -123,9 +122,8 @@ export default defineConfig({
     VueMacros({
       plugins: {
         vue: Vue(),
-        vueJsx: VueJsx(),
         vueRouter: VueRouter({
-          extensions: ['.vue', '.setup.tsx'],
+          extensions: ['.vue'],
           exclude: ['**/components/**'],
         }),
       },

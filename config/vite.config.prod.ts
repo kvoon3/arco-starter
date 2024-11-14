@@ -5,7 +5,7 @@ import { name } from '../package.json'
 import configArcoResolverPlugin from './plugin/arcoResolver'
 import configCompressPlugin from './plugin/compress'
 import configVisualizerPlugin from './plugin/visualizer'
-import baseConfig from './vite.config.base'
+import baseConfig from './vite.config'
 
 export default mergeConfig(
   baseConfig,

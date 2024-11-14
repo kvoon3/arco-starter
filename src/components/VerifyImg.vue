@@ -1,4 +1,4 @@
-<script setup lang="tsx">
+<script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
 import { UseImage } from '@vueuse/components'
 import { verifyImgFetcher } from '~/api/verify-img'

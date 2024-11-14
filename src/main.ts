@@ -29,7 +29,9 @@ setup(
   },
   // function to have custom setups
   (ctx) => {
-    const { app } = ctx
+    const { app, route } = ctx
+    console.log('import.meta.env.BASE_URL', import.meta.env.BASE_URL)
+    console.log('routes', route)
 
     // install all modules under `modules/`
     Object.values(import.meta.glob<{ install: UserModule }>('./modules/*.ts', { eager: true }))
