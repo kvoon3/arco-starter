@@ -105,7 +105,7 @@ async function deleteGroups() {
     </div>
     <div class="flex items-center justify-between text-lg">
       <div space-x-2>
-        <a-button type="outline" @click="() => toggleMultiCheck()">
+        <a-button type="outline" @click="() => toggleMultiCheck()" v-if="groups?.length">
           <template #icon>
             <IconCheck />
           </template>
@@ -181,7 +181,7 @@ async function deleteGroups() {
       </ul>
     </a-modal>
 
-    <a-modal v-model:visible="visible" title="Create Group" @before-ok="(done) => createGroup(form, { onSuccess: () => done(true) })">
+    <a-modal v-model:visible="visible" :title="t('group.create')" @before-ok="(done) => createGroup(form, { onSuccess: () => done(true) })">
       <a-form :model="form" layout="vertical">
         <a-form-item :label="t('name')" field="name" :validate-trigger="['blur', 'change']" :rules="{ required: true }">
           <a-input v-model="form.name" />

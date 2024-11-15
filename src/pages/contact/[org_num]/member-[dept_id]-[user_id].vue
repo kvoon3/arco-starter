@@ -3,6 +3,7 @@ import { objectEntries } from '@antfu/utils'
 import { type DescData, Message } from '@arco-design/web-vue'
 import { useMutation } from '@tanstack/vue-query'
 import { UseImage } from '@vueuse/components'
+import md5 from 'md5'
 import type { MemberModel } from '~/api/contact'
 import { TrackType } from '~/api/contact'
 import { weilaRequest } from '~/api/instances/request'
@@ -24,10 +25,13 @@ const dept = computed(() => {
 })
 
 const member = computed(() => {
-  if (!route.params.user_id || !dept.value)
+  if (!route.params.user_id)
     return undefined
 
-  return dept.value.members.find(member => member.user_id === Number(route.params.user_id))
+  if(Number(route.params.dept_id) === 0)
+    return contact.value?.members.find(member => member.user_id === Number(route.params.user_id))
+
+  return dept.value?.members.find(member => member.user_id === Number(route.params.user_id))
 })
 
 const TrackTypeNameMap = {
@@ -135,6 +139,24 @@ const changeMemberForm = reactive<ChangeMemberPayload>({
   track: TrackType.Close,
 })
 
+watch(changeMemberModalVisible, (newValue) => {
+  if (newValue) {
+    // Reset form when modal opens
+    Object.assign(changeMemberForm, {
+      org_num: Number(route.params.org_num),
+      dept_id: Number(route.params.dept_id),
+      member_id: Number(route.params.user_id),
+      name: member.value?.name || '',
+      sex: member.value?.sex || 0,
+      avatar: member.value?.avatar || '',
+      phone: member.value?.phone || '',
+      tts: member.value?.tts || 0,
+      loc_share: member.value?.loc_share || 0,
+      track: member.value?.track || TrackType.Close,
+    })
+  }
+})
+
 const { mutate: deleteMember } = useMutation({
   mutationFn: () => weilaRequest.post('/corp/web/member-delete', {
     org_num: Number(route.params.org_num),
@@ -161,7 +183,10 @@ const resetMemberPasswordForm = reactive<ResetMemberPasswordPayload>({
 })
 
 const { mutate: resetMemberPassword } = useMutation({
-  mutationFn: (payload: ResetMemberPasswordPayload) => weilaRequest.post('/corp/web/member-reset-password', payload),
+  mutationFn: (payload: ResetMemberPasswordPayload) => weilaRequest.post('/corp/web/member-reset-password', {
+    ...payload,
+    password: md5(payload.password),
+  }),
   onSuccess() {
     Message.success(t('message.success'))
   },

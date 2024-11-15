@@ -37,7 +37,8 @@ const { data: groups } = useQuery<GroupModel[]>({
 
 <template>
   <div h-full flex>
-    <section h-full w80 p2 bg-base>
+    <section h-full w80 p2 bg-base relative>
+      <a-empty v-if="!groups || !groups.length" absolute position-center />
       <RouterLink
         v-for="group in groups"
         :key="group.id" :to="`/message/${group.id}-${group.name}`"

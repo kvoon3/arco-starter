@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Message from '@arco-design/web-vue/es/message'
 import { useMutation } from '@tanstack/vue-query'
+import md5 from 'md5';
 import { weilaRequest } from '~/api/instances/request'
 import { sendVerifySms } from '~/api/verify-sms'
 
@@ -35,7 +36,12 @@ const { mutate: sendSMS, isPending } = useMutation({
 })
 
 const { mutate: submit, isPending: isSubmiting } = useMutation({
-  mutationFn: (data: Model) => weilaRequest.post('/corp/web/user-bind-phone', data),
+  mutationFn: async (data: Model) => {
+    return await weilaRequest.post('/corp/web/user-bind-phone', {
+      ...data,
+      password: md5(data.password)
+    })
+  },
   onSuccess() {
     Message.success('Success')
   },
@@ -75,7 +81,7 @@ const { mutate: submit, isPending: isSubmiting } = useMutation({
         <a-form-item :label="t('sms-code')" field="verify_code" :rules="[{ required: true, message: t('binding-phone-form.err-msg.verify-code') }]" :validate-trigger="['blur', 'change']">
           <div class="flex items-center">
             <a-input v-model="form.verify_code" class="mr-2 flex-grow" />
-            <a-button :loading="isPending" class="flex-shrink-0" @click="() => sendSMS({ phone: form.phone, verify_code: form.verify_code, country_code: '86', sms_type: 'reset-password' })">
+            <a-button :loading="isPending" class="flex-shrink-0" @click="() => sendSMS({ phone: form.phone, verify_code: form.verify_img_code, country_code: '86', sms_type: 'reset-password' })">
               {{ t('button.send') }}
             </a-button>
           </div>

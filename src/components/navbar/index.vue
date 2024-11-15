@@ -3,7 +3,7 @@ import { useFullscreen, useToggle } from '@vueuse/core'
 import { computed, inject } from 'vue'
 import Menu from '~/components/menu/index.vue'
 import { availableLocales, loadLanguageAsync } from '~/modules/i18n'
-import { access_token, isDark, last_login_time, refresh_token } from '~/shared/states'
+import { access_token, expires_in, isDark, last_login_time, refresh_token } from '~/shared/states'
 
 const { t, locale } = useI18n()
 const router = useRouter()
@@ -34,6 +34,7 @@ function logout() {
   access_token.value = ''
   refresh_token.value = ''
   last_login_time.value = -1
+  expires_in.value = -1
   router.push('/login')
 }
 </script>

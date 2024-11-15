@@ -11,7 +11,7 @@ definePage({
 </script>
 
 <template>
-  <div>
-    <a-empty />
+  <div >
+    <a-empty mt30 />
   </div>
 </template>

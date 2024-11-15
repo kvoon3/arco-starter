@@ -21,8 +21,11 @@ button:
   add-device: Add Device
   add-member: Add Member
   create: Create
+  create-member: Create Member
   delete: Delete
+  delete-dept: Delete Dept
   edit: Edit
+  edit-dept: Edit Dept
   remove: remove
   reset-password: Reset Password
   send: Send
@@ -54,9 +57,15 @@ delete:
     title: Delete
 dept:
   create: Add Dept
+  form:
+    name:
+      label: name
+      placeholder: name is required
+edit: Edit
 female: Female
 gender: Gender
 group:
+  create: Create Group
   my-groups: My Groups
   settings:
     members: Members

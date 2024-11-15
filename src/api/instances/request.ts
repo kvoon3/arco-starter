@@ -2,9 +2,10 @@ import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosReq
 import type { WeilaRes } from '..'
 import { Message } from '@arco-design/web-vue'
 import axios from 'axios'
-import { access_token, app_id, app_sign, isNeedRefresh, timestamp } from '~/shared/states'
+import { access_token, app_id, app_sign, expires_in, isLogin, isNeedRefresh, last_login_time, refresh_token, timestamp } from '~/shared/states'
 import defaultConfig, { WeilaErrorCode } from '..'
 import { tryRefreshToken } from '../refresh'
+// import { tryRefreshToken } from '../refresh'
 
 interface WeilaRequestInstance extends AxiosInstance {
   post: <T = any, R = WeilaRes<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>) => Promise<R>

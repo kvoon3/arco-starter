@@ -21,8 +21,11 @@ button:
   add-device: 添加设备
   add-member: 添加成员
   create: 创建
+  create-member: 创建成员
   delete: 删除
+  delete-dept: 删除部门
   edit: 编辑
+  edit-dept: 编辑部门
   remove: 移除
   reset-password: 重置密码
   send: 发送
@@ -54,9 +57,14 @@ delete:
     title: 删除
 dept:
   create: 添加部门
+  form:
+    name:
+      label: 名称
+      placeholder: 名称是必需的
 female: 女
 gender: 性别
 group:
+  create: 创建群组
   my-groups: 我的群组
   settings:
     members: 成员
@@ -88,7 +96,7 @@ member:
     loc_share:
       label: 分享位置
     name:
-      label: 标签
+      label: 名称
     password:
       label: 密码
     phone:
@@ -107,7 +115,7 @@ menu:
   workbench: 工作台
 message:
   success: 成功
-name: 名字
+name: 名称
 open: 打开
 org:
   created-date: 创建日期
@@ -118,7 +126,7 @@ org-form:
   avatar:
     label: 头像
   name:
-    label: 名字
+    label: 名称
 organazition: 组织
 password: 密码
 phone-number: 电话号码

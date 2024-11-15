@@ -5,7 +5,7 @@ import OrgForm from './components/org-form.vue'
 
 const { t } = useI18n()
 
-const { data: corp } = useQuery({
+const { data: corp, refetch } = useQuery({
   queryKey: ['my-org'],
   queryFn: corpFetcher,
 })
@@ -46,10 +46,10 @@ const orgForm = templateRef('orgForm')
           </a-button>
 
           <a-modal
-            v-model:visible="editCorpModalState.visible" title="Edit Organazition"
-            @before-ok="() => orgForm?.submit()"
+            v-model:visible="editCorpModalState.visible" :title="t('edit')"
+            @ok="() => orgForm?.submit().then(() => refetch())"
           >
-            <OrgForm ref="orgForm" :org-number="corp?.num" />
+            <OrgForm ref="orgForm" :org-number="corp?.num" :corp-name="corp?.name" />
           </a-modal>
         </header>
         <section class="flex flex-wrap gap-4">

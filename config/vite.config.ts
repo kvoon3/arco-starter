@@ -59,7 +59,8 @@ export default defineConfig({
     cors: true,
     proxy: {
       '/v1': {
-        target: 'http://192.168.0.125:8088',
+        target: 'http://demo.weila.hk',
+        // target: 'http://192.168.0.125:8088',
         changeOrigin: true,
       },
     },
@@ -68,7 +69,8 @@ export default defineConfig({
   plugins: [
 
     ViteMockServe({
-      enable: true,
+      mockPath: 'generated/mock',
+      enable: false,
     }),
 
     ViteYaml(),

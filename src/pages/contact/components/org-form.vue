@@ -5,13 +5,15 @@ import { weilaRequest } from '~/api/instances/request'
 
 const props = defineProps<{
   orgNumber?: number
+  corpName?: string
+  avatar?: string
 }>()
 
 const type = computed<'create' | 'edit'>(() => props?.orgNumber ? 'edit' : 'create')
 
 const form = reactive({
-  name: '',
-  avatar: '',
+  name: props.corpName,
+  avatar: props.avatar,
 })
 
 const { t } = useI18n()
@@ -19,8 +21,8 @@ const { t } = useI18n()
 // For arco use
 async function submit() {
   const url = type.value === 'create'
-    ? '/organization-create'
-    : '/organization-change'
+    ? '/corp/web/org-create'
+    : '/corp/web/org-change'
 
   const params = type.value === 'create'
     ? { name: form.name, avatar: form.avatar }

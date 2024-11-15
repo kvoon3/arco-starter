@@ -24,15 +24,14 @@ watch(access_token, (token) => {
 })
 
 export const isLogin = computed(() =>
-  Boolean(
-    access_token.value
-    && refresh_token.value
-    && last_login_time.value
-    && expires_in.value,
-  ),
+  Boolean(access_token.value)
+  && Boolean(refresh_token.value)
+  && Boolean(last_login_time.value)
+  && Boolean(expires_in.value),
 )
+
 export const isNeedRefresh = computed(() =>
-  isLogin
+  isLogin.value
   && timestamp.value - last_login_time.value > (expires_in.value * 1000) - EXPIRES_BUFFER,
 )
 

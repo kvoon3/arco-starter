@@ -1,16 +1,21 @@
 <script setup lang="ts">
-import { useQuery } from '@tanstack/vue-query'
+import { useMutation, useQuery } from '@tanstack/vue-query'
 import { UseImage } from '@vueuse/components'
 import { reactive } from 'vue'
 import type { DepartmentModel, MemberModel } from '~/api/contact'
 import { corpFetcher } from '~/api/corp'
 import OrgForm from './contact/components/org-form.vue'
+import { weilaRequest } from '~/api/instances/request'
+import { Message } from '@arco-design/web-vue'
+import md5 from 'md5'
 
 definePage({
   meta: {
     menu: { label: 'menu.contact', order: 1, icon: 'icon-user-group' },
   },
 })
+
+const { themeColor } = useAppStore()
 
 const { t } = useI18n()
 const router = useRouter()
@@ -58,6 +63,51 @@ $inspect(unfoldedDeptId)
 watch(unfoldedDeptId, ([id]) => {
   if (id)
     router.push(`/contact/${corp?.value?.num}/dept-${id}`)
+})
+
+
+interface NewMemberPayload {
+  org_num: number
+  name: string
+  password: string
+  dept_id: 0
+  sex: number
+  avatar: string
+  phone: string
+  tts: number
+  loc_share: number
+}
+
+const createMemberModalVisible = ref(false)
+const createMemberForm = reactive<NewMemberPayload>({
+  org_num: contactStore.org_num,
+  name: '',
+  password: '',
+  dept_id: 0,
+  sex: 0,
+  avatar: '',
+  phone: '',
+  tts: 0,
+  loc_share: 0,
+})
+contactStore.$subscribe((_, state) => {
+  createMemberForm.org_num = state.org_num
+})
+
+const { mutate: createMember } = useMutation({
+  mutationFn: (payload: NewMemberPayload) => {
+    return weilaRequest.post('/corp/web/member-create', {
+      ...payload,
+      password: md5(payload.password),
+      tts: payload.tts ? 1 : 0,
+      loc_share: payload.loc_share ? 1 : 0,
+    })
+  },
+  onSuccess() {
+    createMemberModalVisible.value = false
+    Message.success(t('message.success'))
+    contactStore.refetch()
+  },
 })
 </script>
 
@@ -142,6 +192,19 @@ watch(unfoldedDeptId, ([id]) => {
 
       <!-- @vue-expect-error type error when use custom field names -->
       <a-tree
+        :data="contact?.members"
+        :field-names="{
+          key: 'user_id',
+          title: 'name',
+        }"
+
+        :block-node="true"
+        @select="selectNode"
+      />
+
+
+      <!-- @vue-expect-error type error when use custom field names -->
+      <a-tree
         :data="contact?.depts"
         :field-names="{
           key: 'id',
@@ -154,12 +217,49 @@ watch(unfoldedDeptId, ([id]) => {
       <button class="list-btn" @click="() => createCorpModalState.visible = true">
         <i i-ph-plus inline-block /> {{ t('dept.create') }}
       </button>
-      <a-modal v-model:visible="createCorpModalState.visible" :title="t('corp.create.form.title')">
-        <OrgForm ref="orgForm" />
-      </a-modal>
+      <button class="list-btn" @click="() => createMemberModalVisible = true">
+        <i i-ph-plus inline-block /> {{ t('button.create-member') }}
+      </button>
     </section>
     <section h-full w-full>
       <RouterView />
     </section>
   </div>
+
+  <a-modal v-model:visible="createMemberModalVisible" :title="t('button.add-member')" @before-ok="(done) => createMember(createMemberForm, { onSuccess: () => done(true), onError: () => done(false) })">
+    <a-form :model="createMemberForm">
+      <a-form-item field="name" :label="t('member.form.name.label')" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
+        <a-input v-model="createMemberForm.name" placeholder="Enter name" />
+      </a-form-item>
+      <a-form-item field="phone" :label="t('member.form.phone.label')" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
+        <a-input v-model="createMemberForm.phone" placeholder="Enter phone number" />
+      </a-form-item>
+      <a-form-item field="password" :label="t('member.form.password.label')" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
+        <a-input-password v-model="createMemberForm.password" placeholder="Enter password" />
+      </a-form-item>
+      <a-form-item field="sex" :label="t('member.form.gender.label')" :validate-trigger="['change', 'blur']">
+        <a-radio-group v-model="createMemberForm.sex">
+          <a-radio :value="0">
+            Male
+          </a-radio>
+          <a-radio :value="1">
+            Female
+          </a-radio>
+        </a-radio-group>
+      </a-form-item>
+      <a-form-item field="avatar" :label="t('member.form.avatar.label')" :validate-trigger="['change', 'blur']">
+        <AvatarUploader v-model:src="createMemberForm.avatar" />
+      </a-form-item>
+      <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
+        <a-switch v-model="createMemberForm.tts" :checked-color="themeColor" unchecked-color="#ddd" />
+      </a-form-item>
+      <a-form-item field="loc_share" :label="t('member.form.loc_share.label')" :validate-trigger="['change', 'blur']">
+        <a-switch v-model="createMemberForm.loc_share" :checked-color="themeColor" unchecked-color="#ddd" />
+      </a-form-item>
+    </a-form>
+  </a-modal>
+
+  <a-modal v-model:visible="createCorpModalState.visible" :title="t('corp.create.form.title')">
+    <OrgForm ref="orgForm" />
+  </a-modal>
 </template>

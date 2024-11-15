@@ -7,6 +7,10 @@ export default antfu(
     vue: true,
     typescript: true,
     formatters: true,
+    ignores: [
+      'fixtures',
+      'generated',
+    ],
   },
   pluginQuery.configs['flat/recommended'],
 )

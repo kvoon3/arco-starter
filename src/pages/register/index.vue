@@ -146,7 +146,7 @@ function handleSubmit({ values, errors }: OnSubmitParams<Omit<Form, 'img_verify_
         :validate-trigger="['change', 'blur']"
         hide-label
       >
-        <a-input v-model:model-value="form.img_verify_code" :placeholder="t('register.form.imgVerifyCode.placeholder')" allow-clear mr4 w50 />
+        <a-input v-model="form.img_verify_code" :placeholder="t('register.form.imgVerifyCode.placeholder')" allow-clear mr4 w50 />
         <verify-img />
       </a-form-item>
 
@@ -156,7 +156,7 @@ function handleSubmit({ values, errors }: OnSubmitParams<Omit<Form, 'img_verify_
         :validate-trigger="['change', 'blur']"
         hide-label
       >
-        <a-input v-model:model-value="form.verify_code" :placeholder="t('register.form.verifyCode.placeholder')" allow-clear mr4 w-auto />
+        <a-input v-model="form.verify_code" :placeholder="t('register.form.verifyCode.placeholder')" allow-clear mr4 w-auto />
         <a-button
           type="primary" @click="() => sendSMS({
             phone: form.phone,

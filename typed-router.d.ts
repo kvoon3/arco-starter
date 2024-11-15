@@ -35,7 +35,6 @@ declare module 'vue-router/auto-routes' {
     '/not-found/': RouteRecordInfo<'/not-found/', '/not-found', Record<never, never>, Record<never, never>>,
     '/redirect/': RouteRecordInfo<'/redirect/', '/redirect', Record<never, never>, Record<never, never>>,
     '/register/': RouteRecordInfo<'/register/', '/register', Record<never, never>, Record<never, never>>,
-    '/reset-password/': RouteRecordInfo<'/reset-password/', '/reset-password', Record<never, never>, Record<never, never>>,
     '/workbench/': RouteRecordInfo<'/workbench/', '/workbench', Record<never, never>, Record<never, never>>,
   }
 }
