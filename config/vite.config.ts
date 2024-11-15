@@ -3,7 +3,7 @@ import ViteYaml from '@modyfi/vite-plugin-yaml'
 import Vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
-// import InlineEnum from 'unplugin-inline-enum/vite'
+import InlineEnum from 'unplugin-inline-enum/vite'
 import Components from 'unplugin-vue-components/vite'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
@@ -75,7 +75,7 @@ export default defineConfig({
 
     ViteYaml(),
 
-    // InlineEnum(),
+    InlineEnum(),
 
     // DO not use it currently, See `https://github.com/posva/unplugin-vue-router/discussions/429`
     // VueDevTools(),
