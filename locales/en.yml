@@ -17,6 +17,8 @@ btn:
   create: create
 burst-mode: Burst Mode
 button:
+  cancel: cancel
+  reset: reset
   add: add
   add-device: Add Device
   add-member: Add Member
@@ -43,6 +45,8 @@ change-member:
     phone:
       label: phone
     title: Change Member
+    track:
+      label: track
 close: close
 confirm-password: Confirm Password
 corp:
@@ -130,6 +134,7 @@ org-form:
     label: Name
 organazition: organazition
 password: Password
+phone: phone
 phone-number: Phone Number
 project:
   name: Weila Enterprise Manager

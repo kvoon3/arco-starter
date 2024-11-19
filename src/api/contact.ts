@@ -14,6 +14,7 @@ export interface DepartmentsModel {
 export enum MemberType {
   User,
   Device,
+  Owner = 255,
 }
 
 export enum TrackType {

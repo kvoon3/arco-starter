@@ -85,7 +85,7 @@ const { mutate: changeMember } = useMutation({
       </div>
       <template #content>
         <div class="member-card relative w-64 border rounded p-4 bg-base">
-          <section absolute right-4 top-4 flex justify-end>
+          <!-- <section absolute right-4 top-4 flex justify-end>
             <a-button
               v-if="member.type === MemberType.User" @click="() => {
                 changeMemberForm.org_num = orgNumber;
@@ -111,7 +111,7 @@ const { mutate: changeMember } = useMutation({
                 <IconDelete />
               </template>
             </a-button>
-          </section>
+          </section> -->
           <div class="mb-4 flex flex-col items-center">
             <UseImage
               :src="member.avatar"

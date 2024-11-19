@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/vue-query'
 import { UseImage } from '@vueuse/components'
 import md5 from 'md5'
 import type { MemberModel } from '~/api/contact'
-import { TrackType } from '~/api/contact'
+import { MemberType, TrackType } from '~/api/contact'
 import { weilaRequest } from '~/api/instances/request'
 
 const { t } = useI18n()
@@ -42,6 +42,12 @@ const TrackTypeNameMap = {
   [TrackType.Keep]: t('track-type.keep'),
 }
 
+const trackOptions = objectEntries(TrackTypeNameMap)
+  .map(([value, key]) => ({
+    label: key,
+    value
+  }))
+
 const data = computed(() => {
   const _data: DescData[] = []
 
@@ -49,8 +55,7 @@ const data = computed(() => {
     return _data
 
   for (const [key, value] of objectEntries(member.value)) {
-
-    if (key === 'track') {
+    if (key === 'track' && member.value.type === MemberType.Device) {
       _data.push({
         label: t('track'),
         value: TrackTypeNameMap[value as TrackType],
@@ -59,7 +64,7 @@ const data = computed(() => {
     else if (key === 'created') {
       _data.push({
         label: t('created'),
-        value: new Date(value).toLocaleString(),
+        value: new Date(Number(value) * 1000).toLocaleString(),
       })
     }
     else if (key === 'loc_share') {
@@ -68,10 +73,16 @@ const data = computed(() => {
         value: value ? t('open') : t('close'),
       })
     }
-    else if(key === 'phone' || key === 'tts') {
+    else if(key === 'phone') {
       _data.push({
-        label: key,
+        label: t('phone'),
         value: String(value),
+      })
+    }
+    else if(key === 'tts') {
+      _data.push({
+        label: 'TTS',
+        value: value ? t('open') : t('close'),
       })
     }
   }
@@ -80,11 +91,17 @@ const data = computed(() => {
 })
 
 const isChangingMemberState = ref(false)
-const memberState = ref(member.value?.state)
+const memberState = computed({
+  get: () => member.value?.state ?? 0,
+  set: (val) => {
+    if(member.value)
+      member.value.state = val
+  }
+})
 
 const MemberStateNameMap = {
-  1: t('member-state.enabled'),
-  0: t('member-state.paused'),
+  0: t('member-state.enabled'),
+  1: t('member-state.paused'),
 }
 
 async function toggleMemberState(state: 1 | 0) {
@@ -92,8 +109,8 @@ async function toggleMemberState(state: 1 | 0) {
 
   const res = await weilaRequest.post<MemberModel>('/corp/web/member-change-state', {
     state,
-    user_id: member.value!.user_id,
-    org_num: member.value!.user_num,
+    member_id: member.value!.user_id,
+    org_num: Number(route.params.org_num),
   })
 
   isChangingMemberState.value = false
@@ -103,59 +120,6 @@ async function toggleMemberState(state: 1 | 0) {
 
   return true
 }
-
-interface ChangeMemberPayload {
-  org_num: number
-  member_id: number
-  name: string
-  dept_id: number
-  sex: 0 | 1
-  avatar: string
-  phone: string
-  tts: 0 | 1
-  loc_share: 0 | 1
-  track: TrackType
-}
-
-const { mutate: changeMember } = useMutation({
-  mutationFn: (payload: ChangeMemberPayload) => weilaRequest.post('/corp/web/member-change', payload),
-  onSuccess() {
-    Message.success(t('message.success'))
-    refetch()
-  },
-})
-
-const changeMemberModalVisible = ref(false)
-const changeMemberForm = reactive<ChangeMemberPayload>({
-  org_num: Number(route.params.org_num),
-  dept_id: Number(route.params.dept_id),
-  member_id: Number(route.params.user_id),
-  name: '',
-  sex: 0,
-  avatar: '',
-  phone: '',
-  tts: 0,
-  loc_share: 0,
-  track: TrackType.Close,
-})
-
-watch(changeMemberModalVisible, (newValue) => {
-  if (newValue) {
-    // Reset form when modal opens
-    Object.assign(changeMemberForm, {
-      org_num: Number(route.params.org_num),
-      dept_id: Number(route.params.dept_id),
-      member_id: Number(route.params.user_id),
-      name: member.value?.name || '',
-      sex: member.value?.sex || 0,
-      avatar: member.value?.avatar || '',
-      phone: member.value?.phone || '',
-      tts: member.value?.tts || 0,
-      loc_share: member.value?.loc_share || 0,
-      track: member.value?.track || TrackType.Close,
-    })
-  }
-})
 
 const { mutate: deleteMember } = useMutation({
   mutationFn: () => weilaRequest.post('/corp/web/member-delete', {
@@ -195,7 +159,7 @@ const { mutate: resetMemberPassword } = useMutation({
 
 <template>
   <div p4 bg-base>
-    <a-breadcrumb>
+    <a-breadcrumb mb-2>
       <a-breadcrumb-item v-if="dept" cursor-pointer @click="router.push(`/contact/${route.params.org_num}/dept-${route.params.dept_id}`)">
         {{ dept?.name }}
       </a-breadcrumb-item>
@@ -203,7 +167,7 @@ const { mutate: resetMemberPassword } = useMutation({
         {{ member?.name }}
       </a-breadcrumb-item>
     </a-breadcrumb>
-    <div v-if="member" class="w-full overflow-hidden rounded-lg shadow-md">
+    <div v-if="member" class="w-full of-hidden rounded-lg shadow-md">
       <div class="p-6">
         <div flex justify-between>
           <div class="mb-4 flex items-center">
@@ -226,7 +190,12 @@ const { mutate: resetMemberPassword } = useMutation({
             </div>
           </div>
           <div space-x-2>
-            <a-button @click="changeMemberModalVisible = true">
+            <a-button 
+              @click=" member.type === MemberType.Device
+                ? router.push(`/contact/${route.params.org_num}/edit-device-${route.params.dept_id}-${route.params.user_id}`)
+                : router.push(`/contact/${route.params.org_num}/edit-member-${route.params.dept_id}-${route.params.user_id}`)
+              "
+            >
               {{ t('button.edit') }}
             </a-button>
             <a-button @click="resetMemberPasswordModalVisible = true">
@@ -244,16 +213,17 @@ const { mutate: resetMemberPassword } = useMutation({
           <a-switch
             v-model="memberState"
             :loading="isChangingMemberState"
+            :checked-value="0"
+            :unchecked-value="1"
             :checked-color="themeColor" unchecked-color="#ddd"
-            :checked-value="1"
-            :unchecked-value="0"
-            :before-change="(v: 0 | 1) => toggleMemberState(v)"
+            :before-change="(v: 0 | 1) => toggleMemberState(v).then(refetch)"
           />
         </div>
       </div>
     </div>
     <a-empty v-else />
   </div>
+
   <a-modal v-model:visible="deleteMemberModalVisible" :title="t('delete.modal.title')" @before-ok="(done) => deleteMember(void 0, { onSuccess: () => done(true), onError: () => done(false) })">
     <div>
       <p>
@@ -263,36 +233,6 @@ const { mutate: resetMemberPassword } = useMutation({
         {{ t('delete.modal.hint') }}
       </p>
     </div>
-  </a-modal>
-
-  <a-modal v-model:visible="changeMemberModalVisible" :title="t('change-member.form.title')" @before-ok="(done) => changeMember(changeMemberForm, { onSuccess: () => done(true), onError: () => done(false) })">
-    <a-form :model="changeMemberForm">
-      <a-form-item field="name" :label="t('change-member.form.name.label')" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
-        <a-input v-model="changeMemberForm.name" placeholder="Enter name" />
-      </a-form-item>
-      <a-form-item field="phone" :label="t('change-member.form.phone.label')" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
-        <a-input v-model="changeMemberForm.phone" placeholder="Enter phone number" />
-      </a-form-item>
-      <a-form-item field="sex" :label="t('change-member.form.gender.label')" :validate-trigger="['change', 'blur']">
-        <a-radio-group v-model="changeMemberForm.sex">
-          <a-radio :value="0">
-            {{ t('male') }}
-          </a-radio>
-          <a-radio :value="1">
-            {{ t('female') }}
-          </a-radio>
-        </a-radio-group>
-      </a-form-item>
-      <a-form-item field="avatar" :label="t('change-member.form.avatar.label')" :validate-trigger="['change', 'blur']">
-        <AvatarUploader v-model:src="changeMemberForm.avatar" />
-      </a-form-item>
-      <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
-        <a-switch v-model="changeMemberForm.tts" :checked-color="themeColor" unchecked-color="#ddd" />
-      </a-form-item>
-      <a-form-item field="loc_share" :label="t('change-member.form.loc_share.label')" :validate-trigger="['change', 'blur']">
-        <a-switch v-model="changeMemberForm.loc_share" :checked-color="themeColor" unchecked-color="#ddd" />
-      </a-form-item>
-    </a-form>
   </a-modal>
 
   <a-modal v-model:visible="resetMemberPasswordModalVisible" :title="t('reset-password.form.title')" @before-ok="(done) => resetMemberPassword(resetMemberPasswordForm, { onSuccess: () => done(true), onError: () => done(false) })">

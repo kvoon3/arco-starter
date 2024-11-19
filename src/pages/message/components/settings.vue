@@ -5,6 +5,8 @@ import { UseImage } from '@vueuse/components'
 import { weilaFetch } from '~/api/instances/fetcher'
 import { weilaRequest } from '~/api/instances/request'
 import AddMembersModal from './add-members-modal.vue'
+import { TrackType } from '~/api/contact'
+import { objectEntries } from '@antfu/utils'
 
 const { groupId } = defineProps<{
   groupId: number
@@ -41,6 +43,7 @@ interface ChangeMemberPayload {
   prority: number
   tts: number
   loc_share: number
+  track: TrackType
 }
 
 const { mutate: changeMember } = useMutation({
@@ -54,13 +57,44 @@ const { mutate: changeMember } = useMutation({
   },
 })
 
+const TrackTypeNameMap = {
+  [TrackType.Close]: t('track-type.close'),
+  [TrackType.High]: t('track-type.high'),
+  [TrackType.Medium]: t('track-type.medium'),
+  [TrackType.Low]: t('track-type.low'),
+  [TrackType.Keep]: t('track-type.keep'),
+}
+
+const trackOptions = objectEntries(TrackTypeNameMap)
+  .map(([value, key]) => ({
+    label: key,
+    value
+  }))
+
 const changeMemberModalVisible = ref(false)
-const changeMemberForm = reactive<ChangeMemberPayload>({
+
+let changeMemberForm = reactive<ChangeMemberPayload>({
   group_id: groupId,
   member_id: 0,
   prority: 0,
   tts: 0,
   loc_share: 0,
+  track: TrackType.Close,
+})
+watch(changeMemberModalVisible, (visible) => {
+  console.log('visible',visible)
+
+  if(!visible)
+    return
+
+  changeMemberForm = reactive({
+    group_id: groupId,
+    member_id: 0,
+    prority: 0,
+    tts: 0,
+    loc_share: 0,
+    track: TrackType.Close,
+  })
 })
 
 interface DeleteMemberPayload {
@@ -138,16 +172,19 @@ const addMemberModalVisible = ref(false)
 
   <AddMembersModal v-model:visible="addMemberModalVisible" :group-id="groupId" />
 
-  <a-modal v-model:visible="changeMemberModalVisible" title="Change Member Settings" @before-ok="(done) => changeMember(changeMemberForm, { onSuccess: () => done(true) })">
+  <a-modal v-model:visible="changeMemberModalVisible" :title="t('change-member-settings-form.title')" @before-ok="(done) => changeMember(changeMemberForm, { onSuccess: () => done(true) })">
     <a-form :model="changeMemberForm" layout="vertical">
-      <a-form-item label="Priority" name="priority">
+      <a-form-item label="Priority" :name="t('priority')">
         <a-input-number v-model="changeMemberForm.prority" :min="0" :max="100" class="w-full" />
       </a-form-item>
       <a-form-item label="TTS" name="tts">
-        <a-switch v-model="changeMemberForm.tts" :checked-color="themeColor" unchecked-color="#ddd" />
+        <a-switch v-model="changeMemberForm.tts" :checked-value="1" :uncheckted-value="0" :checked-color="themeColor" unchecked-color="#ddd" />
       </a-form-item>
       <a-form-item label="Location Sharing" name="loc_share">
-        <a-switch v-model="changeMemberForm.loc_share" :checked-color="themeColor" unchecked-color="#ddd" />
+        <a-switch v-model="changeMemberForm.loc_share" :checked-value="1" :uncheckted-value="0" :checked-color="themeColor" unchecked-color="#ddd" />
+      </a-form-item>
+      <a-form-item label="Track" name="track">
+        <a-radio-group type="button" :default-value="String(changeMemberForm.track)" v-model="changeMemberForm.track" :options="trackOptions"></a-radio-group>
       </a-form-item>
     </a-form>
   </a-modal>

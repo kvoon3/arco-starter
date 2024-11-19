@@ -399,7 +399,7 @@ noauth
 #### 请求Body参数
 ```javascript
 {
-	"phone": "13353236154",
+	"phone": "13353236455",
 	"password": "e10adc3949ba59abbe56e057f20f883e"
 }
 ```
@@ -422,34 +422,41 @@ noauth
 	"errmsg": "请求成功",
 	"data": {
 		"user": {
-			"id": 1253444,
-			"num": "70015325",
+			"id": 1253488,
+			"num": "70014762",
 			"sex": 0,
-			"name": "ent19949504",
-			"bind_phone": "13353236154",
+			"name": "ent98164680",
+			"bind_phone": "13353236455",
 			"country_code": "86",
 			"avatar": "http://favicon.weila.hk/default/user.png"
 		},
 		"account": {
-			"user_name": "70015325",
+			"user_name": "70014762",
 			"country_code": "0",
-			"password": "9274b15d3267407d7f073267733eb1b0"
+			"password": "7f4c9356c38de7e5d3ff9294206af974"
 		},
 		"org": {
-			"num": 100073,
+			"num": 100130,
 			"name": "微喇测试",
-			"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100073/a/7ddf8c72.jpg",
-			"created": 1730274806,
-			"member_cnt": 7,
-			"group_cnt": 2,
-			"group_ver": 1730707540,
-			"address_ver": 1730454374,
+			"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/a/b85fb875.jpg",
+			"creator": {
+				"id": 1253488,
+				"num": "70014762",
+				"sex": 0,
+				"name": "ent98164680",
+				"avatar": "http://favicon.weila.hk/default/user.png"
+			},
+			"created": 1731986807,
+			"member_cnt": 4,
+			"group_cnt": 1,
+			"group_ver": 1731989765,
+			"address_ver": 1732001188,
 			"device_cnt": 0,
 			"device_ver": 1
 		},
-		"access_token": "27c468a61c57ce0b9a09e2f72cb9b365",
+		"access_token": "32b627465b68a866603ab265cf408c67",
 		"expires_in": 86400,
-		"refresh_token": "201e4a25ecf1213a55a5ea27003d6d6e"
+		"refresh_token": "3a98cc3ac7f9db4c823a3d1413d667a9"
 	}
 }
 ```
@@ -472,7 +479,7 @@ noauth
 #### 请求Body参数
 ```javascript
 {
-	"user_name": "70010885",
+	"user_name": "70014762",
 	"password": "e10adc3949ba59abbe56e057f20f883e"
 }
 ```
@@ -495,34 +502,41 @@ noauth
 	"errmsg": "请求成功",
 	"data": {
 		"user": {
-			"id": 1253447,
-			"num": "70010885",
+			"id": 1253488,
+			"num": "70014762",
 			"sex": 0,
-			"name": "ent44094209",
-			"bind_phone": "16675441248",
+			"name": "ent98164680",
+			"bind_phone": "13353236455",
 			"country_code": "86",
 			"avatar": "http://favicon.weila.hk/default/user.png"
 		},
 		"account": {
-			"user_name": "70010885",
+			"user_name": "70014762",
 			"country_code": "0",
-			"password": "73c18c320f3d13b2b2b66fbac937e66a"
+			"password": "27388e8b38d2d7491c4986e3b01a7705"
 		},
 		"org": {
-			"num": 100080,
-			"name": "kvoon-org",
-			"avatar": "https://picsum.photos/200?random=1730457465401",
-			"created": 1730457462,
-			"member_cnt": 1,
-			"group_cnt": 0,
-			"group_ver": 1,
-			"address_ver": 1730859173,
+			"num": 100130,
+			"name": "微喇测试",
+			"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/a/b85fb875.jpg",
+			"creator": {
+				"id": 1253488,
+				"num": "70014762",
+				"sex": 0,
+				"name": "ent98164680",
+				"avatar": "http://favicon.weila.hk/default/user.png"
+			},
+			"created": 1731986807,
+			"member_cnt": 4,
+			"group_cnt": 1,
+			"group_ver": 1731989765,
+			"address_ver": 1732001188,
 			"device_cnt": 0,
 			"device_ver": 1
 		},
-		"access_token": "4e74b04be33083d0d4337956d6d0db82",
+		"access_token": "949fbf405308d13736afd3bc43f4b174",
 		"expires_in": 86400,
-		"refresh_token": "c68e0bac0cb2d0b03248f3b3b2fbaed5"
+		"refresh_token": "224a637da6f3a01796126ea117daa4e1"
 	}
 }
 ```
@@ -1495,7 +1509,7 @@ noauth
 > 已完成
 
 #### 接口URL
-> http://192.168.0.125:8088/v1/corp/web/member-create?access-token=1a0066e53cc7a7496d9c55d43247111c
+> http://192.168.0.125:8088/v1/corp/web/member-create?access-token=6522909b5350eccf8ee889361ca4b6a8
 
 #### 请求方式
 > POST
@@ -1506,19 +1520,19 @@ noauth
 #### 请求Query参数
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
 --- | --- | --- | --- | ---
-access-token | 1a0066e53cc7a7496d9c55d43247111c | String | 是 | -
+access-token | 6522909b5350eccf8ee889361ca4b6a8 | String | 是 | -
 #### 请求Body参数
 ```javascript
 {
-	"org_num": 100073,
-	"name": "222222",
+	"org_num": 100050,
+	"name": "44444444",
 	"password": "e10adc3949ba59abbe56e057f20f883e",
-    "dept_id": 6,
-	"sex": 0,
+    "dept_id": 15,
+	"sex": 1,
 	"avatar": "http://favicon.weila.hk/default/session.png",
-	"phone": "18611111111",
-	"tts": 0,
-	"loc_share": 0
+	"phone": "18644444444",
+	"tts": 1,
+	"loc_share": 1
 }
 ```
 #### 认证方式
@@ -1565,7 +1579,7 @@ noauth
 > 已完成
 
 #### 接口URL
-> http://192.168.0.125:8088/v1/corp/web/member-add-device?access-token=1a0066e53cc7a7496d9c55d43247111c
+> http://demo.weila.hk/v1/corp/web/member-add-device?access-token=a3a7c3f7b7305f6ab67cc1f3cce79774
 
 #### 请求方式
 > POST
@@ -1576,19 +1590,19 @@ noauth
 #### 请求Query参数
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
 --- | --- | --- | --- | ---
-access-token | 1a0066e53cc7a7496d9c55d43247111c | String | 是 | -
+access-token | a3a7c3f7b7305f6ab67cc1f3cce79774 | String | 是 | -
 #### 请求Body参数
 ```javascript
 {
 	"org_num": 100073,
-	"verify_code": "420839",
-	"name": "222222",
+	"verify_code": "193212",
+	"name": "测试机2",
     "dept_id": 6,
 	"sex": 0,
 	"avatar": "http://favicon.weila.hk/default/group.png",
 	"phone": "18611111111",
-    "tts": 0,
-	"loc_share": 0,
+    "tts": 1,
+	"loc_share": 1,
 	"track": 1 //0关闭 1高频 2中频 3低频 4保留 其他自定义单位秒
 }
 ```
@@ -2508,6 +2522,320 @@ noauth
 				"sex": 0,
 				"name": "222222",
 				"avatar": "http://favicon.weila.hk/default/group.png"
+			}
+		]
+	}
+}
+```
+#### 错误响应示例
+```javascript
+{
+	"errcode": "105",
+	"errmsg": "账号或密码错误"
+}
+```
+## /WEBAPI/corp/web/位置管理
+```text
+暂无描述
+```
+#### Header参数
+参数名 | 示例值 | 参数描述
+--- | --- | ---
+暂无参数
+#### Query参数
+参数名 | 示例值 | 参数描述
+--- | --- | ---
+暂无参数
+#### Body参数
+参数名 | 示例值 | 参数描述
+--- | --- | ---
+暂无参数
+#### 认证方式
+```text
+noauth
+```
+#### 预执行脚本
+```javascript
+暂无预执行脚本
+```
+#### 后执行脚本
+```javascript
+暂无后执行脚本
+```
+## /WEBAPI/corp/web/位置管理/获取用户轨迹
+```text
+暂无描述
+```
+#### 接口状态
+> 已完成
+
+#### 接口URL
+> http://192.168.0.125:8088/v1/corp/web/location-get-track?access-token=6338b4249ee06427eeeddf78e51de639
+
+#### 请求方式
+> POST
+
+#### Content-Type
+> json
+
+#### 请求Query参数
+参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
+--- | --- | --- | --- | ---
+access-token | 6338b4249ee06427eeeddf78e51de639 | String | 是 | -
+#### 请求Body参数
+```javascript
+{
+    "user_id": 1253464, //群Id
+    "date": "2024-11-19"
+}
+```
+参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
+--- | --- | --- | --- | ---
+name | 行政部 | String | 是 | -
+avatar | http:// | String | 否 | -
+#### 认证方式
+```text
+noauth
+```
+#### 预执行脚本
+```javascript
+暂无预执行脚本
+```
+#### 后执行脚本
+```javascript
+暂无后执行脚本
+```
+#### 成功响应示例
+```javascript
+{
+	"errcode": 0,
+	"errmsg": "请求成功",
+	"data": {
+		"tracks": [
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997061
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997121
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997181
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997241
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997301
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997361
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997421
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997481
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997541
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997601
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997661
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997721
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997781
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997841
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997901
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997961
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998021
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998081
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998141
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998201
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998261
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998321
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998381
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998441
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998501
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998561
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998621
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998681
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998741
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998801
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998861
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998921
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998981
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999041
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999106
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999168
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999228
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999288
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999349
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999409
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999470
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999530
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999590
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999651
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999711
 			}
 		]
 	}

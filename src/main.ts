@@ -3,6 +3,7 @@ import { setupLayouts } from 'virtual:generated-layouts'
 import { createWebHistory } from 'vue-router'
 import { routes } from 'vue-router/auto-routes'
 import globalComponents from '~/components'
+import { isLogin } from '~/shared/states'
 import App from './App.vue'
 import directive from './directive'
 import { setup } from './setup'
@@ -29,10 +30,7 @@ setup(
   },
   // function to have custom setups
   (ctx) => {
-    const { app, route } = ctx
-    console.log('import.meta.env.BASE_URL', import.meta.env.BASE_URL)
-    console.log('routes', route)
-
+    const { app } = ctx
     // install all modules under `modules/`
     Object.values(import.meta.glob<{ install: UserModule }>('./modules/*.ts', { eager: true }))
       .forEach(i => i.install?.(ctx))

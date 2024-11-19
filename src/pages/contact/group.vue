@@ -3,10 +3,16 @@ import Message from '@arco-design/web-vue/es/message'
 import { useMutation, useQuery } from '@tanstack/vue-query'
 import { UseImage } from '@vueuse/components'
 import { ref } from 'vue'
+import { corpFetcher } from '~/api/corp'
 import { weilaFetch } from '~/api/instances/fetcher'
 import { weilaRequest } from '~/api/instances/request'
 
 const { t } = useI18n()
+
+const { data: corp } = useQuery({
+  queryKey: ['my-org'],
+  queryFn: corpFetcher,
+})
 
 const { data: groups, refetch } = useQuery<{
   id: number
@@ -22,7 +28,7 @@ const { data: groups, refetch } = useQuery<{
 }[]>({
   queryKey: ['/group-getall', 'groups'],
   queryFn: () => weilaFetch('/corp/web/group-getall', {
-    body: { org_num: 100080 },
+    body: { org_num: corp.value?.num },
   }).then(i => i.groups),
 })
 
@@ -36,11 +42,18 @@ interface CreateGroupPayload {
 }
 
 const form = ref<CreateGroupPayload>({
-  org_num: 100073,
+  org_num: 0,
   name: '',
   avatar: '',
   burst_mode: 0,
 })
+
+watch(corp, (val) => {
+  if(!val)
+    return
+
+  form.value.org_num = val.num
+}, {immediate: true})
 
 const [isMultiCheck, toggleMultiCheck] = useToggle(false)
 const checkedGroupIds = ref<number[]>([])

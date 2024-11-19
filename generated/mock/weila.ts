@@ -1,29 +1,33 @@
 // WARNING: 该文件通过项目内脚本自动生成，请勿手动更改
 // @ts-ignore
-import type { MockMethod } from 'vite-plugin-mock'
-import type { WeilaRes } from '~/api'
 
-export default ([
-  // [url, http response],
-  ['/v1/corp/web/avatar-upload', {
-	"errcode": 0,
-	"errmsg": "请求成功",
-	"data": {
-		"url": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/tmp/20230428/3/1682669682-110_80.png"
-	}
-}],
-  ['/v1/corp/web/file-upload', {
-	"errcode": 0,
-	"errmsg": "请求成功",
-	"data": {
-		"url": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/tmp/20230428/3/1682669682-110_80.png"
-	}
-}],
-  ['/v1/corp/web/send-sms-verifycode', {
+import { z } from 'zod'
+
+export default [
+{
+  url: '/v1/corp/web/send-sms-verifycode',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功"
-}],
-  ['/v1/corp/web/regist', {
+}, check(body, {
+    "phone": "18675500568",
+    "country_code": "86",
+    "sms_type": "regist",
+    "verify_code": "ufc6"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/regist',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -31,78 +35,126 @@ export default ([
 		"country_code": "0",
 		"password": "f3072627eff7ae270288d7804842c321"
 	}
-}],
-  ['/v1/corp/web/login-by-phone', {
+}, check(body, {
+	"phone": "13353236154",
+	"verify_code": "412604",
+	"password":"e10adc3949ba59abbe56e057f20f883e"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/login-by-phone',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
 		"user": {
-			"id": 1253444,
-			"num": "70015325",
+			"id": 1253488,
+			"num": "70014762",
 			"sex": 0,
-			"name": "ent19949504",
-			"bind_phone": "13353236154",
+			"name": "ent98164680",
+			"bind_phone": "13353236455",
 			"country_code": "86",
 			"avatar": "http://favicon.weila.hk/default/user.png"
 		},
 		"account": {
-			"user_name": "70015325",
+			"user_name": "70014762",
 			"country_code": "0",
-			"password": "9274b15d3267407d7f073267733eb1b0"
+			"password": "7f4c9356c38de7e5d3ff9294206af974"
 		},
 		"org": {
-			"num": 100073,
+			"num": 100130,
 			"name": "微喇测试",
-			"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100073/a/7ddf8c72.jpg",
-			"created": 1730274806,
-			"member_cnt": 7,
-			"group_cnt": 2,
-			"group_ver": 1730707540,
-			"address_ver": 1730454374,
+			"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/a/b85fb875.jpg",
+			"creator": {
+				"id": 1253488,
+				"num": "70014762",
+				"sex": 0,
+				"name": "ent98164680",
+				"avatar": "http://favicon.weila.hk/default/user.png"
+			},
+			"created": 1731986807,
+			"member_cnt": 4,
+			"group_cnt": 1,
+			"group_ver": 1731989765,
+			"address_ver": 1732001188,
 			"device_cnt": 0,
 			"device_ver": 1
 		},
-		"access_token": "27c468a61c57ce0b9a09e2f72cb9b365",
+		"access_token": "32b627465b68a866603ab265cf408c67",
 		"expires_in": 86400,
-		"refresh_token": "201e4a25ecf1213a55a5ea27003d6d6e"
+		"refresh_token": "3a98cc3ac7f9db4c823a3d1413d667a9"
 	}
-}],
-  ['/v1/corp/web/login-by-name', {
+}, check(body, {
+	"phone": "13353236455",
+	"password": "e10adc3949ba59abbe56e057f20f883e"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/login-by-name',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
 		"user": {
-			"id": 1253447,
-			"num": "70010885",
+			"id": 1253488,
+			"num": "70014762",
 			"sex": 0,
-			"name": "ent44094209",
-			"bind_phone": "16675441248",
+			"name": "ent98164680",
+			"bind_phone": "13353236455",
 			"country_code": "86",
 			"avatar": "http://favicon.weila.hk/default/user.png"
 		},
 		"account": {
-			"user_name": "70010885",
+			"user_name": "70014762",
 			"country_code": "0",
-			"password": "73c18c320f3d13b2b2b66fbac937e66a"
+			"password": "27388e8b38d2d7491c4986e3b01a7705"
 		},
 		"org": {
-			"num": 100080,
-			"name": "kvoon-org",
-			"avatar": "https://picsum.photos/200?random=1730457465401",
-			"created": 1730457462,
-			"member_cnt": 1,
-			"group_cnt": 0,
-			"group_ver": 1,
-			"address_ver": 1730859173,
+			"num": 100130,
+			"name": "微喇测试",
+			"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/a/b85fb875.jpg",
+			"creator": {
+				"id": 1253488,
+				"num": "70014762",
+				"sex": 0,
+				"name": "ent98164680",
+				"avatar": "http://favicon.weila.hk/default/user.png"
+			},
+			"created": 1731986807,
+			"member_cnt": 4,
+			"group_cnt": 1,
+			"group_ver": 1731989765,
+			"address_ver": 1732001188,
 			"device_cnt": 0,
 			"device_ver": 1
 		},
-		"access_token": "4e74b04be33083d0d4337956d6d0db82",
+		"access_token": "949fbf405308d13736afd3bc43f4b174",
 		"expires_in": 86400,
-		"refresh_token": "c68e0bac0cb2d0b03248f3b3b2fbaed5"
+		"refresh_token": "224a637da6f3a01796126ea117daa4e1"
 	}
-}],
-  ['/v1/sessions/refresh', {
+}, check(body, {
+	"user_name": "70014762",
+	"password": "e10adc3949ba59abbe56e057f20f883e"
+}))
+  }
+},
+{
+  url: '/v1/sessions/refresh',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -110,12 +162,35 @@ export default ([
 		"expires_in": 86400,
 		"refresh_token": "cb17207d38a8c731e1be101c3f80334b"
 	}
-}],
-  ['/v1/corp/web/reset-password', {
+}, check(body, {
+	"refresh_token": "201e4a25ecf1213a55a5ea27003d6d6e"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/reset-password',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功"
-}],
-  ['/v1/corp/web/org-create', {
+}, check(body, {
+	"phone": "16675441248",
+	"country_code": "86",
+	"verify_code": "143399",
+	"password": "e10adc3949ba59abbe56e057f20f883e"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/org-create',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -133,8 +208,19 @@ export default ([
 			"device_ver": 1
 		}
 	}
-}],
-  ['/v1/corp/web/org-change', {
+}, check(body, {
+	"name": "微喇测试",
+	"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100011/a/0e9763d6.jpg"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/org-change',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -152,8 +238,20 @@ export default ([
 			"device_ver": 1
 		}
 	}
-}],
-  ['/v1/corp/web/org-change', {
+}, check(body, {
+	"org_num": 100021,
+	"name": "222222",
+	"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100040/a/8ea474b7.jpg"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/org-change',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -185,8 +283,20 @@ export default ([
 			}
 		}
 	}
-}],
-  ['/v1/corp/web/org-my-org', {
+}, check(body, {
+	"org_num": 100021,
+	"name": "222222",
+	"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100040/a/8ea474b7.jpg"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/org-my-org',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -204,8 +314,20 @@ export default ([
 			"device_ver": 1
 		}
 	}
-}],
-  ['/v1/corp/web/user-selfinfo', {
+}, check(body, {
+	"org_num": 100021,
+	"name": "222222",
+	"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100040/a/8ea474b7.jpg"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/user-selfinfo',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -219,16 +341,51 @@ export default ([
 			"avatar": "http://favicon.weila.hk/default/user.png"
 		}
 	}
-}],
-  ['/v1/corp/web/user-change-password', {
+}, check(body, {
+	"org_num": 100021,
+	"name": "222222",
+	"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100040/a/8ea474b7.jpg"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/user-change-password',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功"
-}],
-  ['/v1/corp/web/user-bind-phone', {
+}, check(body, {
+    "old_password": "578ae0acf922151e0577b7ec4ff4348e",
+    "new_password": "e10adc3949ba59abbe56e057f20f883e"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/user-bind-phone',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功"
-}],
-  ['/v1/corp/web/get-address-list', {
+}, check(body, {
+    "phone": "13353236155",
+    "password": "e10adc3949ba59abbe56e057f20f883e",
+    "verify_code": "143399"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/get-address-list',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -294,28 +451,72 @@ export default ([
 			]
 		}
 	}
-}],
-  ['/v1/corp/web/dept-create', {
+}, check(body, {
+    "org_num": 100073
+}))
+  }
+},
+{
+  url: '/v1/corp/web/dept-create',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
 		"id": 1,
 		"name": "研发部"
 	}
-}],
-  ['/v1/corp/web/dept-change', {
+}, check(body, {
+    "org_num": 100080,
+    "name": "研发部2"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/dept-change',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
 		"id": 1,
 		"name": "研发部12"
 	}
-}],
-  ['/v1/corp/web/dept-delete', {
+}, check(body, {
+    "org_num": 100021,
+    "dept_id": 1,
+    "name": "研发部12"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/dept-delete',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功"
-}],
-  ['/v1/corp/web/dept-getall', {
+}, check(body, {
+    "org_num": 100021,
+    "dept_id": 1
+}))
+  }
+},
+{
+  url: '/v1/corp/web/dept-getall',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -342,8 +543,18 @@ export default ([
 			}
 		]
 	}
-}],
-  ['/v1/corp/web/member-create', {
+}, check(body, {
+    "org_num": 100021
+}))
+  }
+},
+{
+  url: '/v1/corp/web/member-create',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -363,8 +574,26 @@ export default ([
 		"name": "222222",
 		"avatar": "http://favicon.weila.hk/default/user.png"
 	}
-}],
-  ['/v1/corp/web/member-add-device', {
+}, check(body, {
+	"org_num": 100050,
+	"name": "44444444",
+	"password": "e10adc3949ba59abbe56e057f20f883e",
+    "dept_id": 15,
+	"sex": 1,
+	"avatar": "http://favicon.weila.hk/default/session.png",
+	"phone": "18644444444",
+	"tts": 1,
+	"loc_share": 1
+}))
+  }
+},
+{
+  url: '/v1/corp/web/member-add-device',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -384,8 +613,27 @@ export default ([
 		"name": "222222",
 		"avatar": "http://favicon.weila.hk/default/group.png"
 	}
-}],
-  ['/v1/corp/web/member-change', {
+}, check(body, {
+	"org_num": 100073,
+	"verify_code": "193212",
+	"name": "测试机2",
+    "dept_id": 6,
+	"sex": 0,
+	"avatar": "http://favicon.weila.hk/default/group.png",
+	"phone": "18611111111",
+    "tts": 1,
+	"loc_share": 1,
+	"track": 1 //0关闭 1高频 2中频 3低频 4保留 其他自定义单位秒
+}))
+  }
+},
+{
+  url: '/v1/corp/web/member-change',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -402,8 +650,27 @@ export default ([
 		"name": "33333",
 		"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100021/u/1253437/a/4b00bbb0.jpg"
 	}
-}],
-  ['/v1/corp/web/member-change-state', {
+}, check(body, {
+	"org_num": 100021,
+	"member_id": 1253443,
+	"name": "33333",
+    "dept_id": 1,
+	"sex": 1,
+	"avatar": "http://favicon.weila.hk/default/session.png",
+	"phone": "1862222222",
+	"tts": 0,
+	"loc_share": 0,
+	"track": 0 //设备类型用户有效 0关闭 1高频 2中频 3低频 4保留 其他自定义单位秒
+}))
+  }
+},
+{
+  url: '/v1/corp/web/member-change-state',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -420,16 +687,51 @@ export default ([
 		"name": "33333",
 		"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100021/u/1253443/a/58785cbe.jpg"
 	}
-}],
-  ['/v1/corp/web/member-delete', {
+}, check(body, {
+	"org_num": 100021,
+	"member_id": 1253443,
+	"state": 0
+}))
+  }
+},
+{
+  url: '/v1/corp/web/member-delete',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功"
-}],
-  ['/v1/corp/web/member-reset-password', {
+}, check(body, {
+	"org_num": 100021,
+	"member_id": 1253443
+}))
+  }
+},
+{
+  url: '/v1/corp/web/member-reset-password',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
-}],
-  ['/v1/corp/web/group-create', {
+}, check(body, {
+	"org_num": 100021,
+	"member_id": 1253443,
+	"password": "e10adc3949ba59abbe56e057f20f883e"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/group-create',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -442,8 +744,21 @@ export default ([
 		"shutup": 0,
 		"created": 1730452576
 	}
-}],
-  ['/v1/corp/web/group-change', {
+}, check(body, {
+    "org_num": 100073,
+    "name": "测试群3", //群名
+    "avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100011/a/0e9763d6.jpg", //群头像,
+    "burst_mode": 0 //0排队 1抢麦 2抢断
+}))
+  }
+},
+{
+  url: '/v1/corp/web/group-change',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -460,12 +775,36 @@ export default ([
 		"shutup": 0,
 		"created": 1730274965
 	}
-}],
-  ['/v1/corp/web/group-delete', {
+}, check(body, {
+    "org_num": 100073,
+    "group_id": 80000180, //群Id
+    "name": "测试群3", //群名
+    "avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100011/a/0e9763d6.jpg", //群头像,
+    "burst_mode": 0 //0排队 1抢麦 2抢断
+}))
+  }
+},
+{
+  url: '/v1/corp/web/group-delete',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功"
-}],
-  ['/v1/corp/web/group-getall', {
+}, check(body, {
+    "group_id": 80000180 //群Id
+}))
+  }
+},
+{
+  url: '/v1/corp/web/group-getall',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -496,8 +835,18 @@ export default ([
 			}
 		]
 	}
-}],
-  ['/v1/corp/web/group-member-add', {
+}, check(body, {
+    "org_num": "100073"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/group-member-add',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -511,8 +860,19 @@ export default ([
 			}
 		]
 	}
-}],
-  ['/v1/corp/web/group-member-change', {
+}, check(body, {
+    "group_id": 80000528, //群Id
+    "member_ids":[1253444]
+}))
+  }
+},
+{
+  url: '/v1/corp/web/group-member-change',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -526,8 +886,22 @@ export default ([
 			}
 		]
 	}
-}],
-  ['/v1/corp/web/group-member-delete', {
+}, check(body, {
+    "group_id": 80000180, //群Id
+    "member_id": 1253446,
+    "prority": 1,
+	"tts": 1,
+	"loc_share": 1
+}))
+  }
+},
+{
+  url: '/v1/corp/web/group-member-delete',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -554,8 +928,19 @@ export default ([
 			}
 		]
 	}
-}],
-  ['/v1/corp/web/group-member-getall', {
+}, check(body, {
+    "group_id": 80000180, //群Id
+    "member_ids":[1253446]
+}))
+  }
+},
+{
+  url: '/v1/corp/web/group-member-getall',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
@@ -569,9 +954,274 @@ export default ([
 			}
 		]
 	}
-}],
-] as Array<[string, WeilaRes<any>]>).map(([url, response]) => ({
-  url,
+}, check(body, {
+    "group_id": 80000528 //群Id
+}))
+  }
+},
+{
+  url: '/v1/corp/web/location-get-track',
   method: 'post',
-  response,
-})) as MockMethod[]
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
+	"errcode": 0,
+	"errmsg": "请求成功",
+	"data": {
+		"tracks": [
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997061
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997121
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997181
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997241
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997301
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997361
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997421
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997481
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997541
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997601
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997661
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997721
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997781
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997841
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997901
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997961
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998021
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998081
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998141
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998201
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998261
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998321
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998381
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998441
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998501
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998561
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998621
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998681
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998741
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998801
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998861
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998921
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998981
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999041
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999106
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999168
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999228
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999288
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999349
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999409
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999470
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999530
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999590
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999651
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999711
+			}
+		]
+	}
+}, check(body, {
+    "user_id": 1253464, //群Id
+    "date": "2024-11-19"
+}))
+  }
+},
+]
+
+function check(obj1: object, obj2: object) {
+  const weilaRes = { errcode: 0, errmsg: '' }
+  const keys = Object.keys(obj1);
+  
+  for (const key of keys) {
+    if (!(key in obj2)) {
+      weilaRes.errcode = 1;
+      weilaRes.errmsg = `Missing key: ${key}`;
+      return weilaRes;
+    }
+    
+    if (typeof obj1[key as keyof typeof obj1] !== typeof obj2[key as keyof typeof obj2]) {
+      weilaRes.errcode = 1;
+      weilaRes.errmsg = `Type mismatch for key: ${key}`;
+      return weilaRes;
+    }
+  }
+  
+  return weilaRes;
+}

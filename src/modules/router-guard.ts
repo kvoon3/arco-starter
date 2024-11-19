@@ -7,8 +7,10 @@ export const install: UserModule = ({ router }) => {
       requiresAuth = true,
     } = to.meta
 
-    return requiresAuth
+    const res = requiresAuth
       ? isLogin.value
       : true
+
+    return res || '/login'
   })
 }

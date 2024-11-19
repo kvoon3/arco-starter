@@ -66,7 +66,7 @@ const { mutate: register } = useMutation({
       user_name: string
       country_code: string
       password: string // temp password
-    }>('/regist', params)
+    }>('/corp/web/regist', params)
 
     if (!data)
       throw new Error('Request Error')

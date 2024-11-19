@@ -6,18 +6,28 @@ import remarkStringify from 'remark-stringify'
 import { parseURL } from 'ufo'
 import { unified } from 'unified'
 import { visit } from 'unist-util-visit'
+import { genTypeSafeTemplate } from './templates/type-safe'
+
+export interface ApiContext {
+  url: string
+  req: string
+  res: string
+}
 
 /**
  * Configurations
  */
 const filename = 'weila'
-const input = path.join(__dirname, `../fixtures/mock/${filename}.md`)
-const output = path.join(__dirname, '../generated/mock')
+const input = path.join(__dirname, `../../fixtures/mock/${filename}.md`)
+const output = path.join(__dirname, '../../generated/mock')
+
+/**
+ * Parsing weila api markdown file
+ */
 
 const outputFilepath = path.join(output, `${filename}.ts`)
-
 const markdownContent = fs.readFileSync(input, 'utf-8')
-const urlAndRes: [string, string][] = []
+const ctxs: ApiContext[] = []
 
 if (!fs.existsSync(output))
   fs.mkdirSync(output, { recursive: true })
@@ -28,6 +38,7 @@ await unified()
     console.log('Traversing markdown nodes...')
 
     let url: string
+    let req: string
     let res: string
 
     visit(tree, (node) => {
@@ -40,36 +51,32 @@ await unified()
         url = pathname
       }
 
-      if (
-        node.type === 'code'
-        && value.includes('"errcode": 0')
-      ) {
-        res = value
+      if (node.type === 'code') {
+        const type = !value.includes('errcode') && value.includes('{')
+          ? 'request'
+          : value.includes('"errcode": 0')
+            ? 'response'
+            : 'unknown'
 
-        if (url && res)
-          urlAndRes.push([url, res])
+        if (type === 'request') {
+          req = value
+        }
+        else if (type === 'response') {
+          res = value
+
+          if (url && req && res)
+            ctxs.push({ url, req, res })
+        }
       }
     })
   })
   .use(remarkStringify)
   .process(markdownContent)
 
-const template = [
-  `// WARNING: 该文件通过项目内脚本自动生成，请勿手动更改`,
-  '// @ts-ignore',
-  'import type { MockMethod } from \'vite-plugin-mock\'',
-  'import type { WeilaRes } from \'~/api\'',
-  '',
-  'export default ([',
-  '  // [url, http response],',
-  ...urlAndRes.map(([url, res]) => `  ['${url}', ${res}],`),
-  '] as Array<[string, WeilaRes<any>]>).map(([url, response]) => ({',
-  '  url,',
-  '  method: \'post\',',
-  '  response,',
-  '})) as MockMethod[]',
-]
+/**
+ * Generating mock file
+ */
 
-fs.writeFileSync(outputFilepath, template.join('\n'))
+fs.writeFileSync(outputFilepath, genTypeSafeTemplate(ctxs).join('\n'))
 
 console.log(`Mock file created at: ${outputFilepath}`)

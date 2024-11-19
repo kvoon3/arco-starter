@@ -30,6 +30,7 @@ import { isString } from '@antfu/utils'
 import { routes } from 'vue-router/auto-routes'
 
 const router = useRouter()
+const route = useRoute()
 const { t } = useI18n()
 
 function* traverse(routes: RouteRecordRaw[]): Generator<RouteRecordRaw> {
@@ -68,7 +69,18 @@ for (const route of traverse(routes)) {
   }
 }
 
-const selectedKeys = ref<string[]>([])
+const defaultSelectedKeys = computed(() => {
+  let key = ''
+
+  const menu = menus.value.find(({ path }) => route.path.startsWith(path))
+
+  if (menu)
+    key = menu.path
+
+  return [key]
+})
+
+const selectedKeys = ref<string[]>(defaultSelectedKeys.value)
 
 function goto(path: string) {
   router.push(path)
@@ -76,7 +88,11 @@ function goto(path: string) {
 </script>
 
 <template>
-  <a-menu v-model:selected-keys="selectedKeys" mode="pop">
+  <a-menu
+    v-model:selected-keys="selectedKeys"
+    :default-selected-keys="defaultSelectedKeys"
+    mode="pop"
+  >
     <a-menu-item v-for="menu in menus" :key="menu.path" @click="() => goto(menu.path)">
       <template #icon>
         <component :is="menu.icon" v-if="menu.icon" />

@@ -2,6 +2,7 @@
 import { useQuery } from '@tanstack/vue-query'
 import { UseImage } from '@vueuse/components'
 import { RouterLink } from 'vue-router'
+import { corpFetcher } from '~/api/corp';
 import { weilaFetch } from '~/api/instances/fetcher'
 
 definePage({
@@ -29,9 +30,18 @@ interface GroupModel {
 
 const route = useRoute('/message/[group_id]-[group_name]')
 
+
+const { data: corp } = useQuery({
+  queryKey: ['my-org'],
+  queryFn: corpFetcher,
+})
+
 const { data: groups } = useQuery<GroupModel[]>({
+  enabled: computed(() => Boolean(corp.value)),
   queryKey: ['groups'],
-  queryFn: () => weilaFetch('/corp/web/group-getall').then(i => i.groups),
+  queryFn: () => weilaFetch('/corp/web/group-getall', {
+    body: { org_num: corp.value!.num },
+  }).then(i => i.groups),
 })
 </script>
 

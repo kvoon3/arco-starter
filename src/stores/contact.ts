@@ -17,7 +17,24 @@ export const useContactStore = defineStore('contact', () => {
     queryFn: () => (weilaFetch<ContactModel>(
       '/corp/web/get-address-list',
       { body: { org_num: org_num.value } },
-    ).then(i => i.address_list)),
+    )
+      .then(i => i.address_list))
+      .then((contact) => {
+        return {
+          ...contact,
+          members: contact.members.map(member => ({
+            ...member,
+            id: member.user_id,
+          })),
+          depts: contact.depts.map(dept => ({
+            ...dept,
+            members: dept.members.map(member => ({
+              ...member,
+              id: member.user_id,
+            })),
+          })),
+        }
+      }),
   })
 
   return {

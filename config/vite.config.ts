@@ -3,7 +3,7 @@ import ViteYaml from '@modyfi/vite-plugin-yaml'
 import Vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
-import InlineEnum from 'unplugin-inline-enum/vite'
+// import InlineEnum from 'unplugin-inline-enum/vite'
 import Components from 'unplugin-vue-components/vite'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
@@ -70,12 +70,12 @@ export default defineConfig({
 
     ViteMockServe({
       mockPath: 'generated/mock',
-      enable: false,
+      enable: true,
     }),
 
     ViteYaml(),
 
-    InlineEnum(),
+    // InlineEnum(),
 
     // DO not use it currently, See `https://github.com/posva/unplugin-vue-router/discussions/429`
     // VueDevTools(),
@@ -101,6 +101,10 @@ export default defineConfig({
           from: '@vueuse/components',
           imports: ['UseImage'],
         },
+        // {
+        //   from: '@tanstack/vue-form',
+        //   imports: ['useForm'],
+        // },
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: [
