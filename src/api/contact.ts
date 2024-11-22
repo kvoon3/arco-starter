@@ -1,6 +1,6 @@
 export interface CreateDeptPayload {
   name: string
-  org_num: string
+  org_num: number
 }
 
 export interface ContactModel {

@@ -29,12 +29,17 @@ export const weilaFetch = ofetch.create({
   onResponse({ response }) {
     const { errcode, errmsg } = response._data as WeilaRes
 
-    if (errcode === WeilaErrorCode.SUCCESS)
+    if (errcode === WeilaErrorCode.SUCCESS) {
+      // response._data = { data: undefined, ...response._data.data }
       response._data = response._data.data
-    else if (errcode === WeilaErrorCode.TOKEN_INVALID)
-      location.href = '/login'
-    else
-      throw new Error(`${errcode} ${errmsg}`)
+    }
+    else if (errcode === WeilaErrorCode.TOKEN_INVALID) {
+      if (!location.href.includes('login'))
+        location.href = '/login'
+    }
+    else {
+      Message.error(`${errcode} ${errmsg}`)
+    }
   },
   onResponseError({ error }) {
     Message.error(error?.message || 'Unknown Fetch Error')

@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@vueuse/core'
 import md5 from 'md5'
 
 /**
@@ -46,3 +47,4 @@ watchEffect(() => {
     ? document.body.setAttribute('arco-theme', 'dark')
     : document.body.removeAttribute('arco-theme')
 })
+export const isLargeScreen = useMediaQuery('(min-width: 1024px)')

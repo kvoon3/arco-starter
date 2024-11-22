@@ -1,9 +1,12 @@
-export const defaultArcoSettings = {
+import { computed } from 'vue'
+import { isLargeScreen } from './states'
+
+export const defaultArcoSettings = reactive({
   colorWeak: false,
   navbar: true,
   menu: true,
   topMenu: false,
-  hideMenu: false,
+  hideMenu: useLocalStorage('isHideMenu', computed(() => !isLargeScreen.value)),
   menuCollapse: false,
   footer: false,
   themeColor: '#165DFF',
@@ -12,5 +15,11 @@ export const defaultArcoSettings = {
   device: 'desktop',
   tabBar: false,
   menuFromServer: false,
-  serverMenu: [],
+  serverMenu: [] as any[],
+})
+
+export const AMapKeys = {
+  js: '590d2eef2313b156f80a2936df9babad',
+  secert: 'cdc03a7b9de2a9ca188da9ab76c4b450',
+  regeo: '',
 }

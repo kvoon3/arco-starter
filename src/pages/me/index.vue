@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
 import { weilaFetch } from '~/api/instances/fetcher'
+import EditPasswordTrigger from './components/EditPasswordTrigger.vue'
 
 const { t } = useI18n()
 
@@ -42,7 +43,7 @@ const editUserInfoModalState = reactive({
   <div class="w-full p2">
     <a-breadcrumb mb4>
       <RouterLink to="/me">
-        <a-breadcrumb-item>{{t('breadcrumb.me')}}</a-breadcrumb-item>
+        <a-breadcrumb-item>{{ t('breadcrumb.me') }}</a-breadcrumb-item>
       </RouterLink>
     </a-breadcrumb>
     <div v-if="data" class="rounded-lg p-6 shadow-md transition-colors duration-200 bg-base">
@@ -54,14 +55,15 @@ const editUserInfoModalState = reactive({
               {{ data.name }}
             </h2>
             <p class="text-gray-600 dark:text-gray-300">
-              ID: {{ data.num }}
+              {{ t('account.txt') }}: {{ data.num }}
+            </p>
+            <p class="text-gray-600 dark:text-gray-300">
+              {{ t('ID') }}: {{ data.id }}
             </p>
           </div>
         </div>
-        <a-modal
-          v-model:visible="editUserInfoModalState.visible" title="Edit User Infomation"
-          @before-ok="() => void 0"
-        />
+        <a-modal v-model:visible="editUserInfoModalState.visible" title="Edit User Infomation"
+          @before-ok="() => void 0" />
       </div>
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div class="text-gray-700 dark:text-gray-300">
@@ -75,10 +77,7 @@ const editUserInfoModalState = reactive({
             </a-button>
           </p>
           <p class="mt-4">
-            <a-button inline-flex gap2 size="small" @click="router.push('/me/reset-password')">
-              <i i-ph-lock-key />
-              {{ t('button.reset-password') }}
-            </a-button>
+            <EditPasswordTrigger />
           </p>
         </div>
       </div>

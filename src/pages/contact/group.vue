@@ -3,16 +3,13 @@ import Message from '@arco-design/web-vue/es/message'
 import { useMutation, useQuery } from '@tanstack/vue-query'
 import { UseImage } from '@vueuse/components'
 import { ref } from 'vue'
-import { corpFetcher } from '~/api/corp'
 import { weilaFetch } from '~/api/instances/fetcher'
 import { weilaRequest } from '~/api/instances/request'
 
 const { t } = useI18n()
 
-const { data: corp } = useQuery({
-  queryKey: ['my-org'],
-  queryFn: corpFetcher,
-})
+const corpStore = useCorpStore()
+const { data: corp } = storeToRefs(corpStore)
 
 const { data: groups, refetch } = useQuery<{
   id: number
@@ -26,9 +23,10 @@ const { data: groups, refetch } = useQuery<{
   shutup: number
   created: number
 }[]>({
-  queryKey: ['/group-getall', 'groups'],
+  enabled: computed(() => typeof corp.value?.num === 'number'),
+  queryKey: ['/group-getall', 'groups', corp],
   queryFn: () => weilaFetch('/corp/web/group-getall', {
-    body: { org_num: corp.value?.num },
+    body: { org_num: String(corp.value!.num) },
   }).then(i => i.groups),
 })
 
@@ -49,16 +47,16 @@ const form = ref<CreateGroupPayload>({
 })
 
 watch(corp, (val) => {
-  if(!val)
+  if (!val)
     return
 
   form.value.org_num = val.num
-}, {immediate: true})
+}, { immediate: true })
 
 const [isMultiCheck, toggleMultiCheck] = useToggle(false)
 const checkedGroupIds = ref<number[]>([])
-const checkedGroup = computed(() => checkedGroupIds.value.map((id) => 
-  groups.value?.find(group => group.id === id)
+const checkedGroup = computed(() => checkedGroupIds.value.map(id =>
+  groups.value?.find(group => group.id === id),
 ))
 
 $inspect(checkedGroupIds)
@@ -118,7 +116,7 @@ async function deleteGroups() {
     </div>
     <div class="flex items-center justify-between text-lg">
       <div space-x-2>
-        <a-button type="outline" @click="() => toggleMultiCheck()" v-if="groups?.length">
+        <a-button v-if="groups?.length" type="outline" @click="() => toggleMultiCheck()">
           <template #icon>
             <IconCheck />
           </template>
@@ -150,11 +148,7 @@ async function deleteGroups() {
         <button v-for="group in groups" :key="group.id" class="flex items-center list-btn">
           <a-checkbox v-show="isMultiCheck" :value="group.id" />
           <RouterLink :to="`/message/${group.id}-${group.name}`" flex grow-1>
-            <UseImage
-              :src="group.avatar"
-              class="mr-4 h-12 w-12 rounded-full"
-              alt="Group Avatar"
-            >
+            <UseImage :src="group.avatar" class="mr-4 h-12 w-12 rounded-full" alt="Group Avatar">
               <template #loading>
                 <div class="mr-4 h-12 w-12 animate-pulse rounded-full bg-gray-200" />
               </template>
@@ -172,7 +166,8 @@ async function deleteGroups() {
                 {{ t('members') }}: {{ group.user_count }}
               </p>
             </div>
-            <span class="text-sm text-gray-400">Created: {{ new Date(group.created * 1000).toLocaleDateString() }}</span>
+            <span class="text-sm text-gray-400">Created: {{ new Date(group.created * 1000).toLocaleDateString()
+              }}</span>
           </RouterLink>
         </button>
       </a-checkbox-group>
@@ -194,7 +189,8 @@ async function deleteGroups() {
       </ul>
     </a-modal>
 
-    <a-modal v-model:visible="visible" :title="t('group.create')" @before-ok="(done) => createGroup(form, { onSuccess: () => done(true) })">
+    <a-modal v-model:visible="visible" :title="t('group.create')"
+      @before-ok="(done) => createGroup(form, { onSuccess: () => done(true) })">
       <a-form :model="form" layout="vertical">
         <a-form-item :label="t('name')" field="name" :validate-trigger="['blur', 'change']" :rules="{ required: true }">
           <a-input v-model="form.name" />
@@ -203,12 +199,7 @@ async function deleteGroups() {
           <AvatarUploader v-model:src="form.avatar" />
         </a-form-item>
         <a-form-item :label="t('burst-mode')">
-          <a-input-number
-            v-model="form.burst_mode"
-            :min="0"
-            :max="2"
-            :precision="0"
-          />
+          <a-input-number v-model="form.burst_mode" :min="0" :max="2" :precision="0" />
           <!-- <div class="mt-1 text-sm text-gray-500">
             0: Queue, 1: Grab Mic, 2: Interrupt
           </div> -->

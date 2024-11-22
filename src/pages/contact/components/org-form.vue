@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Message } from '@arco-design/web-vue'
-import type { CorpModel } from '~/api/corp'
 import { weilaRequest } from '~/api/instances/request'
+import type { CorpModel } from '~/stores/corp'
 
 const props = defineProps<{
   orgNumber?: number

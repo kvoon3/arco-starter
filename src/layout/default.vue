@@ -24,13 +24,15 @@ const menuWidth = computed(() => {
   return appStore.menuCollapse ? 48 : appStore.menuWidth
 })
 const collapsed = computed(() => {
-  return appStore.menuCollapse
+  const collapsed = appStore.menuCollapse
+  console.log('collapsed', collapsed)
+  return collapsed
 })
 const paddingStyle = computed(() => {
   const paddingLeft
-      = renderMenu.value && !hideMenu.value
-        ? { paddingLeft: `${menuWidth.value}px` }
-        : {}
+    = renderMenu.value && !hideMenu.value
+      ? { paddingLeft: `${menuWidth.value}px` }
+      : {}
   const paddingTop = navbar.value ? { paddingTop: navbarHeight } : {}
   return { ...paddingLeft, ...paddingTop }
 })
@@ -65,31 +67,15 @@ onMounted(() => {
     </div>
     <a-layout>
       <a-layout>
-        <a-layout-sider
-          v-if="renderMenu"
-          v-show="!hideMenu"
-          class="layout-sider"
-          breakpoint="xl"
-          :collapsed="collapsed"
-          :collapsible="true"
-          :width="menuWidth"
-          :style="{ paddingTop: navbar ? '60px' : '' }"
-          :hide-trigger="true"
-          @collapse="setCollapsed"
-        >
+        <a-layout-sider v-if="renderMenu" v-show="!hideMenu" class="layout-sider" breakpoint="xl" :collapsed="collapsed"
+          :collapsible="true" :width="menuWidth" :style="{ paddingTop: navbar ? '60px' : '' }" :hide-trigger="true"
+          @collapse="setCollapsed">
           <div class="menu-wrapper">
             <Menu />
           </div>
         </a-layout-sider>
-        <a-drawer
-          v-if="hideMenu"
-          :visible="drawerVisible"
-          placement="left"
-          :footer="false"
-          mask-closable
-          :closable="false"
-          @cancel="drawerCancel"
-        >
+        <a-drawer v-if="hideMenu" :visible="drawerVisible" placement="left" :footer="false" mask-closable
+          :closable="false" @cancel="drawerCancel">
           <Menu />
         </a-drawer>
         <a-layout class="layout-content" :style="paddingStyle">
@@ -104,7 +90,7 @@ onMounted(() => {
 </template>
 
 <style scoped lang="less">
-  @nav-size-height: 60px;
+@nav-size-height: 60px;
 @layout-max-width: 1100px;
 
 .layout {
@@ -128,6 +114,7 @@ onMounted(() => {
   z-index: 99;
   height: 100%;
   transition: all 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
+
   &::after {
     position: absolute;
     top: 0;
@@ -148,6 +135,7 @@ onMounted(() => {
   height: 100%;
   overflow: auto;
   overflow-x: hidden;
+
   :deep(.arco-menu) {
     ::-webkit-scrollbar {
       width: 12px;

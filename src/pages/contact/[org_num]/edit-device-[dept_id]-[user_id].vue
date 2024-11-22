@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { objectEntries } from '@antfu/utils';
-import { Message } from '@arco-design/web-vue';
-import { useMutation } from '@tanstack/vue-query';
-import { TrackType } from '~/api/contact';
-import { weilaRequest } from '~/api/instances/request';
+import { objectEntries } from '@antfu/utils'
+import { Message } from '@arco-design/web-vue'
+import { useMutation } from '@tanstack/vue-query'
+import { TrackType } from '~/api/contact'
+import { weilaRequest } from '~/api/instances/request'
 
 const route = useRoute('/contact/[org_num]/edit-member-[dept_id]-[user_id]')
 const { t } = useI18n()
@@ -14,7 +14,7 @@ const contactStore = useContactStore()
 const { data: contact } = storeToRefs(contactStore)
 
 const dept = computed(() =>
-  contact.value?.depts?.find(item => String(item.id) === route.params.dept_id)
+  contact.value?.depts?.find(item => String(item.id) === route.params.dept_id),
 )
 
 const member = computed(() => {
@@ -27,7 +27,6 @@ const member = computed(() => {
   return dept.value?.members.find(member => member.user_id === Number(route.params.user_id))
 })
 
-
 const TrackTypeNameMap = {
   [TrackType.Close]: t('track-type.close'),
   [TrackType.High]: t('track-type.high'),
@@ -39,7 +38,7 @@ const TrackTypeNameMap = {
 const trackOptions = objectEntries(TrackTypeNameMap)
   .map(([value, key]) => ({
     label: key,
-    value
+    value,
   }))
 
 interface Payload {
@@ -55,7 +54,6 @@ interface Payload {
   track: TrackType
 }
 
-
 const form = reactive<Payload>({
   org_num: Number(route.params.org_num),
   dept_id: Number(route.params.dept_id),
@@ -66,9 +64,8 @@ const form = reactive<Payload>({
   phone: '',
   tts: 0,
   loc_share: 0,
-  track: TrackType.Close
+  track: TrackType.Close,
 })
-
 
 const { mutate, isPending } = useMutation({
   mutationFn: async (payload: Payload) => {
@@ -77,7 +74,7 @@ const { mutate, isPending } = useMutation({
       tts: Number(payload.tts),
       loc_share: Number(payload.loc_share),
       sex: Number(payload.sex),
-      track: Number(payload.track)
+      track: Number(payload.track),
     })
   },
   onSuccess() {
@@ -99,8 +96,10 @@ function handleSubmit({ values, errors }: any) {
       <RouterLink v-if="dept" :to="`/contact/${route.params.org_num}/dept-${route.params.dept_id}`">
         <a-breadcrumb-item>{{ dept.name }}</a-breadcrumb-item>
       </RouterLink>
-      <RouterLink v-if="member"
-        :to="`/contact/${route.params.org_num}/member-${route.params.dept_id}-${route.params.user_id}`">
+      <RouterLink
+        v-if="member"
+        :to="`/contact/${route.params.org_num}/member-${route.params.dept_id}-${route.params.user_id}`"
+      >
         <a-breadcrumb-item>{{ member.name }}</a-breadcrumb-item>
       </RouterLink>
       <a-breadcrumb-item>{{ t('edit-device') }}</a-breadcrumb-item>
@@ -111,12 +110,16 @@ function handleSubmit({ values, errors }: any) {
       </h2>
 
       <a-form :model="form" auto-label-width @submit="handleSubmit">
-        <a-form-item field="name" :label="t('change-member.form.name.label')" :rules="[{ required: true }]"
-          :validate-trigger="['change', 'blur']">
+        <a-form-item
+          field="name" :label="t('change-member.form.name.label')" :rules="[{ required: true }]"
+          :validate-trigger="['change', 'blur']"
+        >
           <a-input v-model="form.name" placeholder="Enter name" />
         </a-form-item>
-        <a-form-item field="phone" :label="t('change-member.form.phone.label')" :rules="[{ required: true }]"
-          :validate-trigger="['change', 'blur']">
+        <a-form-item
+          field="phone" :label="t('change-member.form.phone.label')" :rules="[{ required: true }]"
+          :validate-trigger="['change', 'blur']"
+        >
           <a-input v-model="form.phone" placeholder="Enter phone number" />
         </a-form-item>
         <a-form-item field="sex" :label="t('change-member.form.gender.label')" :validate-trigger="['change', 'blur']">
@@ -129,22 +132,32 @@ function handleSubmit({ values, errors }: any) {
             </a-radio>
           </a-radio-group>
         </a-form-item>
-        <a-form-item field="avatar" :label="t('change-member.form.avatar.label')"
-          :validate-trigger="['change', 'blur']">
+        <a-form-item
+          field="avatar" :label="t('change-member.form.avatar.label')"
+          :validate-trigger="['change', 'blur']"
+        >
           <AvatarUploader v-model:src="form.avatar" />
         </a-form-item>
         <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
-          <a-switch v-model="form.tts" :checked-value="1" :uncheckted-value="0" :checked-color="themeColor"
-            unchecked-color="#ddd" />
+          <a-switch
+            v-model="form.tts" :checked-value="1" :uncheckted-value="0" :checked-color="themeColor"
+            unchecked-color="#ddd"
+          />
         </a-form-item>
-        <a-form-item field="loc_share" :label="t('change-member.form.loc_share.label')"
-          :validate-trigger="['change', 'blur']">
-          <a-switch v-model="form.loc_share" :checked-value="1" :uncheckted-value="0"
-            :checked-color="themeColor" unchecked-color="#ddd" />
+        <a-form-item
+          field="loc_share" :label="t('change-member.form.loc_share.label')"
+          :validate-trigger="['change', 'blur']"
+        >
+          <a-switch
+            v-model="form.loc_share" :checked-value="1" :uncheckted-value="0"
+            :checked-color="themeColor" unchecked-color="#ddd"
+          />
         </a-form-item>
         <a-form-item field="track" :label="t('change-member.form.track.label')" :validate-trigger="['change', 'blur']">
-          <a-radio-group type="button" :default-value="String(form.track)" v-model="form.track"
-            :options="trackOptions"></a-radio-group>
+          <a-radio-group
+            v-model="form.track" type="button" :default-value="String(form.track)"
+            :options="trackOptions"
+          />
         </a-form-item>
 
         <a-button type="primary" html-type="submit" :loading="isPending">

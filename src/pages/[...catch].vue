@@ -3,9 +3,9 @@ import { useRouter } from 'vue-router'
 
 definePage({
   meta: {
-  layout: 'page',
-    requiresAuth: false
-  }
+    layout: 'page',
+    requiresAuth: false,
+  },
 })
 
 const router = useRouter()

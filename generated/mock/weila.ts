@@ -1,9 +1,26 @@
 // WARNING: 该文件通过项目内脚本自动生成，请勿手动更改
 // @ts-ignore
 
-import { z } from 'zod'
+import { isString } from '@antfu/utils'
 
 export default [
+{
+  url: '/v1/corp/web/ptturl-to-mp3url',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
+	"errcode": 0,
+	"errmsg": "请求成功",
+	"data": {
+		"url": "http://businessaudio.oss-cn-shenzhen.aliyuncs.com/media/service/103079215545/20251024audio/441_1729738955_3.mp3"
+	}
+}, check(body, {
+    "ptturl":"http://businessaudio.oss-cn-shenzhen.aliyuncs.com/media/service/103079215545/20251024audio/441_1729738955_3"
+}))
+  }
+},
 {
   url: '/v1/corp/web/send-sms-verifycode',
   method: 'post',
@@ -246,51 +263,6 @@ export default [
   }
 },
 {
-  url: '/v1/corp/web/org-change',
-  method: 'post',
-  response: (res: any) => {
-    const { body = {} } = res
-    console.log(res)
-    return Object.assign({
-	"errcode": 0,
-	"errmsg": "请求成功",
-	"data": {
-		"corp": {
-			"org_number": "111861",
-			"org_name": "111111",
-			"org_avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/tmp/20230508/3/1683529371-110_80.png",
-			"org_intro": "12222222",
-			"org_created": "2023-10-26 19:30:05",
-			"member_count": 1,
-			"member_version": 1,
-			"group_version": 1,
-			"service": {
-				"id": 29,
-				"number": "100285",
-				"name": "测试服务号",
-				"avatar": "http://favicon.weila.hk/default/session.png",
-				"intro": "微喇测试企业服务号",
-				"url": "http:demo.weila.hk",
-				"created": "2023-10-26 19:34:47"
-			},
-			"owner": {
-				"user_id": 1247626,
-				"user_number": "20100021",
-				"sex": 0,
-				"nick": "微喇80459583",
-				"phone": "18675500568",
-				"avatar": "http://favicon.weila.hk/default/user.png"
-			}
-		}
-	}
-}, check(body, {
-	"org_num": 100021,
-	"name": "222222",
-	"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100040/a/8ea474b7.jpg"
-}))
-  }
-},
-{
   url: '/v1/corp/web/org-my-org',
   method: 'post',
   response: (res: any) => {
@@ -314,11 +286,7 @@ export default [
 			"device_ver": 1
 		}
 	}
-}, check(body, {
-	"org_num": 100021,
-	"name": "222222",
-	"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100040/a/8ea474b7.jpg"
-}))
+}, check(body, {}))
   }
 },
 {
@@ -341,11 +309,7 @@ export default [
 			"avatar": "http://favicon.weila.hk/default/user.png"
 		}
 	}
-}, check(body, {
-	"org_num": 100021,
-	"name": "222222",
-	"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100040/a/8ea474b7.jpg"
-}))
+}, check(body, {}))
   }
 },
 {
@@ -390,61 +354,81 @@ export default [
 	"errmsg": "请求成功",
 	"data": {
 		"address_list": {
-			"version": 1730434624,
+			"version": 1732001188,
 			"members": [
 				{
-					"user_id": 1253444,
+					"user_id": 1253488,
+					"user_num": "70014762",
+					"sex": 0,
+					"name": "ent98164680",
+					"avatar": "http://favicon.weila.hk/default/user.png",
 					"dept_id": 0,
 					"country_code": "86",
-					"phone": "13353236154",
+					"phone": "13353236455",
 					"type": 255,
-					"tts": 1,
+					"tts": 0,
 					"loc_share": 0,
 					"track": 0,
 					"state": 0,
-					"created": 1730274537,
-					"user_num": "70015325",
-					"sex": 0,
-					"name": "ent19949504",
-					"avatar": "http://favicon.weila.hk/default/user.png"
+					"created": 1731986785,
+					"online": 0
 				}
 			],
 			"depts": [
 				{
-					"id": 6,
-					"name": "研发部2",
+					"id": 1,
+					"name": "研发部",
 					"members": [
 						{
-							"user_id": 1253446,
-							"dept_id": 6,
+							"user_id": 1253341,
+							"user_num": "30015778",
+							"sex": 1,
+							"name": "测试机Linux",
+							"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253341/a/38035fcb.jpg",
+							"dept_id": 1,
 							"country_code": "86",
-							"phone": "18611111111",
-							"type": 0,
-							"tts": 1,
-							"loc_share": 0,
-							"track": 0,
+							"phone": "1862222222",
+							"type": 1,
+							"tts": 0,
+							"loc_share": 1,
+							"track": 1,
 							"state": 0,
-							"created": 1730279383,
-							"user_num": "70011173",
-							"sex": 0,
-							"name": "222222",
-							"avatar": "http://favicon.weila.hk/default/user.png"
+							"created": 1731987269,
+							"online": 0
 						},
 						{
-							"user_id": 1253448,
-							"dept_id": 6,
+							"user_id": 1247754,
+							"user_num": "30010197",
+							"sex": 1,
+							"name": "测试机Linux",
+							"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1247754/a/c4c83dd3.jpg",
+							"dept_id": 1,
 							"country_code": "86",
-							"phone": "18611111111",
+							"phone": "1862222222",
 							"type": 1,
-							"tts": 1,
-							"loc_share": 0,
-							"track": 0,
+							"tts": 0,
+							"loc_share": 1,
+							"track": 1,
 							"state": 0,
-							"created": 1730434624,
-							"user_num": "30015839",
-							"sex": 0,
-							"name": "222222",
-							"avatar": "http://favicon.weila.hk/default/group.png"
+							"created": 1731987480,
+							"online": 0
+						},
+						{
+							"user_id": 1253464,
+							"user_num": "30015845",
+							"sex": 1,
+							"name": "测试机Linux",
+							"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253464/a/f7041816.jpg",
+							"dept_id": 1,
+							"country_code": "86",
+							"phone": "1862222222",
+							"type": 1,
+							"tts": 0,
+							"loc_share": 1,
+							"track": 1,
+							"state": 0,
+							"created": 1731987604,
+							"online": 0
 						}
 					]
 				}
@@ -452,7 +436,7 @@ export default [
 		}
 	}
 }, check(body, {
-    "org_num": 100073
+    "org_num": 100130
 }))
   }
 },
@@ -470,8 +454,8 @@ export default [
 		"name": "研发部"
 	}
 }, check(body, {
-    "org_num": 100080,
-    "name": "研发部2"
+    "org_num": 100130,
+    "name": "研发部"
 }))
   }
 },
@@ -544,7 +528,80 @@ export default [
 		]
 	}
 }, check(body, {
-    "org_num": 100021
+    "org_num": 100073
+}))
+  }
+},
+{
+  url: '/v1/corp/web/dept-member-getall',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
+	"errcode": 0,
+	"errmsg": "请求成功",
+	"data": {
+		"members": [
+			{
+				"user_id": 1253341,
+				"user_num": "30015778",
+				"sex": 1,
+				"name": "测试机Linux",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253341/a/38035fcb.jpg",
+				"dept_id": 1,
+				"country_code": "86",
+				"phone": "1862222222",
+				"type": 1,
+				"tts": 0,
+				"loc_share": 1,
+				"track": 1,
+				"state": 0,
+				"created": 1731987269,
+				"online": 0,
+				"dept_name": "研发部"
+			},
+			{
+				"user_id": 1247754,
+				"user_num": "30010197",
+				"sex": 1,
+				"name": "测试机Linux",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1247754/a/c4c83dd3.jpg",
+				"dept_id": 1,
+				"country_code": "86",
+				"phone": "1862222222",
+				"type": 1,
+				"tts": 0,
+				"loc_share": 1,
+				"track": 1,
+				"state": 0,
+				"created": 1731987480,
+				"online": 0,
+				"dept_name": "研发部"
+			},
+			{
+				"user_id": 1253464,
+				"user_num": "30015845",
+				"sex": 1,
+				"name": "测试机Linux",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253464/a/f7041816.jpg",
+				"dept_id": 1,
+				"country_code": "86",
+				"phone": "1862222222",
+				"type": 1,
+				"tts": 0,
+				"loc_share": 1,
+				"track": 1,
+				"state": 0,
+				"created": 1731987604,
+				"online": 0,
+				"dept_name": "研发部"
+			}
+		]
+	}
+}, check(body, {
+    "org_num": 100130,
+    "dept_id": 1
 }))
   }
 },
@@ -614,10 +671,10 @@ export default [
 		"avatar": "http://favicon.weila.hk/default/group.png"
 	}
 }, check(body, {
-	"org_num": 100073,
-	"verify_code": "193212",
-	"name": "测试机2",
-    "dept_id": 6,
+	"org_num": 100130,
+	"verify_code": "411691",
+	"name": "测试机Linux",
+    "dept_id": 1,
 	"sex": 0,
 	"avatar": "http://favicon.weila.hk/default/group.png",
 	"phone": "18611111111",
@@ -651,16 +708,16 @@ export default [
 		"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100021/u/1253437/a/4b00bbb0.jpg"
 	}
 }, check(body, {
-	"org_num": 100021,
-	"member_id": 1253443,
-	"name": "33333",
+	"org_num": 100130,
+	"member_id": 1253341,
+	"name": "测试机Linux",
     "dept_id": 1,
 	"sex": 1,
 	"avatar": "http://favicon.weila.hk/default/session.png",
 	"phone": "1862222222",
 	"tts": 0,
-	"loc_share": 0,
-	"track": 0 //设备类型用户有效 0关闭 1高频 2中频 3低频 4保留 其他自定义单位秒
+	"loc_share": 1,
+	"track": 1 //设备类型用户有效 0关闭 1高频 2中频 3低频 4保留 其他自定义单位秒
 }))
   }
 },
@@ -704,8 +761,8 @@ export default [
 	"errcode": 0,
 	"errmsg": "请求成功"
 }, check(body, {
-	"org_num": 100021,
-	"member_id": 1253443
+	"org_num": 100073,
+	"member_id": 1253464
 }))
   }
 },
@@ -722,6 +779,96 @@ export default [
 	"org_num": 100021,
 	"member_id": 1253443,
 	"password": "e10adc3949ba59abbe56e057f20f883e"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/member-getall',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
+	"errcode": 0,
+	"errmsg": "请求成功",
+	"data": {
+		"members": [
+			{
+				"user_id": 1253488,
+				"user_num": "70014762",
+				"sex": 0,
+				"name": "ent98164680",
+				"avatar": "http://favicon.weila.hk/default/user.png",
+				"dept_id": 0,
+				"country_code": "86",
+				"phone": "13353236455",
+				"type": 255,
+				"tts": 0,
+				"loc_share": 0,
+				"track": 0,
+				"state": 0,
+				"created": 1731986785,
+				"online": 0,
+				"dept_name": ""
+			},
+			{
+				"user_id": 1253341,
+				"user_num": "30015778",
+				"sex": 1,
+				"name": "测试机Linux",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253341/a/38035fcb.jpg",
+				"dept_id": 1,
+				"country_code": "86",
+				"phone": "1862222222",
+				"type": 1,
+				"tts": 0,
+				"loc_share": 1,
+				"track": 1,
+				"state": 0,
+				"created": 1731987269,
+				"online": 0,
+				"dept_name": "研发部"
+			},
+			{
+				"user_id": 1247754,
+				"user_num": "30010197",
+				"sex": 1,
+				"name": "测试机Linux",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1247754/a/c4c83dd3.jpg",
+				"dept_id": 1,
+				"country_code": "86",
+				"phone": "1862222222",
+				"type": 1,
+				"tts": 0,
+				"loc_share": 1,
+				"track": 1,
+				"state": 0,
+				"created": 1731987480,
+				"online": 0,
+				"dept_name": "研发部"
+			},
+			{
+				"user_id": 1253464,
+				"user_num": "30015845",
+				"sex": 1,
+				"name": "测试机Linux",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253464/a/f7041816.jpg",
+				"dept_id": 1,
+				"country_code": "86",
+				"phone": "1862222222",
+				"type": 1,
+				"tts": 0,
+				"loc_share": 1,
+				"track": 1,
+				"state": 0,
+				"created": 1731987604,
+				"online": 0,
+				"dept_name": "研发部"
+			}
+		]
+	}
+}, check(body, {
+    "org_num": 100130
 }))
   }
 },
@@ -745,40 +892,8 @@ export default [
 		"created": 1730452576
 	}
 }, check(body, {
-    "org_num": 100073,
-    "name": "测试群3", //群名
-    "avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100011/a/0e9763d6.jpg", //群头像,
-    "burst_mode": 0 //0排队 1抢麦 2抢断
-}))
-  }
-},
-{
-  url: '/v1/corp/web/group-change',
-  method: 'post',
-  response: (res: any) => {
-    const { body = {} } = res
-    console.log(res)
-    return Object.assign({
-	"errcode": 0,
-	"errmsg": "请求成功",
-	"data": {
-		"id": 80000180,
-		"name": "测试群3",
-		"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100073/g/80000180/a/f3d6bb21.jpg?v=1730275632",
-		"creator": 1253444,
-		"type": 33,
-		"user_count": 0,
-		"member_version": 1,
-		"intro": "群介绍",
-		"user_limit": 500,
-		"burst_mode": 0,
-		"shutup": 0,
-		"created": 1730274965
-	}
-}, check(body, {
-    "org_num": 100073,
-    "group_id": 80000180, //群Id
-    "name": "测试群3", //群名
+    "org_num": 100130,
+    "name": "测试群", //群名
     "avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100011/a/0e9763d6.jpg", //群头像,
     "burst_mode": 0 //0排队 1抢麦 2抢断
 }))
@@ -861,8 +976,8 @@ export default [
 		]
 	}
 }, check(body, {
-    "group_id": 80000528, //群Id
-    "member_ids":[1253444]
+    "group_id": 81000335, //群Id
+    "member_ids":[1253464,1247754,1253341]
 }))
   }
 },
@@ -929,8 +1044,8 @@ export default [
 		]
 	}
 }, check(body, {
-    "group_id": 80000180, //群Id
-    "member_ids":[1253446]
+    "group_id": 80000528, //群Id
+    "member_ids":[1253464]
 }))
   }
 },
@@ -960,7 +1075,7 @@ export default [
   }
 },
 {
-  url: '/v1/corp/web/location-get-track',
+  url: '/v1/corp/web/location-get-regeo',
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
@@ -969,259 +1084,96 @@ export default [
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
-		"tracks": [
+		"regeo": {
+			"province": "广东省",
+			"city": "珠海市",
+			"district": "斗门区",
+			"township": "乾务镇",
+			"road": "270省道",
+			"number": "",
+			"addr": "",
+			"name": "270省道富泉虾苗场西732米",
+			"adcode": "440403",
+			"matchs": {
+				"aoi_name": "",
+				"aoi_distance": 0,
+				"poi_name": "270省道富泉虾苗场西732米",
+				"poi_distance": "732.954",
+				"roadinter_name": "270省道与珠峰大道交叉口西南895米",
+				"roadinter_distance": "895.218"
+			},
+			"formatted_address": "乾务镇270省道270省道富泉虾苗场西732米"
+		}
+	}
+}, check(body, {
+    "latitude": 22.13445,
+    "longitude": 113.1344
+}))
+  }
+},
+{
+  url: '/v1/corp/web/message-get-group-history-message',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    console.log(res)
+    return Object.assign({
+	"errcode": 0,
+	"errmsg": "请求成功",
+	"data": {
+		"messages": [
 			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731997061
+				"user_id": 1253341,
+				"msg_id": 173198981,
+				"content": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/media/corpgroup/81000335/20251119audio/1253341_1731989825_5?duration=5",
+				"type": 2,
+				"created": 1731989825
 			},
 			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731997121
+				"user_id": 1253341,
+				"msg_id": 173198980,
+				"content": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/media/corpgroup/81000335/20251119audio/1253341_1731989812_7?duration=7",
+				"type": 2,
+				"created": 1731989812
 			},
 			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731997181
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731997241
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731997301
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731997361
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731997421
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731997481
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731997541
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731997601
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731997661
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731997721
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731997781
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731997841
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731997901
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731997961
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998021
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998081
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998141
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998201
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998261
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998321
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998381
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998441
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998501
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998561
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998621
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998681
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998741
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998801
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998861
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998921
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731998981
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731999041
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731999106
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731999168
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731999228
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731999288
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731999349
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731999409
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731999470
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731999530
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731999590
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731999651
-			},
-			{
-				"latitude": 22.668835,
-				"longitude": 115.070211,
-				"created": 1731999711
+				"user_id": 1253341,
+				"msg_id": 173198979,
+				"content": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/media/corpgroup/81000335/20251119audio/1253341_1731989796_4?duration=4",
+				"type": 2,
+				"created": 1731989796
 			}
 		]
 	}
 }, check(body, {
-    "user_id": 1253464, //群Id
-    "date": "2024-11-19"
+    "group_id": 81000335,
+    "msg_id": 0,
+    "msg_count": 20
 }))
   }
 },
-]
+] as const
 
-function check(obj1: object, obj2: object) {
-  const weilaRes = { errcode: 0, errmsg: '' }
+export function check(obj1: object, obj2: object) {
   const keys = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+  
+  if(keys.length !== keys2.length)
+    return { errcode: 1, errmsg: `Length mismatch: ${keys.length} !== ${keys2.length}` }
   
   for (const key of keys) {
-    if (!(key in obj2)) {
-      weilaRes.errcode = 1;
-      weilaRes.errmsg = `Missing key: ${key}`;
-      return weilaRes;
-    }
+    if (!(key in obj2)) 
+      return { errcode: 1, errmsg: `Missing key: ${key}` }
     
-    if (typeof obj1[key as keyof typeof obj1] !== typeof obj2[key as keyof typeof obj2]) {
-      weilaRes.errcode = 1;
-      weilaRes.errmsg = `Type mismatch for key: ${key}`;
-      return weilaRes;
+    const val1 = obj1[key as keyof typeof obj1]
+    const val2 = obj2[key as keyof typeof obj2]
+    
+    if (typeof val1 !== typeof val2) {
+      if(isString(val1) && val1 === '' && val2 !== '')
+        return { errcode: 1, errmsg: `${key} is empty string` }
+      return { errcode: 1, errmsg: `Type mismatch for key: ${key}` }
     }
   }
   
-  return weilaRes;
+  return { errcode: 0, errmsg: '' }
 }

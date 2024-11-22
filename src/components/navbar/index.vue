@@ -17,10 +17,6 @@ const avatar = computed(() => {
 const topMenu = computed(() => appStore.topMenu && appStore.menu)
 const toggleTheme = useToggle(isDark)
 
-// function setVisible() {
-//   appStore.updateSettings({ globalSettings: true })
-// }
-
 const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void
 
 async function toggleLocales() {
@@ -47,15 +43,11 @@ function logout() {
           alt="logo"
           src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image"
         >
-        <a-typography-title
-          :style="{ margin: 0, fontSize: '18px' }"
-          :heading="5"
-        >
+        <a-typography-title :style="{ margin: 0, fontSize: '18px' }" :heading="5" max-lg:hidden>
           {{ t('project.name') }}
         </a-typography-title>
         <icon-menu-fold
-          v-if="!topMenu && appStore.device === 'mobile'"
-          style="font-size: 22px; cursor: pointer"
+          v-if="!topMenu && appStore.device === 'mobile'" style="font-size: 22px; cursor: pointer"
           @click="toggleDrawerMenu"
         />
       </a-space>
@@ -66,12 +58,7 @@ function logout() {
     <ul class="right-side">
       <li>
         <a-tooltip :content="t('settings.language')">
-          <a-button
-            class="nav-btn"
-            type="outline"
-            shape="circle"
-            @click="toggleLocales"
-          >
+          <a-button class="nav-btn" type="outline" shape="circle" @click="toggleLocales">
             <template #icon>
               <icon-language />
             </template>
@@ -79,12 +66,7 @@ function logout() {
         </a-tooltip>
       </li>
       <li>
-        <a-button
-          class="nav-btn"
-          type="outline"
-          shape="circle"
-          @click="toggleTheme()"
-        >
+        <a-button class="nav-btn" type="outline" shape="circle" @click="toggleTheme()">
           <template #icon>
             <icon-moon-fill v-if="!isDark" />
             <icon-sun-fill v-else />
@@ -93,18 +75,12 @@ function logout() {
       </li>
       <li>
         <a-tooltip
-          :content="
-            isFullscreen
-              ? t('settings.navbar.screen.toExit')
-              : t('settings.navbar.screen.toFull')
+          :content="isFullscreen
+            ? t('settings.navbar.screen.toExit')
+            : t('settings.navbar.screen.toFull')
           "
         >
-          <a-button
-            class="nav-btn"
-            type="outline"
-            shape="circle"
-            @click="toggleFullScreen"
-          >
+          <a-button class="nav-btn" type="outline" shape="circle" @click="toggleFullScreen">
             <template #icon>
               <icon-fullscreen-exit v-if="isFullscreen" />
               <icon-fullscreen v-else />
@@ -128,10 +104,7 @@ function logout() {
       </li> -->
       <li>
         <a-dropdown trigger="click">
-          <a-avatar
-            :size="32"
-            :style="{ marginRight: '8px', cursor: 'pointer' }"
-          >
+          <a-avatar :size="32" :style="{ marginRight: '8px', cursor: 'pointer' }">
             <img alt="avatar" :src="avatar">
           </a-avatar>
           <template #content>
@@ -151,7 +124,7 @@ function logout() {
 </template>
 
 <style scoped lang="less">
-  .navbar {
+.navbar {
   display: flex;
   justify-content: space-between;
   height: 100%;
@@ -173,9 +146,11 @@ function logout() {
   display: flex;
   padding-right: 20px;
   list-style: none;
+
   :deep(.locale-select) {
     border-radius: 20px;
   }
+
   li {
     display: flex;
     align-items: center;
@@ -186,16 +161,19 @@ function logout() {
     color: var(--color-text-1);
     text-decoration: none;
   }
+
   .nav-btn {
     border-color: rgb(var(--gray-2));
     color: rgb(var(--gray-8));
     font-size: 16px;
   }
+
   .trigger-btn,
   .ref-btn {
     position: absolute;
     bottom: 14px;
   }
+
   .trigger-btn {
     margin-left: 14px;
   }
@@ -203,7 +181,7 @@ function logout() {
 </style>
 
 <style lang="less">
-  .message-popover {
+.message-popover {
   .arco-popover-content {
     margin-top: 0;
   }

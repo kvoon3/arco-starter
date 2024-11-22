@@ -7,6 +7,7 @@ import { parseURL } from 'ufo'
 import { unified } from 'unified'
 import { visit } from 'unist-util-visit'
 import { genTypeSafeTemplate } from './templates/type-safe'
+import { whitelist } from './whitelist'
 
 export interface ApiContext {
   url: string
@@ -37,7 +38,7 @@ await unified()
   .use(() => (tree) => {
     console.log('Traversing markdown nodes...')
 
-    let url: string
+    let url: any // string
     let req: string
     let res: string
 
@@ -64,8 +65,16 @@ await unified()
         else if (type === 'response') {
           res = value
 
-          if (url && req && res)
-            ctxs.push({ url, req, res })
+          if (url && req && res) {
+            if (!whitelist.includes(url))
+              ctxs.push({ url, req, res })
+            else
+              console.log(`[Skipped] url: ${url}`)
+
+            url = ''
+            req = '{}'
+            res = ''
+          }
         }
       }
     })

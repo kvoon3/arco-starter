@@ -213,6 +213,66 @@ noauth
 	"errmsg": "账号或密码错误"
 }
 ```
+## /WEBAPI/corp/web/PTTURL转码MP3URL
+```text
+暂无描述
+```
+#### 接口状态
+> 已完成
+
+#### 接口URL
+> https://demo.weila.hk/v1/corp/web/ptturl-to-mp3url?access-token=e0a714b9e2e8c52aef84b06165e603fe
+
+#### 请求方式
+> POST
+
+#### Content-Type
+> json
+
+#### 请求Query参数
+参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
+--- | --- | --- | --- | ---
+access-token | e0a714b9e2e8c52aef84b06165e603fe | String | 是 | -
+#### 请求Body参数
+```javascript
+{
+    "ptturl":"http://businessaudio.oss-cn-shenzhen.aliyuncs.com/media/service/103079215545/20251024audio/441_1729738955_3"
+}
+```
+参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
+--- | --- | --- | --- | ---
+user_id | 1 | Number | 是 | -
+name | 文件名 | String | 是 | 文件名称(taxi.jpg)
+data | 文件数据base64编码 | String | 是 | 文件数据base64编码
+#### 认证方式
+```text
+noauth
+```
+#### 预执行脚本
+```javascript
+暂无预执行脚本
+```
+#### 后执行脚本
+```javascript
+暂无后执行脚本
+```
+#### 成功响应示例
+```javascript
+{
+	"errcode": 0,
+	"errmsg": "请求成功",
+	"data": {
+		"url": "http://businessaudio.oss-cn-shenzhen.aliyuncs.com/media/service/103079215545/20251024audio/441_1729738955_3.mp3"
+	}
+}
+```
+#### 错误响应示例
+```javascript
+{
+	"errcode": "105",
+	"errmsg": "账号或密码错误"
+}
+```
 ## /WEBAPI/corp/web/登录、注册、验证码
 ```text
 暂无描述
@@ -670,7 +730,7 @@ noauth
 > 已完成
 
 #### 接口URL
-> http://192.168.0.125:8088/v1/corp/web/org-create?access-token=7aa3cdd9c069a32351c04402ecd6dc21
+> http://192.168.0.125:8088/v1/corp/web/org-create?access-token=6338b4249ee06427eeeddf78e51de639
 
 #### 请求方式
 > POST
@@ -681,7 +741,7 @@ noauth
 #### 请求Query参数
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
 --- | --- | --- | --- | ---
-access-token | 7aa3cdd9c069a32351c04402ecd6dc21 | String | 是 | -
+access-token | 6338b4249ee06427eeeddf78e51de639 | String | 是 | -
 #### 请求Body参数
 ```javascript
 {
@@ -829,7 +889,7 @@ noauth
 > 已完成
 
 #### 接口URL
-> http://192.168.0.125:8088/v1/corp/web/org-my-org?access-token=7aa3cdd9c069a32351c04402ecd6dc21
+> http://192.168.0.125:8088/v1/corp/web/org-my-org?access-token=6522909b5350eccf8ee889361ca4b6a8
 
 #### 请求方式
 > POST
@@ -840,7 +900,7 @@ noauth
 #### 请求Query参数
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
 --- | --- | --- | --- | ---
-access-token | 7aa3cdd9c069a32351c04402ecd6dc21 | String | 是 | -
+access-token | 6522909b5350eccf8ee889361ca4b6a8 | String | 是 | -
 #### 请求Body参数
 ```javascript
 
@@ -1090,7 +1150,7 @@ noauth
 > 已完成
 
 #### 接口URL
-> http://192.168.0.125:8088/v1/corp/web/get-address-list?access-token=ac769e6ada9fb356c87548dd25278f20
+> http://demo.weila.hk/v1/corp/web/get-address-list?access-token=6fc1b380a214fc3f78460e8b6e845474
 
 #### 请求方式
 > POST
@@ -1101,11 +1161,11 @@ noauth
 #### 请求Query参数
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
 --- | --- | --- | --- | ---
-access-token | ac769e6ada9fb356c87548dd25278f20 | String | 是 | -
+access-token | 6fc1b380a214fc3f78460e8b6e845474 | String | 是 | -
 #### 请求Body参数
 ```javascript
 {
-    "org_num": 100073
+    "org_num": 100130
 }
 ```
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
@@ -1131,61 +1191,81 @@ noauth
 	"errmsg": "请求成功",
 	"data": {
 		"address_list": {
-			"version": 1730434624,
+			"version": 1732001188,
 			"members": [
 				{
-					"user_id": 1253444,
+					"user_id": 1253488,
+					"user_num": "70014762",
+					"sex": 0,
+					"name": "ent98164680",
+					"avatar": "http://favicon.weila.hk/default/user.png",
 					"dept_id": 0,
 					"country_code": "86",
-					"phone": "13353236154",
+					"phone": "13353236455",
 					"type": 255,
-					"tts": 1,
+					"tts": 0,
 					"loc_share": 0,
 					"track": 0,
 					"state": 0,
-					"created": 1730274537,
-					"user_num": "70015325",
-					"sex": 0,
-					"name": "ent19949504",
-					"avatar": "http://favicon.weila.hk/default/user.png"
+					"created": 1731986785,
+					"online": 0
 				}
 			],
 			"depts": [
 				{
-					"id": 6,
-					"name": "研发部2",
+					"id": 1,
+					"name": "研发部",
 					"members": [
 						{
-							"user_id": 1253446,
-							"dept_id": 6,
+							"user_id": 1253341,
+							"user_num": "30015778",
+							"sex": 1,
+							"name": "测试机Linux",
+							"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253341/a/38035fcb.jpg",
+							"dept_id": 1,
 							"country_code": "86",
-							"phone": "18611111111",
-							"type": 0,
-							"tts": 1,
-							"loc_share": 0,
-							"track": 0,
+							"phone": "1862222222",
+							"type": 1,
+							"tts": 0,
+							"loc_share": 1,
+							"track": 1,
 							"state": 0,
-							"created": 1730279383,
-							"user_num": "70011173",
-							"sex": 0,
-							"name": "222222",
-							"avatar": "http://favicon.weila.hk/default/user.png"
+							"created": 1731987269,
+							"online": 0
 						},
 						{
-							"user_id": 1253448,
-							"dept_id": 6,
+							"user_id": 1247754,
+							"user_num": "30010197",
+							"sex": 1,
+							"name": "测试机Linux",
+							"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1247754/a/c4c83dd3.jpg",
+							"dept_id": 1,
 							"country_code": "86",
-							"phone": "18611111111",
+							"phone": "1862222222",
 							"type": 1,
-							"tts": 1,
-							"loc_share": 0,
-							"track": 0,
+							"tts": 0,
+							"loc_share": 1,
+							"track": 1,
 							"state": 0,
-							"created": 1730434624,
-							"user_num": "30015839",
-							"sex": 0,
-							"name": "222222",
-							"avatar": "http://favicon.weila.hk/default/group.png"
+							"created": 1731987480,
+							"online": 0
+						},
+						{
+							"user_id": 1253464,
+							"user_num": "30015845",
+							"sex": 1,
+							"name": "测试机Linux",
+							"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253464/a/f7041816.jpg",
+							"dept_id": 1,
+							"country_code": "86",
+							"phone": "1862222222",
+							"type": 1,
+							"tts": 0,
+							"loc_share": 1,
+							"track": 1,
+							"state": 0,
+							"created": 1731987604,
+							"online": 0
 						}
 					]
 				}
@@ -1209,7 +1289,7 @@ noauth
 > 已完成
 
 #### 接口URL
-> http://192.168.0.125:8088/v1/corp/web/dept-create?access-token=4e74b04be33083d0d4337956d6d0db82
+> https://demo.weila.hk/v1/corp/web/dept-create?access-token=6338b4249ee06427eeeddf78e51de639
 
 #### 请求方式
 > POST
@@ -1220,12 +1300,12 @@ noauth
 #### 请求Query参数
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
 --- | --- | --- | --- | ---
-access-token | 4e74b04be33083d0d4337956d6d0db82 | String | 是 | -
+access-token | 6338b4249ee06427eeeddf78e51de639 | String | 是 | -
 #### 请求Body参数
 ```javascript
 {
-    "org_num": 100080,
-    "name": "研发部2"
+    "org_num": 100130,
+    "name": "研发部"
 }
 ```
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
@@ -1429,7 +1509,7 @@ data.group.shutup | 0 | Number | 群禁言 0 不禁言 1禁言(管理员可以�
 > 已完成
 
 #### 接口URL
-> http://192.168.0.125:8088/v1/corp/web/dept-getall?access-token=a4bdb33534e47bfbc9093e546f94e90e
+> http://192.168.0.125:8088/v1/corp/web/dept-getall?access-token=f4ff8260f9fe89277dea247cc862044f
 
 #### 请求方式
 > POST
@@ -1440,11 +1520,11 @@ data.group.shutup | 0 | Number | 群禁言 0 不禁言 1禁言(管理员可以�
 #### 请求Query参数
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
 --- | --- | --- | --- | ---
-access-token | a4bdb33534e47bfbc9093e546f94e90e | String | 是 | -
+access-token | f4ff8260f9fe89277dea247cc862044f | String | 是 | -
 #### 请求Body参数
 ```javascript
 {
-    "org_num": 100021
+    "org_num": 100073
 }
 ```
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
@@ -1489,6 +1569,121 @@ noauth
 			{
 				"id": 5,
 				"name": "研发部2"
+			}
+		]
+	}
+}
+```
+#### 错误响应示例
+```javascript
+{
+	"errcode": "105",
+	"errmsg": "账号或密码错误"
+}
+```
+## /WEBAPI/corp/web/通讯录管理/获取部门所有成员
+```text
+暂无描述
+```
+#### 接口状态
+> 已完成
+
+#### 接口URL
+> http://192.168.0.125:8088/v1/corp/web/dept-member-getall?access-token=69a2d502c258fcb58dc134e9dd74867f
+
+#### 请求方式
+> POST
+
+#### Content-Type
+> json
+
+#### 请求Query参数
+参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
+--- | --- | --- | --- | ---
+access-token | 69a2d502c258fcb58dc134e9dd74867f | String | 是 | -
+#### 请求Body参数
+```javascript
+{
+    "org_num": 100130,
+    "dept_id": 1
+}
+```
+参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
+--- | --- | --- | --- | ---
+name | 行政部 | String | 是 | -
+avatar | http:// | String | 否 | -
+#### 认证方式
+```text
+noauth
+```
+#### 预执行脚本
+```javascript
+暂无预执行脚本
+```
+#### 后执行脚本
+```javascript
+暂无后执行脚本
+```
+#### 成功响应示例
+```javascript
+{
+	"errcode": 0,
+	"errmsg": "请求成功",
+	"data": {
+		"members": [
+			{
+				"user_id": 1253341,
+				"user_num": "30015778",
+				"sex": 1,
+				"name": "测试机Linux",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253341/a/38035fcb.jpg",
+				"dept_id": 1,
+				"country_code": "86",
+				"phone": "1862222222",
+				"type": 1,
+				"tts": 0,
+				"loc_share": 1,
+				"track": 1,
+				"state": 0,
+				"created": 1731987269,
+				"online": 0,
+				"dept_name": "研发部"
+			},
+			{
+				"user_id": 1247754,
+				"user_num": "30010197",
+				"sex": 1,
+				"name": "测试机Linux",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1247754/a/c4c83dd3.jpg",
+				"dept_id": 1,
+				"country_code": "86",
+				"phone": "1862222222",
+				"type": 1,
+				"tts": 0,
+				"loc_share": 1,
+				"track": 1,
+				"state": 0,
+				"created": 1731987480,
+				"online": 0,
+				"dept_name": "研发部"
+			},
+			{
+				"user_id": 1253464,
+				"user_num": "30015845",
+				"sex": 1,
+				"name": "测试机Linux",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253464/a/f7041816.jpg",
+				"dept_id": 1,
+				"country_code": "86",
+				"phone": "1862222222",
+				"type": 1,
+				"tts": 0,
+				"loc_share": 1,
+				"track": 1,
+				"state": 0,
+				"created": 1731987604,
+				"online": 0,
+				"dept_name": "研发部"
 			}
 		]
 	}
@@ -1579,7 +1774,7 @@ noauth
 > 已完成
 
 #### 接口URL
-> http://demo.weila.hk/v1/corp/web/member-add-device?access-token=a3a7c3f7b7305f6ab67cc1f3cce79774
+> http://demo.weila.hk/v1/corp/web/member-add-device?access-token=6338b4249ee06427eeeddf78e51de639
 
 #### 请求方式
 > POST
@@ -1590,14 +1785,14 @@ noauth
 #### 请求Query参数
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
 --- | --- | --- | --- | ---
-access-token | a3a7c3f7b7305f6ab67cc1f3cce79774 | String | 是 | -
+access-token | 6338b4249ee06427eeeddf78e51de639 | String | 是 | -
 #### 请求Body参数
 ```javascript
 {
-	"org_num": 100073,
-	"verify_code": "193212",
-	"name": "测试机2",
-    "dept_id": 6,
+	"org_num": 100130,
+	"verify_code": "411691",
+	"name": "测试机Linux",
+    "dept_id": 1,
 	"sex": 0,
 	"avatar": "http://favicon.weila.hk/default/group.png",
 	"phone": "18611111111",
@@ -1650,7 +1845,7 @@ noauth
 > 已完成
 
 #### 接口URL
-> http://192.168.0.125:8088/v1/corp/web/member-change?access-token=57d88cb501917e4a79aafb22e93b874a
+> https://demo.weila.hk/v1/corp/web/member-change?access-token=6338b4249ee06427eeeddf78e51de639
 
 #### 请求方式
 > POST
@@ -1661,20 +1856,20 @@ noauth
 #### 请求Query参数
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
 --- | --- | --- | --- | ---
-access-token | 57d88cb501917e4a79aafb22e93b874a | String | 是 | -
+access-token | 6338b4249ee06427eeeddf78e51de639 | String | 是 | -
 #### 请求Body参数
 ```javascript
 {
-	"org_num": 100021,
-	"member_id": 1253443,
-	"name": "33333",
+	"org_num": 100130,
+	"member_id": 1253341,
+	"name": "测试机Linux",
     "dept_id": 1,
 	"sex": 1,
 	"avatar": "http://favicon.weila.hk/default/session.png",
 	"phone": "1862222222",
 	"tts": 0,
-	"loc_share": 0,
-	"track": 0 //设备类型用户有效 0关闭 1高频 2中频 3低频 4保留 其他自定义单位秒
+	"loc_share": 1,
+	"track": 1 //设备类型用户有效 0关闭 1高频 2中频 3低频 4保留 其他自定义单位秒
 }
 ```
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
@@ -1790,7 +1985,7 @@ noauth
 > 已完成
 
 #### 接口URL
-> http://192.168.0.125:8088/v1/corp/web/member-delete?access-token=98f519193d03301c98db9f8655530a85
+> http://demo.weila.hk/v1/corp/web/member-delete?access-token=98f519193d03301c98db9f8655530a85
 
 #### 请求方式
 > POST
@@ -1805,8 +2000,8 @@ access-token | 98f519193d03301c98db9f8655530a85 | String | 是 | -
 #### 请求Body参数
 ```javascript
 {
-	"org_num": 100021,
-	"member_id": 1253443
+	"org_num": 100073,
+	"member_id": 1253464
 }
 ```
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
@@ -1880,6 +2075,138 @@ noauth
 	"errmsg": "请求成功",
 }
 ```
+## /WEBAPI/corp/web/通讯录管理/获取所有企业成员
+```text
+暂无描述
+```
+#### 接口状态
+> 已完成
+
+#### 接口URL
+> http://192.168.0.125:8088/v1/corp/web/member-getall?access-token=69a2d502c258fcb58dc134e9dd74867f
+
+#### 请求方式
+> POST
+
+#### Content-Type
+> json
+
+#### 请求Query参数
+参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
+--- | --- | --- | --- | ---
+access-token | 69a2d502c258fcb58dc134e9dd74867f | String | 是 | -
+#### 请求Body参数
+```javascript
+{
+    "org_num": 100130
+}
+```
+参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
+--- | --- | --- | --- | ---
+name | 行政部 | String | 是 | -
+avatar | http:// | String | 否 | -
+#### 认证方式
+```text
+noauth
+```
+#### 预执行脚本
+```javascript
+暂无预执行脚本
+```
+#### 后执行脚本
+```javascript
+暂无后执行脚本
+```
+#### 成功响应示例
+```javascript
+{
+	"errcode": 0,
+	"errmsg": "请求成功",
+	"data": {
+		"members": [
+			{
+				"user_id": 1253488,
+				"user_num": "70014762",
+				"sex": 0,
+				"name": "ent98164680",
+				"avatar": "http://favicon.weila.hk/default/user.png",
+				"dept_id": 0,
+				"country_code": "86",
+				"phone": "13353236455",
+				"type": 255,
+				"tts": 0,
+				"loc_share": 0,
+				"track": 0,
+				"state": 0,
+				"created": 1731986785,
+				"online": 0,
+				"dept_name": ""
+			},
+			{
+				"user_id": 1253341,
+				"user_num": "30015778",
+				"sex": 1,
+				"name": "测试机Linux",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253341/a/38035fcb.jpg",
+				"dept_id": 1,
+				"country_code": "86",
+				"phone": "1862222222",
+				"type": 1,
+				"tts": 0,
+				"loc_share": 1,
+				"track": 1,
+				"state": 0,
+				"created": 1731987269,
+				"online": 0,
+				"dept_name": "研发部"
+			},
+			{
+				"user_id": 1247754,
+				"user_num": "30010197",
+				"sex": 1,
+				"name": "测试机Linux",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1247754/a/c4c83dd3.jpg",
+				"dept_id": 1,
+				"country_code": "86",
+				"phone": "1862222222",
+				"type": 1,
+				"tts": 0,
+				"loc_share": 1,
+				"track": 1,
+				"state": 0,
+				"created": 1731987480,
+				"online": 0,
+				"dept_name": "研发部"
+			},
+			{
+				"user_id": 1253464,
+				"user_num": "30015845",
+				"sex": 1,
+				"name": "测试机Linux",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253464/a/f7041816.jpg",
+				"dept_id": 1,
+				"country_code": "86",
+				"phone": "1862222222",
+				"type": 1,
+				"tts": 0,
+				"loc_share": 1,
+				"track": 1,
+				"state": 0,
+				"created": 1731987604,
+				"online": 0,
+				"dept_name": "研发部"
+			}
+		]
+	}
+}
+```
+#### 错误响应示例
+```javascript
+{
+	"errcode": "105",
+	"errmsg": "账号或密码错误"
+}
+```
 ## /WEBAPI/corp/web/企业群组管理
 ```text
 暂无描述
@@ -1916,7 +2243,7 @@ noauth
 > 已完成
 
 #### 接口URL
-> http://192.168.0.125:8088/v1/corp/web/group-create?access-token=ce23f0b001e6911839c96e793f4f7d4a
+> http://demo.weila.hk/v1/corp/web/group-create?access-token=6338b4249ee06427eeeddf78e51de639
 
 #### 请求方式
 > POST
@@ -1927,12 +2254,12 @@ noauth
 #### 请求Query参数
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
 --- | --- | --- | --- | ---
-access-token | ce23f0b001e6911839c96e793f4f7d4a | String | 是 | -
+access-token | 6338b4249ee06427eeeddf78e51de639 | String | 是 | -
 #### 请求Body参数
 ```javascript
 {
-    "org_num": 100073,
-    "name": "测试群3", //群名
+    "org_num": 100130,
+    "name": "测试群", //群名
     "avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100011/a/0e9763d6.jpg", //群头像,
     "burst_mode": 0 //0排队 1抢麦 2抢断
 }
@@ -1999,7 +2326,7 @@ data.group.shutup | 0 | Number | 群禁言 0 不禁言 1禁言(管理员可以�
 > 已完成
 
 #### 接口URL
-> http://192.168.0.125:8088/v1/corp/web/group-change?access-token=7aa3cdd9c069a32351c04402ecd6dc21
+> https://demo.weila.hk/v1/corp/web/group-change?access-token=0ebed33a5d229903f831e6e197fcf6e1
 
 #### 请求方式
 > POST
@@ -2010,12 +2337,12 @@ data.group.shutup | 0 | Number | 群禁言 0 不禁言 1禁言(管理员可以�
 #### 请求Query参数
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
 --- | --- | --- | --- | ---
-access-token | 7aa3cdd9c069a32351c04402ecd6dc21 | String | 是 | -
+access-token | 0ebed33a5d229903f831e6e197fcf6e1 | String | 是 | -
 #### 请求Body参数
 ```javascript
 {
     "org_num": 100073,
-    "group_id": 80000180, //群Id
+    "group_id": 80000528, //群Id
     "name": "测试群3", //群名
     "avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100011/a/0e9763d6.jpg", //群头像,
     "burst_mode": 0 //0排队 1抢麦 2抢断
@@ -2041,22 +2368,25 @@ noauth
 #### 成功响应示例
 ```javascript
 {
-	"errcode": 0,
-	"errmsg": "请求成功",
-	"data": {
-		"id": 80000180,
-		"name": "测试群3",
-		"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100073/g/80000180/a/f3d6bb21.jpg?v=1730275632",
-		"creator": 1253444,
-		"type": 33,
-		"user_count": 0,
-		"member_version": 1,
-		"intro": "群介绍",
-		"user_limit": 500,
-		"burst_mode": 0,
-		"shutup": 0,
-		"created": 1730274965
-	}
+	"content": {
+		"group": {
+			"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100073/g/80010090/a/707546dd.jpg?v=1731493671",
+			"burst_mode": 0,
+			"created": 1730452310,
+			"creator": 1253444,
+			"id": 80010090,
+			"member_version": 2,
+			"name": "测试群3",
+			"org_num": 100073,
+			"shutup": 0,
+			"type": 17,
+			"user_count": 1
+		}
+	},
+	"msg_id": 486,
+	"msg_type": "corp-group-change",
+	"timestamp": 1731493671,
+	"transfer": true
 }
 ```
 参数名 | 示例值 | 参数类型 | 参数描述
@@ -2255,7 +2585,7 @@ data.groups.created | 1730452576 | Integer | -
 > 已完成
 
 #### 接口URL
-> http://192.168.0.125:8088/v1/corp/web/group-member-add?access-token=88b85cda41947685989f4dd091f808de
+> http://demo.weila.hk/v1/corp/web/group-member-add?access-token=6338b4249ee06427eeeddf78e51de639
 
 #### 请求方式
 > POST
@@ -2266,12 +2596,12 @@ data.groups.created | 1730452576 | Integer | -
 #### 请求Query参数
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
 --- | --- | --- | --- | ---
-access-token | 88b85cda41947685989f4dd091f808de | String | 是 | -
+access-token | 6338b4249ee06427eeeddf78e51de639 | String | 是 | -
 #### 请求Body参数
 ```javascript
 {
-    "group_id": 80000528, //群Id
-    "member_ids":[1253444]
+    "group_id": 81000335, //群Id
+    "member_ids":[1253464,1247754,1253341]
 }
 ```
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
@@ -2394,7 +2724,7 @@ noauth
 > 已完成
 
 #### 接口URL
-> http://192.168.0.125:8088/v1/corp/web/group-member-delete?access-token=7aa3cdd9c069a32351c04402ecd6dc21
+> https://demo.weila.hk/v1/corp/web/group-member-delete?access-token=0ebed33a5d229903f831e6e197fcf6e1
 
 #### 请求方式
 > POST
@@ -2405,12 +2735,12 @@ noauth
 #### 请求Query参数
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
 --- | --- | --- | --- | ---
-access-token | 7aa3cdd9c069a32351c04402ecd6dc21 | String | 是 | -
+access-token | 0ebed33a5d229903f831e6e197fcf6e1 | String | 是 | -
 #### 请求Body参数
 ```javascript
 {
-    "group_id": 80000180, //群Id
-    "member_ids":[1253446]
+    "group_id": 80000528, //群Id
+    "member_ids":[1253464]
 }
 ```
 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
@@ -2836,6 +3166,197 @@ noauth
 				"latitude": 22.668835,
 				"longitude": 115.070211,
 				"created": 1731999711
+			}
+		]
+	}
+}
+```
+#### 错误响应示例
+```javascript
+{
+	"errcode": "105",
+	"errmsg": "账号或密码错误"
+}
+```
+## /WEBAPI/corp/web/位置管理/逆地理编码
+```text
+暂无描述
+```
+#### 接口状态
+> 已完成
+
+#### 接口URL
+> http://192.168.0.125:8088/v1/corp/web/location-get-regeo?access-token=31c0ad4441c100d49760e392e9ce2f38
+
+#### 请求方式
+> POST
+
+#### Content-Type
+> json
+
+#### 请求Query参数
+参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
+--- | --- | --- | --- | ---
+access-token | 31c0ad4441c100d49760e392e9ce2f38 | String | 是 | -
+#### 请求Body参数
+```javascript
+{
+    "latitude": 22.13445,
+    "longitude": 113.1344
+}
+```
+参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
+--- | --- | --- | --- | ---
+name | 行政部 | String | 是 | -
+avatar | http:// | String | 否 | -
+#### 认证方式
+```text
+noauth
+```
+#### 预执行脚本
+```javascript
+暂无预执行脚本
+```
+#### 后执行脚本
+```javascript
+暂无后执行脚本
+```
+#### 成功响应示例
+```javascript
+{
+	"errcode": 0,
+	"errmsg": "请求成功",
+	"data": {
+		"regeo": {
+			"province": "广东省",
+			"city": "珠海市",
+			"district": "斗门区",
+			"township": "乾务镇",
+			"road": "270省道",
+			"number": "",
+			"addr": "",
+			"name": "270省道富泉虾苗场西732米",
+			"adcode": "440403",
+			"matchs": {
+				"aoi_name": "",
+				"aoi_distance": 0,
+				"poi_name": "270省道富泉虾苗场西732米",
+				"poi_distance": "732.954",
+				"roadinter_name": "270省道与珠峰大道交叉口西南895米",
+				"roadinter_distance": "895.218"
+			},
+			"formatted_address": "乾务镇270省道270省道富泉虾苗场西732米"
+		}
+	}
+}
+```
+#### 错误响应示例
+```javascript
+{
+	"errcode": "105",
+	"errmsg": "账号或密码错误"
+}
+```
+## /WEBAPI/corp/web/历史消息管理
+```text
+暂无描述
+```
+#### Header参数
+参数名 | 示例值 | 参数描述
+--- | --- | ---
+暂无参数
+#### Query参数
+参数名 | 示例值 | 参数描述
+--- | --- | ---
+暂无参数
+#### Body参数
+参数名 | 示例值 | 参数描述
+--- | --- | ---
+暂无参数
+#### 认证方式
+```text
+noauth
+```
+#### 预执行脚本
+```javascript
+暂无预执行脚本
+```
+#### 后执行脚本
+```javascript
+暂无后执行脚本
+```
+## /WEBAPI/corp/web/历史消息管理/获取群历史消息
+```text
+暂无描述
+```
+#### 接口状态
+> 已完成
+
+#### 接口URL
+> http://192.168.0.125:8088/v1/corp/web/message-get-group-history-message?access-token=e0a714b9e2e8c52aef84b06165e603fe
+
+#### 请求方式
+> POST
+
+#### Content-Type
+> json
+
+#### 请求Query参数
+参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
+--- | --- | --- | --- | ---
+access-token | e0a714b9e2e8c52aef84b06165e603fe | String | 是 | -
+#### 请求Body参数
+```javascript
+{
+    "group_id": 81000335,
+    "msg_id": 0,
+    "msg_count": 20
+}
+```
+参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述
+--- | --- | --- | --- | ---
+user_id | 1 | Number | 是 | -
+name | 文件名 | String | 是 | 文件名称(taxi.jpg)
+data | 文件数据base64编码 | String | 是 | 文件数据base64编码
+#### 认证方式
+```text
+noauth
+```
+#### 预执行脚本
+```javascript
+暂无预执行脚本
+```
+#### 后执行脚本
+```javascript
+暂无后执行脚本
+```
+#### 成功响应示例
+```javascript
+{
+	"errcode": 0,
+	"errmsg": "请求成功",
+	"data": {
+		"messages": [
+			{
+				"user_id": 1253341,
+				"msg_id": 173198981,
+				"content": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/media/corpgroup/81000335/20251119audio/1253341_1731989825_5?duration=5",
+				"type": 2,
+				"created": 1731989825
+			},
+			{
+				"user_id": 1253341,
+				"msg_id": 173198980,
+				"content": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/media/corpgroup/81000335/20251119audio/1253341_1731989812_7?duration=7",
+				"type": 2,
+				"created": 1731989812
+			},
+			{
+				"user_id": 1253341,
+				"msg_id": 173198979,
+				"content": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/media/corpgroup/81000335/20251119audio/1253341_1731989796_4?duration=4",
+				"type": 2,
+				"created": 1731989796
 			}
 		]
 	}

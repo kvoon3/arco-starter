@@ -31,7 +31,7 @@ const editDeptForm = reactive({
 })
 
 const { mutate: editDept } = useMutation({
-  mutationFn: (payload: { org_num: number; dept_id: number; name: string }) =>
+  mutationFn: (payload: { org_num: number, dept_id: number, name: string }) =>
     weilaRequest.post('/corp/web/dept-change', payload),
   onSuccess() {
     editDeptModalVisible.value = false
@@ -42,7 +42,6 @@ const { mutate: editDept } = useMutation({
     Message.error(error.message || 'Request Error')
   },
 })
-
 
 const deleteDeptModalVisible = ref(false)
 const { mutate: deleteDept } = useMutation({
@@ -58,10 +57,6 @@ const { mutate: deleteDept } = useMutation({
     Message.error(error.message || 'Request Error')
   },
 })
-
-
-
-
 </script>
 
 <template>
@@ -73,16 +68,20 @@ const { mutate: deleteDept } = useMutation({
     </a-breadcrumb>
     <div flex justify-between>
       <div flex gap2>
-        <a-button type="primary"
-          @click="router.push(`/contact/${route.params.org_num}/add-member-${route.params.dept_id}-${dept?.name}`)">
+        <a-button
+          type="primary"
+          @click="router.push(`/contact/${route.params.org_num}/add-member-${route.params.dept_id}-${dept?.name}`)"
+        >
           <template #icon>
             <IconUserAdd />
           </template>
           {{ t('button.add-member') }}
         </a-button>
 
-        <a-button type="primary"
-          @click="router.push(`/contact/${route.params.org_num}/add-device-${route.params.dept_id}-${dept?.name}`)">
+        <a-button
+          type="primary"
+          @click="router.push(`/contact/${route.params.org_num}/add-device-${route.params.dept_id}-${dept?.name}`)"
+        >
           <!-- <a-button type="primary" @click="addDeviceModalVisible = true"> -->
           <template #icon>
             <IconRobotAdd />
@@ -106,24 +105,32 @@ const { mutate: deleteDept } = useMutation({
       </div>
     </div>
     <a-empty v-if="!dept?.members.length" />
-    <MemberList :org-number="Number(route.params.org_num)" classes="bg-base" :members="dept?.members" @on-select="onSelect" />
+    <MemberList
+      :org-number="Number(route.params.org_num)" classes="bg-base" :members="dept?.members"
+      @on-select="onSelect"
+    />
   </div>
 
-  <a-modal v-model:visible="editDeptModalVisible" :title="t('button.edit-dept')"
-    @before-ok="(done) => editDept(editDeptForm, { onSuccess: () => done(true), onError: () => done(false) })">
+  <a-modal
+    v-model:visible="editDeptModalVisible" :title="t('button.edit-dept')"
+    @before-ok="(done) => editDept(editDeptForm, { onSuccess: () => done(true), onError: () => done(false) })"
+  >
     <a-form :model="editDeptForm">
-      <a-form-item field="name" :label="t('dept.form.name.label')" :rules="[{ required: true }]"
-        :validate-trigger="['change', 'blur']">
+      <a-form-item
+        field="name" :label="t('dept.form.name.label')" :rules="[{ required: true }]"
+        :validate-trigger="['change', 'blur']"
+      >
         <a-input v-model="editDeptForm.name" />
       </a-form-item>
     </a-form>
   </a-modal>
 
-
-  <a-modal v-model:visible="deleteDeptModalVisible" :title="t('delete.modal.title')" @before-ok="(done) => deleteDept({
-    org_num: Number(route.params.org_num),
-    dept_id: Number(route.params.dept_id)
-  }, { onSuccess: () => done(true), onError: () => done(false) })">
+  <a-modal
+    v-model:visible="deleteDeptModalVisible" :title="t('delete.modal.title')" @before-ok="(done) => deleteDept({
+      org_num: Number(route.params.org_num),
+      dept_id: Number(route.params.dept_id),
+    }, { onSuccess: () => done(true), onError: () => done(false) })"
+  >
     <div>
       <p>
         {{ t('delete.modal.content') }}

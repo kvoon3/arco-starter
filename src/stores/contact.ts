@@ -1,18 +1,15 @@
+import { objectPick } from '@antfu/utils'
 import { useQuery } from '@tanstack/vue-query'
 import type { ContactModel } from '~/api/contact'
 import { weilaFetch } from '~/api/instances/fetcher'
 
 export const useContactStore = defineStore('contact', () => {
-  const org_num = ref(0)
-
-  const enabled = computed(() => Boolean(org_num.value))
-
-  function updateOrgNumber(num: number) {
-    org_num.value = Number(num)
-  }
+  const corpStore = useCorpStore()
+  const { data: corp } = storeToRefs(corpStore)
+  const org_num = computed(() => corp.value?.num)
 
   const query = useQuery({
-    enabled,
+    enabled: computed(() => typeof org_num.value === 'number'),
     queryKey: ['contact', org_num],
     queryFn: () => (weilaFetch<ContactModel>(
       '/corp/web/get-address-list',
@@ -37,11 +34,28 @@ export const useContactStore = defineStore('contact', () => {
       }),
   })
 
+  function findMemberById(_id: string | number) {
+    const id = Number(_id)
+    if (!query.data.value)
+      return undefined
+
+    let member = query.data.value.members.find(member => member.id === id)
+
+    if (!member) {
+      query.data.value.depts.forEach((dept) => {
+        member = dept.members.find(member => member.id === id)
+      })
+    }
+
+    return member
+  }
+
   return {
-    // contact,
-    // updateContact,
-    org_num,
-    updateOrgNumber,
-    ...query,
+    ...objectPick(query, [
+      'data',
+      'isPending',
+      'refetch',
+    ]),
+    findMemberById,
   }
 })

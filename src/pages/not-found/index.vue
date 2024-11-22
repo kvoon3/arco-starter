@@ -3,8 +3,8 @@ import { useRouter } from 'vue-router'
 
 definePage({
   meta: {
-    requiresAuth: false
-  }
+    requiresAuth: false,
+  },
 })
 
 const router = useRouter()

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Message } from '@arco-design/web-vue';
-import { useMutation } from '@tanstack/vue-query';
-import md5 from 'md5';
-import { weilaRequest } from '~/api/instances/request';
+import { Message } from '@arco-design/web-vue'
+import { useMutation } from '@tanstack/vue-query'
+import md5 from 'md5'
+import { weilaRequest } from '~/api/instances/request'
 
 const { t } = useI18n()
 const route = useRoute('/contact/[org_num]/add-member-[dept_id]-[dept_name]')
@@ -70,16 +70,22 @@ function handleSubmit({ values, errors }: any) {
       </h2>
 
       <a-form :model="createMemberForm" auto-label-width @submit="handleSubmit">
-        <a-form-item field="name" :label="t('member.form.name.label')" :rules="[{ required: true }]"
-          :validate-trigger="['change', 'blur']">
+        <a-form-item
+          field="name" :label="t('member.form.name.label')" :rules="[{ required: true }]"
+          :validate-trigger="['change', 'blur']"
+        >
           <a-input v-model="createMemberForm.name" placeholder="Enter name" />
         </a-form-item>
-        <a-form-item field="phone" :label="t('member.form.phone.label')" :rules="[{ required: true }]"
-          :validate-trigger="['change', 'blur']">
+        <a-form-item
+          field="phone" :label="t('member.form.phone.label')" :rules="[{ required: true }]"
+          :validate-trigger="['change', 'blur']"
+        >
           <a-input v-model="createMemberForm.phone" placeholder="Enter phone number" />
         </a-form-item>
-        <a-form-item field="password" :label="t('member.form.password.label')" :rules="[{ required: true }]"
-          :validate-trigger="['change', 'blur']">
+        <a-form-item
+          field="password" :label="t('member.form.password.label')" :rules="[{ required: true }]"
+          :validate-trigger="['change', 'blur']"
+        >
           <a-input-password v-model="createMemberForm.password" placeholder="Enter password" />
         </a-form-item>
         <a-form-item field="sex" :label="t('member.form.gender.label')" :validate-trigger="['change', 'blur']">
@@ -96,12 +102,16 @@ function handleSubmit({ values, errors }: any) {
           <AvatarUploader v-model:src="createMemberForm.avatar" />
         </a-form-item>
         <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
-          <a-switch v-model="createMemberForm.tts" :checked-value="1" :uncheckted-value="0" :checked-color="themeColor"
-            unchecked-color="#ddd" />
+          <a-switch
+            v-model="createMemberForm.tts" :checked-value="1" :uncheckted-value="0" :checked-color="themeColor"
+            unchecked-color="#ddd"
+          />
         </a-form-item>
         <a-form-item field="loc_share" :label="t('member.form.loc_share.label')" :validate-trigger="['change', 'blur']">
-          <a-switch v-model="createMemberForm.loc_share" :checked-value="1" :uncheckted-value="0"
-            :checked-color="themeColor" unchecked-color="#ddd" />
+          <a-switch
+            v-model="createMemberForm.loc_share" :checked-value="1" :uncheckted-value="0"
+            :checked-color="themeColor" unchecked-color="#ddd"
+          />
         </a-form-item>
         <a-button type="primary" html-type="submit" :loading="isPending">
           {{ t('button.submit') }}

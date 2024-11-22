@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Message from '@arco-design/web-vue/es/message'
 import { useMutation } from '@tanstack/vue-query'
-import md5 from 'md5';
+import md5 from 'md5'
 import { weilaRequest } from '~/api/instances/request'
 import { sendVerifySms } from '~/api/verify-sms'
 
@@ -39,7 +39,7 @@ const { mutate: submit, isPending: isSubmiting } = useMutation({
   mutationFn: async (data: Model) => {
     return await weilaRequest.post('/corp/web/user-bind-phone', {
       ...data,
-      password: md5(data.password)
+      password: md5(data.password),
     })
   },
   onSuccess() {

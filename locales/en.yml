@@ -17,11 +17,10 @@ btn:
   create: create
 burst-mode: Burst Mode
 button:
-  cancel: cancel
-  reset: reset
   add: add
   add-device: Add Device
   add-member: Add Member
+  cancel: cancel
   create: Create
   create-member: Create Member
   delete: Delete
@@ -29,6 +28,7 @@ button:
   edit: Edit
   edit-dept: Edit Dept
   remove: remove
+  reset: reset
   reset-password: Reset Password
   send: Send
   submit: Submit
@@ -74,6 +74,7 @@ group:
   settings:
     members: Members
     title: Group Settings
+latitude: latitude
 loc_share: location share
 login:
   form:
@@ -91,6 +92,7 @@ login:
   type:
     phone: phone
     username: account
+longitude: longitude
 male: Male
 member:
   form:
@@ -186,4 +188,5 @@ track-type:
 user:
   gender: Gender
   phone: Phone
+user-track: User trajectory
 verify-image-code: Verify Image Code

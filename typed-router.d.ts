@@ -27,7 +27,9 @@ declare module 'vue-router/auto-routes' {
     '/contact/[org_num]/edit-device-[dept_id]-[user_id]': RouteRecordInfo<'/contact/[org_num]/edit-device-[dept_id]-[user_id]', '/contact/:org_num/edit-device-:dept_id-:user_id', { org_num: ParamValue<true>, dept_id: ParamValue<true>, user_id: ParamValue<true> }, { org_num: ParamValue<false>, dept_id: ParamValue<false>, user_id: ParamValue<false> }>,
     '/contact/[org_num]/edit-member-[dept_id]-[user_id]': RouteRecordInfo<'/contact/[org_num]/edit-member-[dept_id]-[user_id]', '/contact/:org_num/edit-member-:dept_id-:user_id', { org_num: ParamValue<true>, dept_id: ParamValue<true>, user_id: ParamValue<true> }, { org_num: ParamValue<false>, dept_id: ParamValue<false>, user_id: ParamValue<false> }>,
     '/contact/[org_num]/member-[dept_id]-[user_id]': RouteRecordInfo<'/contact/[org_num]/member-[dept_id]-[user_id]', '/contact/:org_num/member-:dept_id-:user_id', { org_num: ParamValue<true>, dept_id: ParamValue<true>, user_id: ParamValue<true> }, { org_num: ParamValue<false>, dept_id: ParamValue<false>, user_id: ParamValue<false> }>,
+    '/contact/dept': RouteRecordInfo<'/contact/dept', '/contact/dept', Record<never, never>, Record<never, never>>,
     '/contact/group': RouteRecordInfo<'/contact/group', '/contact/group', Record<never, never>, Record<never, never>>,
+    '/contact/member': RouteRecordInfo<'/contact/member', '/contact/member', Record<never, never>, Record<never, never>>,
     '/contact/org': RouteRecordInfo<'/contact/org', '/contact/org', Record<never, never>, Record<never, never>>,
     '/login/': RouteRecordInfo<'/login/', '/login', Record<never, never>, Record<never, never>>,
     '/me/': RouteRecordInfo<'/me/', '/me', Record<never, never>, Record<never, never>>,
@@ -38,6 +40,8 @@ declare module 'vue-router/auto-routes' {
     '/not-found/': RouteRecordInfo<'/not-found/', '/not-found', Record<never, never>, Record<never, never>>,
     '/redirect/': RouteRecordInfo<'/redirect/', '/redirect', Record<never, never>, Record<never, never>>,
     '/register/': RouteRecordInfo<'/register/', '/register', Record<never, never>, Record<never, never>>,
+    '/reset-password/': RouteRecordInfo<'/reset-password/', '/reset-password', Record<never, never>, Record<never, never>>,
     '/workbench/': RouteRecordInfo<'/workbench/', '/workbench', Record<never, never>, Record<never, never>>,
+    '/workbench/user-track': RouteRecordInfo<'/workbench/user-track', '/workbench/user-track', Record<never, never>, Record<never, never>>,
   }
 }

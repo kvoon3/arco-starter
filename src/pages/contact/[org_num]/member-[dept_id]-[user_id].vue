@@ -4,6 +4,7 @@ import { type DescData, Message } from '@arco-design/web-vue'
 import { useMutation } from '@tanstack/vue-query'
 import { UseImage } from '@vueuse/components'
 import md5 from 'md5'
+import { storeToRefs } from 'pinia'
 import type { MemberModel } from '~/api/contact'
 import { MemberType, TrackType } from '~/api/contact'
 import { weilaRequest } from '~/api/instances/request'
@@ -28,7 +29,7 @@ const member = computed(() => {
   if (!route.params.user_id)
     return undefined
 
-  if(Number(route.params.dept_id) === 0)
+  if (Number(route.params.dept_id) === 0)
     return contact.value?.members.find(member => member.user_id === Number(route.params.user_id))
 
   return dept.value?.members.find(member => member.user_id === Number(route.params.user_id))
@@ -41,12 +42,6 @@ const TrackTypeNameMap = {
   [TrackType.Low]: t('track-type.low'),
   [TrackType.Keep]: t('track-type.keep'),
 }
-
-const trackOptions = objectEntries(TrackTypeNameMap)
-  .map(([value, key]) => ({
-    label: key,
-    value
-  }))
 
 const data = computed(() => {
   const _data: DescData[] = []
@@ -73,13 +68,13 @@ const data = computed(() => {
         value: value ? t('open') : t('close'),
       })
     }
-    else if(key === 'phone') {
+    else if (key === 'phone') {
       _data.push({
         label: t('phone'),
         value: String(value),
       })
     }
-    else if(key === 'tts') {
+    else if (key === 'tts') {
       _data.push({
         label: 'TTS',
         value: value ? t('open') : t('close'),
@@ -94,9 +89,9 @@ const isChangingMemberState = ref(false)
 const memberState = computed({
   get: () => member.value?.state ?? 0,
   set: (val) => {
-    if(member.value)
+    if (member.value)
       member.value.state = val
-  }
+  },
 })
 
 const MemberStateNameMap = {
@@ -160,7 +155,10 @@ const { mutate: resetMemberPassword } = useMutation({
 <template>
   <div p4 bg-base>
     <a-breadcrumb mb-2>
-      <a-breadcrumb-item v-if="dept" cursor-pointer @click="router.push(`/contact/${route.params.org_num}/dept-${route.params.dept_id}`)">
+      <a-breadcrumb-item
+        v-if="dept" cursor-pointer
+        @click="router.push(`/contact/${route.params.org_num}/dept-${route.params.dept_id}`)"
+      >
         {{ dept?.name }}
       </a-breadcrumb-item>
       <a-breadcrumb-item v-if="member">
@@ -171,11 +169,7 @@ const { mutate: resetMemberPassword } = useMutation({
       <div class="p-6">
         <div flex justify-between>
           <div class="mb-4 flex items-center">
-            <UseImage
-              v-if="member.avatar"
-              :src="member.avatar"
-              class="mr-4 h-16 w-16 rounded-full"
-            />
+            <UseImage v-if="member.avatar" :src="member.avatar" class="mr-4 h-16 w-16 rounded-full" />
             <div>
               <div class="flex items-center">
                 <h2 class="mr-2 text-2xl text-gray-800 font-bold dark:text-white">
@@ -190,7 +184,7 @@ const { mutate: resetMemberPassword } = useMutation({
             </div>
           </div>
           <div space-x-2>
-            <a-button 
+            <a-button
               @click=" member.type === MemberType.Device
                 ? router.push(`/contact/${route.params.org_num}/edit-device-${route.params.dept_id}-${route.params.user_id}`)
                 : router.push(`/contact/${route.params.org_num}/edit-member-${route.params.dept_id}-${route.params.user_id}`)
@@ -208,13 +202,11 @@ const { mutate: resetMemberPassword } = useMutation({
         </div>
         <a-descriptions :data="data" bordered />
         <div class="mt-6 flex items-center">
-          <span class="mr-2 text-gray-700 dark:text-gray-300">{{ t('member.state') }}: {{ MemberStateNameMap[member.state] }}</span>
+          <span class="mr-2 text-gray-700 dark:text-gray-300">{{ t('member.state') }}: {{
+            MemberStateNameMap[member.state] }}</span>
           <!-- @vue-expect-error type error -->
           <a-switch
-            v-model="memberState"
-            :loading="isChangingMemberState"
-            :checked-value="0"
-            :unchecked-value="1"
+            v-model="memberState" :loading="isChangingMemberState" :checked-value="0" :unchecked-value="1"
             :checked-color="themeColor" unchecked-color="#ddd"
             :before-change="(v: 0 | 1) => toggleMemberState(v).then(refetch)"
           />
@@ -224,7 +216,10 @@ const { mutate: resetMemberPassword } = useMutation({
     <a-empty v-else />
   </div>
 
-  <a-modal v-model:visible="deleteMemberModalVisible" :title="t('delete.modal.title')" @before-ok="(done) => deleteMember(void 0, { onSuccess: () => done(true), onError: () => done(false) })">
+  <a-modal
+    v-model:visible="deleteMemberModalVisible" :title="t('delete.modal.title')"
+    @before-ok="(done) => deleteMember(void 0, { onSuccess: () => done(true), onError: () => done(false) })"
+  >
     <div>
       <p>
         {{ t('delete.modal.content') }}
@@ -235,9 +230,15 @@ const { mutate: resetMemberPassword } = useMutation({
     </div>
   </a-modal>
 
-  <a-modal v-model:visible="resetMemberPasswordModalVisible" :title="t('reset-password.form.title')" @before-ok="(done) => resetMemberPassword(resetMemberPasswordForm, { onSuccess: () => done(true), onError: () => done(false) })">
+  <a-modal
+    v-model:visible="resetMemberPasswordModalVisible" :title="t('reset-password.form.title')"
+    @before-ok="(done) => resetMemberPassword(resetMemberPasswordForm, { onSuccess: () => done(true), onError: () => done(false) })"
+  >
     <a-form :model="resetMemberPasswordForm">
-      <a-form-item field="password" :label="t('reset-password.form.password.label')" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
+      <a-form-item
+        field="password" :label="t('reset-password.form.password.label')" :rules="[{ required: true }]"
+        :validate-trigger="['change', 'blur']"
+      >
         <a-input v-model="resetMemberPasswordForm.password" />
       </a-form-item>
     </a-form>

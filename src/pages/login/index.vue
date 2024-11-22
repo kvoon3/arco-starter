@@ -13,7 +13,6 @@ definePage({
   },
 })
 
-
 const { t } = useI18n()
 const router = useRouter()
 
@@ -46,12 +45,6 @@ const { mutate, isPending, data } = useMutation({
     expires_in.value = data.expires_in
 
     router.push('/contact')
-  },
-  onError(error) {
-    Message.error({
-      content: error.message || 'Request Error',
-      duration: 5 * 1000,
-    })
   },
 })
 
@@ -86,38 +79,18 @@ function handleSubmit({ values, errors }: OnSubmitParams<Form>) {
       </a-radio>
     </a-radio-group>
     <!-- @vue-expect-error type error -->
-    <a-form
-      :model="form"
-      class="login-form"
-      layout="vertical"
-      @submit="handleSubmit"
-    >
-      <a-form-item
-        field="account"
-        :rules="[{ required: true, message: t('login.form.userName.errMsg') }]"
-        :validate-trigger="['change', 'blur']"
-        hide-label
-      >
-        <a-input
-          v-model="form.account"
-          :placeholder="t('login.form.userName.placeholder')"
-        >
+    <a-form :model="form" class="login-form" layout="vertical" @submit="handleSubmit">
+      <a-form-item field="account" :rules="[{ required: true, message: t('login.form.userName.errMsg') }]"
+        :validate-trigger="['change', 'blur']" hide-label>
+        <a-input v-model="form.account" :placeholder="t('login.form.userName.placeholder')">
           <template #prefix>
             <icon-user />
           </template>
         </a-input>
       </a-form-item>
-      <a-form-item
-        field="password"
-        :rules="[{ required: true, message: t('login.form.password.errMsg') }]"
-        :validate-trigger="['change', 'blur']"
-        hide-label
-      >
-        <a-input-password
-          v-model="form.password"
-          :placeholder="t('login.form.password.placeholder')"
-          allow-clear
-        >
+      <a-form-item field="password" :rules="[{ required: true, message: t('login.form.password.errMsg') }]"
+        :validate-trigger="['change', 'blur']" hide-label>
+        <a-input-password v-model="form.password" :placeholder="t('login.form.password.placeholder')" allow-clear>
           <template #prefix>
             <icon-lock />
           </template>
@@ -132,9 +105,9 @@ function handleSubmit({ values, errors }: OnSubmitParams<Form>) {
           >
             {{ t('login.form.rememberPassword') }}
           </a-checkbox> -->
-          <router-link to="reset-password">
+          <RouterLink to="/reset-password">
             <a-link>{{ t('login.form.forgetPassword') }}</a-link>
-          </router-link>
+          </RouterLink>
         </div>
         <a-button type="primary" html-type="submit" long :loading="isPending">
           {{ t('login.form.login') }}
@@ -150,7 +123,7 @@ function handleSubmit({ values, errors }: OnSubmitParams<Form>) {
 </template>
 
 <style lang="less" scoped>
-  .login-form {
+.login-form {
   &-wrapper {
     width: 320px;
   }

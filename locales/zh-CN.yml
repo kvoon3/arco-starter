@@ -3,6 +3,7 @@ account:
 add-device: 添加设备
 add-member: 添加成员
 avatar: 头像
+back: 返回
 batch-operation: 批量操作
 binding-phone-form:
   err-msg:
@@ -23,12 +24,14 @@ button:
   add-device: 添加设备
   add-member: 添加成员
   cancel: 取消
+  checkout: 查看
   create: 创建
   create-member: 创建成员
   delete: 删除
   delete-dept: 删除部门
   edit: 编辑
   edit-dept: 编辑部门
+  login: 登录
   remove: 移除
   reset: 重置
   reset-password: 重置密码
@@ -56,7 +59,8 @@ confirm-password: 确认密码
 corp:
   create:
     form:
-      title: 创建组织
+      title: 创建企业
+
 create-member: 创建成员
 created: 创建日期
 delete:
@@ -81,6 +85,7 @@ group:
   settings:
     members: 成员
     title: 群组设置
+latitude: 纬度
 loc_share: 位置共享
 login:
   form:
@@ -98,6 +103,7 @@ login:
   type:
     phone: 手机号
     username: 账号
+longitude: 经度
 male: 男
 member:
   form:
@@ -128,6 +134,8 @@ menu:
 message:
   success: 成功
 name: 名称
+new-password: 新密码
+old-password: 旧密码
 open: 打开
 org:
   created-date: 创建日期
@@ -184,6 +192,10 @@ sendSMS:
   success:
     hint: 发送成功，请注意查看短信消息
 sms-code: 短信验证码
+submenu:
+  dept-manage: 部门管理
+  group-manage: 群组管理
+  member-manage: 成员管理
 track: 轨迹
 track-type:
   close: 关闭
@@ -194,4 +206,5 @@ track-type:
 user:
   gender: 性别
   phone: 电话
+user-track: 用户轨迹
 verify-image-code: 验证图像代码

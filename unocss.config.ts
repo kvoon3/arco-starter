@@ -9,14 +9,12 @@ import {
   transformerVariantGroup,
 } from 'unocss'
 
-import { defaultArcoSettings } from '~/shared/const'
-
 export default defineConfig({
   // ...
   theme: {
     colors: {
       primary: {
-        DEFAULT: defaultArcoSettings.themeColor,
+        DEFAULT: '#165DFF',
         100: '#d0dfff',
         200: '#a2beff',
         300: '#739eff',

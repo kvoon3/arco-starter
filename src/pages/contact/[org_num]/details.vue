@@ -15,7 +15,7 @@ const { data: contact } = useQuery({
 })
 
 const deptForm = reactive<CreateDeptPayload>({
-  org_num: route.params.org_num,
+  org_num: Number(route.params.org_num),
   name: '',
 })
 

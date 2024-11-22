@@ -1,10 +1,10 @@
 import DistZip from 'unplugin-dist-zip/vite'
 import ImageMin from 'unplugin-imagemin/vite'
 import { mergeConfig } from 'vite'
-import { name } from '../package.json'
-import configArcoResolverPlugin from './plugin/arcoResolver'
-import configCompressPlugin from './plugin/compress'
-import configVisualizerPlugin from './plugin/visualizer'
+import { name } from './package.json'
+import configArcoResolverPlugin from './plugins/arcoResolver'
+import configCompressPlugin from './plugins/compress'
+import configVisualizerPlugin from './plugins/visualizer'
 import baseConfig from './vite.config'
 
 export default mergeConfig(

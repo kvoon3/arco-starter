@@ -33,20 +33,20 @@ const { mutate, isPending } = useMutation({
     emit('onSuccess')
   },
   onError: (error) => {
-    emit('onError' ,error)
+    emit('onError', error)
   },
 })
 
 function handleSubmit() {
   return formRef.value?.validate((errors) => {
-    if(errors)
+    if (errors)
       return
 
     mutate(form, {
       onSuccess: () => {
         visible.value = false
         formRef.value?.resetFields()
-      }
+      },
     })
   })
 }
@@ -55,24 +55,27 @@ function handleSubmit() {
 <template>
   <a-modal v-model:visible="visible" :title="t('button.add-member')">
     <template #footer>
-      <a-button  @click="() => visible = false">
-        {{t('button.cancel')}}
+      <a-button @click="() => visible = false">
+        {{ t('button.cancel') }}
       </a-button>
-      <a-button type="primary" @click="(e) => formRef?.handleSubmit(e)" :loading="isPending"
-        :disabled="!form.member_ids.length"
-        >
-        {{t('button.submit')}}
+      <a-button
+        type="primary" :loading="isPending" :disabled="!form.member_ids.length"
+        @click="(e) => formRef?.handleSubmit(e)"
+      >
+        {{ t('button.submit') }}
       </a-button>
     </template>
-    <a-form :model="form" ref="formRef" layout="vertical" @submit="handleSubmit">
-      <a-form-item label="ID" name="member_ids" :rules="[{ validator(value, callback) {
-        if (value.length === 0) {
-          callback('at least one member ID')
-          return
-        }
-          
-        callback()
-      }, }]" :validate-trigger="['change', 'blur']">
+    <a-form ref="formRef" :model="form" layout="vertical" @submit="handleSubmit">
+      <a-form-item
+        label="ID" name="member_ids" :rules="[{ validator(value, callback) {
+          if (value.length === 0) {
+            callback('at least one member ID')
+            return
+          }
+
+          callback()
+        } }]" :validate-trigger="['change', 'blur']"
+      >
         <a-input-tag
           v-model:model-value="form.member_ids"
           :min-tag-text-length="1"

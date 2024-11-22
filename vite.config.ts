@@ -1,40 +1,27 @@
-import { resolve } from 'node:path'
+import path, { resolve } from 'node:path'
 import ViteYaml from '@modyfi/vite-plugin-yaml'
 import Vue from '@vitejs/plugin-vue'
+import { VueAmapResolver } from '@vuemap/unplugin-resolver'
+import RadixVueResolver from 'radix-vue/resolver'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
-// import InlineEnum from 'unplugin-inline-enum/vite'
 import Components from 'unplugin-vue-components/vite'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'vite'
 import { viteMockServe as ViteMockServe } from 'vite-plugin-mock'
-// import VueDevTools from 'vite-plugin-vue-devtools'
 import Layouts from 'vite-plugin-vue-layouts'
 import SvgLoader from 'vite-svg-loader'
-import ConfigArcoStyleImportPlugin from './plugin/arcoStyleImport'
+import ConfigArcoStyleImportPlugin from './plugins/arcoStyleImport'
 
 export default defineConfig({
   resolve: {
-    alias: [
-      {
-        find: '~',
-        replacement: resolve(__dirname, '../src'),
-      },
-      {
-        find: 'assets',
-        replacement: resolve(__dirname, '../src/assets'),
-      },
-      {
-        find: 'vue-i18n',
-        replacement: 'vue-i18n/dist/vue-i18n.cjs.js', // Resolve the i18n warning issue
-      },
-      {
-        find: 'vue',
-        replacement: 'vue/dist/vue.esm-bundler.js', // compile template
-      },
-    ],
+    alias: {
+      '~/': `${path.resolve(__dirname, 'src')}/`,
+      'generated/': `${path.resolve(__dirname, 'generated')}/`,
+      'fixture/': `${path.resolve(__dirname, 'fixture')}/`,
+    },
     extensions: ['.ts', '.js'],
   },
 
@@ -70,7 +57,7 @@ export default defineConfig({
 
     ViteMockServe({
       mockPath: 'generated/mock',
-      enable: true,
+      enable: false,
     }),
 
     ViteYaml(),
@@ -114,6 +101,7 @@ export default defineConfig({
         'src/utils',
       ],
       vueTemplate: true,
+      resolvers: [VueAmapResolver()],
     }),
 
     // https://github.com/antfu/unplugin-vue-components
@@ -123,6 +111,10 @@ export default defineConfig({
       // allow auto import and register components used in markdown
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       dts: 'src/components.d.ts',
+      resolvers: [
+        RadixVueResolver(),
+        VueAmapResolver(),
+      ],
     }),
 
     VueMacros({
