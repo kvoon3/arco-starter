@@ -23,7 +23,8 @@ export const useCorpStore = defineStore('corp', () => {
   })
   return objectPick(query, [
     'data',
-    'isFetched',
+    'isFetching',
+    'isSuccess',
     'refetch',
   ])
 })

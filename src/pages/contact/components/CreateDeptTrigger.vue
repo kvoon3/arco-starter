@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Message from '@arco-design/web-vue/es/message'
 import { useMutation } from '@tanstack/vue-query'
+import { weilaApiUrl } from '~/api'
 import type { CreateDeptPayload } from '~/api/contact'
 import { weilaRequest } from '~/api/instances/request'
 
@@ -18,7 +19,10 @@ const form = reactive({
 const formRef = templateRef('formRef')
 
 const { mutate, isPending } = useMutation({
-  mutationFn: (payload: CreateDeptPayload) => weilaRequest.post('/corp/web/dept-create', payload),
+  mutationFn: (payload: CreateDeptPayload) => weilaRequest.post(
+    weilaApiUrl['/corp/web/dept-create'],
+    payload,
+  ),
   onSuccess: () => {
     formRef.value?.resetFields()
     open.value = false

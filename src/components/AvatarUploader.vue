@@ -4,7 +4,43 @@ import Message from '@arco-design/web-vue/es/message'
 import imageCompression from 'browser-image-compression'
 import { weilaRequest } from '~/api/instances/request'
 
+// TODO: upload to server manually
+
+// const props = withDefaults(defineProps<{
+//   enableUpload?: boolean
+// }>(), {
+//   enableUpload: true,
+// })
+
 const src = defineModel('src', { default: '' })
+
+// type State =
+//   'idle'
+//   | 'uploading'
+//   | 'compressing'
+//   | 'compressed'
+//   | 'done'
+//   | 'error'
+
+// let state: State = 'idle'
+const file = shallowRef<File | null>(null)
+const file_compressed = shallowRef<File | null>(null)
+
+watch(file, async (f) => {
+  if (!f)
+    return
+
+  file_compressed.value = await imageCompression(f, {
+    maxSizeMB: 4, // Compress to maximum 1MB
+    maxWidthOrHeight: 1920, // Limit width/height to 1920px
+    useWebWorker: true,
+  })
+})
+
+// if (!props.enableUpload) {
+//   watchOnce(() => props.enableUpload, (enabled /* must be true */) => {
+//   })
+// }
 
 function uploadAvatar(option: UploadReqOpt): UploadReq {
   const { onProgress, onError, onSuccess, fileItem } = option
@@ -18,7 +54,6 @@ function uploadAvatar(option: UploadReqOpt): UploadReq {
     .then((compressedFile) => {
       const formData = new FormData()
       formData.append('file', compressedFile)
-
       return weilaRequest.post<{ url: string }>('/corp/web/avatar-upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -51,8 +86,15 @@ function uploadAvatar(option: UploadReqOpt): UploadReq {
     },
   }
 }
+
+defineExpose({
+  // state,
+})
 </script>
 
 <template>
-  <a-upload :custom-request="uploadAvatar" :limit="1" list-type="picture" />
+  <a-upload
+    :default-file-list="[{ uid: '1', url: src }]" :custom-request="uploadAvatar" :limit="1"
+    list-type="picture"
+  />
 </template>

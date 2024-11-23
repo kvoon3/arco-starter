@@ -57,7 +57,7 @@ export default defineConfig({
 
     ViteMockServe({
       mockPath: 'generated/mock',
-      enable: false,
+      enable: true,
     }),
 
     ViteYaml(),

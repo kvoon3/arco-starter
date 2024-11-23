@@ -60,7 +60,6 @@ corp:
   create:
     form:
       title: 创建企业
-
 create-member: 创建成员
 created: 创建日期
 delete:
@@ -74,6 +73,7 @@ dept:
     name:
       label: 名称
       placeholder: 名称是必需的
+  name: 部门
 edit: 编辑
 edit-device: 修改设备
 edit-member: 修改成员
@@ -109,6 +109,8 @@ member:
   form:
     avatar:
       label: 头像
+    dept:
+      label: 部门
     gender:
       label: 性别
     loc_share:
@@ -122,6 +124,7 @@ member:
     track:
       label: 轨迹
   state: 状态
+member-list: 成员列表
 member-state:
   enabled: 启用
   paused: 暂停
@@ -135,6 +138,7 @@ message:
   success: 成功
 name: 名称
 new-password: 新密码
+no-data: 暂无数据
 old-password: 旧密码
 open: 打开
 org:
@@ -192,6 +196,8 @@ sendSMS:
   success:
     hint: 发送成功，请注意查看短信消息
 sms-code: 短信验证码
+state:
+  online: 在线状态
 submenu:
   dept-manage: 部门管理
   group-manage: 群组管理
@@ -207,4 +213,4 @@ user:
   gender: 性别
   phone: 电话
 user-track: 用户轨迹
-verify-image-code: 验证图像代码
+verify-image-code: 验证图形代码

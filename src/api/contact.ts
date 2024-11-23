@@ -31,8 +31,8 @@ export interface MemberModel {
   country_code: string
   phone: string
   type: MemberType
-  tts: number
-  loc_share: number
+  tts: 0 | 1
+  loc_share: 0 | 1
   track: TrackType
   state: 0 | 1
   created: number
@@ -40,6 +40,8 @@ export interface MemberModel {
   sex: 0 | 1
   name: string
   avatar: string
+  online: 0 | 1
+  dept_name: string
 }
 
 export interface DepartmentModel {

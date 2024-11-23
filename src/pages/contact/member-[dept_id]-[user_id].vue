@@ -10,8 +10,13 @@ import { MemberType, TrackType } from '~/api/contact'
 import { weilaRequest } from '~/api/instances/request'
 
 const { t } = useI18n()
-const route = useRoute('/contact/[org_num]/member-[dept_id]-[user_id]')
+const route = useRoute('/contact/member-[dept_id]-[user_id]')
 const router = useRouter()
+
+const corpStore = useCorpStore()
+const org_num = ref(0)
+
+corpStore.$subscribe((_, state) => org_num.value = state.data?.num || 0, { immediate: true })
 
 const { themeColor } = useAppStore()
 const contactStore = useContactStore()
@@ -105,7 +110,7 @@ async function toggleMemberState(state: 1 | 0) {
   const res = await weilaRequest.post<MemberModel>('/corp/web/member-change-state', {
     state,
     member_id: member.value!.user_id,
-    org_num: Number(route.params.org_num),
+    org_num: org_num.value,
   })
 
   isChangingMemberState.value = false
@@ -118,12 +123,12 @@ async function toggleMemberState(state: 1 | 0) {
 
 const { mutate: deleteMember } = useMutation({
   mutationFn: () => weilaRequest.post('/corp/web/member-delete', {
-    org_num: Number(route.params.org_num),
+    org_num: org_num?.value,
     member_id: Number(route.params.user_id),
   }),
   onSuccess() {
     Message.success(t('message.success'))
-    router.push(`/contact/${route.params.org_num}/dept-${route.params.dept_id}`)
+    router.push(`/contact/${org_num.value}/dept-${route.params.dept_id}`)
   },
 })
 const deleteMemberModalVisible = ref(false)
@@ -136,7 +141,7 @@ interface ResetMemberPasswordPayload {
 
 const resetMemberPasswordModalVisible = ref(false)
 const resetMemberPasswordForm = reactive<ResetMemberPasswordPayload>({
-  org_num: Number(route.params.org_num),
+  org_num: org_num.value,
   member_id: Number(route.params.user_id),
   password: '',
 })
@@ -153,19 +158,13 @@ const { mutate: resetMemberPassword } = useMutation({
 </script>
 
 <template>
-  <div p4 bg-base>
-    <a-breadcrumb mb-2>
-      <a-breadcrumb-item
-        v-if="dept" cursor-pointer
-        @click="router.push(`/contact/${route.params.org_num}/dept-${route.params.dept_id}`)"
-      >
-        {{ dept?.name }}
-      </a-breadcrumb-item>
-      <a-breadcrumb-item v-if="member">
-        {{ member?.name }}
-      </a-breadcrumb-item>
+  <div p4 space-y-4>
+    <a-breadcrumb>
+      <a-breadcrumb-item>{{ t('submenu.member-manage') }}</a-breadcrumb-item>
+      <a-breadcrumb-item>{{ t('member-list') }}</a-breadcrumb-item>
+      <a-breadcrumb-item>User name</a-breadcrumb-item>
     </a-breadcrumb>
-    <div v-if="member" class="w-full of-hidden rounded-lg shadow-md">
+    <div v-if="member" class="w-full of-hidden rounded p4 space-y-4 bg-base">
       <div class="p-6">
         <div flex justify-between>
           <div class="mb-4 flex items-center">
@@ -176,7 +175,7 @@ const { mutate: resetMemberPassword } = useMutation({
                   {{ member.name }}
                 </h2>
                 <i v-if="member.sex === 0" i-carbon-gender-male class="text-blue-500" />
-                <i v-else-if="member.sex === 1" i-carbon-gender-female i- class="text-pink-500" />
+                <i v-else-if="member.sex === 1" i- i-carbon-gender-female class="text-pink-500" />
               </div>
               <p class="text-gray-600 dark:text-gray-300">
                 {{ member.user_num }}
@@ -186,8 +185,8 @@ const { mutate: resetMemberPassword } = useMutation({
           <div space-x-2>
             <a-button
               @click=" member.type === MemberType.Device
-                ? router.push(`/contact/${route.params.org_num}/edit-device-${route.params.dept_id}-${route.params.user_id}`)
-                : router.push(`/contact/${route.params.org_num}/edit-member-${route.params.dept_id}-${route.params.user_id}`)
+                ? router.push(`/contact/${org_num}/edit-device-${route.params.dept_id}-${route.params.user_id}`)
+                : router.push(`/contact/${org_num}/edit-member-${route.params.dept_id}-${route.params.user_id}`)
               "
             >
               {{ t('button.edit') }}

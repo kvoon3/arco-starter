@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import { objectPick } from '@antfu/utils'
 import { Message } from '@arco-design/web-vue'
 import { useMutation, useQuery } from '@tanstack/vue-query'
-import md5 from 'md5'
 import { weilaApiUrl } from '~/api'
+import type { MemberModel } from '~/api/contact'
 import { weilaFetch } from '~/api/instances/fetcher'
 import { weilaRequest } from '~/api/instances/request'
+
+const props = defineProps<{
+  member?: MemberModel
+}>()
 
 const { t } = useI18n()
 const { themeColor } = useAppStore()
@@ -14,7 +19,7 @@ const formRef = templateRef('formRef')
 const org_num = ref(0)
 corpStore.$subscribe((_, { data }) => data ? org_num.value = data.num : void 0, { immediate: true })
 
-const open = ref(false)
+const open = defineModel('open', { default: false })
 
 const { data: depts } = useQuery<Array<{ id: number, name: string }>>({
   queryKey: [weilaApiUrl['/corp/web/dept-getall'], org_num],
@@ -25,31 +30,50 @@ const { data: depts } = useQuery<Array<{ id: number, name: string }>>({
   }).then(i => i.depts),
 })
 
-interface NewMemberPayload {
+interface Payload {
   org_num: number
+  member_id: number
   name: string
-  password: string
   dept_id: number
-  sex: number
+  sex: 0 | 1
   avatar: string
   phone: string
-  tts: number
-  loc_share: number
+  tts: 0 | 1
+  loc_share: 0 | 1
 }
 
-const form = reactive<NewMemberPayload>({
-  org_num: corpStore.data?.num || 0,
-  name: '',
-  password: '',
-  dept_id: 0,
-  sex: 0,
-  avatar: '',
-  phone: '',
-  tts: 0,
-  loc_share: 0,
+let form = reactive<Payload>({
+  ...objectPick(props.member || {} as any, [
+    'name',
+    'dept_id',
+    'sex',
+    'avatar',
+    'phone',
+    'tts',
+    'loc_share',
+  ], false),
+  org_num: org_num.value,
+  member_id: props.member?.user_id || 0,
 })
 
-$inspect(form)
+watch(() => props.member, (member) => {
+  if (!member)
+    return
+
+  form = {
+    ...objectPick(member, [
+      'name',
+      'dept_id',
+      'sex',
+      'avatar',
+      'phone',
+      'tts',
+      'loc_share',
+    ], false),
+    org_num: org_num.value,
+    member_id: member?.user_id,
+  }
+}, { immediate: true })
 
 corpStore.$subscribe((_, state) => {
   if (state.data)
@@ -57,10 +81,9 @@ corpStore.$subscribe((_, state) => {
 })
 
 const { mutate: createMember, isPending } = useMutation({
-  mutationFn: (payload: NewMemberPayload) => {
+  mutationFn: (payload: Payload) => {
     return weilaRequest.post('/corp/web/member-create', {
       ...payload,
-      password: md5(payload.password),
       tts: payload.tts ? 1 : 0,
       loc_share: payload.loc_share ? 1 : 0,
     })
@@ -89,9 +112,7 @@ function handleSubmit() {
 <template>
   <DialogRoot v-model:open="open">
     <DialogTrigger>
-      <a-button>
-        <i i-ph-plus inline-block /> {{ t('button.create-member') }}
-      </a-button>
+      <!-- <slot /> -->
     </DialogTrigger>
     <DialogPortal>
       <DialogOverlay class="data-[state=open]:animate-overlayShow fixed inset-0 z-100 bg-black:60" />
@@ -104,7 +125,7 @@ function handleSubmit() {
         }"
       >
         <DialogTitle class="m0 text-center text-lg font-semibold leading-loose">
-          {{ t('create-member') }}
+          {{ t('edit-member') }}
         </DialogTitle>
         <a-form ref="formRef" :model="form" @submit="handleSubmit">
           <a-form-item
@@ -115,7 +136,7 @@ function handleSubmit() {
           </a-form-item>
           <a-form-item field="dept_id" :label="t('member.form.dept.label')">
             <a-select
-              allow-search :empty="t('no-data')" placeholder="Please select ..."
+              :default-value="form.dept_id" allow-search :empty="t('no-data')" placeholder="Please select ..."
               @change="(value) => form.dept_id = Number(value)"
             >
               <a-option :value="0" label="无部门" />
@@ -127,12 +148,6 @@ function handleSubmit() {
             :validate-trigger="['change', 'blur']"
           >
             <a-input v-model="form.phone" placeholder="Enter phone number" />
-          </a-form-item>
-          <a-form-item
-            field="password" :label="t('member.form.password.label')" :rules="[{ required: true }]"
-            :validate-trigger="['change', 'blur']"
-          >
-            <a-input-password v-model="form.password" placeholder="Enter password" />
           </a-form-item>
           <a-form-item field="sex" :label="t('member.form.gender.label')" :validate-trigger="['change', 'blur']">
             <a-radio-group v-model="form.sex">
