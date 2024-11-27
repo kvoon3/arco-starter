@@ -9,7 +9,7 @@ import { weilaFetch } from '~/api/instances/fetcher'
 import { weilaRequest } from '~/api/instances/request'
 import AddDeviceTrigger from './components/AddDeviceTrigger.vue'
 import CreateMemberTrigger from './components/CreateMemberTrigger.vue'
-import EditModal from './components/EditMemberModal.vue'
+import EditMemberModal from './components/EditMemberModal.vue'
 import ResetPasswordModal from './components/ResetMemberPasswordModal.vue'
 
 definePage({
@@ -256,6 +256,6 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
     </div>
   </div>
 
-  <EditModal v-model:open="isEditModalVisible" :member="selectedMember" @success="refetch" />
+  <EditMemberModal v-model:open="isEditModalVisible" :member="selectedMember" @success="refetch" />
   <ResetPasswordModal v-model:open="isResetPasswordModalVisible" :member="selectedMember" />
 </template>

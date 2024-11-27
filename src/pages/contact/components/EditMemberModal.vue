@@ -17,6 +17,7 @@ const { t } = useI18n()
 const { themeColor } = useAppStore()
 const corpStore = useCorpStore()
 const formRef = templateRef('formRef')
+const avatarUploaderRef = templateRef('avatarUploaderRef')
 
 const org_num = ref(0)
 corpStore.$subscribe((_, { data }) => data ? org_num.value = data.num : void 0, { immediate: true })
@@ -99,16 +100,22 @@ const { mutate: createMember, isPending } = useMutation({
 })
 
 function handleSubmit() {
-  return formRef.value?.validate((errors) => {
+  return formRef.value?.validate(async (errors) => {
     if (errors)
       return
 
-    createMember(form, {
-      onSuccess: () => {
-        formRef.value?.resetFields()
-        emits('success')
-      },
-    })
+    // @ts-expect-error type error: `defineExpose` no type declare find
+    const { upload } = avatarUploaderRef.value
+    if (!isRemoteImage(form.avatar)) {
+      await upload()
+
+      createMember(form, {
+        onSuccess: () => {
+          formRef.value?.resetFields()
+          emits('success')
+        },
+      })
+    }
   })
 }
 </script>
@@ -157,7 +164,7 @@ function handleSubmit() {
             </a-radio-group>
           </a-form-item>
           <a-form-item field="avatar" :label="t('member.form.avatar.label')" :validate-trigger="['change', 'blur']">
-            <AvatarUploader v-model:src="form.avatar" />
+            <AvatarUploader ref="avatarUploaderRef" v-model:src="form.avatar" />
           </a-form-item>
           <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
             <a-switch v-model="form.tts" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"
