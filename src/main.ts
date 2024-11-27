@@ -11,6 +11,7 @@ import { setup } from './setup'
 // 样式通过 arco-plugin 插件导入。详见目录文件 config/plugin/arcoStyleImport.ts
 // https://arco.design/docs/designlab/use-theme-package
 import '~/assets/style/global.less'
+import 'cropperjs/dist/cropper.min.css'
 import '~/styles/main.css'
 
 import '@unocss/reset/tailwind.css'
@@ -39,4 +40,3 @@ setup(
     app.use(directive)
   },
 )
-

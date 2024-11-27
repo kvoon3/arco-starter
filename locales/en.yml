@@ -1,6 +1,9 @@
 account:
   txt: Account
+add-device: Add device
+add-member: Add member
 avatar: Avatar
+back: Return
 batch-operation: Batch Operation
 binding-phone-form:
   err-msg:
@@ -16,17 +19,26 @@ breadcrumb:
 btn:
   create: create
 burst-mode: Burst Mode
+burst-mode-0: Arrange wheat
+burst-mode-1: 抢麦 translates to "grab the mic" in English.
+burst-mode-2: Intercom
 button:
   add: add
   add-device: Add Device
+  add-group-member: Add group members
   add-member: Add Member
   cancel: cancel
   create: Create
+  create-dept: Create Department
+  create-group: Create group
   create-member: Create Member
   delete: Delete
   delete-dept: Delete Dept
   edit: Edit
   edit-dept: Edit Dept
+  edit-group: Modify group
+  edit-group-member: Modify group members
+  login: Login
   remove: remove
   reset: reset
   reset-password: Reset Password
@@ -47,12 +59,17 @@ change-member:
     title: Change Member
     track:
       label: track
+change-member-settings-form:
+  title: Edit Member Info
 close: close
 confirm-password: Confirm Password
+controls: Operation
 corp:
   create:
     form:
       title: create corp
+  member: Organizational members
+create-member: Create member
 created: created date
 delete:
   modal:
@@ -61,15 +78,20 @@ delete:
     title: Delete
 dept:
   create: Add Dept
+  edit: Modification Department
   form:
     name:
       label: name
       placeholder: name is required
+  name: Department
 edit: Edit
+edit-device: Modify device
+edit-member: Modify member
 female: Female
 gender: Gender
 group:
   create: Create Group
+  member: Group members
   my-groups: My Groups
   settings:
     members: Members
@@ -98,6 +120,8 @@ member:
   form:
     avatar:
       label: Avatar
+    dept:
+      label: Department
     gender:
       label: Gender
     loc_share:
@@ -111,9 +135,13 @@ member:
     track:
       label: Track
   state: State
+member-list: Member List
 member-state:
   enabled: Enabled
   paused: paused
+member-type:
+  host: Group owner
+  member: Member
 members: Members
 menu:
   contact: Contact
@@ -123,6 +151,11 @@ menu:
 message:
   success: Success
 name: Name
+new-password: New password
+no-data: No data available.
+offline: Offline
+old-password: Old password
+online: Online
 open: open
 org:
   created-date: Created Date
@@ -138,6 +171,7 @@ organazition: organazition
 password: Password
 phone: phone
 phone-number: Phone Number
+priority: Priority
 project:
   name: Weila Enterprise Manager
 register:
@@ -177,7 +211,16 @@ selected: Selected
 sendSMS:
   success:
     hint: Sent successfully, please pay attention to your message
+shutup: Mute
+shutup-disable: Not muted.
+shutup-enable: Muted
 sms-code: Message Code
+state:
+  online: Online status
+submenu:
+  dept-manage: Department management
+  group-manage: Group Management
+  member-manage: Member Management
 track: Track
 track-type:
   close: Close
@@ -185,8 +228,11 @@ track-type:
   keep: Keep
   low: Low
   medium: Medium
+type: Type
 user:
   gender: Gender
   phone: Phone
+user-count: Number of users
 user-track: User trajectory
 verify-image-code: Verify Image Code
+weila-number: Micro trumpet

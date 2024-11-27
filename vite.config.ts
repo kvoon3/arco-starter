@@ -10,6 +10,7 @@ import VueMacros from 'unplugin-vue-macros/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'vite'
+import mkcert from 'vite-plugin-mkcert'
 import { viteMockServe as ViteMockServe } from 'vite-plugin-mock'
 import Layouts from 'vite-plugin-vue-layouts'
 import SvgLoader from 'vite-svg-loader'
@@ -57,7 +58,7 @@ export default defineConfig({
 
     ViteMockServe({
       mockPath: 'generated/mock',
-      enable: true,
+      enable: false,
     }),
 
     ViteYaml(),
@@ -130,5 +131,7 @@ export default defineConfig({
     SvgLoader({ svgoConfig: {} }),
 
     ConfigArcoStyleImportPlugin(),
+
+    mkcert(),
   ],
 })

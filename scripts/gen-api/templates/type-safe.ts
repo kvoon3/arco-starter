@@ -10,6 +10,7 @@ export function genTypeSafeTemplate(ctxs: ApiContext[]) {
     '',
     'export default [',
     ...ctxs.flatMap(({ url, res, req }) => {
+      console.log('url', url)
       return [
         '{',
         `  url: '${url}',`,

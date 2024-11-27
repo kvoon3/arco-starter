@@ -101,44 +101,34 @@ function handleSubmit({ values, errors }: any) {
         {{ t('add-device') }}
       </h2>
       <a-form :model="addDeviceForm" auto-label-width @submit="handleSubmit">
-        <a-form-item
-          :label="t('phone-number')" field="phone"
+        <a-form-item :label="t('phone-number')" field="phone"
           :rules="[{ required: true, message: t('binding-phone-form.err-msg.phone-number') }]"
-          :validate-trigger="['blur', 'change']"
-        >
+          :validate-trigger="['blur', 'change']">
           <a-input v-model="addDeviceForm.phone" />
         </a-form-item>
 
-        <a-form-item
-          :label="t('verify-image-code')" field="verify_img_code"
+        <a-form-item :label="t('verify-image-code')" field="verify_img_code"
           :rules="[{ required: true, message: t('binding-phone-form.err-msg.verify-image-code') }]"
-          :validate-trigger="['blur', 'change']"
-        >
+          :validate-trigger="['blur', 'change']">
           <div class="flex items-center">
             <a-input v-model="addDeviceForm.verify_img_code" class="mr-2 flex-grow" />
             <VerifyImg ref="verifyImg" class="flex-shrink-0" />
           </div>
         </a-form-item>
 
-        <a-form-item
-          :label="t('sms-code')" field="verify_code"
+        <a-form-item :label="t('sms-code')" field="verify_code"
           :rules="[{ required: true, message: t('binding-phone-form.err-msg.verify-code') }]"
-          :validate-trigger="['blur', 'change']"
-        >
+          :validate-trigger="['blur', 'change']">
           <div class="flex items-center">
             <a-input v-model="addDeviceForm.verify_code" class="mr-2 flex-grow" />
-            <a-button
-              :loading="isPending" class="flex-shrink-0"
-              @click="() => sendSMS({ phone: addDeviceForm.phone, verify_code: addDeviceForm.verify_img_code, country_code: '86', sms_type: 'add-device' })"
-            >
+            <a-button :loading="isPending" class="flex-shrink-0"
+              @click="() => sendSMS({ phone: addDeviceForm.phone, verify_code: addDeviceForm.verify_img_code, country_code: '86', sms_type: 'add-device' })">
               {{ t('button.send') }}
             </a-button>
           </div>
         </a-form-item>
-        <a-form-item
-          field="name" :label="t('name')" :rules="[{ required: true }]"
-          :validate-trigger="['change', 'blur']"
-        >
+        <a-form-item field="name" :label="t('name')" :rules="[{ required: true }]"
+          :validate-trigger="['change', 'blur']">
           <a-input v-model="addDeviceForm.name" placeholder="Enter name" />
         </a-form-item>
         <a-form-item field="sex" :label="t('gender')" :validate-trigger="['change', 'blur']">
@@ -155,22 +145,16 @@ function handleSubmit({ values, errors }: any) {
           <AvatarUploader v-model:src="addDeviceForm.avatar" />
         </a-form-item>
         <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
-          <a-switch
-            v-model="addDeviceForm.tts" :checked-value="1" :uncheckted-value="0" :checked-color="themeColor"
-            unchecked-color="#ddd"
-          />
+          <a-switch v-model="addDeviceForm.tts" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"
+            unchecked-color="#ddd" />
         </a-form-item>
         <a-form-item field="loc_share" :label="t('member.form.loc_share.label')" :validate-trigger="['change', 'blur']">
-          <a-switch
-            v-model="addDeviceForm.loc_share" :checked-value="1" :uncheckted-value="0"
-            :checked-color="themeColor" unchecked-color="#ddd"
-          />
+          <a-switch v-model="addDeviceForm.loc_share" :checked-value="1" :unchecked-value="0"
+            :checked-color="themeColor" unchecked-color="#ddd" />
         </a-form-item>
         <a-form-item field="track" :label="t('change-member.form.track.label')" :validate-trigger="['change', 'blur']">
-          <a-radio-group
-            v-model="addDeviceForm.track" type="button" :default-value="String(addDeviceForm.track)"
-            :options="trackOptions"
-          />
+          <a-radio-group v-model="addDeviceForm.track" type="button" :default-value="String(addDeviceForm.track)"
+            :options="trackOptions" />
         </a-form-item>
         <a-button type="primary" html-type="submit" :loading="isPending">
           {{ t('button.submit') }}

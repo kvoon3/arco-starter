@@ -18,6 +18,7 @@ const org_num = ref(0)
 corpStore.$subscribe((_, { data }) => data ? org_num.value = data.num : void 0, { immediate: true })
 
 const { data: depts } = useQuery<Array<{ id: number, name: string }>>({
+  enabled: computed(() => Boolean(org_num.value)),
   queryKey: [weilaApiUrl['/corp/web/dept-getall'], org_num],
   queryFn: () => weilaFetch(weilaApiUrl['/corp/web/dept-getall'], {
     body: {
@@ -107,9 +108,7 @@ function handleSubmit({ values, errors }: any) {
 <template>
   <DialogRoot v-model:open="open">
     <DialogTrigger>
-      <a-button>
-        <i i-ph-plus inline-block /> {{ t('button.add-device') }}
-      </a-button>
+      <slot />
     </DialogTrigger>
     <DialogPortal>
       <DialogOverlay class="data-[state=open]:animate-overlayShow fixed inset-0 z-100 bg-black:60" />
@@ -119,56 +118,43 @@ function handleSubmit({ values, errors }: any) {
           const target = event.target as HTMLElement;
           console.log(target)
           if (target?.closest('.arco-select-option')) return event.preventDefault()
-        }"
-      >
+        }">
         <DialogTitle class="m0 text-center text-lg font-semibold leading-loose">
           {{ t('add-device') }}
         </DialogTitle>
         <a-form ref="formRef" :model="form" auto-label-width @submit="handleSubmit">
-          <a-form-item
-            field="name" :label="t('name')" :rules="[{ required: true }]"
-            :validate-trigger="['change', 'blur']"
-          >
+          <a-form-item field="name" :label="t('name')" :rules="[{ required: true }]"
+            :validate-trigger="['change', 'blur']">
             <a-input v-model="form.name" placeholder="Enter name" />
           </a-form-item>
-          <a-form-item
-            :label="t('phone-number')" field="phone"
+          <a-form-item :label="t('phone-number')" field="phone"
             :rules="[{ required: true, message: t('binding-phone-form.err-msg.phone-number') }]"
-            :validate-trigger="['blur', 'change']"
-          >
+            :validate-trigger="['blur', 'change']">
             <a-input v-model="form.phone" />
           </a-form-item>
           <a-form-item field="dept_id" :label="t('member.form.dept.label')">
-            <a-select
-              allow-search :empty="t('no-data')" placeholder="Please select ..."
-              @change="(value) => form.dept_id = Number(value)"
-            >
+            <a-select allow-search :empty="t('no-data')" placeholder="Please select ..."
+              @change="(value) => form.dept_id = Number(value)">
               <a-option :value="0" label="无部门" />
               <a-option v-for="{ name, id }, key in depts" :key :value="id" :label="name" />
             </a-select>
           </a-form-item>
-          <a-form-item
-            :label="t('verify-image-code')" field="verifyImgCode"
+          <a-form-item :label="t('verify-image-code')" field="verifyImgCode"
             :rules="[{ message: t('binding-phone-form.err-msg.verify-image-code') }]"
-            :validate-trigger="['blur', 'change']"
-          >
+            :validate-trigger="['blur', 'change']">
             <div class="flex items-center">
               <a-input v-model="verifyImgCode" class="mr-2 flex-grow" />
               <VerifyImg ref="verifyImg" class="flex-shrink-0" />
             </div>
           </a-form-item>
 
-          <a-form-item
-            :label="t('sms-code')" field="verify_code"
+          <a-form-item :label="t('sms-code')" field="verify_code"
             :rules="[{ required: true, message: t('binding-phone-form.err-msg.verify-code') }]"
-            :validate-trigger="['blur', 'change']"
-          >
+            :validate-trigger="['blur', 'change']">
             <div class="flex items-center">
               <a-input v-model="form.verify_code" class="mr-2 flex-grow" />
-              <a-button
-                :loading="isPending" class="flex-shrink-0"
-                @click="() => sendSMS({ phone: form.phone, verify_code: verifyImgCode, country_code: '86', sms_type: 'add-device' })"
-              >
+              <a-button :loading="isPending" class="flex-shrink-0"
+                @click="() => sendSMS({ phone: form.phone, verify_code: verifyImgCode, country_code: '86', sms_type: 'add-device' })">
                 {{ t('button.send') }}
               </a-button>
             </div>
@@ -187,28 +173,18 @@ function handleSubmit({ values, errors }: any) {
             <AvatarUploader v-model:src="form.avatar" />
           </a-form-item>
           <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
-            <a-switch
-              v-model="form.tts" :checked-value="1" :uncheckted-value="0" :checked-color="themeColor"
-              unchecked-color="#ddd"
-            />
+            <a-switch v-model="form.tts" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"
+              unchecked-color="#ddd" />
           </a-form-item>
-          <a-form-item
-            field="loc_share" :label="t('member.form.loc_share.label')"
-            :validate-trigger="['change', 'blur']"
-          >
-            <a-switch
-              v-model="form.loc_share" :checked-value="1" :uncheckted-value="0" :checked-color="themeColor"
-              unchecked-color="#ddd"
-            />
+          <a-form-item field="loc_share" :label="t('member.form.loc_share.label')"
+            :validate-trigger="['change', 'blur']">
+            <a-switch v-model="form.loc_share" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"
+              unchecked-color="#ddd" />
           </a-form-item>
-          <a-form-item
-            field="track" :label="t('change-member.form.track.label')"
-            :validate-trigger="['change', 'blur']"
-          >
-            <a-radio-group
-              v-model="form.track" type="button" :default-value="String(form.track)"
-              :options="trackOptions"
-            />
+          <a-form-item field="track" :label="t('change-member.form.track.label')"
+            :validate-trigger="['change', 'blur']">
+            <a-radio-group v-model="form.track" type="button" :default-value="String(form.track)"
+              :options="trackOptions" />
           </a-form-item>
         </a-form>
 
@@ -227,8 +203,7 @@ function handleSubmit({ values, errors }: any) {
         </div>
         <DialogClose
           class="text-grass11 absolute right-[10px] top-[10px] h-[25px] w-[25px] inline-flex appearance-none items-center justify-center rounded-full hover:bg-gray2 focus:shadow-[0_0_0_2px] focus:shadow-gray7 focus:outline-none"
-          aria-label="Close"
-        >
+          aria-label="Close">
           <i i-carbon-close />
         </DialogClose>
       </DialogContent>

@@ -12,7 +12,6 @@ definePage({
 
 const { t } = useI18n()
 const router = useRouter()
-const route = useRoute()
 
 const menus = reactive({
   '/contact/group': t('submenu.group-manage'),
@@ -20,27 +19,43 @@ const menus = reactive({
   '/contact/member': t('submenu.member-manage'),
 } as const)
 
-const defaultSelectedKey = objectKeys(menus).find((menu) => {
-  return Boolean(route.matched.find(i => i.path.includes(menu)))
-})
+const selectedKeys = ref<(string | undefined)[]>([])
+
+watch(router.currentRoute, (curRoute) => {
+  selectedKeys.value = [objectKeys(menus).find((menu) => {
+    return Boolean(curRoute.matched.find((i) => {
+      return i.path.includes(menu)
+    }))
+  })]
+}, { immediate: true })
 
 const createCorpModalState = reactive({
   visible: false,
 })
 
-const { data: corp, isSuccess, refetch } = useCorpStore()
+const corpStore = useCorpStore()
+const { isSuccess, refetch } = corpStore
+const { data: corp } = storeToRefs(useCorpStore())
 
 const orgForm = templateRef('orgForm')
 </script>
 
 <template>
   <div h-full flex>
-    <section h-full w80 border-r-1 p2 dark:border-gray-700 bg-base>
-      <a-menu :default-selected-keys="[defaultSelectedKey]">
-        <a-menu-item v-for="label, path in menus" :key="path" @click="router.push(path)">
-          {{ label }}
-        </a-menu-item>
-        <a-menu-item v-if="isSuccess && corp" key="create corp" @click="createCorpModalState.visible = true">
+    <section h-full w60 shrink-0 border-r-1 p2 dark:border-gray-700 bg-base>
+      <a-menu v-model:selected-keys="selectedKeys">
+        <a-sub-menu v-if="corp">
+          <template #title>
+            {{ corp.name }}
+          </template>
+          <a-menu-item @click="router.push('/contact/org')">
+            {{ t('corp-info') }}
+          </a-menu-item>
+          <a-menu-item v-for="label, path in menus" :key="path" @click="router.push(path)">
+            {{ label }}
+          </a-menu-item>
+        </a-sub-menu>
+        <a-menu-item v-if="isSuccess && !corp" key="create corp" @click="createCorpModalState.visible = true">
           {{ t('corp.create.form.title') }}
         </a-menu-item>
       </a-menu>
@@ -50,10 +65,8 @@ const orgForm = templateRef('orgForm')
     </section>
   </div>
 
-  <a-modal
-    v-model:visible="createCorpModalState.visible" :title="t('corp.create.form.title')"
-    @before-ok="(done) => orgForm?.submit().then(() => { done(true); refetch() }).catch(() => done(false))"
-  >
+  <a-modal v-model:visible="createCorpModalState.visible" :title="t('corp.create.form.title')"
+    @before-ok="(done) => orgForm?.submit().then(() => { done(true); refetch() }).catch(() => done(false))">
     <OrgForm ref="orgForm" />
   </a-modal>
 </template>

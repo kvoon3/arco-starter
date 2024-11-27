@@ -1,19 +1,18 @@
 <script lang="ts" setup>
+import { useQuery } from '@tanstack/vue-query'
 import { useFullscreen, useToggle } from '@vueuse/core'
 import { computed, inject } from 'vue'
+import { weilaFetch } from '~/api/instances/fetcher'
 import Menu from '~/components/menu/index.vue'
 import { availableLocales, loadLanguageAsync } from '~/modules/i18n'
 import { access_token, expires_in, isDark, last_login_time, refresh_token } from '~/shared/states'
+import BindingPhone from '../BindingPhone.vue'
 
 const { t, locale } = useI18n()
 const router = useRouter()
 
 const appStore = useAppStore()
-const userStore = useUserStore()
 const { isFullscreen, toggle: toggleFullScreen } = useFullscreen()
-const avatar = computed(() => {
-  return userStore.userInfo?.avatar
-})
 const topMenu = computed(() => appStore.topMenu && appStore.menu)
 const toggleTheme = useToggle(isDark)
 
@@ -25,6 +24,24 @@ async function toggleLocales() {
   await loadLanguageAsync(newLocale)
   locale.value = newLocale
 }
+
+const hoverState = ref(false)
+interface User {
+  id: number
+  num: string
+  sex: number
+  name: string
+  bind_phone: string
+  country_code: string
+  avatar: string
+}
+const { data: user, refetch } = useQuery({
+  queryKey: ['user'],
+  queryFn: () => weilaFetch<{ user: User }>('/corp/web/user-selfinfo').then(({ user }) => user),
+})
+
+const resetPasswordModalVisible = ref(false)
+const bindingPhoneModalVisible = ref(false)
 
 function logout() {
   access_token.value = ''
@@ -39,17 +56,13 @@ function logout() {
   <div class="navbar">
     <div class="left-side">
       <a-space>
-        <img
-          alt="logo"
-          src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image"
-        >
+        <img alt="logo"
+          src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image">
         <a-typography-title :style="{ margin: 0, fontSize: '18px' }" :heading="5" max-lg:hidden>
           {{ t('project.name') }}
         </a-typography-title>
-        <icon-menu-fold
-          v-if="!topMenu && appStore.device === 'mobile'" style="font-size: 22px; cursor: pointer"
-          @click="toggleDrawerMenu"
-        />
+        <icon-menu-fold v-if="!topMenu && appStore.device === 'mobile'" style="font-size: 22px; cursor: pointer"
+          @click="toggleDrawerMenu" />
       </a-space>
     </div>
     <div class="center-side">
@@ -74,12 +87,10 @@ function logout() {
         </a-button>
       </li>
       <li>
-        <a-tooltip
-          :content="isFullscreen
-            ? t('settings.navbar.screen.toExit')
-            : t('settings.navbar.screen.toFull')
-          "
-        >
+        <a-tooltip :content="isFullscreen
+          ? t('settings.navbar.screen.toExit')
+          : t('settings.navbar.screen.toFull')
+          ">
           <a-button class="nav-btn" type="outline" shape="circle" @click="toggleFullScreen">
             <template #icon>
               <icon-fullscreen-exit v-if="isFullscreen" />
@@ -102,25 +113,78 @@ function logout() {
           </a-button>
         </a-tooltip>
       </li> -->
+
       <li>
-        <a-dropdown trigger="click">
-          <a-avatar :size="32" :style="{ marginRight: '8px', cursor: 'pointer' }">
-            <img alt="avatar" :src="avatar">
-          </a-avatar>
-          <template #content>
-            <a-doption>
-              <a-space @click="logout">
-                <icon-export />
-                <span>
-                  {{ t('messageBox.logout') }}
-                </span>
-              </a-space>
-            </a-doption>
-          </template>
-        </a-dropdown>
+        <HoverCardRoot v-model:open="hoverState" :open-delay="0">
+          <HoverCardTrigger
+            class="inline-block cursor-pointer rounded-full shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] outline-none focus:shadow-[0_0_0_2px_white]"
+            target="_blank" rel="noreferrer noopener">
+            <img class="block h-[45px] w-[45px] rounded-full" :src="user?.avatar" alt="Radix UI">
+          </HoverCardTrigger>
+          <HoverCardPortal>
+            <HoverCardContent
+              class="data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade w-[300px] rounded-md bg-white p-5 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] data-[state=open]:transition-all"
+              :side-offset="5">
+              <div v-if="user" class="flex flex-col gap-[7px]">
+                <img class="block h-[60px] w-[60px] rounded-full" :src="user.avatar" alt="Radix UI">
+                <div class="flex flex-col gap-[15px]">
+                  <div>
+                    <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
+                      {{ user.name }}
+                    </div>
+                    <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
+                      @{{ user.num }}
+                    </div>
+                    <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
+                      <a-tag>+{{ user.country_code }} {{ user.bind_phone }}</a-tag>
+                    </div>
+                  </div>
+                  <div class="text-mauve12 m-0 text-[15px] leading-[1.5]">
+                    Components, icons, colors, and templates for building high-quality, accessible UI. Free and
+                    open-source.
+                  </div>
+                  <div class="flex gap-[15px]">
+                    <div class="flex gap-[5px]">
+                      <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
+                        0
+                      </div>
+                      <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
+                        Following
+                      </div>
+                    </div>
+                    <div class="flex gap-[5px]">
+                      <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
+                        2,900
+                      </div>
+                      <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
+                        Followers
+                      </div>
+                    </div>
+                  </div>
+                  <div flex="~ col" gap2>
+                    <a-button @click="bindingPhoneModalVisible = true">
+                      {{ t('binding-phone') }}
+                    </a-button>
+                    <a-button @click="resetPasswordModalVisible = true">
+                      {{ t('button.reset-password') }}
+                    </a-button>
+                    <a-button @click="logout">
+                      {{ t('logout') }}
+                    </a-button>
+                  </div>
+                </div>
+              </div>
+
+              <HoverCardArrow class="fill-white" :width="8" />
+            </HoverCardContent>
+          </HoverCardPortal>
+        </HoverCardRoot>
       </li>
     </ul>
   </div>
+
+  <ResetSelfPasswordModal v-model:open="resetPasswordModalVisible" />
+  <BindingPhone v-model:open="bindingPhoneModalVisible" @success="refetch" />
 </template>
 
 <style scoped lang="less">

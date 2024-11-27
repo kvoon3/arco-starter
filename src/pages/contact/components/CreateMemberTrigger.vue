@@ -17,6 +17,7 @@ corpStore.$subscribe((_, { data }) => data ? org_num.value = data.num : void 0, 
 const open = ref(false)
 
 const { data: depts } = useQuery<Array<{ id: number, name: string }>>({
+  enabled: computed(() => Boolean(org_num.value)),
   queryKey: [weilaApiUrl['/corp/web/dept-getall'], org_num],
   queryFn: () => weilaFetch(weilaApiUrl['/corp/web/dept-getall'], {
     body: {
@@ -54,7 +55,7 @@ $inspect(form)
 corpStore.$subscribe((_, state) => {
   if (state.data)
     form.org_num = state.data.num
-})
+}, { immediate: true })
 
 const { mutate: createMember, isPending } = useMutation({
   mutationFn: (payload: NewMemberPayload) => {
@@ -89,9 +90,7 @@ function handleSubmit() {
 <template>
   <DialogRoot v-model:open="open">
     <DialogTrigger>
-      <a-button>
-        <i i-ph-plus inline-block /> {{ t('button.create-member') }}
-      </a-button>
+      <slot />
     </DialogTrigger>
     <DialogPortal>
       <DialogOverlay class="data-[state=open]:animate-overlayShow fixed inset-0 z-100 bg-black:60" />
@@ -101,37 +100,28 @@ function handleSubmit() {
           const target = event.target as HTMLElement;
           console.log(target)
           if (target?.closest('.arco-select-option')) return event.preventDefault()
-        }"
-      >
+        }">
         <DialogTitle class="m0 text-center text-lg font-semibold leading-loose">
           {{ t('create-member') }}
         </DialogTitle>
         <a-form ref="formRef" :model="form" @submit="handleSubmit">
-          <a-form-item
-            field="name" :label="t('member.form.name.label')" :rules="[{ required: true }]"
-            :validate-trigger="['change', 'blur']"
-          >
+          <a-form-item field="name" :label="t('member.form.name.label')" :rules="[{ required: true }]"
+            :validate-trigger="['change', 'blur']">
             <a-input v-model="form.name" placeholder="Enter name" />
           </a-form-item>
           <a-form-item field="dept_id" :label="t('member.form.dept.label')">
-            <a-select
-              allow-search :empty="t('no-data')" placeholder="Please select ..."
-              @change="(value) => form.dept_id = Number(value)"
-            >
+            <a-select allow-search :empty="t('no-data')" placeholder="Please select ..."
+              @change="(value) => form.dept_id = Number(value)">
               <a-option :value="0" label="无部门" />
               <a-option v-for="{ name, id }, key in depts" :key :value="id" :label="name" />
             </a-select>
           </a-form-item>
-          <a-form-item
-            field="phone" :label="t('member.form.phone.label')" :rules="[{ required: true }]"
-            :validate-trigger="['change', 'blur']"
-          >
+          <a-form-item field="phone" :label="t('member.form.phone.label')" :rules="[{ required: true }]"
+            :validate-trigger="['change', 'blur']">
             <a-input v-model="form.phone" placeholder="Enter phone number" />
           </a-form-item>
-          <a-form-item
-            field="password" :label="t('member.form.password.label')" :rules="[{ required: true }]"
-            :validate-trigger="['change', 'blur']"
-          >
+          <a-form-item field="password" :label="t('member.form.password.label')" :rules="[{ required: true }]"
+            :validate-trigger="['change', 'blur']">
             <a-input-password v-model="form.password" placeholder="Enter password" />
           </a-form-item>
           <a-form-item field="sex" :label="t('member.form.gender.label')" :validate-trigger="['change', 'blur']">
@@ -148,19 +138,13 @@ function handleSubmit() {
             <AvatarUploader v-model:src="form.avatar" />
           </a-form-item>
           <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
-            <a-switch
-              v-model="form.tts" :checked-value="1" :uncheckted-value="0" :checked-color="themeColor"
-              unchecked-color="#ddd"
-            />
+            <a-switch v-model="form.tts" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"
+              unchecked-color="#ddd" />
           </a-form-item>
-          <a-form-item
-            field="loc_share" :label="t('member.form.loc_share.label')"
-            :validate-trigger="['change', 'blur']"
-          >
-            <a-switch
-              v-model="form.loc_share" :checked-value="1" :uncheckted-value="0" :checked-color="themeColor"
-              unchecked-color="#ddd"
-            />
+          <a-form-item field="loc_share" :label="t('member.form.loc_share.label')"
+            :validate-trigger="['change', 'blur']">
+            <a-switch v-model="form.loc_share" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"
+              unchecked-color="#ddd" />
           </a-form-item>
         </a-form>
 
@@ -179,8 +163,7 @@ function handleSubmit() {
         </div>
         <DialogClose
           class="text-grass11 absolute right-[10px] top-[10px] h-[25px] w-[25px] inline-flex appearance-none items-center justify-center rounded-full hover:bg-gray2 focus:shadow-[0_0_0_2px] focus:shadow-gray7 focus:outline-none"
-          aria-label="Close"
-        >
+          aria-label="Close">
           <i i-carbon-close />
         </DialogClose>
       </DialogContent>

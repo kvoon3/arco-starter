@@ -1,31 +1,49 @@
 <script setup lang="ts">
 import Message from '@arco-design/web-vue/es/message'
 import { useMutation } from '@tanstack/vue-query'
-import md5 from 'md5'
+import { weilaApiUrl } from '~/api'
 import { weilaRequest } from '~/api/instances/request'
+
+const emits = defineEmits(['success'])
 
 const { t } = useI18n()
 
-const contactStore = useContactStore()
+const corpStore = useCorpStore()
+
+const open = ref(false)
+
+type BurstMode = 0 | 1 | 2
 
 interface Payload {
-  old_password: string
-  new_password: string
+  name: string
+  burst_mode: BurstMode
+  avatar?: string
+  org_num: number
 }
 
-const form = reactive({
-  old_password: '',
-  new_password: '',
+const form = reactive<Payload>({
+  name: '',
+  burst_mode: 0,
+  org_num: 0,
 })
+
+corpStore.$subscribe((_, state) => {
+  if (state.data)
+    form.org_num = state.data.num
+}, { immediate: true })
 
 const formRef = templateRef('formRef')
 
 const { mutate, isPending } = useMutation({
-  mutationFn: (payload: Payload) => weilaRequest.post('/corp/web/dept-create', payload),
+  mutationFn: (payload: Payload) => weilaRequest.post(
+    weilaApiUrl['/corp/web/group-create'],
+    payload,
+  ),
   onSuccess: () => {
     formRef.value?.resetFields()
+    open.value = false
     Message.success(t('message.success'))
-    contactStore.refetch()
+    emits('success')
   },
 })
 
@@ -35,8 +53,9 @@ function handleSubmit() {
       return
 
     mutate({
-      old_password: md5(form.old_password),
-      new_password: md5(form.new_password),
+      ...form,
+      burst_mode: form.burst_mode,
+      avatar: form.avatar,
     }, {
       onSuccess: () => {
         formRef.value?.resetFields()
@@ -47,27 +66,38 @@ function handleSubmit() {
 </script>
 
 <template>
-  <DialogRoot>
+  <DialogRoot v-model:open="open">
     <DialogTrigger>
-      <a-button>
-        <i i-ph-lock-key />
-        {{ t('button.reset-password') }}
-      </a-button>
+      <!-- <i i-ph-plus inline-block /> {{ t('dept.create') }} -->
+      <slot />
     </DialogTrigger>
     <DialogPortal>
       <DialogOverlay class="data-[state=open]:animate-overlayShow fixed inset-0 z-100 bg-black:60" />
       <DialogContent
         class="fixed left-[50%] top-[50%] z-[100] max-h-[85vh] max-w-[450px] w-[90vw] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] data-[state=open]:animate-ease-in focus:outline-none">
         <DialogTitle class="m0 text-center text-lg font-semibold leading-loose">
-          {{ t('button.reset-password') }}
+          {{ t('button.create-group') }}
         </DialogTitle>
 
-        <a-form ref="formRef" :model="form" @submit="handleSubmit">
-          <a-form-item field="old_password" :label="t('old-password')" :rules="[{ required: true }]">
-            <a-input v-model="form.old_password" type="password" />
+        <a-form ref="formRef" :model="form" auto-label-width @submit="handleSubmit">
+          <a-form-item field="name" :label="t('org-form.name.label')" :rules="[{ required: true }]">
+            <a-input v-model="form.name" />
           </a-form-item>
-          <a-form-item field="new_password" :label="t('new-password')" :rules="[{ required: true }]">
-            <a-input v-model="form.new_password" type="password" />
+          <a-form-item field="avatar" :label="t('avatar')" :rules="[{ required: true }]">
+            <AvatarUploader v-model:src="form.avatar" />
+          </a-form-item>
+          <a-form-item field="burst_mode" :label="t('burst-mode')" :rules="[{ required: true }]">
+            <a-radio-group v-model="form.burst_mode" direction="vertical">
+              <a-radio :value="0">
+                {{ t('burst-mode-0') }}
+              </a-radio>
+              <a-radio :value="1">
+                {{ t('burst-mode-1') }}
+              </a-radio>
+              <a-radio :value="2">
+                {{ t('burst-mode-2') }}
+              </a-radio>
+            </a-radio-group>
           </a-form-item>
         </a-form>
 

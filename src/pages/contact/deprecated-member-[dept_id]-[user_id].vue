@@ -10,7 +10,7 @@ import { MemberType, TrackType } from '~/api/contact'
 import { weilaRequest } from '~/api/instances/request'
 
 const { t } = useI18n()
-const route = useRoute('/contact/member-[dept_id]-[user_id]')
+const route = useRoute('/contact/deprecated-member-[dept_id]-[user_id]')
 const router = useRouter()
 
 const corpStore = useCorpStore()
@@ -183,12 +183,10 @@ const { mutate: resetMemberPassword } = useMutation({
             </div>
           </div>
           <div space-x-2>
-            <a-button
-              @click=" member.type === MemberType.Device
-                ? router.push(`/contact/${org_num}/edit-device-${route.params.dept_id}-${route.params.user_id}`)
-                : router.push(`/contact/${org_num}/edit-member-${route.params.dept_id}-${route.params.user_id}`)
-              "
-            >
+            <a-button @click=" member.type === MemberType.Device
+              ? router.push(`/contact/${org_num}/edit-device-${route.params.dept_id}-${route.params.user_id}`)
+              : router.push(`/contact/${org_num}/edit-member-${route.params.dept_id}-${route.params.user_id}`)
+              ">
               {{ t('button.edit') }}
             </a-button>
             <a-button @click="resetMemberPasswordModalVisible = true">
@@ -204,21 +202,17 @@ const { mutate: resetMemberPassword } = useMutation({
           <span class="mr-2 text-gray-700 dark:text-gray-300">{{ t('member.state') }}: {{
             MemberStateNameMap[member.state] }}</span>
           <!-- @vue-expect-error type error -->
-          <a-switch
-            v-model="memberState" :loading="isChangingMemberState" :checked-value="0" :unchecked-value="1"
+          <a-switch v-model="memberState" :loading="isChangingMemberState" :checked-value="0" :unchecked-value="1"
             :checked-color="themeColor" unchecked-color="#ddd"
-            :before-change="(v: 0 | 1) => toggleMemberState(v).then(refetch)"
-          />
+            :before-change="(v: 0 | 1) => toggleMemberState(v).then(refetch)" />
         </div>
       </div>
     </div>
     <a-empty v-else />
   </div>
 
-  <a-modal
-    v-model:visible="deleteMemberModalVisible" :title="t('delete.modal.title')"
-    @before-ok="(done) => deleteMember(void 0, { onSuccess: () => done(true), onError: () => done(false) })"
-  >
+  <a-modal v-model:visible="deleteMemberModalVisible" :title="t('delete.modal.title')"
+    @before-ok="(done) => deleteMember(void 0, { onSuccess: () => done(true), onError: () => done(false) })">
     <div>
       <p>
         {{ t('delete.modal.content') }}
@@ -229,15 +223,11 @@ const { mutate: resetMemberPassword } = useMutation({
     </div>
   </a-modal>
 
-  <a-modal
-    v-model:visible="resetMemberPasswordModalVisible" :title="t('reset-password.form.title')"
-    @before-ok="(done) => resetMemberPassword(resetMemberPasswordForm, { onSuccess: () => done(true), onError: () => done(false) })"
-  >
+  <a-modal v-model:visible="resetMemberPasswordModalVisible" :title="t('reset-password.form.title')"
+    @before-ok="(done) => resetMemberPassword(resetMemberPasswordForm, { onSuccess: () => done(true), onError: () => done(false) })">
     <a-form :model="resetMemberPasswordForm">
-      <a-form-item
-        field="password" :label="t('reset-password.form.password.label')" :rules="[{ required: true }]"
-        :validate-trigger="['change', 'blur']"
-      >
+      <a-form-item field="password" :label="t('reset-password.form.password.label')" :rules="[{ required: true }]"
+        :validate-trigger="['change', 'blur']">
         <a-input v-model="resetMemberPasswordForm.password" />
       </a-form-item>
     </a-form>

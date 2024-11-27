@@ -80,7 +80,7 @@ onMounted(() => {
         </a-drawer>
         <a-layout class="layout-content" :style="paddingStyle">
           <a-layout-content>
-            <PageLayout />
+            <PageLayout w-full />
           </a-layout-content>
           <Footer v-if="footer" />
         </a-layout>

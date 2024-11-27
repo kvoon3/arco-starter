@@ -180,11 +180,11 @@ const addMemberModalVisible = ref(false)
         <a-input-number v-model="changeMemberForm.prority" :min="0" :max="100" class="w-full" />
       </a-form-item>
       <a-form-item label="TTS" name="tts">
-        <a-switch v-model="changeMemberForm.tts" :checked-value="1" :uncheckted-value="0" :checked-color="themeColor"
+        <a-switch v-model="changeMemberForm.tts" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"
           unchecked-color="#ddd" />
       </a-form-item>
       <a-form-item label="Location Sharing" name="loc_share">
-        <a-switch v-model="changeMemberForm.loc_share" :checked-value="1" :uncheckted-value="0"
+        <a-switch v-model="changeMemberForm.loc_share" :checked-value="1" :unchecked-value="0"
           :checked-color="themeColor" unchecked-color="#ddd" />
       </a-form-item>
       <a-form-item label="Track" name="track">

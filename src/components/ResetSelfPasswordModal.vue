@@ -1,31 +1,29 @@
 <script setup lang="ts">
 import Message from '@arco-design/web-vue/es/message'
 import { useMutation } from '@tanstack/vue-query'
-import { weilaApiUrl } from '~/api'
-import type { CreateDeptPayload } from '~/api/contact'
+import md5 from 'md5'
 import { weilaRequest } from '~/api/instances/request'
 
 const { t } = useI18n()
 
-const { data: corp } = storeToRefs(useCorpStore())
 const contactStore = useContactStore()
 
-const open = ref(false)
+interface Payload {
+  old_password: string
+  new_password: string
+}
 
 const form = reactive({
-  name: '',
+  old_password: '',
+  new_password: '',
 })
 
 const formRef = templateRef('formRef')
 
 const { mutate, isPending } = useMutation({
-  mutationFn: (payload: CreateDeptPayload) => weilaRequest.post(
-    weilaApiUrl['/corp/web/dept-create'],
-    payload,
-  ),
+  mutationFn: (payload: Payload) => weilaRequest.post('/corp/web/dept-create', payload),
   onSuccess: () => {
     formRef.value?.resetFields()
-    open.value = false
     Message.success(t('message.success'))
     contactStore.refetch()
   },
@@ -37,8 +35,8 @@ function handleSubmit() {
       return
 
     mutate({
-      ...form,
-      org_num: corp.value!.num,
+      old_password: md5(form.old_password),
+      new_password: md5(form.new_password),
     }, {
       onSuccess: () => {
         formRef.value?.resetFields()
@@ -49,22 +47,24 @@ function handleSubmit() {
 </script>
 
 <template>
-  <DialogRoot v-model:open="open">
-    <DialogTrigger class="list-btn">
-      <i i-ph-plus inline-block /> {{ t('dept.create') }}
+  <DialogRoot>
+    <DialogTrigger>
+      <slot />
     </DialogTrigger>
     <DialogPortal>
       <DialogOverlay class="data-[state=open]:animate-overlayShow fixed inset-0 z-100 bg-black:60" />
       <DialogContent
-        class="fixed left-[50%] top-[50%] z-[100] max-h-[85vh] max-w-[450px] w-[90vw] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] data-[state=open]:animate-ease-in focus:outline-none"
-      >
+        class="fixed left-[50%] top-[50%] z-[100] max-h-[85vh] max-w-[450px] w-[90vw] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] data-[state=open]:animate-ease-in focus:outline-none">
         <DialogTitle class="m0 text-center text-lg font-semibold leading-loose">
-          {{ t('dept.create') }}
+          {{ t('button.reset-password') }}
         </DialogTitle>
 
         <a-form ref="formRef" :model="form" @submit="handleSubmit">
-          <a-form-item field="name" :label="t('org-form.name.label')" :rules="[{ required: true }]">
-            <a-input v-model="form.name" />
+          <a-form-item field="old_password" :label="t('old-password')" :rules="[{ required: true }]">
+            <a-input v-model="form.old_password" type="password" />
+          </a-form-item>
+          <a-form-item field="new_password" :label="t('new-password')" :rules="[{ required: true }]">
+            <a-input v-model="form.new_password" type="password" />
           </a-form-item>
         </a-form>
 
@@ -83,8 +83,7 @@ function handleSubmit() {
         </div>
         <DialogClose
           class="text-grass11 absolute right-[10px] top-[10px] h-[25px] w-[25px] inline-flex appearance-none items-center justify-center rounded-full hover:bg-gray2 focus:shadow-[0_0_0_2px] focus:shadow-gray7 focus:outline-none"
-          aria-label="Close"
-        >
+          aria-label="Close">
           <i i-carbon-close />
         </DialogClose>
       </DialogContent>

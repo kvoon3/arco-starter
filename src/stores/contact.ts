@@ -2,6 +2,7 @@ import { objectPick } from '@antfu/utils'
 import { useQuery } from '@tanstack/vue-query'
 import type { ContactModel } from '~/api/contact'
 import { weilaFetch } from '~/api/instances/fetcher'
+import { isLogin } from '~/shared/states'
 
 export const useContactStore = defineStore('contact', () => {
   const corpStore = useCorpStore()
@@ -9,7 +10,7 @@ export const useContactStore = defineStore('contact', () => {
   const org_num = computed(() => corp.value?.num)
 
   const query = useQuery({
-    enabled: computed(() => typeof org_num.value === 'number'),
+    enabled: computed(() => isLogin.value && typeof org_num.value === 'number'),
     queryKey: ['contact', org_num],
     queryFn: () => (weilaFetch<ContactModel>(
       '/corp/web/get-address-list',

@@ -8,6 +8,7 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
+import { presetExtra } from 'unocss-preset-extra'
 
 export default defineConfig({
   // ...
@@ -28,6 +29,7 @@ export default defineConfig({
     },
   },
   shortcuts: [
+    ['flex-center', 'justify-center items-center'],
     ['list-btn', 'hover:op100 hover:bg-gray-200 dark:hover:bg-#343435 w-full rounded px4 py2 text-start leading-loose op75 transition-all duration-80 active:color-primary visited:color-primary flex items-center gap-2'],
     ['bg-base', 'bg-white dark:bg-dark'],
     ['text-base', 'text-gray-800 dark:text-white'],
@@ -60,6 +62,7 @@ export default defineConfig({
         },
       },
     }),
+    presetExtra(),
   ],
   transformers: [
     transformerVariantGroup(),
