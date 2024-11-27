@@ -108,14 +108,14 @@ function handleSubmit() {
     const { upload } = avatarUploaderRef.value
     if (!isRemoteImage(form.avatar)) {
       await upload()
-
-      createMember(form, {
-        onSuccess: () => {
-          formRef.value?.resetFields()
-          emits('success')
-        },
-      })
     }
+
+    createMember(form, {
+      onSuccess: () => {
+        formRef.value?.resetFields()
+        emits('success')
+      },
+    })
   })
 }
 </script>

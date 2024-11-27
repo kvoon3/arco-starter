@@ -25,6 +25,7 @@ const { data: depts } = useQuery<Array<{ id: number, name: string }>>({
     },
   }).then(i => i.depts),
 })
+const avatarUploaderRef = templateRef('avatarUploaderRef')
 
 interface NewMemberPayload {
   org_num: number
@@ -74,9 +75,15 @@ const { mutate: createMember, isPending } = useMutation({
 })
 
 function handleSubmit() {
-  return formRef.value?.validate((errors) => {
+  return formRef.value?.validate(async (errors) => {
     if (errors)
       return
+
+    // @ts-expect-error type error: `defineExpose` no type declare find
+    const { upload } = avatarUploaderRef.value
+    if (form.avatar && !isRemoteImage(form.avatar)) {
+      await upload()
+    }
 
     createMember(form, {
       onSuccess: () => {
@@ -135,7 +142,7 @@ function handleSubmit() {
             </a-radio-group>
           </a-form-item>
           <a-form-item field="avatar" :label="t('member.form.avatar.label')" :validate-trigger="['change', 'blur']">
-            <AvatarUploader v-model:src="form.avatar" />
+            <AvatarUploader ref="avatarUploaderRef" v-model:src="form.avatar" />
           </a-form-item>
           <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
             <a-switch v-model="form.tts" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"

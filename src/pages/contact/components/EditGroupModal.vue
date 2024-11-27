@@ -23,6 +23,8 @@ interface Payload {
   group_id: number
 }
 
+const avatarUploaderRef = templateRef('avatarUploaderRef')
+
 const form = reactive<Payload>({
   org_num: 0,
 
@@ -62,9 +64,15 @@ const { mutate, isPending } = useMutation({
 })
 
 function handleSubmit() {
-  return formRef.value?.validate((errors) => {
+  return formRef.value?.validate(async (errors) => {
     if (errors)
       return
+
+    // @ts-expect-error type error: `defineExpose` no type declare find
+    const { upload } = avatarUploaderRef.value
+    if (form.avatar && !isRemoteImage(form.avatar)) {
+      await upload()
+    }
 
     mutate({
       ...form,
@@ -98,7 +106,7 @@ function handleSubmit() {
             <a-input v-model="form.name" />
           </a-form-item>
           <a-form-item field="avatar" :label="t('avatar')" :rules="[{ required: true }]">
-            <AvatarUploader v-model:src="form.avatar" />
+            <AvatarUploader ref="avatarUploaderRef" v-model:src="form.avatar" />
           </a-form-item>
           <a-form-item field="burst_mode" :label="t('burst-mode')" :rules="[{ required: true }]">
             <a-radio-group v-model="form.burst_mode" direction="vertical">

@@ -16,6 +16,7 @@ const open = ref(false)
 const corpStore = useCorpStore()
 const org_num = ref(0)
 corpStore.$subscribe((_, { data }) => data ? org_num.value = data.num : void 0, { immediate: true })
+const avatarUploaderRef = templateRef('avatarUploaderRef')
 
 const { data: depts } = useQuery<Array<{ id: number, name: string }>>({
   enabled: computed(() => Boolean(org_num.value)),
@@ -97,9 +98,15 @@ const { mutate } = useMutation({
   },
 })
 
-function handleSubmit({ values, errors }: any) {
+async function handleSubmit({ values, errors }: any) {
   if (errors)
     return
+
+  // @ts-expect-error type error: `defineExpose` no type declare find
+  const { upload } = avatarUploaderRef.value
+  if (form.avatar && !isRemoteImage(form.avatar)) {
+    await upload()
+  }
 
   mutate(values)
 }
@@ -170,7 +177,7 @@ function handleSubmit({ values, errors }: any) {
             </a-radio-group>
           </a-form-item>
           <a-form-item field="avatar" :label="t('member.form.avatar.label')" :validate-trigger="['change', 'blur']">
-            <AvatarUploader v-model:src="form.avatar" />
+            <AvatarUploader ref="avatarUploaderRef" v-model:src="form.avatar" />
           </a-form-item>
           <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
             <a-switch v-model="form.tts" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"
