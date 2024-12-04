@@ -75,16 +75,14 @@ function save() {
   <div relative h800px w800px>
     <img ref="imgRef" :src="src" block h-full w-full object-contain @load="onImageLoad">
     <ToolbarRoot
-      class="shadow-blackA7 absolute bottom-4 position-x-center max-w-[610px] w-fit flex rounded-md bg-white p-[10px] shadow-[0_2px_10px] !min-w-max"
-      aria-label="Formatting options"
-    >
+      class="shadow-blackA7 absolute bottom-4 position-x-center max-w-[610px] w-fit flex rounded-md p-[10px] shadow-[0_2px_10px] !min-w-max bg-base"
+      aria-label="Formatting options">
       <ToolbarLink
-        class="my-auto ml-0.5 h-[25px] inline-flex flex-shrink-0 flex-grow-0 basis-auto items-center justify-center rounded bg-transparent bg-white px-[5px] text-[13px] leading-none outline-none focus:relative first:ml-0 hover:cursor-pointer data-[state=on]:bg-green5 hover:bg-green3 hover:bg-transparent data-[state=on]:text-primary !font-normal focus:shadow-[0_0_0_2px] focus:shadow-primary"
-        target="_blank" style="margin-right: 10"
-      >
+        class="my-auto ml-0.5 h-[25px] inline-flex flex-shrink-0 flex-grow-0 basis-auto items-center justify-center rounded bg-transparent px-[5px] text-[13px] leading-none outline-none focus:relative first:ml-0 hover:cursor-pointer bg-base data-[state=on]:bg-green5 hover:bg-green3 hover:bg-transparent data-[state=on]:text-primary !font-normal focus:shadow-[0_0_0_2px] focus:shadow-primary"
+        target="_blank" style="margin-right: 10">
         {{ file.name }}
       </ToolbarLink>
-      <ToolbarSeparator class="mx-[10px] w-[1px] bg-gray" />
+      <ToolbarSeparator class="mx-[10px] w-[1px] bg-gray dark:bg-black/50" />
 
       <ToolbarButton style="margin-left: auto">
         <a-button type="primary" rounded :loading="isLoading" @click="() => save()">
