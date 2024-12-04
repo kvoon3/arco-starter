@@ -54,8 +54,10 @@ watch(router.currentRoute, (curRoute) => {
             {{ label }}
           </a-menu-item>
         </a-sub-menu>
-        <button v-if="!corp" hover="bg-primary-300" bg-primary color-white list-btn
-          @click="isCreateCorpModalVisible = true">
+        <button
+          v-if="!corp" hover="bg-primary-300" bg-primary color-white list-btn
+          @click="isCreateCorpModalVisible = true"
+        >
           {{ t('corp.create.form.title') }}
         </button>
       </a-menu>

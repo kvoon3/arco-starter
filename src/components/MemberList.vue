@@ -135,8 +135,10 @@ const { mutate: changeMember } = useMutation({
     </a-trigger>
   </div>
 
-  <a-modal v-model:visible="changeMemberModalVisible" title="Change Member"
-    @before-ok="(done) => changeMember(changeMemberForm, { onSuccess: () => done(true), onError: () => done(false) })">
+  <a-modal
+    v-model:visible="changeMemberModalVisible" title="Change Member"
+    @before-ok="(done) => changeMember(changeMemberForm, { onSuccess: () => done(true), onError: () => done(false) })"
+  >
     <a-form :model="changeMemberForm" layout="vertical">
       <a-form-item label="Name" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
         <a-input v-model="changeMemberForm.name" />

@@ -142,18 +142,22 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
         </a-select> -->
       </section>
       <!-- @vue-expect-error type error when arco's row-click -->
-      <a-table :columns="cols" :data="members" :column-resizable="true" :scroll="{
-        x: 700,
-        y: 600,
-      }" :scrollbar="true" @row-click="(...args) => onSelect(...args)">
+      <a-table
+        :columns="cols" :data="members" :column-resizable="true" :scroll="{
+          x: 700,
+          y: 600,
+        }" :scrollbar="true" @row-click="(...args) => onSelect(...args)"
+      >
         <template #columns>
           <a-table-column :title="memberIdxTitleMap.state">
             <template #cell="{ record: { state, user_id } }">
-              <a-switch :default-checked="Boolean(!state)" :checked-value="0" :unchecked-value="1"
+              <a-switch
+                :default-checked="Boolean(!state)" :checked-value="0" :unchecked-value="1"
                 :checked-color="themeColor" unchecked-color="#ddd" :before-change="(state) => toggleMemberState(
                   user_id,
                   Number(state) ? 0 : 1,
-                )">
+                )"
+              >
                 <template #checked>
                   {{ t('member-state.enabled') }}
                 </template>
@@ -212,7 +216,8 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
 
           <a-table-column
             v-for="(val, key) in objectOmit(memberIdxTitleMap, ['avatar', 'sex', 'tts', 'track', 'online', 'state', 'loc_share', 'created', 'dept_name'])"
-            :key :title="val" :data-index="key" />
+            :key :title="val" :data-index="key"
+          />
           <a-table-column :title="memberIdxTitleMap.loc_share">
             <template #cell="{ record: { loc_share } }">
               <a-tag v-if="loc_share" color="green">
@@ -223,14 +228,16 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
               </a-tag>
             </template>
           </a-table-column>
-          <a-table-column :title="t('dept.name')" data-index="dept_name" :filterable="{
-            filters: depts?.map((dept) => ({
-              text: dept.name,
-              value: String(dept.id),
-            })) || [],
-            filter: (value, record) => Number(record.dept_id) === Number(value),
-            multiple: true,
-          }">
+          <a-table-column
+            :title="t('dept.name')" data-index="dept_name" :filterable="{
+              filters: depts?.map((dept) => ({
+                text: dept.name,
+                value: String(dept.id),
+              })) || [],
+              filter: (value, record) => Number(record.dept_id) === Number(value),
+              multiple: true,
+            }"
+          >
             <template #cell="{ record: { dept_name } }">
               {{ dept_name }}
             </template>
@@ -268,9 +275,11 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
                 <a-dropdown :popup-max-height="false">
                   <a-button>{{ t('controls') }}<icon-down /></a-button>
                   <template #content>
-                    <a-doption @click="type === 1
-                      ? isEditDeviceModalVisible = true
-                      : isEditMemberModalVisible = true">
+                    <a-doption
+                      @click="type === 1
+                        ? isEditDeviceModalVisible = true
+                        : isEditMemberModalVisible = true"
+                    >
                       {{ t('button.edit') }}
                     </a-doption>
                     <a-doption @click="isResetPasswordModalVisible = true">

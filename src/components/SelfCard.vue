@@ -68,8 +68,10 @@ const editUserInfoModalState = reactive({
             </p>
           </div>
         </div>
-        <a-modal v-model:visible="editUserInfoModalState.visible" title="Edit User Infomation"
-          @before-ok="() => void 0" />
+        <a-modal
+          v-model:visible="editUserInfoModalState.visible" title="Edit User Infomation"
+          @before-ok="() => void 0"
+        />
       </div>
       <div class="text-gray-700 dark:text-gray-300">
         <p><span class="font-medium">{{ t('user.gender') }}:</span> {{ data.sex === 0 ? t('male') : t('famale') }}</p>

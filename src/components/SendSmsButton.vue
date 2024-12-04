@@ -14,16 +14,9 @@ const emits = defineEmits(['success', 'error'])
 
 const { t } = useI18n()
 
-// TODO: use last send time instead of counter
 const lastSendTime = useLocalStorage(`lst-${props.opts.sms_type}`, -1)
-
 const countdown = computed(() => 60 - (Math.floor((timestamp.value / 1000) - (lastSendTime.value / 1000))))
-
-const state = computed<'idle' | 'countdown'>(
-  () => countdown.value <= 0
-    ? 'idle'
-    : 'countdown',
-)
+const state = computed<'idle' | 'countdown'>(() => countdown.value <= 0 ? 'idle' : 'countdown')
 
 const { mutate: sendSMS, isPending } = useMutation({
   mutationFn: sendVerifySms,
@@ -41,8 +34,10 @@ const { mutate: sendSMS, isPending } = useMutation({
 </script>
 
 <template>
-  <a-button :loading="isPending" :disabled="state === 'countdown'" min-w-30 :class="classes" type="primary"
-    @click="() => sendSMS(opts)">
+  <a-button
+    :loading="isPending" :disabled="state === 'countdown'" min-w-30 :class="classes" type="primary"
+    @click="() => sendSMS(opts)"
+  >
     {{ state === 'idle' ? t('register.form.getSMS') : countdown }}
   </a-button>
 </template>

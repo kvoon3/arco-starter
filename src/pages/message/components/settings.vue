@@ -136,14 +136,16 @@ const addMemberModalVisible = ref(false)
       {{ t('group.settings.members') }}
     </h2>
     <div v-if="members">
-      <button v-for="member in members" :key="member.user_id" m2 size-18 inline-flex flex-col items-center
-        justify-center gap2 @click="changeMemberModalVisible = true">
-        <UseImage :src="member.avatar" :alt="member.name" size-10 rounded-lg bg-coolgray-200 op70 hover:op100>
+      <button
+        v-for="member in members" :key="member.user_id"
+        m2 inline-flex flex-col items-center justify-center gap2 size-18 @click="changeMemberModalVisible = true"
+      >
+        <UseImage :src="member.avatar" :alt="member.name" rounded-lg bg-coolgray-200 op70 size-10 hover:op100>
           <template #loading>
-            <i i-carbon-user-avatar-filled-alt size-10 rounded bg-gray-200 text-gray-400 />
+            <i i-carbon-user-avatar-filled-alt rounded bg-gray-200 text-gray-400 size-10 />
           </template>
           <template #error>
-            <i i-carbon-warning-alt size-10 rounded bg-gray-200 text-gray-400 />
+            <i i-carbon-warning-alt rounded bg-gray-200 text-gray-400 size-10 />
           </template>
         </UseImage>
         <div>
@@ -154,15 +156,15 @@ const addMemberModalVisible = ref(false)
           </span> -->
         </div>
       </button>
-      <button m2 size-18 inline-flex flex-col items-center justify-center gap2 @click="addMemberModalVisible = true">
-        <div size-10 rounded-lg bg-coolgray-200 op70 hover:op100>
-          <i i-carbon-add inline-block size-10 color-black />
+      <button m2 inline-flex flex-col items-center justify-center gap2 size-18 @click="addMemberModalVisible = true">
+        <div rounded-lg bg-coolgray-200 op70 size-10 hover:op100>
+          <i i-carbon-add inline-block color-black size-10 />
         </div>
         <span>{{ t('button.add') }}</span>
       </button>
-      <button m2 size-18 inline-flex flex-col items-center justify-center gap2 @click="deleteMemberModalVisible = true">
-        <div size-10 rounded-lg bg-coolgray-200 op70 hover:op100>
-          <i i-carbon-subtract inline-block size-10 color-black />
+      <button m2 inline-flex flex-col items-center justify-center gap2 size-18 @click="deleteMemberModalVisible = true">
+        <div rounded-lg bg-coolgray-200 op70 size-10 hover:op100>
+          <i i-carbon-subtract inline-block color-black size-10 />
         </div>
         <span>{{ t('button.remove') }}</span>
       </button>
@@ -173,37 +175,49 @@ const addMemberModalVisible = ref(false)
 
   <AddMembersModal v-model:visible="addMemberModalVisible" :group-id="groupId" />
 
-  <a-modal v-model:visible="changeMemberModalVisible" :title="t('change-member-settings-form.title')"
-    @before-ok="(done) => changeMember(changeMemberForm, { onSuccess: () => done(true) })">
+  <a-modal
+    v-model:visible="changeMemberModalVisible" :title="t('change-member-settings-form.title')"
+    @before-ok="(done) => changeMember(changeMemberForm, { onSuccess: () => done(true) })"
+  >
     <a-form :model="changeMemberForm" layout="vertical">
       <a-form-item label="Priority" :name="t('priority')">
         <a-input-number v-model="changeMemberForm.prority" :min="0" :max="100" class="w-full" />
       </a-form-item>
       <a-form-item label="TTS" name="tts">
-        <a-switch v-model="changeMemberForm.tts" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"
-          unchecked-color="#ddd" />
+        <a-switch
+          v-model="changeMemberForm.tts" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"
+          unchecked-color="#ddd"
+        />
       </a-form-item>
       <a-form-item label="Location Sharing" name="loc_share">
-        <a-switch v-model="changeMemberForm.loc_share" :checked-value="1" :unchecked-value="0"
-          :checked-color="themeColor" unchecked-color="#ddd" />
+        <a-switch
+          v-model="changeMemberForm.loc_share" :checked-value="1" :unchecked-value="0"
+          :checked-color="themeColor" unchecked-color="#ddd"
+        />
       </a-form-item>
       <a-form-item label="Track" name="track">
-        <a-radio-group v-model="changeMemberForm.track" type="button" :default-value="String(changeMemberForm.track)"
-          :options="trackOptions" />
+        <a-radio-group
+          v-model="changeMemberForm.track" type="button" :default-value="String(changeMemberForm.track)"
+          :options="trackOptions"
+        />
       </a-form-item>
     </a-form>
   </a-modal>
 
-  <a-modal v-model:visible="deleteMemberModalVisible" title="Confirm Deletion"
-    @before-ok="(done) => deleteMembers(deleteMemberForm, { onSuccess: () => done(true), onError: () => done(false) })">
+  <a-modal
+    v-model:visible="deleteMemberModalVisible" title="Confirm Deletion"
+    @before-ok="(done) => deleteMembers(deleteMemberForm, { onSuccess: () => done(true), onError: () => done(false) })"
+  >
     <!-- <p>Are you sure you want to delete ?</p>
     <p color-red>
       This action cannot be undone.
     </p> -->
-    <a-transfer v-model:model-value="toDeleteMembers" :data="members?.map(i => ({
-      value: String(i.user_id),
-      label: i.name,
-      disabled: false,
-    }))" simple mx-auto />
+    <a-transfer
+      v-model:model-value="toDeleteMembers" :data="members?.map(i => ({
+        value: String(i.user_id),
+        label: i.name,
+        disabled: false,
+      }))" simple mx-auto
+    />
   </a-modal>
 </template>

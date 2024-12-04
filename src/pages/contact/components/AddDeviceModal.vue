@@ -111,33 +111,43 @@ async function handleSubmit({ values, errors }: any) {
     </DialogTrigger>
     <DialogPortal>
       <DialogOverlay class="data-[state=open]:animate-overlayShow fixed inset-0 z-100 bg-black:60" />
-      <DialogContent bg-base
+      <DialogContent
+        bg-base
         class="fixed left-[50%] top-[50%] z-[100] max-h-[85vh] max-w-[450px] w-[90vw] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] data-[state=open]:animate-ease-in bg-base focus:outline-none"
         @interact-outside="event => {
           const target = event.target as HTMLElement;
           console.log(target)
           if (target?.closest('.arco-select-option')) return event.preventDefault()
-        }">
+        }"
+      >
         <DialogTitle class="m0 text-center text-lg font-semibold leading-loose">
           {{ t('add-device') }}
         </DialogTitle>
         <a-form ref="formRef" :model="form" auto-label-width @submit="handleSubmit">
-          <a-form-item field="name" :label="t('name')" :rules="[{ required: true }]"
-            :validate-trigger="['change', 'blur']">
+          <a-form-item
+            field="name" :label="t('name')" :rules="[{ required: true }]"
+            :validate-trigger="['change', 'blur']"
+          >
             <a-input v-model="form.name" placeholder="Enter name" />
           </a-form-item>
-          <a-form-item field="verify_code" :label="t('verify-code')" :rules="[{ required: true }]"
-            :validate-trigger="['change', 'blur']">
+          <a-form-item
+            field="verify_code" :label="t('verify-code')" :rules="[{ required: true }]"
+            :validate-trigger="['change', 'blur']"
+          >
             <a-input v-model="form.verify_code" />
           </a-form-item>
-          <a-form-item :label="t('phone-number')" field="phone"
+          <a-form-item
+            :label="t('phone-number')" field="phone"
             :rules="[{ required: false, message: t('binding-phone-form.err-msg.phone-number') }]"
-            :validate-trigger="['blur', 'change']">
+            :validate-trigger="['blur', 'change']"
+          >
             <a-input v-model="form.phone" />
           </a-form-item>
           <a-form-item field="dept_id" :label="t('member.form.dept.label')">
-            <a-select allow-search :empty="t('no-data')" placeholder="Please select ..."
-              @change="(value) => form.dept_id = Number(value)">
+            <a-select
+              allow-search :empty="t('no-data')" placeholder="Please select ..."
+              @change="(value) => form.dept_id = Number(value)"
+            >
               <a-option :value="0" label="无部门" />
               <a-option v-for="{ name, id }, key in depts" :key :value="id" :label="name" />
             </a-select>
@@ -157,18 +167,28 @@ async function handleSubmit({ values, errors }: any) {
             <AvatarUploader ref="avatarUploaderRef" v-model:src="form.avatar" />
           </a-form-item>
           <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
-            <a-switch v-model="form.tts" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"
-              unchecked-color="#ddd" />
+            <a-switch
+              v-model="form.tts" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"
+              unchecked-color="#ddd"
+            />
           </a-form-item>
-          <a-form-item field="loc_share" :label="t('member.form.loc_share.label')"
-            :validate-trigger="['change', 'blur']">
-            <a-switch v-model="form.loc_share" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"
-              unchecked-color="#ddd" />
+          <a-form-item
+            field="loc_share" :label="t('member.form.loc_share.label')"
+            :validate-trigger="['change', 'blur']"
+          >
+            <a-switch
+              v-model="form.loc_share" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"
+              unchecked-color="#ddd"
+            />
           </a-form-item>
-          <a-form-item field="track" :label="t('change-member.form.track.label')"
-            :validate-trigger="['change', 'blur']">
-            <a-radio-group v-model="form.track" type="button" :default-value="String(form.track)"
-              :options="trackOptions" />
+          <a-form-item
+            field="track" :label="t('change-member.form.track.label')"
+            :validate-trigger="['change', 'blur']"
+          >
+            <a-radio-group
+              v-model="form.track" type="button" :default-value="String(form.track)"
+              :options="trackOptions"
+            />
           </a-form-item>
         </a-form>
 
@@ -187,7 +207,8 @@ async function handleSubmit({ values, errors }: any) {
         </div>
         <DialogClose
           class="text-grass11 absolute right-[10px] top-[10px] h-[25px] w-[25px] inline-flex appearance-none items-center justify-center rounded-full hover:bg-gray2 focus:shadow-[0_0_0_2px] focus:shadow-gray7 focus:outline-none"
-          aria-label="Close">
+          aria-label="Close"
+        >
           <i i-carbon-close />
         </DialogClose>
       </DialogContent>

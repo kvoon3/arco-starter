@@ -66,16 +66,20 @@ function handleSubmit({ values, errors }: OnSubmitParams<Form>) {
     </div> -->
     <!-- @vue-expect-error type error -->
     <a-form :model="form" class="login-form" layout="vertical" @submit="handleSubmit">
-      <a-form-item field="account" :rules="[{ required: true, message: t('login.form.userName.errMsg') }]"
-        :validate-trigger="['change', 'blur']" hide-label>
+      <a-form-item
+        field="account" :rules="[{ required: true, message: t('login.form.userName.errMsg') }]"
+        :validate-trigger="['change', 'blur']" hide-label
+      >
         <a-input v-model="form.account" :placeholder="t('login.form.userName.placeholder')">
           <template #prefix>
             <icon-user />
           </template>
         </a-input>
       </a-form-item>
-      <a-form-item field="password" :rules="[{ required: true, message: t('login.form.password.errMsg') }]"
-        :validate-trigger="['change', 'blur']" hide-label>
+      <a-form-item
+        field="password" :rules="[{ required: true, message: t('login.form.password.errMsg') }]"
+        :validate-trigger="['change', 'blur']" hide-label
+      >
         <a-input-password v-model="form.password" :placeholder="t('login.form.password.placeholder')" allow-clear>
           <template #prefix>
             <icon-lock />

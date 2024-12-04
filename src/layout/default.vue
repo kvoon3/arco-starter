@@ -25,7 +25,6 @@ const menuWidth = computed(() => {
 })
 const collapsed = computed(() => {
   const collapsed = appStore.menuCollapse
-  console.log('collapsed', collapsed)
   return collapsed
 })
 const paddingStyle = computed(() => {

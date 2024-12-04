@@ -224,12 +224,14 @@ watch(markers, (val, oldVal) => {
   </div>
   <div flex gap2 p4 bg-base>
     <!-- @vue-expect-error type error -->
-    <a-tree-select v-model="selectedId" :data="data" :field-names="{
-      key: 'id',
-      title: 'name',
-      children: 'members',
-    }" placeholder="Please select ..." :block-node="true" :selectable="(node) => 'user_id' in node" max-w-60
-      grow-1 />
+    <a-tree-select
+      v-model="selectedId" :data="data" :field-names="{
+        key: 'id',
+        title: 'name',
+        children: 'members',
+      }" placeholder="Please select ..." :block-node="true" :selectable="(node) => 'user_id' in node" max-w-60
+      grow-1
+    />
     <a-date-picker v-model="selectedDate" max-w-40 grow-1 />
   </div>
   <div h-full w-full>
@@ -238,8 +240,10 @@ watch(markers, (val, oldVal) => {
         <ElAmapLocaLine :visible="trackVisible" :source-data="trackFeatureCollection" :layer-style="layerStyle" />
       </ElAmapLoca>
 
-      <a-button v-if="markers?.length" type="primary" shape="circle" class="absolute right-4 top-4"
-        @click="drawerVisible = true">
+      <a-button
+        v-if="markers?.length" type="primary" shape="circle" class="absolute right-4 top-4"
+        @click="drawerVisible = true"
+      >
         <template #icon>
           <icon-menu />
         </template>
