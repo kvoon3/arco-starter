@@ -5,7 +5,7 @@ import { computed, inject } from 'vue'
 import { weilaFetch } from '~/api/instances/fetcher'
 import Menu from '~/components/menu/index.vue'
 import { availableLocales, loadLanguageAsync } from '~/modules/i18n'
-import { access_token, expires_in, isDark, last_login_time, refresh_token } from '~/shared/states'
+import { isDark, logout } from '~/shared/states'
 import BindingPhone from '../BindingPhone.vue'
 
 const { t, locale } = useI18n()
@@ -42,14 +42,6 @@ const { data: user, refetch } = useQuery({
 
 const resetPasswordModalVisible = ref(false)
 const bindingPhoneModalVisible = ref(false)
-
-function logout() {
-  access_token.value = ''
-  refresh_token.value = ''
-  last_login_time.value = -1
-  expires_in.value = -1
-  router.push('/login')
-}
 </script>
 
 <template>
@@ -99,34 +91,21 @@ function logout() {
           </a-button>
         </a-tooltip>
       </li>
-      <!-- <li>
-        <a-tooltip :content="t('settings.title')">
-          <a-button
-            class="nav-btn"
-            type="outline"
-            shape="circle"
-            @click="setVisible"
-          >
-            <template #icon>
-              <icon-settings />
-            </template>
-          </a-button>
-        </a-tooltip>
-      </li> -->
-
       <li>
         <HoverCardRoot v-model:open="hoverState" :open-delay="0">
           <HoverCardTrigger
             class="inline-block cursor-pointer rounded-full shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] outline-none focus:shadow-[0_0_0_2px_white]"
             target="_blank" rel="noreferrer noopener">
-            <img class="block h-[45px] w-[45px] rounded-full" :src="user?.avatar" alt="Radix UI">
+            <i i-carbon-user-avatar-filled class="block h-[45px] w-[45px] rounded-full" :src="user?.avatar"
+              alt="Avatar" />
           </HoverCardTrigger>
           <HoverCardPortal>
             <HoverCardContent
               class="data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade w-[300px] rounded-md bg-white p-5 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] data-[state=open]:transition-all"
               :side-offset="5">
               <div v-if="user" class="flex flex-col gap-[7px]">
-                <img class="block h-[60px] w-[60px] rounded-full" :src="user.avatar" alt="Radix UI">
+                <i i-carbon-user-avatar-filled class="block h-[45px] w-[45px] rounded-full" :src="user?.avatar"
+                  alt="Avatar" />
                 <div class="flex flex-col gap-[15px]">
                   <div>
                     <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
@@ -139,28 +118,6 @@ function logout() {
                       <a-tag>+{{ user.country_code }} {{ user.bind_phone }}</a-tag>
                     </div>
                   </div>
-                  <div class="text-mauve12 m-0 text-[15px] leading-[1.5]">
-                    Components, icons, colors, and templates for building high-quality, accessible UI. Free and
-                    open-source.
-                  </div>
-                  <div class="flex gap-[15px]">
-                    <div class="flex gap-[5px]">
-                      <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
-                        0
-                      </div>
-                      <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
-                        Following
-                      </div>
-                    </div>
-                    <div class="flex gap-[5px]">
-                      <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
-                        2,900
-                      </div>
-                      <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
-                        Followers
-                      </div>
-                    </div>
-                  </div>
                   <div flex="~ col" gap2>
                     <a-button @click="bindingPhoneModalVisible = true">
                       {{ t('binding-phone') }}
@@ -168,7 +125,7 @@ function logout() {
                     <a-button @click="resetPasswordModalVisible = true">
                       {{ t('button.reset-password') }}
                     </a-button>
-                    <a-button @click="logout">
+                    <a-button @click="() => logout().then(() => router.push('/login'))">
                       {{ t('logout') }}
                     </a-button>
                   </div>

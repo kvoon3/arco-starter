@@ -53,15 +53,8 @@ const { mutate: changeMember } = useMutation({
 <template>
   <div :class="classes">
     <a-trigger v-for="member in members" :key="member.user_id" position="rt" trigger="hover">
-      <div
-        class="flex items-center py-2 space-x-4 list-btn"
-        @click="() => emits('onSelect', member)"
-      >
-        <UseImage
-          :src="member.avatar"
-          :alt="member.name"
-          class="h-10 w-10 rounded-full object-cover"
-        >
+      <div class="flex items-center py-2 space-x-4 list-btn" @click="() => emits('onSelect', member)">
+        <UseImage :src="member.avatar" :alt="member.name" class="h-10 w-10 rounded-full object-cover">
           <template #loading>
             <div class="h-10 w-10 animate-pulse rounded-full bg-gray-200" />
           </template>
@@ -104,20 +97,16 @@ const { mutate: changeMember } = useMutation({
               <template #icon>
                 <IconEdit />
               </template>
-            </a-button>
+</a-button>
 
-            <a-button>
-              <template #icon>
+<a-button>
+  <template #icon>
                 <IconDelete />
               </template>
-            </a-button>
-          </section> -->
+</a-button>
+</section> -->
           <div class="mb-4 flex flex-col items-center">
-            <UseImage
-              :src="member.avatar"
-              :alt="member.name"
-              class="mb-2 h-20 w-20 rounded-full object-cover"
-            >
+            <UseImage :src="member.avatar" :alt="member.name" class="mb-2 h-20 w-20 rounded-full object-cover">
               <template #loading>
                 <div class="h-20 w-20 animate-pulse rounded-full bg-gray-200" />
               </template>
@@ -146,11 +135,8 @@ const { mutate: changeMember } = useMutation({
     </a-trigger>
   </div>
 
-  <a-modal
-    v-model:visible="changeMemberModalVisible"
-    title="Change Member"
-    @before-ok="(done) => changeMember(changeMemberForm, { onSuccess: () => done(true), onError: () => done(false) })"
-  >
+  <a-modal v-model:visible="changeMemberModalVisible" title="Change Member"
+    @before-ok="(done) => changeMember(changeMemberForm, { onSuccess: () => done(true), onError: () => done(false) })">
     <a-form :model="changeMemberForm" layout="vertical">
       <a-form-item label="Name" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
         <a-input v-model="changeMemberForm.name" />
@@ -168,7 +154,7 @@ const { mutate: changeMember } = useMutation({
           </a-radio>
         </a-radio-group>
       </a-form-item>
-      <a-form-item label="Phone" :rules="[{ required: true }]" :validate-trigger="['change', 'blur']">
+      <a-form-item label="Phone" :rules="[{ required: false }]" :validate-trigger="['change', 'blur']">
         <a-input v-model="changeMemberForm.phone" />
       </a-form-item>
     </a-form>

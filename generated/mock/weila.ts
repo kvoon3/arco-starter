@@ -1,7 +1,4 @@
-// WARNING: 该文件通过项目内脚本自动生成，请勿手动更改
 // @ts-ignore
-
-import { isString } from '@antfu/utils'
 
 export default [
 {
@@ -9,7 +6,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -26,7 +22,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功"
@@ -43,7 +38,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -64,7 +58,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -72,6 +65,7 @@ export default [
 		"user": {
 			"id": 1253488,
 			"num": "70014762",
+			"job_num": "1253488",
 			"sex": 0,
 			"name": "ent98164680",
 			"bind_phone": "13353236455",
@@ -81,7 +75,7 @@ export default [
 		"account": {
 			"user_name": "70014762",
 			"country_code": "0",
-			"password": "7f4c9356c38de7e5d3ff9294206af974"
+			"password": "d812f2f4174540773da1d03f635d98d6"
 		},
 		"org": {
 			"num": 100130,
@@ -90,21 +84,22 @@ export default [
 			"creator": {
 				"id": 1253488,
 				"num": "70014762",
+				"job_num": "1253488",
 				"sex": 0,
 				"name": "ent98164680",
 				"avatar": "http://favicon.weila.hk/default/user.png"
 			},
 			"created": 1731986807,
-			"member_cnt": 4,
+			"member_cnt": 6,
 			"group_cnt": 1,
-			"group_ver": 1731989765,
-			"address_ver": 1732001188,
+			"group_ver": 1732692310,
+			"address_ver": 1732772565,
 			"device_cnt": 0,
 			"device_ver": 1
 		},
-		"access_token": "32b627465b68a866603ab265cf408c67",
+		"access_token": "a5c47f3c03a4d549edbf7790b2ad0a2d",
 		"expires_in": 86400,
-		"refresh_token": "3a98cc3ac7f9db4c823a3d1413d667a9"
+		"refresh_token": "c9cbc2355da45c7a64b837f2ebed0070"
 	}
 }, check(body, {
 	"phone": "13353236455",
@@ -117,7 +112,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -160,7 +154,61 @@ export default [
 		"refresh_token": "224a637da6f3a01796126ea117daa4e1"
 	}
 }, check(body, {
-	"user_name": "70014762",
+	"user_name": "70014622",
+	"password": "e10adc3949ba59abbe56e057f20f883e"
+}))
+  }
+},
+{
+  url: '/v1/corp/web/login',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    return Object.assign({
+	"errcode": 0,
+	"errmsg": "请求成功",
+	"data": {
+		"user": {
+			"id": 1253488,
+			"num": "70014762",
+			"job_num": "1253488",
+			"sex": 0,
+			"name": "ent98164680",
+			"bind_phone": "13353236455",
+			"country_code": "86",
+			"avatar": "http://favicon.weila.hk/default/user.png"
+		},
+		"account": {
+			"user_name": "70014762",
+			"country_code": "0",
+			"password": "0717ae49623e4774e067d6e1a9787d6f"
+		},
+		"org": {
+			"num": 100130,
+			"name": "微喇测试",
+			"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/a/b85fb875.jpg",
+			"creator": {
+				"id": 1253488,
+				"num": "70014762",
+				"job_num": "1253488",
+				"sex": 0,
+				"name": "ent98164680",
+				"avatar": "http://favicon.weila.hk/default/user.png"
+			},
+			"created": 1731986807,
+			"member_cnt": 6,
+			"group_cnt": 1,
+			"group_ver": 1732692310,
+			"address_ver": 1733107927,
+			"device_cnt": 0,
+			"device_ver": 1
+		},
+		"access_token": "37c9ac2dec9e41f4c142daf5f831c7d8",
+		"expires_in": 86400,
+		"refresh_token": "bf83125b7df32acd88c5758e612e1e3c"
+	}
+}, check(body, {
+	"account": "13353236455",
 	"password": "e10adc3949ba59abbe56e057f20f883e"
 }))
   }
@@ -170,7 +218,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -189,7 +236,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功"
@@ -206,7 +252,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -236,7 +281,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -267,7 +311,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -294,7 +337,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -317,7 +359,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功"
@@ -332,7 +373,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功"
@@ -348,17 +388,17 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
 		"address_list": {
-			"version": 1732001188,
+			"version": 1732772565,
 			"members": [
 				{
 					"user_id": 1253488,
 					"user_num": "70014762",
+					"job_num": "1253488",
 					"sex": 0,
 					"name": "ent98164680",
 					"avatar": "http://favicon.weila.hk/default/user.png",
@@ -380,27 +420,11 @@ export default [
 					"name": "研发部",
 					"members": [
 						{
-							"user_id": 1253341,
-							"user_num": "30015778",
-							"sex": 1,
-							"name": "测试机Linux",
-							"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253341/a/38035fcb.jpg",
-							"dept_id": 1,
-							"country_code": "86",
-							"phone": "1862222222",
-							"type": 1,
-							"tts": 0,
-							"loc_share": 1,
-							"track": 1,
-							"state": 0,
-							"created": 1731987269,
-							"online": 0
-						},
-						{
 							"user_id": 1247754,
 							"user_num": "30010197",
+							"job_num": "1247754",
 							"sex": 1,
-							"name": "测试机Linux",
+							"name": "CF01_2",
 							"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1247754/a/c4c83dd3.jpg",
 							"dept_id": 1,
 							"country_code": "86",
@@ -416,8 +440,9 @@ export default [
 						{
 							"user_id": 1253464,
 							"user_num": "30015845",
+							"job_num": "1253464",
 							"sex": 1,
-							"name": "测试机Linux",
+							"name": "CF01_3",
 							"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253464/a/f7041816.jpg",
 							"dept_id": 1,
 							"country_code": "86",
@@ -428,6 +453,54 @@ export default [
 							"track": 1,
 							"state": 0,
 							"created": 1731987604,
+							"online": 0
+						}
+					]
+				},
+				{
+					"id": 11,
+					"name": "研发部1",
+					"members": [
+						{
+							"user_id": 1253502,
+							"user_num": "70014421",
+							"job_num": "1253502",
+							"sex": 1,
+							"name": "44444444",
+							"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253502/a/66a35a85.jpg",
+							"dept_id": 11,
+							"country_code": "86",
+							"phone": "18644444444",
+							"type": 0,
+							"tts": 1,
+							"loc_share": 1,
+							"track": 0,
+							"state": 0,
+							"created": 1732607987,
+							"online": 0
+						}
+					]
+				},
+				{
+					"id": 14,
+					"name": "研发部12",
+					"members": [
+						{
+							"user_id": 1253504,
+							"user_num": "70014064",
+							"job_num": "1253504",
+							"sex": 1,
+							"name": "44444444",
+							"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253504/a/47e3351d.jpg",
+							"dept_id": 14,
+							"country_code": "86",
+							"phone": "18644444444",
+							"type": 0,
+							"tts": 1,
+							"loc_share": 1,
+							"track": 0,
+							"state": 0,
+							"created": 1732617044,
 							"online": 0
 						}
 					]
@@ -445,7 +518,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -464,7 +536,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -484,7 +555,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功"
@@ -499,7 +569,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -507,28 +576,18 @@ export default [
 		"depts": [
 			{
 				"id": 1,
-				"name": "研发部12"
+				"name": "研发部",
+				"user_count": 3
 			},
 			{
-				"id": 2,
-				"name": "研发部2"
-			},
-			{
-				"id": 3,
-				"name": "研发部2"
-			},
-			{
-				"id": 4,
-				"name": "研发部2"
-			},
-			{
-				"id": 5,
-				"name": "研发部2"
+				"id": 11,
+				"name": "研发部1",
+				"user_count": 1
 			}
 		]
 	}
 }, check(body, {
-    "org_num": 100073
+    "org_num": 100130
 }))
   }
 },
@@ -537,7 +596,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -610,32 +668,33 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
-		"user_id": 1253449,
-		"org_num": 100073,
-		"dept_id": 6,
+		"org_num": 100130,
+		"user_id": 1253510,
+		"user_num": "70013569",
+		"job_num": "123",
+		"sex": 1,
+		"name": "44444444",
+		"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253510/a/392f7ad8.jpg",
+		"dept_id": 14,
 		"country_code": "86",
-		"phone": "18611111111",
+		"phone": "18644444444",
 		"type": 0,
-		"tts": 0,
-		"loc_share": 0,
+		"tts": 1,
+		"loc_share": 1,
 		"track": 0,
 		"state": 0,
-		"created": 1730453120,
-		"user_num": "70013070",
-		"sex": 0,
-		"name": "222222",
-		"avatar": "http://favicon.weila.hk/default/user.png"
+		"created": 1733107927
 	}
 }, check(body, {
-	"org_num": 100050,
+	"org_num": 100130,
 	"name": "44444444",
+	"job_num": "123",
 	"password": "e10adc3949ba59abbe56e057f20f883e",
-    "dept_id": 15,
+    "dept_id": 14,
 	"sex": 1,
 	"avatar": "http://favicon.weila.hk/default/session.png",
 	"phone": "18644444444",
@@ -649,13 +708,13 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
 		"user_id": 1253448,
 		"org_num": 100073,
+		"job_num": "123",
 		"dept_id": 6,
 		"country_code": "86",
 		"phone": "18611111111",
@@ -674,6 +733,7 @@ export default [
 	"org_num": 100130,
 	"verify_code": "411691",
 	"name": "测试机Linux",
+	"job_num": "123",
     "dept_id": 1,
 	"sex": 0,
 	"avatar": "http://favicon.weila.hk/default/group.png",
@@ -689,13 +749,13 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
 		"user_id": 1253437,
 		"org_num": 100021,
+		"job_num": "123",
 		"dept_id": 1,
 		"country_code": "86",
 		"phone": "1862222222",
@@ -710,7 +770,8 @@ export default [
 }, check(body, {
 	"org_num": 100130,
 	"member_id": 1253341,
-	"name": "测试机Linux",
+	"name": "CF01_8070",
+	"job_num": "123",
     "dept_id": 1,
 	"sex": 1,
 	"avatar": "http://favicon.weila.hk/default/session.png",
@@ -726,13 +787,13 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
 		"user_id": 1253443,
 		"org_num": 100021,
+		"job_num": "123",
 		"dept_id": 1,
 		"country_code": "86",
 		"phone": "1862222222",
@@ -756,7 +817,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功"
@@ -771,7 +831,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -787,7 +846,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -796,6 +854,7 @@ export default [
 			{
 				"user_id": 1253488,
 				"user_num": "70014762",
+				"job_num": "1253488",
 				"sex": 0,
 				"name": "ent98164680",
 				"avatar": "http://favicon.weila.hk/default/user.png",
@@ -812,28 +871,11 @@ export default [
 				"dept_name": ""
 			},
 			{
-				"user_id": 1253341,
-				"user_num": "30015778",
-				"sex": 1,
-				"name": "测试机Linux",
-				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253341/a/38035fcb.jpg",
-				"dept_id": 1,
-				"country_code": "86",
-				"phone": "1862222222",
-				"type": 1,
-				"tts": 0,
-				"loc_share": 1,
-				"track": 1,
-				"state": 0,
-				"created": 1731987269,
-				"online": 0,
-				"dept_name": "研发部"
-			},
-			{
 				"user_id": 1247754,
 				"user_num": "30010197",
+				"job_num": "1247754",
 				"sex": 1,
-				"name": "测试机Linux",
+				"name": "CF01_2",
 				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1247754/a/c4c83dd3.jpg",
 				"dept_id": 1,
 				"country_code": "86",
@@ -850,8 +892,9 @@ export default [
 			{
 				"user_id": 1253464,
 				"user_num": "30015845",
+				"job_num": "1253464",
 				"sex": 1,
-				"name": "测试机Linux",
+				"name": "CF01_3",
 				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253464/a/f7041816.jpg",
 				"dept_id": 1,
 				"country_code": "86",
@@ -864,6 +907,63 @@ export default [
 				"created": 1731987604,
 				"online": 0,
 				"dept_name": "研发部"
+			},
+			{
+				"user_id": 1253502,
+				"user_num": "70014421",
+				"job_num": "1253502",
+				"sex": 1,
+				"name": "44444444",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253502/a/66a35a85.jpg",
+				"dept_id": 11,
+				"country_code": "86",
+				"phone": "18644444444",
+				"type": 0,
+				"tts": 1,
+				"loc_share": 1,
+				"track": 0,
+				"state": 0,
+				"created": 1732607987,
+				"online": 0,
+				"dept_name": "研发部1"
+			},
+			{
+				"user_id": 1253504,
+				"user_num": "70014064",
+				"job_num": "1253504",
+				"sex": 1,
+				"name": "44444444",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253504/a/47e3351d.jpg",
+				"dept_id": 14,
+				"country_code": "86",
+				"phone": "18644444444",
+				"type": 0,
+				"tts": 1,
+				"loc_share": 1,
+				"track": 0,
+				"state": 0,
+				"created": 1732617044,
+				"online": 0,
+				"dept_name": "研发部12"
+			},
+			{
+				"user_id": 1253510,
+				"user_num": "70013569",
+				"job_num": "123",
+				"sex": 1,
+				"name": "44444444",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100130/u/1253510/a/392f7ad8.jpg",
+				"dept_id": 14,
+				"country_code": "86",
+				"phone": "18644444444",
+				"type": 0,
+				"tts": 1,
+				"loc_share": 1,
+				"track": 0,
+				"state": 0,
+				"created": 1733107927,
+				"online": 0,
+				"dept_name": "研发部12"
 			}
 		]
 	}
@@ -877,7 +977,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -904,7 +1003,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功"
@@ -918,7 +1016,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -960,7 +1057,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -986,24 +1082,52 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
 		"members": [
 			{
-				"user_id": 1253448,
-				"user_num": "30015839",
+				"user_id": 1253497,
+				"user_num": "70014622",
 				"sex": 0,
-				"name": "222222",
-				"avatar": "http://favicon.weila.hk/default/group.png"
+				"name": "清湖-企业主",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100067/u/1253497/a/3f69a555.jpg",
+				"dept_id": 0,
+				"country_code": "86",
+				"phone": "18926020729",
+				"type": 255,
+				"tts": 1,
+				"loc_share": 0,
+				"track": 0,
+				"state": 0,
+				"created": 1732263378,
+				"online": 0,
+				"dept_name": ""
+			},
+			{
+				"user_id": 1253500,
+				"user_num": "70012637",
+				"sex": 0,
+				"name": "技术-王五",
+				"avatar": "http://favicon.weila.hk/default/user.png",
+				"dept_id": 2,
+				"country_code": "86",
+				"phone": "13800005555",
+				"type": 0,
+				"tts": 0,
+				"loc_share": 1,
+				"track": 0,
+				"state": 0,
+				"created": 1732264968,
+				"online": 0,
+				"dept_name": "技术部"
 			}
 		]
 	}
 }, check(body, {
-    "group_id": 80000180, //群Id
-    "member_id": 1253446,
+    "group_id": 81000738, //群Id
+    "member_id": 1253499,
     "prority": 1,
 	"tts": 1,
 	"loc_share": 1
@@ -1015,7 +1139,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -1054,23 +1177,294 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
 	"data": {
 		"members": [
 			{
-				"user_id": 1253448,
-				"user_num": "30015839",
+				"user_id": 1253497,
+				"user_num": "70014622",
 				"sex": 0,
-				"name": "222222",
-				"avatar": "http://favicon.weila.hk/default/group.png"
+				"name": "清湖-企业主",
+				"avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100067/u/1253497/a/3f69a555.jpg",
+				"dept_id": 0,
+				"country_code": "86",
+				"phone": "18926020729",
+				"type": 255,
+				"tts": 1,
+				"loc_share": 0,
+				"track": 0,
+				"state": 0,
+				"created": 1732263378,
+				"online": 0,
+				"dept_name": ""
+			},
+			{
+				"user_id": 1253500,
+				"user_num": "70012637",
+				"sex": 0,
+				"name": "技术-王五",
+				"avatar": "http://favicon.weila.hk/default/user.png",
+				"dept_id": 2,
+				"country_code": "86",
+				"phone": "13800005555",
+				"type": 0,
+				"tts": 0,
+				"loc_share": 1,
+				"track": 0,
+				"state": 0,
+				"created": 1732264968,
+				"online": 0,
+				"dept_name": "技术部"
 			}
 		]
 	}
 }, check(body, {
-    "group_id": 80000528 //群Id
+    "group_id": 81000738 //群Id
+}))
+  }
+},
+{
+  url: '/v1/corp/web/location-get-track',
+  method: 'post',
+  response: (res: any) => {
+    const { body = {} } = res
+    return Object.assign({
+	"errcode": 0,
+	"errmsg": "请求成功",
+	"data": {
+		"tracks": [
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997061
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997121
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997181
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997241
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997301
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997361
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997421
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997481
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997541
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997601
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997661
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997721
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997781
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997841
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997901
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731997961
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998021
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998081
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998141
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998201
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998261
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998321
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998381
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998441
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998501
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998561
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998621
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998681
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998741
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998801
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998861
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998921
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731998981
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999041
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999106
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999168
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999228
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999288
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999349
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999409
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999470
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999530
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999590
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999651
+			},
+			{
+				"latitude": 22.668835,
+				"longitude": 115.070211,
+				"created": 1731999711
+			}
+		]
+	}
+}, check(body, {
+    "user_id": 1253464, //群Id
+    "date": "2024-11-19"
 }))
   }
 },
@@ -1079,7 +1473,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -1116,7 +1509,6 @@ export default [
   method: 'post',
   response: (res: any) => {
     const { body = {} } = res
-    console.log(res)
     return Object.assign({
 	"errcode": 0,
 	"errmsg": "请求成功",
@@ -1169,7 +1561,7 @@ export function check(obj1: object, obj2: object) {
     const val2 = obj2[key as keyof typeof obj2]
     
     if (typeof val1 !== typeof val2) {
-      if(isString(val1) && val1 === '' && val2 !== '')
+      if(typeof val1 === 'string' && val1 === '' && val2 !== '')
         return { errcode: 1, errmsg: `${key} is empty string` }
       return { errcode: 1, errmsg: `Type mismatch for key: ${key}` }
     }

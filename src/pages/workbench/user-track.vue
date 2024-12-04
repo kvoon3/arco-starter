@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { isNull, isNumber, isUndefined, objectEntries } from '@antfu/utils'
+import { isNull, isNumber, isUndefined } from '@antfu/utils'
+import { Message } from '@arco-design/web-vue'
 import { useQuery } from '@tanstack/vue-query'
 import { ElAmap } from '@vuemap/vue-amap'
 import { ElAmapLoca, ElAmapLocaLine } from '@vuemap/vue-amap-loca'
@@ -9,7 +10,7 @@ import type { RegeoModel, UserTrackModel } from '~/api/track'
 
 const { t } = useI18n()
 
-const selectedId = ref(0)
+const selectedId = ref()
 const selectedDate = ref('')
 
 const contactStore = useContactStore()
@@ -20,6 +21,20 @@ const { data: tracks } = useQuery({
   queryFn: ({ queryKey }) => weilaFetch<{ tracks: UserTrackModel[] }>('/corp/web/location-get-track', {
     body: { user_id: queryKey[1], date: queryKey[2] },
   }).then(i => i.tracks.sort((a, b) => b.created - a.created)),
+})
+
+watchDebounced(tracks, (val) => {
+  if (!val?.length)
+    Message.info(t('no-data'))
+}, {
+  debounce: 500,
+})
+
+const data = computed(() => {
+  return [
+    ...(contact.value?.depts || []),
+    ...(contact.value?.members || []),
+  ]
 })
 
 const trackFeatureCollection = computed<GeoJSON.FeatureCollection<GeoJSON.LineString>>(() => ({
@@ -90,28 +105,28 @@ const { data: regeoInfo } = useQuery({
       },
     }).then(i => i.regeo)
   },
-
 })
 
 watch(regeoInfo, (info?: RegeoModel) => {
   if (!info)
     return
 
-  const content = `
-  <div class="p-4 bg-white rounded-lg shadow-md">
-    <h3 class="text-lg font-semibold mb-2">Location Details</h3>
-    ${objectEntries(info).map(([key, value]) => `
-      <div class="mb-2">
-        <span class="font-medium text-gray-700">${key}:</span>
-        <span class="ml-2 text-gray-600">
-          ${typeof value === 'object'
-      ? `<pre class="mt-1 text-sm bg-gray-100 p-2 rounded">${JSON.stringify(value, null, 2)}</pre>`
-      : value}
-        </span>
-      </div>
-    `).join('')}
-  </div>
-`
+  //   const content = `
+  //   <div class="p-4 bg-white rounded-lg shadow-md">
+  //     <h3 class="text-lg font-semibold mb-2">Location Details</h3>
+  //     ${objectEntries(info).map(([key, value]) => `
+  //       <div class="mb-2">
+  //         <span class="font-medium text-gray-700">${key}:</span>
+  //         <span class="ml-2 text-gray-600">
+  //           ${typeof value === 'object'
+  //       ? `<pre class="mt-1 text-sm bg-gray-100 p-2 rounded">${JSON.stringify(value, null, 2)}</pre>`
+  //       : value}
+  //         </span>
+  //       </div>
+  //     `).join('')}
+  //   </div>
+  // `
+  const content = info.formatted_address
 
   infoWindow.value?.setContent(content)
 })
@@ -126,6 +141,7 @@ $inspect(markers)
 
 watch(tracks, (val) => {
   if (!val?.length) {
+    markers.value = []
     return
   }
 
@@ -190,6 +206,11 @@ watch(markers, (val, oldVal) => {
     }, { immediate: true })
   }
 })
+
+// AMap.plugin('AMap.GraspRoad', () => {
+//   const grasp = new AMap.GraspRoad()
+//   console.log('grasp', grasp)
+// })
 </script>
 
 <template>
@@ -203,7 +224,7 @@ watch(markers, (val, oldVal) => {
   </div>
   <div flex gap2 p4 bg-base>
     <!-- @vue-expect-error type error -->
-    <a-tree-select v-model="selectedId" :data="contact?.depts" :field-names="{
+    <a-tree-select v-model="selectedId" :data="data" :field-names="{
       key: 'id',
       title: 'name',
       children: 'members',

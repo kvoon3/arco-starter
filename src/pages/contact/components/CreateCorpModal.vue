@@ -2,65 +2,55 @@
 import Message from '@arco-design/web-vue/es/message'
 import { useMutation } from '@tanstack/vue-query'
 import { weilaApiUrl } from '~/api'
-import type { DeptModel } from '~/api/contact'
 import { weilaRequest } from '~/api/instances/request'
-
-const props = defineProps<{
-  dept?: DeptModel
-}>()
 
 const emits = defineEmits(['success'])
 
 const { t } = useI18n()
 
-const { data: corp } = storeToRefs(useCorpStore())
-const contactStore = useContactStore()
+const avatarUploaderRef = templateRef('avatarUploaderRef')
 
 const open = defineModel('open', { default: false })
 
+interface Payload {
+  name: string
+  avatar: string
+}
+
 const form = reactive({
   name: '',
-})
-
-watch(open, (val) => {
-  if (val)
-    form.name = props.dept?.name || ''
+  avatar: '',
 })
 
 const formRef = templateRef('formRef')
 
-interface Payload {
-  name: string
-  org_num: number
-  dept_id: number
-}
-
 const { mutate, isPending } = useMutation({
   mutationFn: (payload: Payload) => weilaRequest.post(
-    weilaApiUrl['/corp/web/dept-change'],
+    weilaApiUrl['/corp/web/org-create'],
     payload,
   ),
   onSuccess: () => {
     formRef.value?.resetFields()
     open.value = false
     Message.success(t('message.success'))
-    contactStore.refetch()
+    emits('success')
   },
 })
 
 function handleSubmit() {
-  return formRef.value?.validate((errors) => {
+  return formRef.value?.validate(async (errors) => {
     if (errors)
       return
 
-    mutate({
-      ...form,
-      dept_id: props.dept!.id,
-      org_num: corp.value!.num,
-    }, {
+    // @ts-expect-error type error: `defineExpose` no type declare find
+    const { upload } = avatarUploaderRef.value
+    if (form.avatar && !isRemoteImage(form.avatar)) {
+      await upload()
+    }
+
+    mutate(form, {
       onSuccess: () => {
         formRef.value?.resetFields()
-        emits('success')
       },
     })
   })
@@ -77,12 +67,15 @@ function handleSubmit() {
       <DialogContent
         class="fixed left-[50%] top-[50%] z-[100] max-h-[85vh] max-w-[450px] w-[90vw] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] data-[state=open]:animate-ease-in focus:outline-none">
         <DialogTitle class="m0 text-center text-lg font-semibold leading-loose">
-          {{ t('dept.edit') }}
+          {{ t('corp.create.form.title') }}
         </DialogTitle>
 
         <a-form ref="formRef" :model="form" @submit="handleSubmit">
-          <a-form-item field="name" :label="t('org-form.name.label')" :rules="[{ required: true }]">
+          <a-form-item field="name" :label="t('org-form.name.label')">
             <a-input v-model="form.name" />
+          </a-form-item>
+          <a-form-item field="avatar" :label="t('member.form.avatar.label')" :validate-trigger="['change', 'blur']">
+            <AvatarUploader ref="avatarUploaderRef" v-model:src="form.avatar" />
           </a-form-item>
         </a-form>
 

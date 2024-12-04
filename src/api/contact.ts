@@ -71,6 +71,7 @@ export interface MemberModel {
   dept_id: number
   country_code: string
   phone: string
+  job_num: number
   type: MemberType
   tts: 0 | 1
   loc_share: 0 | 1

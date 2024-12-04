@@ -2,7 +2,7 @@ import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosReq
 import type { WeilaRes } from '..'
 import { Message } from '@arco-design/web-vue'
 import axios from 'axios'
-import { access_token, app_id, app_sign, isNeedRefresh, timestamp } from '~/shared/states'
+import { access_token, app_id, app_sign, isNeedRefresh, logout, timestamp } from '~/shared/states'
 import defaultConfig, { WeilaErrorCode } from '..'
 import { tryRefreshToken } from '../refresh'
 // import { tryRefreshToken } from '../refresh'
@@ -61,8 +61,7 @@ weilaRequest.interceptors.response.use(
       // return { data: undefined, ...response.data }
     }
     else if (errcode === WeilaErrorCode.TOKEN_INVALID) {
-      if (!location.href.includes('login'))
-        location.href = '/login'
+      logout()
     }
     else {
       const message = `${response.data.errcode} ${response.data.errmsg}`

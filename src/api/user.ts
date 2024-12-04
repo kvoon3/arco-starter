@@ -55,19 +55,16 @@ export interface LoginRes {
 
 export async function login(
   params: { account: string, password: string },
-  loginType: MaybeRef<'phone' | 'name'>,
 ) {
   const {
     account,
     password,
   } = params
 
-  const type = unref(loginType)
-
   const { data } = await weilaRequest.post<LoginModel>(
-    `/corp/web/login-by-${type}`,
+    `/corp/web/login`,
     {
-      [type === 'phone' ? 'phone' : 'user_name']: account,
+      account,
       password: md5(password),
     },
   )

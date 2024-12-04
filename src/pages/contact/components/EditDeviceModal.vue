@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { objectPick } from '@antfu/utils'
+import { objectEntries, objectPick } from '@antfu/utils'
 import { Message } from '@arco-design/web-vue'
 import { useMutation, useQuery } from '@tanstack/vue-query'
 import { weilaApiUrl } from '~/api'
 import type { MemberModel } from '~/api/contact'
+import { TrackType } from '~/api/contact'
 import { weilaFetch } from '~/api/instances/fetcher'
 import { weilaRequest } from '~/api/instances/request'
 
@@ -44,8 +45,22 @@ interface Payload {
   phone: string
   tts: 0 | 1
   loc_share: 0 | 1
-  job_num: number
+  track: TrackType
 }
+
+const TrackTypeNameMap = {
+  [TrackType.Close]: t('track-type.close'),
+  [TrackType.High]: t('track-type.high'),
+  [TrackType.Medium]: t('track-type.medium'),
+  [TrackType.Low]: t('track-type.low'),
+  [TrackType.Keep]: t('track-type.keep'),
+}
+
+const trackOptions = objectEntries(TrackTypeNameMap)
+  .map(([value, key]) => ({
+    label: key,
+    value,
+  }))
 
 let form = reactive<Payload>({
   ...objectPick(props.member || {} as any, [
@@ -56,7 +71,7 @@ let form = reactive<Payload>({
     'phone',
     'tts',
     'loc_share',
-    'job_num',
+    'track',
   ], false),
   org_num: org_num.value,
   member_id: props.member?.user_id || 0,
@@ -75,7 +90,7 @@ watch(() => props.member, (member) => {
       'phone',
       'tts',
       'loc_share',
-      'job_num',
+      'track',
     ], false),
     org_num: org_num.value,
     member_id: member?.user_id,
@@ -138,7 +153,7 @@ function handleSubmit() {
           if (target?.closest('.arco-select-option')) return event.preventDefault()
         }">
         <DialogTitle class="m0 text-center text-lg font-semibold leading-loose">
-          {{ t('edit-member') }}
+          {{ t('edit-device') }}
         </DialogTitle>
         <a-form ref="formRef" :model="form" @submit="handleSubmit">
           <a-form-item field="name" :label="t('member.form.name.label')" :rules="[{ required: true }]"
@@ -152,11 +167,7 @@ function handleSubmit() {
               <a-option v-for="{ name, id }, key in depts" :key :value="id" :label="name" />
             </a-select>
           </a-form-item>
-          <a-form-item field="job_num" :label="t('member.form.job-num.label')" :rules="[{}]"
-            :validate-trigger="['change', 'blur']">
-            <a-input-number v-model="form.job_num" />
-          </a-form-item>
-          <a-form-item field="phone" :label="t('member.form.phone.label')" :rules="[{}]"
+          <a-form-item field="phone" :label="t('member.form.phone.label')" :rules="[{ required: false }]"
             :validate-trigger="['change', 'blur']">
             <a-input v-model="form.phone" placeholder="Enter phone number" />
           </a-form-item>
@@ -181,6 +192,10 @@ function handleSubmit() {
             :validate-trigger="['change', 'blur']">
             <a-switch v-model="form.loc_share" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"
               unchecked-color="#ddd" />
+          </a-form-item>
+          <a-form-item field="track" :label="t('change-member.form.track.label')"
+            :validate-trigger="['change', 'blur']">
+            <a-radio-group v-model="form.track" type="button" :default-value="form.track" :options="trackOptions" />
           </a-form-item>
         </a-form>
 

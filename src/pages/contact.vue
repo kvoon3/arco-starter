@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { objectKeys } from '@antfu/utils'
 import { reactive } from 'vue'
-import OrgForm from './contact/components/org-form.vue'
+import CreateCorpModal from './contact/components/CreateCorpModal.vue'
 
 definePage({
   alias: ['/'],
@@ -13,7 +13,14 @@ definePage({
 const { t } = useI18n()
 const router = useRouter()
 
+const corpStore = useCorpStore()
+const { refetch } = corpStore
+const { data: corp, isFetching } = storeToRefs(useCorpStore())
+
+const isCreateCorpModalVisible = ref(false)
+
 const menus = reactive({
+  '/contact/org': t('corp-info'),
   '/contact/group': t('submenu.group-manage'),
   '/contact/dept': t('submenu.dept-manage'),
   '/contact/member': t('submenu.member-manage'),
@@ -28,36 +35,29 @@ watch(router.currentRoute, (curRoute) => {
     }))
   })]
 }, { immediate: true })
-
-const createCorpModalState = reactive({
-  visible: false,
-})
-
-const corpStore = useCorpStore()
-const { isSuccess, refetch } = corpStore
-const { data: corp } = storeToRefs(useCorpStore())
-
-const orgForm = templateRef('orgForm')
 </script>
 
 <template>
   <div h-full flex>
     <section h-full w60 shrink-0 border-r-1 p2 dark:border-gray-700 bg-base>
-      <a-menu v-model:selected-keys="selectedKeys">
-        <a-sub-menu v-if="corp">
+      <a-skeleton v-if="isFetching" animation>
+        <a-space direction="vertical" :style="{ width: '100%' }" size="large">
+          <a-skeleton-line :rows="4" />
+        </a-space>
+      </a-skeleton>
+      <a-menu v-model:selected-keys="selectedKeys" auto-open-selected :default-open-keys="['root']">
+        <a-sub-menu v-if="corp" key="root">
           <template #title>
             {{ corp.name }}
           </template>
-          <a-menu-item @click="router.push('/contact/org')">
-            {{ t('corp-info') }}
-          </a-menu-item>
           <a-menu-item v-for="label, path in menus" :key="path" @click="router.push(path)">
             {{ label }}
           </a-menu-item>
         </a-sub-menu>
-        <a-menu-item v-if="isSuccess && !corp" key="create corp" @click="createCorpModalState.visible = true">
+        <button v-if="!corp" hover="bg-primary-300" bg-primary color-white list-btn
+          @click="isCreateCorpModalVisible = true">
           {{ t('corp.create.form.title') }}
-        </a-menu-item>
+        </button>
       </a-menu>
     </section>
     <section h-full w-full>
@@ -65,8 +65,5 @@ const orgForm = templateRef('orgForm')
     </section>
   </div>
 
-  <a-modal v-model:visible="createCorpModalState.visible" :title="t('corp.create.form.title')"
-    @before-ok="(done) => orgForm?.submit().then(() => { done(true); refetch() }).catch(() => done(false))">
-    <OrgForm ref="orgForm" />
-  </a-modal>
+  <CreateCorpModal v-model:open="isCreateCorpModalVisible" @success="refetch" />
 </template>

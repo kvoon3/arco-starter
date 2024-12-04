@@ -30,6 +30,8 @@ button:
   add-member: 添加成员
   cancel: 取消
   checkout: 查看
+  copy: 复制
+  copyd: 复制成功
   create: 创建
   create-dept: 创建部门
   create-group: 创建群组
@@ -67,10 +69,13 @@ change-member-settings-form:
 close: 关闭
 confirm-password: 确认密码
 controls: 操作
+copy:
+  current-copy: 已复制
 corp:
   create:
     form:
       title: 创建企业
+  edit: 修改企业
   member: 组织成员
 corp-info: 企业详情
 create-member: 创建成员
@@ -102,6 +107,7 @@ group:
   settings:
     members: 成员
     title: 群组设置
+job-number: 工号
 latitude: 纬度
 loc_share: 位置共享
 login:
@@ -113,10 +119,11 @@ login:
       placeholder: 用户密码
     register: 注册
     rememberPassword: 记住密码
+    successMsg: 登录成功
     title: 登录
     userName:
       errMsg: 用户名未填写
-      placeholder: 用户名
+      placeholder: 用户名/手机号
   type:
     phone: 手机号
     username: 账号
@@ -131,6 +138,8 @@ member:
       label: 部门
     gender:
       label: 性别
+    job-num:
+      label: 工号
     loc_share:
       label: 位置共享
     name:
@@ -160,6 +169,8 @@ message:
 name: 名称
 new-password: 新密码
 no-data: 暂无数据
+no-intro-data: 无描述信息
+none: 无
 offline: 离线
 old-password: 旧密码
 online: 在线
@@ -195,7 +206,7 @@ register:
       placeholder: 你的电话号码
     sendSMS: 发送
     submit: 提交
-    successMsg: 成功
+    successMsg: 注册成功
     title: 注册
     verifyCode:
       errMsg: 验证码为必填项
@@ -241,5 +252,10 @@ user:
   phone: 电话
 user-count: 用户数量
 user-track: 用户轨迹
+user-type:
+  device: 设备
+  member: 成员
+  owner: 企业主
+verify-code: 验证码
 verify-image-code: 验证图形代码
 weila-number: 微喇号

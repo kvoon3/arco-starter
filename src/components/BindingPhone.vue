@@ -2,7 +2,6 @@
 import Message from '@arco-design/web-vue/es/message'
 import { useMutation } from '@tanstack/vue-query'
 import { weilaRequest } from '~/api/instances/request'
-import { sendVerifySms } from '~/api/verify-sms'
 
 const emits = defineEmits(['success'])
 const { t } = useI18n()
@@ -22,16 +21,6 @@ const form = reactive<BindingPhonePayload>({
   password: '',
   verify_code: '',
   verify_img_code: '',
-})
-
-const { mutate: sendSMS } = useMutation({
-  mutationFn: sendVerifySms,
-  onSuccess() {
-    Message.success(t('sendSMS.success.hint'))
-  },
-  onError(error) {
-    Message.error(error.message || 'Request Error')
-  },
 })
 
 const { mutate, isPending } = useMutation({
@@ -95,10 +84,12 @@ function handleSubmit() {
             :validate-trigger="['blur', 'change']">
             <div class="flex items-center">
               <a-input v-model="form.verify_code" class="mr-2 flex-grow" />
-              <a-button :loading="isPending" class="flex-shrink-0"
-                @click="() => sendSMS({ phone: form.phone, verify_code: form.verify_code, country_code: '86', sms_type: 'bind-phone' })">
-                {{ t('button.send') }}
-              </a-button>
+              <SendSmsButton :opts="{
+                phone: form.phone,
+                verify_code: form.verify_code,
+                country_code: '86',
+                sms_type: 'bind-phone',
+              }" @error="() => verifyImg?.refetch()" />
             </div>
           </a-form-item>
 
@@ -106,12 +97,6 @@ function handleSubmit() {
             :rules="[{ required: true, message: t('binding-phone-form.err-msg.password') }]"
             :validate-trigger="['blur', 'change']">
             <a-input-password v-model="form.password" />
-          </a-form-item>
-
-          <a-form-item>
-            <a-button type="primary" html-type="submit" :loading="isPending" class="w-full">
-              {{ t('button.submit') }}
-            </a-button>
           </a-form-item>
         </a-form>
 

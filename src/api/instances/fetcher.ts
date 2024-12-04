@@ -1,7 +1,7 @@
 import type { WeilaRes } from '..'
 import { Message } from '@arco-design/web-vue'
 import { ofetch } from 'ofetch'
-import { access_token, app_id, app_sign, isNeedRefresh, timestamp } from '~/shared/states'
+import { access_token, app_id, app_sign, isNeedRefresh, logout, timestamp } from '~/shared/states'
 import defaultConfig, { WeilaErrorCode } from '..'
 import { tryRefreshToken } from '../refresh'
 
@@ -34,8 +34,7 @@ export const weilaFetch = ofetch.create({
       response._data = response._data.data
     }
     else if (errcode === WeilaErrorCode.TOKEN_INVALID) {
-      if (!location.href.includes('login'))
-        location.href = '/login'
+      logout()
     }
     else {
       Message.error(`${errcode} ${errmsg}`)

@@ -6,6 +6,8 @@ import { weilaApiUrl } from '~/api'
 import { weilaFetch } from '~/api/instances/fetcher'
 import { weilaRequest } from '~/api/instances/request'
 
+const emits = defineEmits(['success'])
+
 const { t } = useI18n()
 const { themeColor } = useAppStore()
 const corpStore = useCorpStore()
@@ -37,6 +39,7 @@ interface NewMemberPayload {
   phone: string
   tts: number
   loc_share: number
+  job_num: number
 }
 
 const form = reactive<NewMemberPayload>({
@@ -49,6 +52,7 @@ const form = reactive<NewMemberPayload>({
   phone: '',
   tts: 0,
   loc_share: 0,
+  job_num: 0,
 })
 
 $inspect(form)
@@ -71,6 +75,7 @@ const { mutate: createMember, isPending } = useMutation({
     // createMemberModalVisible.value = false
     Message.success(t('message.success'))
     open.value = false
+    emits('success')
   },
 })
 
@@ -123,7 +128,11 @@ function handleSubmit() {
               <a-option v-for="{ name, id }, key in depts" :key :value="id" :label="name" />
             </a-select>
           </a-form-item>
-          <a-form-item field="phone" :label="t('member.form.phone.label')" :rules="[{ required: true }]"
+          <a-form-item field="job_num" :label="t('member.form.job-num.label')" :rules="[{ required: false }]"
+            :validate-trigger="['change', 'blur']">
+            <a-input-number v-model="form.job_num" />
+          </a-form-item>
+          <a-form-item field="phone" :label="t('member.form.phone.label')" :rules="[{ required: false }]"
             :validate-trigger="['change', 'blur']">
             <a-input v-model="form.phone" placeholder="Enter phone number" />
           </a-form-item>

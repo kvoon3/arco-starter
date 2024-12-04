@@ -19,6 +19,16 @@ export const refresh_token = useLocalStorage('refresh_token', '')
 export const expires_in = useLocalStorage('expires_in', -1)
 export const last_login_time = useLocalStorage('last_login_time', -1)
 
+export function logout() {
+  return new Promise((resolve) => {
+    access_token.value = ''
+    refresh_token.value = ''
+    last_login_time.value = -1
+    expires_in.value = -1
+    resolve(void 0)
+  })
+}
+
 watch(access_token, (token) => {
   if (token)
     last_login_time.value = timestamp.value

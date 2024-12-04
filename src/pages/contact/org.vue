@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import OrgForm from './components/org-form.vue'
+import EditCorpModal from './components/EditCorpModal.vue'
 
 const { t } = useI18n()
 
@@ -7,9 +7,7 @@ const corpStore = useCorpStore()
 const { refetch } = corpStore
 const { data: corp } = storeToRefs(corpStore)
 
-const editCorpModalState = reactive({ visible: false })
-
-const orgForm = templateRef('orgForm')
+const isEditCorpModalVisible = ref(false)
 </script>
 
 <template>
@@ -20,25 +18,20 @@ const orgForm = templateRef('orgForm')
         <header flex justify-between>
           <div flex>
             <img :src="corp?.avatar || '/default-avatar.png'" :alt="corp?.name || 'Organization'"
-              class="mr-4 size-20 rounded object-cover">
+              class="mr-4 rounded object-cover size-20">
             <div>
               <h1 class="mb-4 text-2xl text-gray-800 font-semibold dark:text-white">
                 {{ corp?.name || 'Organization' }} (企业号：{{ corp?.num }})
               </h1>
               <p class="mb-4 text-gray-600 dark:text-gray-300">
-                {{ corp?.intro || 'No introduction available' }}
+                {{ corp?.intro || t('no-intro-data') }}
               </p>
             </div>
           </div>
-          <a-button type="primary" rounded @click="editCorpModalState.visible = true">
+          <a-button type="primary" rounded @click="isEditCorpModalVisible = true">
             <i i-ph-pen mr2 inline-block />
             {{ t('button.edit') }}
           </a-button>
-
-          <a-modal v-model:visible="editCorpModalState.visible" :title="t('edit')"
-            @ok="() => orgForm?.submit().then(() => refetch())">
-            <OrgForm ref="orgForm" :org-number="corp?.num" :corp-name="corp?.name" />
-          </a-modal>
         </header>
         <section class="flex flex-wrap gap-4">
           <dl class="flex items-center">
@@ -104,4 +97,6 @@ const orgForm = templateRef('orgForm')
       </div>
     </div>
   </div>
+
+  <EditCorpModal v-model:open="isEditCorpModalVisible" :avatar="corp?.avatar" :name="corp?.name" @success="refetch" />
 </template>

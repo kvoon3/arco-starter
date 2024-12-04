@@ -68,15 +68,8 @@ function setVisible() {
       </template>
     </a-button>
   </div>
-  <a-drawer
-    :width="300"
-    unmount-on-close
-    :visible="visible"
-    :cancel-text="t('settings.close')"
-    :ok-text="t('settings.copySettings')"
-    @ok="copySettings"
-    @cancel="cancel"
-  >
+  <a-drawer :width="300" unmount-on-close :visible="visible" :cancel-text="t('settings.close')"
+    :ok-text="t('settings.copySettings')" @ok="copySettings" @cancel="cancel">
     <template #title>
       {{ t('settings.title') }}
     </template>
@@ -87,7 +80,7 @@ function setVisible() {
 </template>
 
 <style scoped lang="less">
-  .fixed-settings {
+.fixed-settings {
   position: fixed;
   top: 280px;
   right: 0;

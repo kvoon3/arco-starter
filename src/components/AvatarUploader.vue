@@ -3,11 +3,8 @@ import Message from '@arco-design/web-vue/es/message'
 import { UseImage } from '@vueuse/components'
 import { useFileSystemAccess } from '@vueuse/core'
 import { defineEmits } from 'unplugin-vue-macros/macros'
-import { defineExpose } from 'vue'
 import { weilaRequest } from '~/api/instances/request'
 import TheCropper from '~/components/TheCropper.vue'
-
-// TODO: upload to server manually
 
 const emits = defineEmits<{
   uploading: (precent: number) => void
@@ -29,13 +26,12 @@ const { file, open } = useFileSystemAccess({
   ],
 })
 
-watch(file, () => {
-  isCropperModalVisible.value = true
+watch(file, (f) => {
+  if (f)
+    isCropperModalVisible.value = true
 })
 
 function upload() {
-  console.log('upload')
-
   if (!compressedFile.value)
     return
 

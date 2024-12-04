@@ -7,8 +7,9 @@ import { weilaApiUrl } from '~/api'
 import { type MemberModel, TrackType } from '~/api/contact'
 import { weilaFetch } from '~/api/instances/fetcher'
 import { weilaRequest } from '~/api/instances/request'
-import AddDeviceTrigger from './components/AddDeviceTrigger.vue'
-import CreateMemberTrigger from './components/CreateMemberTrigger.vue'
+import AddDeviceModal from './components/AddDeviceModal.vue'
+import CreateMemberModal from './components/CreateMemberModal.vue'
+import EditDeviceModal from './components/EditDeviceModal.vue'
 import EditMemberModal from './components/EditMemberModal.vue'
 import ResetPasswordModal from './components/ResetMemberPasswordModal.vue'
 
@@ -16,7 +17,7 @@ definePage({
   alias: 'member',
 })
 
-const { data: corp } = storeToRefs(useCorpStore())
+const { data: corp, org_num } = storeToRefs(useCorpStore())
 const { t } = useI18n()
 const { themeColor } = useAppStore()
 const route = useRoute('/contact/member-[[dept_id]]-[[dept_name]]')
@@ -60,7 +61,17 @@ const { data: members, refetch } = useQuery<Array<MemberModel>>({
   }).then(i => i.members),
 })
 
-$inspect(members)
+const { data: depts } = useQuery<Array<{ id: number, name: string }>>({
+  enabled: computed(() => Boolean(org_num.value)),
+  queryKey: [weilaApiUrl['/corp/web/dept-getall'], org_num],
+  queryFn: () => weilaFetch(weilaApiUrl['/corp/web/dept-getall'], {
+    body: {
+      org_num: org_num.value,
+    },
+  }).then(i => i.depts),
+})
+
+// const selectedDepts = ref('')
 
 const cols = computed(() => {
   const first = members.value?.[0]
@@ -73,21 +84,12 @@ $inspect(cols)
 
 const selectedMember = ref<MemberModel | undefined>(undefined)
 
-const isEditModalVisible = ref(false)
+const isEditMemberModalVisible = ref(false)
+const isEditDeviceModalVisible = ref(false)
 const isResetPasswordModalVisible = ref(false)
 
 function onSelect(member: MemberModel, _: PointerEvent) {
   selectedMember.value = member
-
-  // const whitelistEl = ['.arco-switch', '.arco-btn']
-
-  // // @ts-expect-error type error: no closest attr
-  // if (whitelistEl.find(className => e.target?.closest(className))) {
-  //   return
-  // }
-
-  // isEditModalVisible.value = true
-  // router.push(`/contact/member-${member.dept_id}-${member.user_id}`)
 }
 
 const { mutateAsync: changeMemberState } = useMutation({
@@ -112,21 +114,32 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
 <template>
   <div w-full p4 space-y-4>
     <a-breadcrumb>
-      <a-breadcrumb-item>{{ t('submenu.member-manage') }}</a-breadcrumb-item>
+      <RouterLink to="/contact/member">
+        <a-breadcrumb-item>{{ t('submenu.member-manage') }}</a-breadcrumb-item>
+      </RouterLink>
       <!-- <a-breadcrumb-item>{{ t('member-list') }}</a-breadcrumb-item> -->
+      <a-breadcrumb-item v-if="route.params.dept_id">
+        {{ route.params.dept_name }}
+      </a-breadcrumb-item>
     </a-breadcrumb>
     <div w-full rounded p4 space-y-4 bg-base>
-      <section space-x-2>
-        <CreateMemberTrigger>
+      <section flex items-center space-x-2>
+        <CreateMemberModal @success="refetch">
           <a-button type="primary">
             <i i-ph-plus inline-block /> {{ t('button.create-member') }}
           </a-button>
-        </CreateMemberTrigger>
-        <AddDeviceTrigger>
+        </CreateMemberModal>
+        <AddDeviceModal @success="refetch">
           <a-button type="primary">
             <i i-ph-plus inline-block /> {{ t('button.add-device') }}
           </a-button>
-        </AddDeviceTrigger>
+        </AddDeviceModal>
+        <!-- <a-select v-model:model-value="selectedDepts" :placeholder="t('dept.name')" allow-search allow-clear
+          size="large" w-50>
+          <a-option v-for="dept in depts" :key="dept.id">
+            {{ dept.name }}
+          </a-option>
+        </a-select> -->
       </section>
       <!-- @vue-expect-error type error when arco's row-click -->
       <a-table :columns="cols" :data="members" :column-resizable="true" :scroll="{
@@ -148,6 +161,15 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
                   {{ t('member-state.paused') }}
                 </template>
               </a-switch>
+            </template>
+          </a-table-column>
+          <a-table-column :title="t('type')">
+            <template #cell="{ record: { type } }">
+              {{ {
+                0: t('user-type.member'),
+                1: t('user-type.device'),
+                255: t('user-type.owner'),
+              }[Number(type)] }}
             </template>
           </a-table-column>
           <a-table-column :title="memberIdxTitleMap.online">
@@ -177,6 +199,11 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
               {{ user_num }}
             </template>
           </a-table-column>
+          <a-table-column :title="t('job-number')">
+            <template #cell="{ record: { job_num } }">
+              {{ job_num }}
+            </template>
+          </a-table-column>
           <a-table-column :title="t('created')">
             <template #cell="{ record: { created } }">
               {{ new Date(created * 1000).toLocaleDateString() }}
@@ -184,7 +211,7 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
           </a-table-column>
 
           <a-table-column
-            v-for="(val, key) in objectOmit(memberIdxTitleMap, ['avatar', 'sex', 'tts', 'track', 'online', 'state', 'loc_share', 'created'])"
+            v-for="(val, key) in objectOmit(memberIdxTitleMap, ['avatar', 'sex', 'tts', 'track', 'online', 'state', 'loc_share', 'created', 'dept_name'])"
             :key :title="val" :data-index="key" />
           <a-table-column :title="memberIdxTitleMap.loc_share">
             <template #cell="{ record: { loc_share } }">
@@ -194,6 +221,18 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
               <a-tag v-else color="gray">
                 {{ t('close') }}
               </a-tag>
+            </template>
+          </a-table-column>
+          <a-table-column :title="t('dept.name')" data-index="dept_name" :filterable="{
+            filters: depts?.map((dept) => ({
+              text: dept.name,
+              value: String(dept.id),
+            })) || [],
+            filter: (value, record) => Number(record.dept_id) === Number(value),
+            multiple: true,
+          }">
+            <template #cell="{ record: { dept_name } }">
+              {{ dept_name }}
             </template>
           </a-table-column>
           <a-table-column :title="memberIdxTitleMap.tts">
@@ -214,9 +253,8 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
               </a-tag>
             </template>
           </a-table-column>
-          <!-- TODO: 解决遮挡问题 -->
-          <a-table-column :title="t('controls')" fixed="right" :width="200">
-            <template #cell>
+          <a-table-column :title="t('controls')">
+            <template #cell="{ record: { type } }">
               <div flex gap2>
                 <!-- <a-dropdown :popup-max-height="false">
                   <a-button>No Max Height <icon-down /></a-button>
@@ -230,7 +268,9 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
                 <a-dropdown :popup-max-height="false">
                   <a-button>{{ t('controls') }}<icon-down /></a-button>
                   <template #content>
-                    <a-doption @click="isEditModalVisible = true">
+                    <a-doption @click="type === 1
+                      ? isEditDeviceModalVisible = true
+                      : isEditMemberModalVisible = true">
                       {{ t('button.edit') }}
                     </a-doption>
                     <a-doption @click="isResetPasswordModalVisible = true">
@@ -256,6 +296,7 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
     </div>
   </div>
 
-  <EditMemberModal v-model:open="isEditModalVisible" :member="selectedMember" @success="refetch" />
+  <EditMemberModal v-model:open="isEditMemberModalVisible" :member="selectedMember" @success="refetch" />
+  <EditDeviceModal v-model:open="isEditDeviceModalVisible" :member="selectedMember" @success="refetch" />
   <ResetPasswordModal v-model:open="isResetPasswordModalVisible" :member="selectedMember" />
 </template>

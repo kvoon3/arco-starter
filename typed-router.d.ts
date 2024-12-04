@@ -20,7 +20,6 @@ declare module 'vue-router/auto-routes' {
   export interface RouteNamedMap {
     '/[...catch]': RouteRecordInfo<'/[...catch]', '/:catch(.*)', { catch: ParamValue<true> }, { catch: ParamValue<false> }>,
     '/contact': RouteRecordInfo<'/contact', '/contact', Record<never, never>, Record<never, never>>,
-    '/contact/deprecated-member-[dept_id]-[user_id]': RouteRecordInfo<'/contact/deprecated-member-[dept_id]-[user_id]', '/contact/deprecated-member-:dept_id-:user_id', { dept_id: ParamValue<true>, user_id: ParamValue<true> }, { dept_id: ParamValue<false>, user_id: ParamValue<false> }>,
     '/contact/dept': RouteRecordInfo<'/contact/dept', '/contact/dept', Record<never, never>, Record<never, never>>,
     '/contact/group': RouteRecordInfo<'/contact/group', '/contact/group', Record<never, never>, Record<never, never>>,
     '/contact/group-[group_id]-[group_name]': RouteRecordInfo<'/contact/group-[group_id]-[group_name]', '/contact/group-:group_id-:group_name', { group_id: ParamValue<true>, group_name: ParamValue<true> }, { group_id: ParamValue<false>, group_name: ParamValue<false> }>,

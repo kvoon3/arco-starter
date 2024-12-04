@@ -21,8 +21,6 @@ interface Form {
   password: string
 }
 
-const loginType = ref<'name' | 'phone'>('name')
-
 const form = reactive<Form>({
   account: '',
   password: '',
@@ -31,10 +29,10 @@ const form = reactive<Form>({
 // const [isRememberPassword, toggleRememberPassword] = useToggle(false)
 
 const { mutate, isPending, data } = useMutation({
-  mutationFn: (params: Form) => login(params, loginType),
+  mutationFn: (params: Form) => login(params),
   onSuccess(data) {
     Message.success({
-      content: t('register.form.successMsg'),
+      content: t('login.form.successMsg'),
     })
 
     if (!data)
@@ -60,24 +58,12 @@ function handleSubmit({ values, errors }: OnSubmitParams<Form>) {
 
 <template>
   <div class="login-form-wrapper">
-    <div class="login-form-title">
-      {{ t('login.form.title') }}
-    </div>
-    <div class="login-form-sub-title">
+    <div class="login-form-title" mb-4>
       {{ t('login.form.title') }}
     </div>
     <!-- <div class="login-form-error-msg">
       {{ errorMessage }}
     </div> -->
-
-    <a-radio-group v-model="loginType" my4>
-      <a-radio value="name">
-        {{ t('login.type.username') }}
-      </a-radio>
-      <a-radio value="phone">
-        {{ t('login.type.phone') }}
-      </a-radio>
-    </a-radio-group>
     <!-- @vue-expect-error type error -->
     <a-form :model="form" class="login-form" layout="vertical" @submit="handleSubmit">
       <a-form-item field="account" :rules="[{ required: true, message: t('login.form.userName.errMsg') }]"

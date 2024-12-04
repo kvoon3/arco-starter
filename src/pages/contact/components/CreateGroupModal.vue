@@ -91,7 +91,7 @@ function handleSubmit() {
           <a-form-item field="name" :label="t('org-form.name.label')" :rules="[{ required: true }]">
             <a-input v-model="form.name" />
           </a-form-item>
-          <a-form-item field="avatar" :label="t('avatar')" :rules="[{ required: true }]">
+          <a-form-item field="avatar" :label="t('avatar')" :rules="[{}]">
             <AvatarUploader ref="avatarUploaderRef" v-model:src="form.avatar" />
           </a-form-item>
           <a-form-item field="burst_mode" :label="t('burst-mode')" :rules="[{ required: true }]">
