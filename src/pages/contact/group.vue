@@ -62,7 +62,7 @@ function onSelect(group: GroupModel, e: PointerEvent) {
         <template #columns>
           <a-table-column :title="t('avatar')">
             <template #cell="{ record: { avatar } }">
-              <UseImage class="size-20 border rounded-lg" :src="avatar">
+              <UseImage class="border rounded-lg size-20" :src="avatar">
                 <template #loading>
                   <div class="h-full w-full flex items-center justify-center">
                     <i class="i-carbon-progress-bar-round text-2xl text-gray-500" />
@@ -71,7 +71,7 @@ function onSelect(group: GroupModel, e: PointerEvent) {
 
                 <template #error>
                   <div class="h-full w-full flex items-center justify-center">
-                    <i class="i-carbon-no-image text-2xl text-red-500" />
+                    <i class="i-carbon-no-image text-2xl size-15" />
                   </div>
                 </template>
               </UseImage>

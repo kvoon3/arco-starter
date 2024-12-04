@@ -14,19 +14,18 @@ import mkcert from 'vite-plugin-mkcert'
 import { viteMockServe as ViteMockServe } from 'vite-plugin-mock'
 import Layouts from 'vite-plugin-vue-layouts'
 import SvgLoader from 'vite-svg-loader'
-import { name } from './package.json'
 import ConfigArcoStyleImportPlugin from './plugins/arcoStyleImport'
 
 export default defineConfig({
   base: './',
-  // build: {
-  //   rollupOptions: {
-  //     input: {
-  //       'main': resolve(__dirname, 'index.html'),
-  //       'corp-manager': resolve(__dirname, 'corp-manager/index.html'),
-  //     },
-  //   },
-  // },
+  build: {
+    rollupOptions: {
+      input: {
+        'main': resolve(__dirname, 'index.html'),
+        'corp-manager': resolve(__dirname, 'corp-manager/index.html'),
+      },
+    },
+  },
   resolve: {
     alias: {
       '~/': `${path.resolve(__dirname, 'src')}/`,
@@ -68,7 +67,7 @@ export default defineConfig({
 
     ViteMockServe({
       mockPath: 'generated/mock',
-      enable: true,
+      enable: false,
     }),
 
     ViteYaml(),

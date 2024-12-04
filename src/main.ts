@@ -1,6 +1,6 @@
 import type { UserModule } from './types'
 import { setupLayouts } from 'virtual:generated-layouts'
-import { createWebHistory } from 'vue-router'
+import { createWebHashHistory } from 'vue-router'
 import { routes } from 'vue-router/auto-routes'
 import globalComponents from '~/components'
 import App from './App.vue'
@@ -22,7 +22,7 @@ setup(
   App,
   // vue-router options
   {
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes: setupLayouts(routes),
     scrollBehavior() {
       return { top: 0 }

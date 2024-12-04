@@ -45,7 +45,7 @@ watch(router.currentRoute, (curRoute) => {
           <a-skeleton-line :rows="4" />
         </a-space>
       </a-skeleton>
-      <a-menu v-model:selected-keys="selectedKeys" auto-open-selected :default-open-keys="['root']">
+      <a-menu v-else v-model:selected-keys="selectedKeys" auto-open-selected :default-open-keys="['root']">
         <a-sub-menu v-if="corp" key="root">
           <template #title>
             {{ corp.name }}

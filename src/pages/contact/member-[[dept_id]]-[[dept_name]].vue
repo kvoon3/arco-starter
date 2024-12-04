@@ -188,7 +188,7 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
 
                 <template #error>
                   <div class="h-full w-full flex items-center justify-center">
-                    <i class="i-carbon-no-image text-2xl text-red-500" />
+                    <i class="i-carbon-no-image text-2xl size-15" />
                   </div>
                 </template>
               </UseImage>

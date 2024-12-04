@@ -116,7 +116,7 @@ login:
     login: 登录
     password:
       errMsg: 用户密码未填写
-      placeholder: 用户密码
+      placeholder: 密码
     register: 注册
     rememberPassword: 记住密码
     successMsg: 登录成功
@@ -196,21 +196,21 @@ register:
   form:
     getSMS: 获取短信
     imgVerifyCode:
-      errMsg: 图像验证码为必填项
-      placeholder: 图像验证码
+      errMsg: 图形验证码为必填项
+      placeholder: 图形验证码
     login: 登录
     password:
       errMsg: 密码为必填项
     phone:
       errMsg: 输入正确的电话号码
-      placeholder: 你的电话号码
+      placeholder: 电话号码
     sendSMS: 发送
     submit: 提交
     successMsg: 注册成功
     title: 注册
     verifyCode:
       errMsg: 验证码为必填项
-      placeholder: 验证代码
+      placeholder: 验证码
 reset-password:
   button: 重置密码
   form:

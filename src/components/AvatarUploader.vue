@@ -82,7 +82,7 @@ defineExpose({
       </template>
       <template #error>
         <div class="h-20 w-20 flex items-center justify-center rounded bg-gray-300">
-          <i i-carbon-error class="text-3xl text-gray-500" />
+          <i i-carbon-image class="text-3xl text-gray-500" />
         </div>
       </template>
     </UseImage>
@@ -94,7 +94,7 @@ defineExpose({
   <DialogRoot v-model:open="isCropperModalVisible">
     <DialogPortal>
       <DialogOverlay class="data-[state=open]:animate-overlayShow fixed inset-0 z-100 bg-black:60" />
-      <DialogContent
+      <DialogContent bg-base
         class="fixed left-[50%] top-[50%] z-[100] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] data-[state=open]:animate-ease-in focus:outline-none">
         <DialogTitle class="m0 text-center text-lg font-semibold leading-loose">
           {{ t('crop.avatar') }}

@@ -70,6 +70,11 @@ function handleSubmit({ values, errors }: OnSubmitParams<Omit<Form, 'img_verify_
     password: md5(values.password),
   })
 }
+
+function onVerifyImgCodeError() {
+  verifyImg.value?.refetch()
+  form.img_verify_code = ''
+}
 </script>
 
 <template>
@@ -108,7 +113,7 @@ function handleSubmit({ values, errors }: OnSubmitParams<Omit<Form, 'img_verify_
           verify_code: form.img_verify_code,
           sms_type: 'regist',
           country_code: '86',
-        }" @error="() => verifyImg?.refetch()" />
+        }" @error="onVerifyImgCodeError" />
       </a-form-item>
 
       <a-form-item field="password" :rules="[{ required: true, message: t('register.form.password.errMsg') }]"
