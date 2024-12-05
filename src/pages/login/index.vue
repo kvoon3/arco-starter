@@ -1,10 +1,10 @@
 <script lang="ts" setup>
+import type { OnSubmitParams } from '~/types'
 import { objectKeys } from '@antfu/utils'
 import { Message } from '@arco-design/web-vue'
 import { useMutation } from '@tanstack/vue-query'
 import { login } from '~/api/user'
 import { access_token, expires_in, refresh_token } from '~/shared/states'
-import type { OnSubmitParams } from '~/types'
 
 definePage({
   meta: {
@@ -66,20 +66,16 @@ function handleSubmit({ values, errors }: OnSubmitParams<Form>) {
     </div> -->
     <!-- @vue-expect-error type error -->
     <a-form :model="form" class="login-form" layout="vertical" @submit="handleSubmit">
-      <a-form-item
-        field="account" :rules="[{ required: true, message: t('login.form.userName.errMsg') }]"
-        :validate-trigger="['change', 'blur']" hide-label
-      >
+      <a-form-item field="account" :rules="[{ required: true, message: t('login.form.userName.errMsg') }]"
+        :validate-trigger="['change', 'blur']" hide-label>
         <a-input v-model="form.account" :placeholder="t('login.form.userName.placeholder')">
           <template #prefix>
             <icon-user />
           </template>
         </a-input>
       </a-form-item>
-      <a-form-item
-        field="password" :rules="[{ required: true, message: t('login.form.password.errMsg') }]"
-        :validate-trigger="['change', 'blur']" hide-label
-      >
+      <a-form-item field="password" :rules="[{ required: true, message: t('login.form.password.errMsg') }]"
+        :validate-trigger="['change', 'blur']" hide-label>
         <a-input-password v-model="form.password" :placeholder="t('login.form.password.placeholder')" allow-clear>
           <template #prefix>
             <icon-lock />

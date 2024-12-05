@@ -6,7 +6,7 @@
       <span m0 border-0 p0 text-center text-12px class="ff">Copyright © 2014-2015 Voistech All Rights
         Reserved.&nbsp;</span>
       <span m0 border-0 p0 text-center text-12px class="ff">
-        <a href="http://beian.miit.gov.cn">粤ICP备05000494号-5</a>
+        <a href="http://beian.miit.gov.cn">粤ICP备05000494号</a>
       </span>
     </p>
   </a-layout-footer>

@@ -5,11 +5,10 @@ import { createReusableTemplate, useFullscreen, useToggle } from '@vueuse/core'
 import { computed, inject } from 'vue'
 import { weilaFetch } from '~/api/instances/fetcher'
 import Menu from '~/components/menu/index.vue'
-import { availableLocales, loadLanguageAsync } from '~/modules/i18n'
 import { isDark, logout } from '~/shared/states'
 import BindingPhone from '../BindingPhone.vue'
 
-const { t, locale } = useI18n()
+const { t /* locale */ } = useI18n()
 const router = useRouter()
 
 const appStore = useAppStore()
@@ -21,12 +20,12 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate()
 
 const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void
 
-async function toggleLocales() {
-  const locales = availableLocales
-  const newLocale = locales[(locales.indexOf(locale.value) + 1) % locales.length]
-  await loadLanguageAsync(newLocale)
-  locale.value = newLocale
-}
+// async function toggleLocales() {
+//   const locales = availableLocales
+//   const newLocale = locales[(locales.indexOf(locale.value) + 1) % locales.length]
+//   await loadLanguageAsync(newLocale)
+//   locale.value = newLocale
+// }
 
 const hoverState = ref(false)
 interface User {
@@ -50,10 +49,8 @@ const bindingPhoneModalVisible = ref(false)
 <template>
   <DefineTemplate>
     <div inline-block size-10>
-      <UseImage
-        v-if="user?.avatar" :src="user.avatar" alt="upload avatar"
-        class="mb-2 of-hidden of-hidden rounded-full object-cover"
-      >
+      <UseImage v-if="user?.avatar" :src="user.avatar" alt="upload avatar"
+        class="mb-2 of-hidden of-hidden rounded-full object-cover">
         <template #loading>
           <div class="animate-pulse rounded-full bg-gray-200 size-10" />
         </template>
@@ -68,24 +65,20 @@ const bindingPhoneModalVisible = ref(false)
   <div class="navbar">
     <div class="left-side">
       <a-space>
-        <img
-          alt="logo"
-          src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image"
-        >
+        <img alt="logo"
+          src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image">
         <a-typography-title :style="{ margin: 0, fontSize: '18px' }" :heading="5" max-lg:hidden>
           {{ t('project.name') }}
         </a-typography-title>
-        <icon-menu-fold
-          v-if="!topMenu && appStore.device === 'mobile'" style="font-size: 22px; cursor: pointer"
-          @click="toggleDrawerMenu"
-        />
+        <icon-menu-fold v-if="!topMenu && appStore.device === 'mobile'" style="font-size: 22px; cursor: pointer"
+          @click="toggleDrawerMenu" />
       </a-space>
     </div>
     <div class="center-side">
       <Menu v-if="topMenu" />
     </div>
     <ul class="right-side">
-      <li>
+      <!-- <li>
         <a-tooltip :content="t('settings.language')">
           <a-button class="nav-btn" type="outline" shape="circle" @click="toggleLocales">
             <template #icon>
@@ -93,7 +86,7 @@ const bindingPhoneModalVisible = ref(false)
             </template>
           </a-button>
         </a-tooltip>
-      </li>
+      </li> -->
       <li>
         <a-button class="nav-btn" type="outline" shape="circle" @click="toggleTheme()">
           <template #icon>
@@ -103,12 +96,10 @@ const bindingPhoneModalVisible = ref(false)
         </a-button>
       </li>
       <li>
-        <a-tooltip
-          :content="isFullscreen
-            ? t('settings.navbar.screen.toExit')
-            : t('settings.navbar.screen.toFull')
-          "
-        >
+        <a-tooltip :content="isFullscreen
+          ? t('settings.navbar.screen.toExit')
+          : t('settings.navbar.screen.toFull')
+          ">
           <a-button class="nav-btn" type="outline" shape="circle" @click="toggleFullScreen">
             <template #icon>
               <icon-fullscreen-exit v-if="isFullscreen" />
@@ -121,15 +112,13 @@ const bindingPhoneModalVisible = ref(false)
         <HoverCardRoot v-model:open="hoverState" :open-delay="0">
           <HoverCardTrigger
             class="inline-block cursor-pointer rounded-full shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] outline-none focus:shadow-[0_0_0_2px_white]"
-            target="_blank" rel="noreferrer noopener"
-          >
+            target="_blank" rel="noreferrer noopener">
             <ReuseTemplate />
           </HoverCardTrigger>
           <HoverCardPortal>
             <HoverCardContent
               class="data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade w-[300px] w-fit rounded-md p8 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] bg-base data-[state=open]:transition-all"
-              :side-offset="5"
-            >
+              :side-offset="5">
               <div v-if="user" class="flex flex-col gap-[7px]">
                 <ReuseTemplate class="mx-auto" />
                 <div class="flex-col gap-[15px] text-center">

@@ -1,10 +1,12 @@
 <script lang="ts" setup>
+import type { OnSubmitParams } from '~/types'
 import { objectKeys } from '@antfu/utils'
 import Message from '@arco-design/web-vue/es/message'
 import { useMutation } from '@tanstack/vue-query'
 import md5 from 'md5'
 import { weilaRequest } from '~/api/instances/request'
-import type { OnSubmitParams } from '~/types'
+import { login } from '~/api/user'
+import { access_token, expires_in, refresh_token } from '~/shared/states'
 import TheModal from '../contact/components/TheModal.vue'
 
 definePage({
@@ -22,6 +24,7 @@ const verifyImg = templateRef('verifyImg')
 const account = ref('')
 const { text, copy, copied, isSupported } = useClipboard()
 const isCopyModalVisible = ref(false)
+const router = useRouter()
 
 interface Form {
   phone: string
@@ -37,7 +40,26 @@ const form = reactive<Form>({
   password: '',
 })
 
-$inspect(form)
+const { mutate: tryLogin } = useMutation({
+  mutationFn: (params: {
+    account: string
+    password: string
+  }) => login(params),
+  onSuccess(data) {
+    Message.success({
+      content: t('login.form.successMsg'),
+    })
+
+    if (!data)
+      throw new Error('no data')
+
+    access_token.value = data.access_token
+    refresh_token.value = data.refresh_token
+    expires_in.value = data.expires_in
+
+    router.push('/contact')
+  },
+})
 
 const { mutate: register } = useMutation({
   async mutationFn(params: Omit<Form, 'img_verify_code'>) {
@@ -51,12 +73,17 @@ const { mutate: register } = useMutation({
       throw new Error('Request Error')
 
     account.value = data.user_name
+    return data
   },
-  onSuccess() {
+  onSuccess(data) {
     Message.success({
       content: t('register.form.successMsg'),
     })
-    isCopyModalVisible.value = true
+    // isCopyModalVisible.value = true
+    tryLogin({
+      account: data.user_name,
+      password: data.password,
+    })
   },
 })
 
@@ -87,10 +114,8 @@ function onVerifyImgCodeError() {
     </div>
     <!-- @vue-expect-error type error -->
     <a-form :model="form" class="login-form" layout="vertical" @submit="handleSubmit">
-      <a-form-item
-        field="phone" :rules="[{ required: true, message: t('register.form.phone.errMsg') }]"
-        :validate-trigger="['change', 'blur']" hide-label
-      >
+      <a-form-item field="phone" :rules="[{ required: true, message: t('register.form.phone.errMsg') }]"
+        :validate-trigger="['change', 'blur']" hide-label>
         <a-input v-model="form.phone" :placeholder="t('register.form.phone.placeholder')" allow-clear w-320px>
           <template #prepend>
             +86
@@ -98,40 +123,28 @@ function onVerifyImgCodeError() {
         </a-input>
       </a-form-item>
 
-      <a-form-item
-        field="img_verify_code"
+      <a-form-item field="img_verify_code"
         :rules="[{ required: true, message: t('register.form.imgVerifyCode.errMsg') }]"
-        :validate-trigger="['change', 'blur']" hide-label
-      >
-        <a-input
-          v-model="form.img_verify_code" :placeholder="t('register.form.imgVerifyCode.placeholder')" allow-clear
-          mr4 w50
-        />
+        :validate-trigger="['change', 'blur']" hide-label>
+        <a-input v-model="form.img_verify_code" :placeholder="t('register.form.imgVerifyCode.placeholder')" allow-clear
+          mr4 w50 />
         <VerifyImg ref="verifyImg" />
       </a-form-item>
 
-      <a-form-item
-        field="verify_code" :rules="[{ required: true, message: t('register.form.verifyCode.errMsg') }]"
-        :validate-trigger="['change', 'blur']" hide-label
-      >
-        <a-input
-          v-model="form.verify_code" :placeholder="t('register.form.verifyCode.placeholder')" allow-clear mr4
-          w-auto
-        />
-        <SendSmsButton
-          :opts="{
-            phone: form.phone,
-            verify_code: form.img_verify_code,
-            sms_type: 'regist',
-            country_code: '86',
-          }" @error="onVerifyImgCodeError"
-        />
+      <a-form-item field="verify_code" :rules="[{ required: true, message: t('register.form.verifyCode.errMsg') }]"
+        :validate-trigger="['change', 'blur']" hide-label>
+        <a-input v-model="form.verify_code" :placeholder="t('register.form.verifyCode.placeholder')" allow-clear mr4
+          w-auto />
+        <SendSmsButton :opts="{
+          phone: form.phone,
+          verify_code: form.img_verify_code,
+          sms_type: 'regist',
+          country_code: '86',
+        }" @error="onVerifyImgCodeError" />
       </a-form-item>
 
-      <a-form-item
-        field="password" :rules="[{ required: true, message: t('register.form.password.errMsg') }]"
-        :validate-trigger="['change', 'blur']" hide-label
-      >
+      <a-form-item field="password" :rules="[{ required: true, message: t('register.form.password.errMsg') }]"
+        :validate-trigger="['change', 'blur']" hide-label>
         <a-input-password v-model="form.password" :placeholder="t('login.form.password.placeholder')" allow-clear>
           <template #prefix>
             <icon-lock />
@@ -164,7 +177,7 @@ function onVerifyImgCodeError() {
         <a-button type="primary" :disabled="!isSupported" @click="copy(account)">
           <template v-if="isSupported">
             <span v-if="!copied">{{ t('button.copy') }}</span>
-            <span v-else>{{ t('button.copyd') }}</span>
+            <span v-else>{{ t('button.copied') }}</span>
           </template>
         </a-button>
       </div>

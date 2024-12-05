@@ -31,7 +31,7 @@ button:
   cancel: 取消
   checkout: 查看
   copy: 复制
-  copyd: 复制成功
+  copied: 复制成功
   create: 创建
   create-dept: 创建部门
   create-group: 创建群组

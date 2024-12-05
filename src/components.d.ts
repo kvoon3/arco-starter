@@ -30,7 +30,6 @@ declare module 'vue' {
     HoverCardTrigger: typeof import('radix-vue')['HoverCardTrigger']
     List: typeof import('./components/message-box/list.vue')['default']
     LoginBanner: typeof import('./components/login-banner/index.vue')['default']
-    MemberList: typeof import('./components/MemberList.vue')['default']
     Menu: typeof import('./components/menu/index.vue')['default']
     MessageBox: typeof import('./components/message-box/index.vue')['default']
     Navbar: typeof import('./components/navbar/index.vue')['default']
