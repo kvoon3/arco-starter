@@ -35,9 +35,6 @@ watch(router.currentRoute, (curRoute) => {
     }))
   })]
 }, { immediate: true })
-
-const openKeys = ref([])
-$inspect(openKeys)
 </script>
 
 <template>
@@ -48,16 +45,10 @@ $inspect(openKeys)
           <a-skeleton-line :rows="4" />
         </a-space>
       </a-skeleton>
-      <a-menu v-else v-model:selected-keys="selectedKeys" v-model:open-keys="openKeys" auto-open-selected
-        :default-open-keys="['root']">
-        <a-sub-menu v-if="corp" key="root">
-          <template #title>
-            {{ corp.name }}
-          </template>
-          <a-menu-item v-for="label, path in menus" :key="path" @click="router.push(path)">
-            {{ label }}
-          </a-menu-item>
-        </a-sub-menu>
+      <a-menu v-else v-model:selected-keys="selectedKeys" auto-open-selected :default-open-keys="[corp?.name]">
+        <a-menu-item v-for="label, path in menus" :key="path" @click="router.push(path)">
+          {{ path === '/contact/org' ? corp?.name || label : label }}
+        </a-menu-item>
         <button v-if="!corp" hover="bg-primary-300" bg-primary color-white list-btn
           @click="isCreateCorpModalVisible = true">
           {{ t('corp.create.form.title') }}
