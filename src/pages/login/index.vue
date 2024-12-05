@@ -4,7 +4,6 @@ import { objectKeys } from '@antfu/utils'
 import { Message } from '@arco-design/web-vue'
 import { useMutation } from '@tanstack/vue-query'
 import { login } from '~/api/user'
-import { access_token, expires_in, refresh_token } from '~/shared/states'
 
 definePage({
   meta: {
@@ -38,10 +37,6 @@ const { mutate, isPending, data } = useMutation({
     if (!data)
       throw new Error('no data')
 
-    access_token.value = data.access_token
-    refresh_token.value = data.refresh_token
-    expires_in.value = data.expires_in
-
     router.push('/contact')
   },
 })
@@ -61,9 +56,6 @@ function handleSubmit({ values, errors }: OnSubmitParams<Form>) {
     <div class="login-form-title" mb-4>
       {{ t('login.form.title') }}
     </div>
-    <!-- <div class="login-form-error-msg">
-      {{ errorMessage }}
-    </div> -->
     <!-- @vue-expect-error type error -->
     <a-form :model="form" class="login-form" layout="vertical" @submit="handleSubmit">
       <a-form-item field="account" :rules="[{ required: true, message: t('login.form.userName.errMsg') }]"

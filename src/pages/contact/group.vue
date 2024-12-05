@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import type { GroupModel } from '~/api/contact'
 import { useQuery } from '@tanstack/vue-query'
 import { UseImage } from '@vueuse/components'
 import { ref } from 'vue'
-import type { GroupModel } from '~/api/contact'
 import { weilaFetch } from '~/api/instances/fetcher'
 import CreateGroupModal from './components/CreateGroupModal.vue'
 import DeleteGroupModal from './components/DeleteGroupModal.vue'
@@ -55,28 +55,14 @@ function onSelect(group: GroupModel, e: PointerEvent) {
         </CreateGroupModal>
       </section>
       <!-- @vue-expect-error type error -->
-      <a-table
-        :data="groups" size="medium" :column-resizable="true" :scroll="{
-          x: 1000,
-          y: 600,
-        }" :scrollbar="true" @row-click="(...args) => onSelect(...args)"
-      >
+      <a-table :data="groups" size="medium" :column-resizable="true" :scroll="{
+        x: 1000,
+        y: 600,
+      }" :scrollbar="true" @row-click="(...args) => onSelect(...args)">
         <template #columns>
           <a-table-column :title="t('avatar')">
             <template #cell="{ record: { avatar } }">
-              <UseImage class="border rounded-lg size-20" :src="avatar">
-                <template #loading>
-                  <div class="h-full w-full flex items-center justify-center">
-                    <i class="i-carbon-progress-bar-round text-2xl text-gray-500" />
-                  </div>
-                </template>
-
-                <template #error>
-                  <div class="h-full w-full flex items-center justify-center">
-                    <i class="i-carbon-no-image text-2xl size-15" />
-                  </div>
-                </template>
-              </UseImage>
+              <a-avatar :style="{ backgroundColor: '#3370ff' }" :image-url="avatar" />
             </template>
           </a-table-column>
           <a-table-column :title="t('name')">

@@ -20,10 +20,10 @@ const { data: corp, isFetching } = storeToRefs(useCorpStore())
 const isCreateCorpModalVisible = ref(false)
 
 const menus = reactive({
-  '/contact/org': t('corp-info'),
-  '/contact/group': t('submenu.group-manage'),
-  '/contact/dept': t('submenu.dept-manage'),
-  '/contact/member': t('submenu.member-manage'),
+  '/contact/org': 'corp-info',
+  '/contact/group': 'submenu.group-manage',
+  '/contact/dept': 'submenu.dept-manage',
+  '/contact/member': 'submenu.member-manage',
 } as const)
 
 const selectedKeys = ref<(string | undefined)[]>([])
@@ -47,7 +47,7 @@ watch(router.currentRoute, (curRoute) => {
       </a-skeleton>
       <a-menu v-else v-model:selected-keys="selectedKeys" auto-open-selected :default-open-keys="[corp?.name]">
         <a-menu-item v-for="label, path in menus" :key="path" @click="router.push(path)">
-          {{ path === '/contact/org' ? corp?.name || label : label }}
+          {{ path === '/contact/org' ? corp?.name || t(label) : t(label) }}
         </a-menu-item>
         <button v-if="!corp" hover="bg-primary-300" bg-primary color-white list-btn
           @click="isCreateCorpModalVisible = true">

@@ -50,7 +50,7 @@ const bindingPhoneModalVisible = ref(false)
   <DefineTemplate>
     <div inline-block size-10>
       <UseImage v-if="user?.avatar" :src="user.avatar" alt="upload avatar"
-        class="mb-2 of-hidden of-hidden rounded-full object-cover">
+        class="mb-2 of-hidden rounded-full object-cover">
         <template #loading>
           <div class="animate-pulse rounded-full bg-gray-200 size-10" />
         </template>
@@ -59,6 +59,7 @@ const bindingPhoneModalVisible = ref(false)
         </template>
       </UseImage>
       <i v-else i-carbon-user-avatar-filled size-10 class="block rounded-full" :src="user?.avatar" alt="Avatar" />
+      <!-- <a-avatar :style="{ backgroundColor: '#3370ff' }" :image-url="user?.avatar" /> -->
     </div>
   </DefineTemplate>
 

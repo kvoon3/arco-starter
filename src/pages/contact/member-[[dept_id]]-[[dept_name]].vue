@@ -178,19 +178,7 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
           </a-table-column>
           <a-table-column :title="memberIdxTitleMap.avatar">
             <template #cell="{ record: { avatar } }">
-              <UseImage class="min-w-20 border rounded-lg size-20" :src="avatar">
-                <template #loading>
-                  <div class="h-full w-full flex items-center justify-center">
-                    <i class="i-carbon-progress-bar-round text-2xl text-gray-500" />
-                  </div>
-                </template>
-
-                <template #error>
-                  <div class="h-full w-full flex items-center justify-center">
-                    <i class="i-carbon-no-image text-2xl size-15" />
-                  </div>
-                </template>
-              </UseImage>
+              <a-avatar :style="{ backgroundColor: '#3370ff' }" :image-url="avatar" />
             </template>
           </a-table-column>
           <a-table-column :title="t('weila-number')">

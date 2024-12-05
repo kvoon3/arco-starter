@@ -1,5 +1,5 @@
-import { isLogin } from '~/shared/states'
 import type { UserModule } from '~/types'
+import { isLogin } from '~/shared/states'
 
 export const install: UserModule = ({ router }) => {
   router.beforeEach((to, _, next) => {
