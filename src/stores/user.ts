@@ -1,6 +1,6 @@
+import type { LoginModel } from '~/api/user'
 import { cloneDeep } from 'lodash'
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import type { LoginModel } from '~/api/user'
 
 export type Role = '' | '*' | 'admin' | 'user'
 

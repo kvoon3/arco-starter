@@ -4,6 +4,7 @@ import { objectKeys } from '@antfu/utils'
 import { Message } from '@arco-design/web-vue'
 import { useMutation } from '@tanstack/vue-query'
 import { login } from '~/api/user'
+import { accountHistory } from '~/shared/states'
 
 definePage({
   meta: {
@@ -49,6 +50,11 @@ function handleSubmit({ values, errors }: OnSubmitParams<Form>) {
 
   mutate(values)
 }
+
+onMounted(() => {
+  const form = document.querySelector('form')
+  form?.setAttribute('autocomplete', 'on')
+})
 </script>
 
 <template>
@@ -60,15 +66,18 @@ function handleSubmit({ values, errors }: OnSubmitParams<Form>) {
     <a-form :model="form" class="login-form" layout="vertical" @submit="handleSubmit">
       <a-form-item field="account" :rules="[{ required: true, message: t('login.form.userName.errMsg') }]"
         :validate-trigger="['change', 'blur']" hide-label>
-        <a-input v-model="form.account" :placeholder="t('login.form.userName.placeholder')">
+        <a-auto-complete v-model="form.account" :data="Array.from(accountHistory)"
+          :placeholder="t('login.form.userName.placeholder')" allow-clear>
           <template #prefix>
             <icon-user />
           </template>
-        </a-input>
+        </a-auto-complete>
       </a-form-item>
       <a-form-item field="password" :rules="[{ required: true, message: t('login.form.password.errMsg') }]"
         :validate-trigger="['change', 'blur']" hide-label>
-        <a-input-password v-model="form.password" :placeholder="t('login.form.password.placeholder')" allow-clear>
+        <a-input-password v-model="form.password"
+          :input-attrs="{ password: 'password', autocomplete: 'current-password' }"
+          :placeholder="t('login.form.password.placeholder')" allow-clear>
           <template #prefix>
             <icon-lock />
           </template>

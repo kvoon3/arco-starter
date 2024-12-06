@@ -29,6 +29,8 @@ export function logout() {
   })
 }
 
+export const accountHistory = useLocalStorage<Set<string>>('account-history', new Set<string>())
+
 watch(access_token, (token) => {
   if (token)
     last_login_time.value = timestamp.value

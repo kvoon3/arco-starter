@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { objectEntries } from '@antfu/utils'
 import { useMutation, useQuery } from '@tanstack/vue-query'
-import { UseImage } from '@vueuse/components'
 import { objectOmit } from '@vueuse/core'
 import { weilaApiUrl } from '~/api'
 import { type MemberModel, TrackType } from '~/api/contact'
@@ -23,17 +22,17 @@ const { themeColor } = useAppStore()
 const route = useRoute('/contact/member-[[dept_id]]-[[dept_name]]')
 
 const memberIdxTitleMap: Partial<Record<keyof MemberModel, string>> = {
-  name: t('name'),
-  sex: t('gender'),
-  avatar: t('avatar'),
-  phone: t('phone'),
+  name: 'name',
+  sex: 'gender',
+  avatar: 'avatar',
+  phone: 'phone',
   tts: 'TTS',
-  loc_share: t('loc_share'),
-  track: t('track'),
-  state: t('member.state'),
-  created: t('created'),
-  online: t('state.online'),
-  dept_name: t('dept.name'),
+  loc_share: 'loc_share',
+  track: 'track',
+  state: 'member.state',
+  created: 'created',
+  online: 'state.online',
+  dept_name: 'dept.name',
 }
 
 const trackTypeNameMap = {
@@ -146,7 +145,7 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
         y: 600,
       }" :scrollbar="true" @row-click="(...args) => onSelect(...args)">
         <template #columns>
-          <a-table-column :title="memberIdxTitleMap.state">
+          <a-table-column :title="t('member.state')">
             <template #cell="{ record: { state, user_id } }">
               <a-switch :default-checked="Boolean(!state)" :checked-value="0" :unchecked-value="1"
                 :checked-color="themeColor" unchecked-color="#ddd" :before-change="(state) => toggleMemberState(
@@ -171,12 +170,12 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
               }[Number(type)] }}
             </template>
           </a-table-column>
-          <a-table-column :title="memberIdxTitleMap.online">
+          <a-table-column :title="t('state.online')">
             <template #cell="{ record: { online } }">
               {{ online ? t('online') : t('offline') }}
             </template>
           </a-table-column>
-          <a-table-column :title="memberIdxTitleMap.avatar">
+          <a-table-column :title="t('avatar')">
             <template #cell="{ record: { avatar } }">
               <a-avatar :style="{ backgroundColor: '#3370ff' }" :image-url="avatar" />
             </template>
@@ -211,8 +210,8 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
 
           <a-table-column
             v-for="(val, key) in objectOmit(memberIdxTitleMap, ['avatar', 'sex', 'tts', 'track', 'online', 'state', 'loc_share', 'created', 'dept_name'])"
-            :key :title="val" :data-index="key" />
-          <a-table-column :title="memberIdxTitleMap.loc_share">
+            :key :title="t(val || '')" :data-index="key" />
+          <a-table-column :title="t('loc_share')">
             <template #cell="{ record: { loc_share } }">
               <a-tag v-if="loc_share" color="green">
                 {{ t('open') }}
@@ -222,7 +221,7 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
               </a-tag>
             </template>
           </a-table-column>
-          <a-table-column :title="memberIdxTitleMap.tts">
+          <a-table-column :title="t('TTS')">
             <template #cell="{ record: { tts } }">
               <a-tag v-if="tts" color="green">
                 {{ t('open') }}
@@ -232,7 +231,7 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
               </a-tag>
             </template>
           </a-table-column>
-          <a-table-column :title="memberIdxTitleMap.track">
+          <a-table-column :title="t('track')">
             <template #cell="{ record: { track } }">
               <a-tag>
                 <!-- @vue-expect-error type error -->
