@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import type { CreateDeptPayload } from '~/api/contact'
 import Message from '@arco-design/web-vue/es/message'
 import { useMutation } from '@tanstack/vue-query'
 import { weilaApiUrl } from '~/api'
-import type { CreateDeptPayload } from '~/api/contact'
 import { weilaRequest } from '~/api/instances/request'
 
 const emits = defineEmits(['success'])

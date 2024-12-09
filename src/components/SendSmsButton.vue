@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { SendVerifySmsModel } from '~/api/verify-sms'
 import Message from '@arco-design/web-vue/es/message'
 import { useMutation } from '@tanstack/vue-query'
-import type { SendVerifySmsModel } from '~/api/verify-sms'
 import { sendVerifySms } from '~/api/verify-sms'
 import { timestamp } from '~/shared/states'
 

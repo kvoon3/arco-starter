@@ -1,5 +1,7 @@
-import { useMediaQuery } from '@vueuse/core'
+import CryptoJS from 'crypto-js'
+
 import md5 from 'md5'
+import { ENCRYPTION_KEY } from './const'
 
 /**
  * Authentication
@@ -29,7 +31,18 @@ export function logout() {
   })
 }
 
-export const accountHistory = useLocalStorage<Set<string>>('account-history', new Set<string>())
+export const accountHistoryRecord = useLocalStorage('account-history-record', new Map<string, string>(), {
+  serializer: {
+    read: (v: string) => {
+      const decrypted = CryptoJS.AES.decrypt(v, ENCRYPTION_KEY).toString(CryptoJS.enc.Utf8)
+      return new Map(JSON.parse(decrypted))
+    },
+    write: (v: Map<string, string>) => {
+      const jsonString = JSON.stringify(Array.from(v.entries()))
+      return CryptoJS.AES.encrypt(jsonString, ENCRYPTION_KEY).toString()
+    },
+  },
+})
 
 watch(access_token, (token) => {
   if (token)
@@ -44,8 +57,7 @@ export const isLogin = computed(() =>
 )
 
 export const isNeedRefresh = computed(() =>
-  isLogin.value
-  && timestamp.value - last_login_time.value > (expires_in.value * 1000) - EXPIRES_BUFFER,
+  timestamp.value - last_login_time.value > (expires_in.value * 1000) - EXPIRES_BUFFER,
 )
 
 /**
@@ -59,4 +71,3 @@ watchEffect(() => {
     ? document.body.setAttribute('arco-theme', 'dark')
     : document.body.removeAttribute('arco-theme')
 })
-export const isLargeScreen = useMediaQuery('(min-width: 1024px)')

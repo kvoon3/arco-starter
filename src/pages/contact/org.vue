@@ -23,7 +23,7 @@ const isEditCorpModalVisible = ref(false)
             >
             <div>
               <h1 class="mb-4 text-2xl text-gray-800 font-semibold dark:text-white">
-                {{ corp?.name || 'Organization' }} (企业号：{{ corp?.num }})
+                {{ corp?.name || 'Organization' }} <a-tag>{{ corp?.num }}</a-tag>
               </h1>
               <p class="mb-4 text-gray-600 dark:text-gray-300">
                 {{ corp?.intro || t('no-intro-data') }}

@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { computed, reactive, ref, toRefs } from 'vue'
-import { useI18n } from 'vue-i18n'
 import type {
   MessageListType,
   MessageRecord,
 } from '~/api/message'
+import { computed, reactive, ref, toRefs } from 'vue'
+import { useI18n } from 'vue-i18n'
 import {
   queryMessageList,
   setMessageStatus,

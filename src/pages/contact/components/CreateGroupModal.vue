@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { GroupCreatePayload } from 'generated/mock/weila'
 import Message from '@arco-design/web-vue/es/message'
 import { useMutation } from '@tanstack/vue-query'
 import { weilaApiUrl } from '~/api'
@@ -9,35 +10,27 @@ const emits = defineEmits(['success'])
 const { t } = useI18n()
 
 const corpStore = useCorpStore()
+const { org_num } = storeToRefs(corpStore)
 
 const open = ref(false)
 
 const avatarUploaderRef = templateRef('avatarUploaderRef')
 
-type BurstMode = 0 | 1 | 2
+// type BurstMode = 0 | 1 | 2
 
-interface Payload {
-  name: string
-  burst_mode: BurstMode
-  avatar?: string
-  org_num: number
-}
-
-const form = reactive<Payload>({
+const form = reactive<GroupCreatePayload>({
   name: '',
   burst_mode: 0,
   org_num: 0,
+  avatar: '',
 })
 
-corpStore.$subscribe((_, state) => {
-  if (state.data)
-    form.org_num = state.data.num
-}, { immediate: true })
+watchImmediate(org_num, val => val ? form.org_num = val : void 0)
 
 const formRef = templateRef('formRef')
 
 const { mutate, isPending } = useMutation({
-  mutationFn: (payload: Payload) => weilaRequest.post(
+  mutationFn: (payload: GroupCreatePayload) => weilaRequest.post(
     weilaApiUrl['/corp/web/group-create'],
     payload,
   ),

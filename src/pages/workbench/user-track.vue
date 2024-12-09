@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { RegeoModel, UserTrackModel } from '~/api/track'
 import { isNull, isNumber, isUndefined } from '@antfu/utils'
 import { Message } from '@arco-design/web-vue'
 import { useQuery } from '@tanstack/vue-query'
@@ -6,7 +7,6 @@ import { ElAmap } from '@vuemap/vue-amap'
 import { ElAmapLoca, ElAmapLocaLine } from '@vuemap/vue-amap-loca'
 import { weilaApiUrl } from '~/api'
 import { weilaFetch } from '~/api/instances/fetcher'
-import type { RegeoModel, UserTrackModel } from '~/api/track'
 
 const { t } = useI18n()
 
@@ -261,8 +261,8 @@ watch(markers, (val, oldVal) => {
               {{ new Date(marker.getExtData().created * 1000).toLocaleString() }}
             </template>
             <template #description>
-              {{ t('longitude') }}: {{ marker.getExtData().longitude }}
-              {{ t('latitude') }}: {{ marker.getExtData().latitude }}<br>
+              <span mr2>{{ t('longitude') }}</span> <span>{{ marker.getExtData().longitude }}</span>
+              <span mr2>{{ t('latitude') }}</span> <span>{{ marker.getExtData().latitude }}<br></span>
             </template>
           </a-list-item-meta>
           <template #extra>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import type { MemberModel } from '~/api/contact'
 import { objectPick } from '@antfu/utils'
 import { Message } from '@arco-design/web-vue'
 import { useMutation, useQuery } from '@tanstack/vue-query'
 import { weilaApiUrl } from '~/api'
-import type { MemberModel } from '~/api/contact'
 import { weilaFetch } from '~/api/instances/fetcher'
 import { weilaRequest } from '~/api/instances/request'
 

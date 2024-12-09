@@ -2,10 +2,9 @@ import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosReq
 import type { WeilaRes } from '..'
 import { Message } from '@arco-design/web-vue'
 import axios from 'axios'
-import { access_token, app_id, app_sign, isNeedRefresh, logout, timestamp } from '~/shared/states'
-import defaultConfig, { WeilaErrorCode } from '..'
+import { access_token, app_id, app_sign, isLogin, isNeedRefresh, logout, timestamp } from '~/shared/states'
+import defaultConfig, { isPublicApi, WeilaErrorCode } from '..'
 import { tryRefreshToken } from '../refresh'
-// import { tryRefreshToken } from '../refresh'
 
 interface WeilaRequestInstance extends AxiosInstance {
   post: <T = any, R = WeilaRes<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>) => Promise<R>
@@ -37,9 +36,12 @@ weilaRequest.interceptors.request.use(
       }
     }
 
+    // mock gen full url to judge whether need refresh
     if (
-      isNeedRefresh.value
-      && !config.url?.endsWith('refresh')
+      isLogin.value
+      && isNeedRefresh.value
+      && config.url
+      && !isPublicApi(config.url)
     ) {
       tryRefreshToken()
     }

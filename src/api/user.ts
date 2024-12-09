@@ -1,7 +1,7 @@
 import type { RouteRecordNormalized } from 'vue-router'
 import axios from 'axios'
 import md5 from 'md5'
-import { access_token, accountHistory, expires_in, refresh_token } from '~/shared/states'
+import { access_token, accountHistoryRecord, expires_in, refresh_token } from '~/shared/states'
 import { weilaRequest } from './instances/request'
 
 /**
@@ -56,7 +56,13 @@ export interface LoginRes {
 
 export async function login(
   params: { account: string, password: string },
+  options?: {
+    remember?: boolean
+  },
 ) {
+  const {
+    remember = false,
+  } = options || {}
   const {
     account,
     password,
@@ -74,7 +80,8 @@ export async function login(
     access_token.value = data.access_token
     refresh_token.value = data.refresh_token
     expires_in.value = data.expires_in
-    accountHistory.value.add(account)
+    if (remember)
+      accountHistoryRecord.value.set(account, password)
   }
 
   return data

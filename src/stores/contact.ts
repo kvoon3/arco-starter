@@ -1,6 +1,6 @@
+import type { ContactModel } from '~/api/contact'
 import { objectPick } from '@antfu/utils'
 import { useQuery } from '@tanstack/vue-query'
-import type { ContactModel } from '~/api/contact'
 import { weilaFetch } from '~/api/instances/fetcher'
 import { isLogin } from '~/shared/states'
 

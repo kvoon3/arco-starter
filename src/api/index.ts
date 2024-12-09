@@ -46,4 +46,20 @@ export const weilaApiUrl = {
   ...Object.fromEntries(weilaExtraApiList.map(api => [api.url, api.url].map(noBaseUrl))),
 } as Record<WeilaApiUrlShort, WeilaApiUrlShort>
 
+export const publicApi: WeilaApiUrl[] = [
+  '/v1/corp/web/login',
+  '/v1/corp/web/login-by-name',
+  '/v1/corp/web/login-by-phone',
+  '/v1/corp/web/send-sms-verifycode',
+  '/v1/corp/web/regist',
+  '/v1/corp/web/reset-password',
+  // TODO: fix in apipost-mock-gen
+  // @ts-expect-error type error
+  '/v1/corp/web/get-verifycode-image',
+] as const
+
+export function isPublicApi(url: string) {
+  return Boolean(publicApi.find(url.includes))
+}
+
 export default config

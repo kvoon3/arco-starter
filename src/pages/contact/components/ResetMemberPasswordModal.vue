@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import type { MemberModel } from '~/api/contact'
 import { Message } from '@arco-design/web-vue'
 import { useMutation } from '@tanstack/vue-query'
 import md5 from 'md5'
 import { weilaApiUrl } from '~/api'
-import type { MemberModel } from '~/api/contact'
 import { weilaRequest } from '~/api/instances/request'
 
 const props = defineProps<{

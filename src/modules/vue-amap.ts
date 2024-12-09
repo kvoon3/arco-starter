@@ -1,6 +1,6 @@
+import type { UserModule } from '~/types'
 import { initAMapApiLoader } from '@vuemap/vue-amap'
 import { AMapKeys } from '~/shared/const'
-import type { UserModule } from '~/types'
 import '@vuemap/vue-amap/dist/style.css'
 
 export const install: UserModule = () => {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { DeptModel } from '~/api/contact'
 import { useQuery } from '@tanstack/vue-query'
 import { weilaApiUrl } from '~/api'
-import type { DeptModel } from '~/api/contact'
 import { weilaFetch } from '~/api/instances/fetcher'
 import CreateDeptModal from './components/CreateDeptModal.vue'
 import DeleteDeptModal from './components/DeleteDeptModal.vue'

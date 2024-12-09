@@ -114,37 +114,53 @@ function onVerifyImgCodeError() {
     </div>
     <!-- @vue-expect-error type error -->
     <a-form :model="form" class="login-form" layout="vertical" @submit="handleSubmit">
-      <a-form-item field="phone" :rules="[{ required: true, message: t('register.form.phone.errMsg') }]"
-        :validate-trigger="['change', 'blur']" hide-label>
+      <a-form-item
+        field="phone" :rules="[{ required: true, message: t('register.form.phone.errMsg') }]"
+        :validate-trigger="['change', 'blur']" hide-label
+      >
         <a-input v-model="form.phone" :placeholder="t('register.form.phone.placeholder')" allow-clear w-320px>
           <template #prepend>
-            +86
+            <a-tag>
+              +86
+            </a-tag>
           </template>
         </a-input>
       </a-form-item>
 
-      <a-form-item field="img_verify_code"
+      <a-form-item
+        field="img_verify_code"
         :rules="[{ required: true, message: t('register.form.imgVerifyCode.errMsg') }]"
-        :validate-trigger="['change', 'blur']" hide-label>
-        <a-input v-model="form.img_verify_code" :placeholder="t('register.form.imgVerifyCode.placeholder')" allow-clear
-          mr4 w50 />
+        :validate-trigger="['change', 'blur']" hide-label
+      >
+        <a-input
+          v-model="form.img_verify_code" :placeholder="t('register.form.imgVerifyCode.placeholder')" allow-clear
+          mr4 w50
+        />
         <VerifyImg ref="verifyImg" />
       </a-form-item>
 
-      <a-form-item field="verify_code" :rules="[{ required: true, message: t('register.form.verifyCode.errMsg') }]"
-        :validate-trigger="['change', 'blur']" hide-label>
-        <a-input v-model="form.verify_code" :placeholder="t('register.form.verifyCode.placeholder')" allow-clear mr4
-          w-auto />
-        <SendSmsButton :opts="{
-          phone: form.phone,
-          verify_code: form.img_verify_code,
-          sms_type: 'regist',
-          country_code: '86',
-        }" @error="onVerifyImgCodeError" />
+      <a-form-item
+        field="verify_code" :rules="[{ required: true, message: t('register.form.verifyCode.errMsg') }]"
+        :validate-trigger="['change', 'blur']" hide-label
+      >
+        <a-input
+          v-model="form.verify_code" :placeholder="t('register.form.verifyCode.placeholder')" allow-clear mr4
+          w-auto
+        />
+        <SendSmsButton
+          :opts="{
+            phone: form.phone,
+            verify_code: form.img_verify_code,
+            sms_type: 'regist',
+            country_code: '86',
+          }" @error="onVerifyImgCodeError"
+        />
       </a-form-item>
 
-      <a-form-item field="password" :rules="[{ required: true, message: t('register.form.password.errMsg') }]"
-        :validate-trigger="['change', 'blur']" hide-label>
+      <a-form-item
+        field="password" :rules="[{ required: true, message: t('register.form.password.errMsg') }]"
+        :validate-trigger="['change', 'blur']" hide-label
+      >
         <a-input-password v-model="form.password" :placeholder="t('login.form.password.placeholder')" allow-clear>
           <template #prefix>
             <icon-lock />

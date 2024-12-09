@@ -66,15 +66,19 @@ onMounted(() => {
     </div>
     <a-layout>
       <a-layout>
-        <a-layout-sider v-if="renderMenu" v-show="!hideMenu" class="layout-sider" breakpoint="xl" :collapsed="collapsed"
+        <a-layout-sider
+          v-if="renderMenu" v-show="!hideMenu" class="layout-sider" breakpoint="xl" :collapsed="collapsed"
           :collapsible="true" :width="menuWidth" :style="{ paddingTop: navbar ? '60px' : '' }" :hide-trigger="true"
-          @collapse="setCollapsed">
+          @collapse="setCollapsed"
+        >
           <div class="menu-wrapper">
             <Menu />
           </div>
         </a-layout-sider>
-        <a-drawer v-if="hideMenu" :visible="drawerVisible" placement="left" :footer="false" mask-closable
-          :closable="false" @cancel="drawerCancel">
+        <a-drawer
+          v-if="hideMenu" :visible="drawerVisible" placement="left" :footer="false" mask-closable
+          :closable="false" @cancel="drawerCancel"
+        >
           <Menu />
         </a-drawer>
         <a-layout class="layout-content" :style="paddingStyle">

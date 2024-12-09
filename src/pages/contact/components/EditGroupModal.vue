@@ -1,57 +1,46 @@
 <script setup lang="ts">
+import type { GroupGetallModel } from 'generated/mock/weila'
 import Message from '@arco-design/web-vue/es/message'
 import { useMutation } from '@tanstack/vue-query'
-import type { BurstMode, GroupModel } from '~/api/contact'
 import { weilaRequest } from '~/api/instances/request'
 
 const props = defineProps<{
-  group?: GroupModel
+  group?: GroupGetallModel['data']['groups'][number]
 }>()
 const emits = defineEmits(['success'])
 
 const { t } = useI18n()
 
 const corpStore = useCorpStore()
+const { org_num } = storeToRefs(corpStore)
 
 const open = ref(false)
 
-interface Payload {
-  name: string
-  burst_mode: BurstMode
-  avatar?: string
-  org_num: number
-  group_id: number
-}
-
 const avatarUploaderRef = templateRef('avatarUploaderRef')
 
-const form = reactive<Payload>({
-  org_num: 0,
+const form = reactive({
+  org_num: org_num.value,
 
-  group_id: 0,
+  avatar: props.group?.avatar,
+  group_id: props.group?.id,
 
-  name: '',
-  burst_mode: 0,
+  name: props.group?.name,
+  burst_mode: props.group?.burst_mode,
 })
 
-corpStore.$subscribe((_, state) => {
-  if (state.data)
-    form.org_num = state.data.num
-}, { immediate: true })
-
-watch(() => props.group, (group) => {
+watchImmediate(() => props.group, (group) => {
   if (group) {
     form.name = group.name
     form.burst_mode = group.burst_mode
     form.group_id = group.id
     form.avatar = group.avatar
   }
-}, { immediate: true })
+})
 
 const formRef = templateRef('formRef')
 
 const { mutate, isPending } = useMutation({
-  mutationFn: (payload: Payload) => weilaRequest.post(
+  mutationFn: (payload: any) => weilaRequest.post(
     '/corp/web/group-change',
     payload,
   ),
@@ -123,6 +112,16 @@ function handleSubmit() {
               </a-radio>
             </a-radio-group>
           </a-form-item>
+          <!-- <a-form-item field="shutup" :label="t('shutup')" :rules="[{ required: true }]">
+            <a-radio-group v-model="form.shutup" direction="vertical">
+              <a-radio :value="0">
+                {{ t('shutup-disable') }}
+              </a-radio>
+              <a-radio :value="1">
+                {{ t('shutup-enable') }}
+              </a-radio>
+            </a-radio-group>
+          </a-form-item> -->
         </a-form>
 
         <div class="mt-[25px] flex justify-end">

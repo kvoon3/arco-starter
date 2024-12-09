@@ -82,8 +82,6 @@ let changeMemberForm = reactive<ChangeMemberPayload>({
   track: TrackType.Close,
 })
 watch(changeMemberModalVisible, (visible) => {
-  console.log('visible', visible)
-
   if (!visible)
     return
 
@@ -137,8 +135,8 @@ const addMemberModalVisible = ref(false)
     </h2>
     <div v-if="members">
       <button
-        v-for="member in members" :key="member.user_id"
-        m2 inline-flex flex-col items-center justify-center gap2 size-18 @click="changeMemberModalVisible = true"
+        v-for="member in members" :key="member.user_id" m2 inline-flex flex-col items-center justify-center gap2
+        size-18 @click="changeMemberModalVisible = true"
       >
         <UseImage :src="member.avatar" :alt="member.name" rounded-lg bg-coolgray-200 op70 size-10 hover:op100>
           <template #loading>

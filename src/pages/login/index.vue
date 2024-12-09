@@ -4,7 +4,7 @@ import { objectKeys } from '@antfu/utils'
 import { Message } from '@arco-design/web-vue'
 import { useMutation } from '@tanstack/vue-query'
 import { login } from '~/api/user'
-import { accountHistory } from '~/shared/states'
+import { accountHistoryRecord } from '~/shared/states'
 
 definePage({
   meta: {
@@ -26,10 +26,10 @@ const form = reactive<Form>({
   password: '',
 })
 
-// const [isRememberPassword, toggleRememberPassword] = useToggle(false)
+const [isRememberPassword, toggleRememberPassword] = useToggle(false)
 
 const { mutate, isPending, data } = useMutation({
-  mutationFn: (params: Form) => login(params),
+  mutationFn: (params: Form) => login(params, { remember: isRememberPassword.value }),
   onSuccess(data) {
     Message.success({
       content: t('login.form.successMsg'),
@@ -66,10 +66,15 @@ onMounted(() => {
     <a-form :model="form" class="login-form" layout="vertical" @submit="handleSubmit">
       <a-form-item field="account" :rules="[{ required: true, message: t('login.form.userName.errMsg') }]"
         :validate-trigger="['change', 'blur']" hide-label>
-        <a-auto-complete v-model="form.account" :data="Array.from(accountHistory)"
-          :placeholder="t('login.form.userName.placeholder')" allow-clear>
-          <template #prefix>
-            <icon-user />
+        <a-auto-complete v-model="form.account" :data="Array.from(accountHistoryRecord.keys())"
+          :placeholder="t('login.form.userName.placeholder')" allow-clear relative
+          @select="(account) => form.password = accountHistoryRecord.get(account) || form.password">
+          <template #option="{ data: { label } }">
+            <div w-full flex justify-between>
+              <span>
+                {{ label }}
+              </span>
+            </div>
           </template>
         </a-auto-complete>
       </a-form-item>
@@ -85,13 +90,10 @@ onMounted(() => {
       </a-form-item>
       <a-space :size="16" direction="vertical">
         <div class="login-form-password-actions">
-          <!-- <a-checkbox
-            checked="rememberPassword"
-            :model-value="isRememberPassword"
-            @change="() => toggleRememberPassword()"
-          >
+          <a-checkbox checked="rememberPassword" :model-value="isRememberPassword"
+            @change="() => toggleRememberPassword()">
             {{ t('login.form.rememberPassword') }}
-          </a-checkbox> -->
+          </a-checkbox>
           <RouterLink to="/reset-password">
             <a-link>{{ t('login.form.forgetPassword') }}</a-link>
           </RouterLink>

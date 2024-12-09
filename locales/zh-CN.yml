@@ -1,3 +1,4 @@
+TTS: TTS
 account:
   txt: 账号
 add-device: 添加设备
@@ -28,10 +29,11 @@ button:
   add-device: 添加设备
   add-group-member: 添加群成员
   add-member: 添加成员
+  back: 返回
   cancel: 取消
   checkout: 查看
-  copy: 复制
   copied: 复制成功
+  copy: 复制
   create: 创建
   create-dept: 创建部门
   create-group: 创建群组
@@ -231,8 +233,8 @@ sendSMS:
   success:
     hint: 发送成功，请注意查看短信消息
 shutup: 禁言
-shutup-disable: 未禁言
-shutup-enable: 禁言中
+shutup-disable: 不禁言
+shutup-enable: 禁言
 sms-code: 短信验证码
 state:
   online: 在线状态
@@ -260,3 +262,9 @@ user-type:
 verify-code: 验证码
 verify-image-code: 验证图形代码
 weila-number: 微喇号
+login.banner.slogan1: 开箱即用的高质量模板
+login.banner.subSlogan1: 丰富的的页面模板，覆盖大多数典型业务场景
+login.banner.slogan2: 内置了常见问题的解决方案
+login.banner.subSlogan2: 国际化，路由配置，状态管理应有尽有
+login.banner.slogan3: 接入可视化增强工具AUX
+login.banner.subSlogan3: 实现灵活的区块式开发

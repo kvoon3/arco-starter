@@ -1,8 +1,8 @@
 import type { WeilaRes } from '..'
 import { Message } from '@arco-design/web-vue'
 import { ofetch } from 'ofetch'
-import { access_token, app_id, app_sign, isNeedRefresh, logout, timestamp } from '~/shared/states'
-import defaultConfig, { WeilaErrorCode } from '..'
+import { access_token, app_id, app_sign, isLogin, isNeedRefresh, logout, timestamp } from '~/shared/states'
+import defaultConfig, { isPublicApi, WeilaErrorCode } from '..'
 import { tryRefreshToken } from '../refresh'
 
 export const weilaFetch = ofetch.create({
@@ -20,8 +20,9 @@ export const weilaFetch = ofetch.create({
     }
 
     if (
-      isNeedRefresh.value
-      && !(request.toString()).endsWith('refresh')
+      isLogin.value
+      && isNeedRefresh.value
+      && !isPublicApi(request.toString())
     ) {
       tryRefreshToken()
     }

@@ -1,5 +1,5 @@
-import NProgress from 'nprogress'
 import type { UserModule } from '~/types'
+import NProgress from 'nprogress'
 
 import 'nprogress/nprogress.css' // NProgress Configuration
 

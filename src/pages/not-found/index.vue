@@ -7,6 +7,8 @@ definePage({
   },
 })
 
+const { t } = useI18n()
+
 const router = useRouter()
 function back() {
   // warning： Go to the node that has the permission
@@ -19,14 +21,14 @@ function back() {
     <a-result class="result" status="404" subtitle="not found" />
     <div class="operation-row">
       <a-button key="back" type="primary" @click="back">
-        back
+        {{ t('button.back') }}
       </a-button>
     </div>
   </div>
 </template>
 
 <style scoped lang="less">
-  .content {
+.content {
   // padding-top: 100px;
   position: absolute;
   top: 50%;

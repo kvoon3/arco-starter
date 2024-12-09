@@ -1,5 +1,6 @@
 import { computed } from 'vue'
-import { isLargeScreen } from './states'
+
+export const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 
 export const defaultArcoSettings = reactive({
   colorWeak: false,
@@ -23,3 +24,5 @@ export const AMapKeys = {
   secert: 'cdc03a7b9de2a9ca188da9ab76c4b450',
   regeo: '',
 }
+
+export const ENCRYPTION_KEY = 'weila-frontend-key' // Replace with a secure encryption key

@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { GroupGetallModel } from 'generated/mock/weila'
 import type { GroupModel } from '~/api/contact'
 import { useQuery } from '@tanstack/vue-query'
-import { UseImage } from '@vueuse/components'
 import { ref } from 'vue'
 import { weilaFetch } from '~/api/instances/fetcher'
 import CreateGroupModal from './components/CreateGroupModal.vue'
@@ -14,7 +14,7 @@ const corpStore = useCorpStore()
 const { data: corp } = storeToRefs(corpStore)
 const router = useRouter()
 
-const { data: groups, refetch } = useQuery<GroupModel[]>({
+const { data: groups, refetch } = useQuery<GroupGetallModel['data']['groups']>({
   enabled: computed(() => typeof corp.value?.num === 'number'),
   queryKey: ['/group-getall', 'groups', corp],
   queryFn: () => weilaFetch('/corp/web/group-getall', {
@@ -24,7 +24,7 @@ const { data: groups, refetch } = useQuery<GroupModel[]>({
 
 $inspect(groups)
 
-const selectedGroup = ref<GroupModel | undefined>(undefined)
+const selectedGroup = ref<GroupGetallModel['data']['groups'][number] | undefined>(undefined)
 
 const checkedGroupIds = ref<number[]>([])
 
@@ -55,10 +55,12 @@ function onSelect(group: GroupModel, e: PointerEvent) {
         </CreateGroupModal>
       </section>
       <!-- @vue-expect-error type error -->
-      <a-table :data="groups" size="medium" :column-resizable="true" :scroll="{
-        x: 1000,
-        y: 600,
-      }" :scrollbar="true" @row-click="(...args) => onSelect(...args)">
+      <a-table
+        :data="groups" size="medium" :column-resizable="true" :scroll="{
+          x: 1000,
+          y: 600,
+        }" :scrollbar="true" @row-click="(...args) => onSelect(...args)"
+      >
         <template #columns>
           <a-table-column :title="t('avatar')">
             <template #cell="{ record: { avatar } }">
@@ -88,16 +90,21 @@ function onSelect(group: GroupModel, e: PointerEvent) {
               </a-tag>
             </template>
           </a-table-column>
-          <a-table-column :title="t('shutup')">
+          <!-- <a-table-column :title="t('shutup')">
             <template #cell="{ record: { shutup } }">
               <a-tag :color="shutup === 0 ? 'orange' : 'green'">
                 {{
                   {
-                    0: t('shutup-enable'),
-                    1: t('shutup-disable'),
+                    0: t('shutup-disable'),
+                    1: t('shutup-enable'),
                   }[shutup as number]
                 }}
               </a-tag>
+            </template>
+          </a-table-column> -->
+          <a-table-column :title="t('created')">
+            <template #cell="{ record: { created } }">
+              {{ new Date(created * 1000).toLocaleDateString() }}
             </template>
           </a-table-column>
           <a-table-column :title="t('controls')">

@@ -44,7 +44,7 @@ const carouselItem = computed(() => [
 </template>
 
 <style lang="less" scoped>
-  .banner {
+.banner {
   display: flex;
   align-items: center;
   justify-content: center;
