@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { GroupModel } from '~/api/contact'
+import type { MemberGetallModel } from 'generated/mock/weila'
 import Message from '@arco-design/web-vue/es/message'
 import { useMutation } from '@tanstack/vue-query'
 import { weilaApiUrl } from '~/api'
 import { weilaRequest } from '~/api/instances/request'
 
 const props = defineProps<{
-  group?: GroupModel
+  member?: MemberGetallModel['data']['members'][number]
 }>()
 
 const emits = defineEmits(['success'])
@@ -15,11 +15,14 @@ const { t } = useI18n()
 
 const open = defineModel('open', { default: false })
 
+const { org_num } = storeToRefs(useCorpStore())
+
 const { mutate, isPending } = useMutation({
   mutationFn: () => weilaRequest.post(
-    weilaApiUrl['/corp/web/group-delete'],
+    weilaApiUrl['/corp/web/member-delete'],
     {
-      group_id: props.group?.id,
+      org_num: org_num.value,
+      member_id: props.member?.user_id,
     },
   ),
   onSuccess: () => {

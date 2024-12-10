@@ -19,7 +19,7 @@ const { data: groups, refetch } = useQuery<GroupGetallModel['data']['groups']>({
   queryKey: ['/group-getall', 'groups', corp],
   queryFn: () => weilaFetch('/corp/web/group-getall', {
     body: { org_num: String(corp.value!.num) },
-  }).then(i => i.groups),
+  }).then(i => i.groups.sort((a: any, b: any) => b.id - a.id)),
 })
 
 $inspect(groups)
@@ -55,12 +55,10 @@ function onSelect(group: GroupModel, e: PointerEvent) {
         </CreateGroupModal>
       </section>
       <!-- @vue-expect-error type error -->
-      <a-table
-        :data="groups" size="medium" :column-resizable="true" :scroll="{
-          x: 1000,
-          y: 600,
-        }" :scrollbar="true" @row-click="(...args) => onSelect(...args)"
-      >
+      <a-table :data="groups" size="medium" :column-resizable="true" :scroll="{
+        x: 1000,
+        y: 600,
+      }" :scrollbar="true" @row-click="(...args) => onSelect(...args)">
         <template #columns>
           <a-table-column :title="t('avatar')">
             <template #cell="{ record: { avatar } }">

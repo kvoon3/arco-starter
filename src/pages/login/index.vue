@@ -82,7 +82,7 @@ onMounted(() => {
         :validate-trigger="['change', 'blur']" hide-label>
         <a-input-password v-model="form.password"
           :input-attrs="{ password: 'password', autocomplete: 'current-password' }"
-          :placeholder="t('login.form.password.placeholder')" allow-clear>
+          :placeholder="t('login.form.password.placeholder')" allow-clear :invisible-button="false">
           <template #prefix>
             <icon-lock />
           </template>

@@ -1,3 +1,4 @@
+import type { RefreshModel } from 'generated/mock/weila'
 import { access_token, expires_in, refresh_token } from '~/shared/states'
 import { weilaRequest } from './instances/request'
 
@@ -5,11 +6,7 @@ export async function tryRefreshToken() {
   if (!refresh_token.value)
     throw new Error('No refresh token')
 
-  const { errcode, data } = await weilaRequest.post<{
-    access_token: string
-    expires_in: number
-    refresh_token: string
-  }>('/sessions/refresh', {
+  const { errcode, data } = await weilaRequest.post<RefreshModel['data']>('/sessions/refresh', {
     refresh_token: refresh_token.value,
   })
 

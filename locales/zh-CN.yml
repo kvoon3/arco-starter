@@ -23,7 +23,7 @@ btn:
 burst-mode: 对讲模式
 burst-mode-0: 排麦
 burst-mode-1: 抢麦
-burst-mode-2: 对讲
+burst-mode-2: 抢断
 button:
   add: 添加
   add-device: 添加设备
@@ -80,6 +80,7 @@ corp:
   edit: 修改企业
   member: 组织成员
 corp-info: 企业详情
+corp-number: 企业号
 create-member: 创建成员
 created: 创建日期
 crop:
@@ -129,6 +130,12 @@ login:
   type:
     phone: 手机号
     username: 账号
+login.banner.slogan1: 开箱即用的高质量模板
+login.banner.slogan2: 内置了常见问题的解决方案
+login.banner.slogan3: 接入可视化增强工具AUX
+login.banner.subSlogan1: 丰富的的页面模板，覆盖大多数典型业务场景
+login.banner.subSlogan2: 国际化，路由配置，状态管理应有尽有
+login.banner.subSlogan3: 实现灵活的区块式开发
 logout: 退出登录
 longitude: 经度
 male: 男
@@ -237,7 +244,7 @@ shutup-disable: 不禁言
 shutup-enable: 禁言
 sms-code: 短信验证码
 state:
-  online: 在线状态
+  online: 在线
 submenu:
   dept-manage: 部门管理
   group-manage: 群组管理
@@ -262,9 +269,3 @@ user-type:
 verify-code: 验证码
 verify-image-code: 验证图形代码
 weila-number: 微喇号
-login.banner.slogan1: 开箱即用的高质量模板
-login.banner.subSlogan1: 丰富的的页面模板，覆盖大多数典型业务场景
-login.banner.slogan2: 内置了常见问题的解决方案
-login.banner.subSlogan2: 国际化，路由配置，状态管理应有尽有
-login.banner.slogan3: 接入可视化增强工具AUX
-login.banner.subSlogan3: 实现灵活的区块式开发

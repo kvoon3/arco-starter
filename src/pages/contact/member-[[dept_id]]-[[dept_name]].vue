@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import type { MemberGetallModel } from 'generated/mock/weila'
 import { objectEntries } from '@antfu/utils'
 import { useMutation, useQuery } from '@tanstack/vue-query'
-import { objectOmit } from '@vueuse/core'
+import Fuse from 'fuse.js'
 import { weilaApiUrl } from '~/api'
-import { type MemberModel, TrackType } from '~/api/contact'
+import { TrackType } from '~/api/contact'
 import { weilaFetch } from '~/api/instances/fetcher'
 import { weilaRequest } from '~/api/instances/request'
 import AddDeviceModal from './components/AddDeviceModal.vue'
 import CreateMemberModal from './components/CreateMemberModal.vue'
+import DeleteMemberModal from './components/DeleteMemberModal.vue'
 import EditDeviceModal from './components/EditDeviceModal.vue'
 import EditMemberModal from './components/EditMemberModal.vue'
 import ResetPasswordModal from './components/ResetMemberPasswordModal.vue'
@@ -21,7 +23,7 @@ const { t } = useI18n()
 const { themeColor } = useAppStore()
 const route = useRoute('/contact/member-[[dept_id]]-[[dept_name]]')
 
-const memberIdxTitleMap: Partial<Record<keyof MemberModel, string>> = {
+const memberIdxTitleMap: Partial<Record<keyof MemberGetallModel['data']['members'][number], string>> = {
   name: 'name',
   sex: 'gender',
   avatar: 'avatar',
@@ -40,7 +42,6 @@ const trackTypeNameMap = {
   [TrackType.High]: t('track-type.high'),
   [TrackType.Medium]: t('track-type.medium'),
   [TrackType.Low]: t('track-type.low'),
-  [TrackType.Keep]: t('track-type.keep'),
 }
 
 const url = computed(() => {
@@ -49,15 +50,39 @@ const url = computed(() => {
     : weilaApiUrl['/corp/web/member-getall']
 })
 
-const { data: members, refetch } = useQuery<Array<MemberModel>>({
+const filterInput = ref('')
+
+const { data: _members, refetch } = useQuery({
   enabled: computed(() => Boolean(corp.value)),
   queryKey: [url, corp, route.params.dept_id],
-  queryFn: () => weilaFetch(url.value, {
+  queryFn: () => weilaFetch<MemberGetallModel['data']>(url.value, {
     body: {
       org_num: corp.value!.num,
       dept_id: route.params.dept_id,
     },
-  }).then(i => i.members),
+  }).then(i => i.members
+    .sort((a, b) => b.user_id - a.user_id),
+  ),
+})
+
+const members = computed(() => {
+  if (!_members.value)
+    return []
+
+  if (!filterInput.value)
+    return _members.value
+
+  const fuse = new Fuse(_members.value, {
+    keys: ['name', 'phone', 'user_num', 'job_num'],
+    includeScore: true,
+    threshold: 0.4,
+  })
+
+  const results = fuse.search(filterInput.value)
+
+  return results
+    .sort((a, b) => (a.score || 1) - (b.score || 1))
+    .map(result => result.item)
 })
 
 const { data: depts } = useQuery<Array<{ id: number, name: string }>>({
@@ -81,13 +106,14 @@ const cols = computed(() => {
 
 $inspect(cols)
 
-const selectedMember = ref<MemberModel | undefined>(undefined)
+const selectedMember = ref<MemberGetallModel['data']['members'][number] | undefined>(undefined)
 
 const isEditMemberModalVisible = ref(false)
 const isEditDeviceModalVisible = ref(false)
 const isResetPasswordModalVisible = ref(false)
+const isDeleteMemberModalVisible = ref(false)
 
-function onSelect(member: MemberModel, _: PointerEvent) {
+function onSelect(member: MemberGetallModel['data']['members'][number], _: PointerEvent) {
   selectedMember.value = member
 }
 
@@ -132,6 +158,8 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
             <i i-ph-plus inline-block /> {{ t('button.add-device') }}
           </a-button>
         </AddDeviceModal>
+        <a-input v-model="filterInput" max-w-80
+          :placeholder="`${t('name')}/${t('job-number')}/${t('weila-number')}/${t('phone-number')}`" />
         <!-- <a-select v-model:model-value="selectedDepts" :placeholder="t('dept.name')" allow-search allow-clear
           size="large" w-50>
           <a-option v-for="dept in depts" :key="dept.id">
@@ -140,22 +168,18 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
         </a-select> -->
       </section>
       <!-- @vue-expect-error type error when arco's row-click -->
-      <a-table
-        :columns="cols" :data="members" :column-resizable="true" :scroll="{
-          x: 700,
-          y: 600,
-        }" :scrollbar="true" @row-click="(...args) => onSelect(...args)"
-      >
+      <a-table :columns="cols" :data="members" :column-resizable="true" :scroll="{
+        x: 700,
+        y: 600,
+      }" :scrollbar="true" @row-click="(...args) => onSelect(...args)">
         <template #columns>
-          <a-table-column :title="t('member.state')">
+          <a-table-column :title="t('member.state')" :width="90">
             <template #cell="{ record: { state, user_id } }">
-              <a-switch
-                :default-checked="Boolean(!state)" :checked-value="0" :unchecked-value="1"
+              <a-switch :default-checked="Boolean(!state)" :checked-value="0" :unchecked-value="1"
                 :checked-color="themeColor" unchecked-color="#ddd" :before-change="(state) => toggleMemberState(
                   user_id,
                   Number(state) ? 0 : 1,
-                )"
-              >
+                )">
                 <template #checked>
                   {{ t('member-state.enabled') }}
                 </template>
@@ -165,7 +189,20 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
               </a-switch>
             </template>
           </a-table-column>
-          <a-table-column :title="t('type')">
+          <a-table-column :title="t('type')" :filterable="{
+            filters: [{
+              text: t('user-type.member'),
+              value: '0',
+            }, {
+              text: t('user-type.device'),
+              value: '1',
+            }, {
+              text: t('user-type.owner'),
+              value: '2',
+            }],
+            filter: (value, record) => Number(record.type) === Number(value),
+            multiple: false,
+          }" :width="80">
             <template #cell="{ record: { type } }">
               {{ {
                 0: t('user-type.member'),
@@ -174,61 +211,54 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
               }[Number(type)] }}
             </template>
           </a-table-column>
-          <a-table-column :title="t('state.online')">
+          <a-table-column :title="t('state.online')" :width="70">
             <template #cell="{ record: { online } }">
               {{ online ? t('online') : t('offline') }}
             </template>
           </a-table-column>
-          <a-table-column :title="t('avatar')">
+          <a-table-column :title="t('avatar')" :width="70">
             <template #cell="{ record: { avatar } }">
               <a-avatar :style="{ backgroundColor: '#3370ff' }" :image-url="avatar" />
             </template>
           </a-table-column>
-          <a-table-column :title="t('weila-number')">
+          <a-table-column :title="t('name')">
+            <template #cell="{ record: { name } }">
+              {{ name }}
+            </template>
+          </a-table-column>
+          <a-table-column :title="t('weila-number')" :width="100">
             <template #cell="{ record: { user_num } }">
               {{ user_num }}
             </template>
           </a-table-column>
-          <a-table-column :title="t('job-number')">
+          <a-table-column :title="t('job-number')" :width="100">
             <template #cell="{ record: { job_num } }">
               {{ job_num }}
             </template>
           </a-table-column>
-          <a-table-column
-            :title="t('dept.name')" data-index="dept_name" :filterable="{
-              filters: depts?.map((dept) => ({
-                text: dept.name,
-                value: String(dept.id),
-              })) || [],
-              filter: (value, record) => Number(record.dept_id) === Number(value),
-              multiple: true,
-            }"
-          >
+          <a-table-column :title="t('dept.name')" :width="100" data-index="dept_name" :filterable="{
+            filters: depts?.map((dept) => ({
+              text: dept.name,
+              value: String(dept.id),
+            })) || [],
+            filter: (value, record) => Number(record.dept_id) === Number(value),
+            multiple: false,
+          }">
             <template #cell="{ record: { dept_name } }">
               {{ dept_name }}
             </template>
           </a-table-column>
-          <a-table-column :title="t('created')">
+          <a-table-column :title="t('created')" :width="120">
             <template #cell="{ record: { created } }">
               {{ new Date(created * 1000).toLocaleDateString() }}
             </template>
           </a-table-column>
-
-          <a-table-column
-            v-for="(val, key) in objectOmit(memberIdxTitleMap, ['avatar', 'sex', 'tts', 'track', 'online', 'state', 'loc_share', 'created', 'dept_name'])"
-            :key :title="t(val || '')" :data-index="key"
-          />
-          <a-table-column :title="t('loc_share')">
-            <template #cell="{ record: { loc_share } }">
-              <a-tag v-if="loc_share" color="green">
-                {{ t('open') }}
-              </a-tag>
-              <a-tag v-else color="gray">
-                {{ t('close') }}
-              </a-tag>
+          <a-table-column :title="t('phone')" :width="130">
+            <template #cell="{ record: { phone } }">
+              {{ phone }}
             </template>
           </a-table-column>
-          <a-table-column :title="t('TTS')">
+          <a-table-column :title="t('TTS')" :width="60">
             <template #cell="{ record: { tts } }">
               <a-tag v-if="tts" color="green">
                 {{ t('open') }}
@@ -238,11 +268,21 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
               </a-tag>
             </template>
           </a-table-column>
-          <a-table-column :title="t('track')">
+          <a-table-column :title="t('track')" :width="60">
             <template #cell="{ record: { track } }">
               <a-tag>
                 <!-- @vue-expect-error type error -->
                 {{ trackTypeNameMap[track] }}
+              </a-tag>
+            </template>
+          </a-table-column>
+          <a-table-column :title="t('loc_share')" :width="100">
+            <template #cell="{ record: { loc_share } }">
+              <a-tag v-if="loc_share" color="green">
+                {{ t('open') }}
+              </a-tag>
+              <a-tag v-else color="gray">
+                {{ t('close') }}
               </a-tag>
             </template>
           </a-table-column>
@@ -252,15 +292,16 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
                 <a-dropdown :popup-max-height="false">
                   <a-button>{{ t('controls') }}<icon-down /></a-button>
                   <template #content>
-                    <a-doption
-                      @click="type === 1
-                        ? isEditDeviceModalVisible = true
-                        : isEditMemberModalVisible = true"
-                    >
+                    <a-doption @click="type === 1
+                      ? isEditDeviceModalVisible = true
+                      : isEditMemberModalVisible = true">
                       {{ t('button.edit') }}
                     </a-doption>
                     <a-doption @click="isResetPasswordModalVisible = true">
                       {{ t('reset-password.button') }}
+                    </a-doption>
+                    <a-doption @click="isDeleteMemberModalVisible = true">
+                      {{ t('button.delete') }}
                     </a-doption>
                   </template>
                 </a-dropdown>
@@ -275,4 +316,5 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
   <EditMemberModal v-model:open="isEditMemberModalVisible" :member="selectedMember" @success="refetch" />
   <EditDeviceModal v-model:open="isEditDeviceModalVisible" :member="selectedMember" @success="refetch" />
   <ResetPasswordModal v-model:open="isResetPasswordModalVisible" :member="selectedMember" />
+  <DeleteMemberModal v-model:open="isDeleteMemberModalVisible" :member="selectedMember" />
 </template>

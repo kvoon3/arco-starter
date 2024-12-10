@@ -21,7 +21,7 @@ btn:
   create: create
 burst-mode: Burst Mode
 burst-mode-0: Arrange wheat
-burst-mode-1: 抢麦 translates to "grab the mic" in English.
+burst-mode-1: grab the mic.
 burst-mode-2: Intercom
 button:
   add: add
