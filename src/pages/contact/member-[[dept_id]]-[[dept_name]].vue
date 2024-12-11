@@ -314,5 +314,5 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
   <EditMemberModal v-model:open="isEditMemberModalVisible" :member="selectedMember" @success="refetch" />
   <EditDeviceModal v-model:open="isEditDeviceModalVisible" :member="selectedMember" @success="refetch" />
   <ResetPasswordModal v-model:open="isResetPasswordModalVisible" :member="selectedMember" />
-  <DeleteMemberModal v-model:open="isDeleteMemberModalVisible" :member="selectedMember" />
+  <DeleteMemberModal v-model:open="isDeleteMemberModalVisible" :member="selectedMember" @success="refetch" />
 </template>
