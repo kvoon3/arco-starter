@@ -36,7 +36,59 @@ export default [
         "date": "2024-11-19"
       }))
     }
-  }
+  },
+  {
+    url: '/v1/corp/web/location-get-regeo',
+    method: 'POST',
+    response: (res: any) => {
+      const { body = {} } = res
+      const guangdongCities = [
+        { name: "广州市", adcode: "440100" },
+        { name: "深圳市", adcode: "440300" },
+        { name: "珠海市", adcode: "440400" },
+        { name: "汕头市", adcode: "440500" },
+        { name: "佛山市", adcode: "440600" },
+        { name: "韶关市", adcode: "440200" },
+        { name: "湛江市", adcode: "440800" },
+        { name: "肇庆市", adcode: "441200" },
+        { name: "江门市", adcode: "440700" },
+        { name: "茂名市", adcode: "440900" }
+      ];
+
+      const randomCity = guangdongCities[Math.floor(Math.random() * guangdongCities.length)];
+
+      const randomRoad = `${Math.floor(Math.random() * 500)}省道`;
+      const randomDistance = Math.floor(Math.random() * 1000);
+      const randomPOI = ["公园", "商场", "学校", "医院", "餐厅"][Math.floor(Math.random() * 5)];
+
+      return Object.assign({
+        "errcode": 0,
+        "errmsg": "请求成功",
+        "data": {
+          "regeo": {
+            "province": "广东省",
+            "city": randomCity.name,
+            "district": `${randomCity.name.slice(0, -1)}区`,
+            "township": `${String.fromCharCode(65 + Math.floor(Math.random() * 26))}镇`,
+            "road": randomRoad,
+            "number": "",
+            "addr": "",
+            "name": `${randomRoad}${randomPOI}${randomDistance}米`,
+            "adcode": randomCity.adcode,
+            "matchs": {
+              "aoi_name": "",
+              "aoi_distance": 0,
+              "poi_name": `${randomRoad}${randomPOI}${randomDistance}米`,
+              "poi_distance": `${randomDistance.toFixed(3)}`,
+              "roadinter_name": `${randomRoad}与${String.fromCharCode(65 + Math.floor(Math.random() * 26))}大道交叉口${["东", "南", "西", "北"][Math.floor(Math.random() * 4)]}${Math.floor(Math.random() * 1000)}米`,
+              "roadinter_distance": `${(Math.random() * 1000).toFixed(3)}`
+            },
+            "formatted_address": `${randomCity.name}${randomRoad}${randomPOI}${randomDistance}米`
+          }
+        }
+      }, check(body, { "latitude": Number((Math.random() * (25.31 - 20.13) + 20.13).toFixed(5)), "longitude": Number((Math.random() * (117.19 - 109.66) + 109.66).toFixed(5)) }))
+    }
+  },
 ] as const
 
 

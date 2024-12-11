@@ -92,8 +92,11 @@ $inspect(selectedMarker)
 
 const { data: regeoInfo } = useQuery({
   enabled: computed(() => Boolean(selectedMarker.value?.getPosition()?.toArray().length)),
-  queryKey: ['regeo', weilaApiUrl['/corp/web/location-get-regeo']],
+  queryKey: ['regeo', weilaApiUrl['/corp/web/location-get-regeo'], computed(() => selectedMarker.value?.getPosition())],
   queryFn: async () => {
+    if (!selectedMarker.value)
+      return
+
     const pos = selectedMarker.value?.getPosition()
 
     if (!pos)

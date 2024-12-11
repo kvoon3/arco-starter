@@ -2,7 +2,6 @@
 import type { MemberGetallModel } from 'generated/mock/weila'
 import { objectEntries } from '@antfu/utils'
 import { useMutation, useQuery } from '@tanstack/vue-query'
-import Fuse from 'fuse.js'
 import { weilaApiUrl } from '~/api'
 import { TrackType } from '~/api/contact'
 import { weilaFetch } from '~/api/instances/fetcher'
@@ -61,7 +60,9 @@ const { data: _members, refetch } = useQuery({
       dept_id: route.params.dept_id,
     },
   }).then(i => i.members
-    .sort((a, b) => b.user_id - a.user_id),
+    .sort((a, b) => {
+      return b.dept_id + a.dept_id
+    }),
   ),
 })
 
