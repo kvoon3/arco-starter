@@ -18,7 +18,7 @@ const { data, refetch } = useQuery<Array<DeptModel>>({
     body: {
       org_num: corp.value!.num,
     },
-  }).then(i => i.depts.sort((a: DeptModel, b: DeptModel) => b.id - a.id)),
+  }).then(i => i.depts.sort((a: DeptModel, b: DeptModel) => a.id - b.id)),
 })
 
 $inspect(data)
@@ -78,7 +78,7 @@ function onSelect(dept: DeptModel, e: PointerEvent) {
           </a-table-column>
           <a-table-column :title="t('controls')">
             <template #cell="{ record }">
-              <div flex gap2>
+              <div v-if="record.id" flex gap2>
                 <a-button @click="() => openEdit(record)">
                   {{ t('button.edit') }}
                 </a-button>

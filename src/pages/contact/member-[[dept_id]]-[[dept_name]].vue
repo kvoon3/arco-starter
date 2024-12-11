@@ -72,17 +72,14 @@ const members = computed(() => {
   if (!filterInput.value)
     return _members.value
 
-  const fuse = new Fuse(_members.value, {
-    keys: ['name', 'phone', 'user_num', 'job_num'],
-    includeScore: true,
-    threshold: 0.4,
-  })
+  const searchTerm = filterInput.value.toLowerCase()
 
-  const results = fuse.search(filterInput.value)
-
-  return results
-    .sort((a, b) => (a.score || 1) - (b.score || 1))
-    .map(result => result.item)
+  return _members.value.filter(member =>
+    member.name.toLowerCase().includes(searchTerm)
+    || member.phone.toLowerCase().includes(searchTerm)
+    || member.user_num.toLowerCase().includes(searchTerm)
+    || member.job_num.toLowerCase().includes(searchTerm),
+  )
 })
 
 const { data: depts } = useQuery<Array<{ id: number, name: string }>>({
@@ -158,8 +155,9 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
             <i i-ph-plus inline-block /> {{ t('button.add-device') }}
           </a-button>
         </AddDeviceModal>
-        <a-input v-model="filterInput" max-w-80
-          :placeholder="`${t('name')}/${t('job-number')}/${t('weila-number')}/${t('phone-number')}`" />
+        <a-input v-model="filterInput"
+          :placeholder="`${t('name')}/${t('job-number')}/${t('weila-number')}/${t('phone-number')}`" allow-clear
+          max-w-80 />
         <!-- <a-select v-model:model-value="selectedDepts" :placeholder="t('dept.name')" allow-search allow-clear
           size="large" w-50>
           <a-option v-for="dept in depts" :key="dept.id">
@@ -300,7 +298,7 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
                     <a-doption @click="isResetPasswordModalVisible = true">
                       {{ t('reset-password.button') }}
                     </a-doption>
-                    <a-doption @click="isDeleteMemberModalVisible = true">
+                    <a-doption v-if="type === 1" @click="isDeleteMemberModalVisible = true">
                       {{ t('button.delete') }}
                     </a-doption>
                   </template>

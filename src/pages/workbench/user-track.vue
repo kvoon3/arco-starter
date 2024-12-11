@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { RegeoModel, UserTrackModel } from '~/api/track'
-import { isNull, isNumber, isUndefined } from '@antfu/utils'
+import { isNull, isNumber, isUndefined, objectEntries } from '@antfu/utils'
 import { Message } from '@arco-design/web-vue'
 import { useQuery } from '@tanstack/vue-query'
 import { ElAmap } from '@vuemap/vue-amap'
@@ -17,6 +17,7 @@ const contactStore = useContactStore()
 const { data: contact } = storeToRefs(contactStore)
 const { data: tracks } = useQuery({
   enabled: computed(() => Boolean(selectedId.value) && Boolean(selectedDate.value)),
+  refetchOnWindowFocus: false,
   queryKey: ['user track', selectedId, selectedDate],
   queryFn: ({ queryKey }) => weilaFetch<{ tracks: UserTrackModel[] }>('/corp/web/location-get-track', {
     body: { user_id: queryKey[1], date: queryKey[2] },
@@ -111,24 +112,27 @@ watch(regeoInfo, (info?: RegeoModel) => {
   if (!info)
     return
 
-  //   const content = `
-  //   <div class="p-4 bg-white rounded-lg shadow-md">
-  //     <h3 class="text-lg font-semibold mb-2">Location Details</h3>
-  //     ${objectEntries(info).map(([key, value]) => `
-  //       <div class="mb-2">
-  //         <span class="font-medium text-gray-700">${key}:</span>
-  //         <span class="ml-2 text-gray-600">
-  //           ${typeof value === 'object'
-  //       ? `<pre class="mt-1 text-sm bg-gray-100 p-2 rounded">${JSON.stringify(value, null, 2)}</pre>`
-  //       : value}
-  //         </span>
-  //       </div>
-  //     `).join('')}
-  //   </div>
-  // `
-  const content = info.formatted_address
+  const content = `
+    <div color-black>
+      <h3 class="text-lg font-semibold mb-2">${t('location-detail')}</h3>
+      <div class="mb-2 ">
+        ${info.formatted_address}
+      </div>
+      <div>
+        <span mr2>${t('created')}</span> <span>${new Date(selectedMarker.value?.getExtData().created * 1000).toLocaleString()}</span>
+      </div>
+      <div>
+        <span mr2>${t('longitude')}</span> <span>${selectedMarker.value?.getExtData().longitude}</span>
+      </div>
+      <div>
+        <span mr2>${t('latitude')}</span> <span>${selectedMarker.value?.getExtData().latitude}<br></span>
+      </div>
+    </div>
+  `
 
-  infoWindow.value?.setContent(content)
+  nextTick(() => {
+    infoWindow.value?.setContent(content)
+  })
 })
 
 const layerStyle = ref({
@@ -224,14 +228,12 @@ watch(markers, (val, oldVal) => {
   </div>
   <div flex gap2 p4 bg-base>
     <!-- @vue-expect-error type error -->
-    <a-tree-select
-      v-model="selectedId" :data="data" :field-names="{
-        key: 'id',
-        title: 'name',
-        children: 'members',
-      }" placeholder="Please select ..." :block-node="true" :selectable="(node) => 'user_id' in node" max-w-60
-      grow-1
-    />
+    <a-tree-select v-model="selectedId" :data="data" :field-names="{
+      key: 'id',
+      title: 'name',
+      children: 'members',
+    }" :placeholder="t('hint.please-select')" :block-node="true" :selectable="(node) => 'user_id' in node" max-w-60
+      grow-1 />
     <a-date-picker v-model="selectedDate" max-w-40 grow-1 />
   </div>
   <div h-full w-full>
@@ -240,10 +242,8 @@ watch(markers, (val, oldVal) => {
         <ElAmapLocaLine :visible="trackVisible" :source-data="trackFeatureCollection" :layer-style="layerStyle" />
       </ElAmapLoca>
 
-      <a-button
-        v-if="markers?.length" type="primary" shape="circle" class="absolute right-4 top-4"
-        @click="drawerVisible = true"
-      >
+      <a-button v-if="markers?.length" type="primary" shape="circle" class="absolute right-4 top-4"
+        @click="drawerVisible = true">
         <template #icon>
           <icon-menu />
         </template>
@@ -262,6 +262,7 @@ watch(markers, (val, oldVal) => {
             </template>
             <template #description>
               <span mr2>{{ t('longitude') }}</span> <span>{{ marker.getExtData().longitude }}</span>
+              <br>
               <span mr2>{{ t('latitude') }}</span> <span>{{ marker.getExtData().latitude }}<br></span>
             </template>
           </a-list-item-meta>

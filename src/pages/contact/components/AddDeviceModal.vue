@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { objectEntries } from '@antfu/utils'
 import { Message } from '@arco-design/web-vue'
 import { useMutation, useQuery } from '@tanstack/vue-query'
 import { weilaApiUrl } from '~/api'
@@ -12,7 +11,8 @@ const emits = defineEmits(['success'])
 const { t } = useI18n()
 const { themeColor } = useAppStore()
 const formRef = templateRef('formRef')
-const open = ref(false)
+
+const open = defineModel('open', { default: false })
 
 const corpStore = useCorpStore()
 const { org_num } = storeToRefs(corpStore)
@@ -71,6 +71,7 @@ const { mutate } = useMutation({
     Message.success(t('message.success'))
     // refetchContact()
     emits('success')
+    open.value = false
   },
   onError() {
   },

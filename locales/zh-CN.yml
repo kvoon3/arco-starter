@@ -110,9 +110,12 @@ group:
   settings:
     members: 成员
     title: 群组设置
+hint:
+  please-select: 请选择...
 job-number: 工号
 latitude: 纬度
 loc_share: 位置共享
+location-detail: 位置信息
 login:
   form:
     forgetPassword: 忘记密码
