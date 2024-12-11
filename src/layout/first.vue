@@ -31,11 +31,6 @@ const { t } = useI18n()
   display: flex;
   height: 100vh;
 
-  .banner {
-    width: 550px;
-    background: linear-gradient(163.85deg, #1d2129 0%, #00308f 100%);
-  }
-
   .content {
     position: relative;
     display: flex;
@@ -66,17 +61,6 @@ const { t } = useI18n()
     margin-left: 4px;
     color: var(--color-fill-1);
     font-size: 20px;
-  }
-}
-</style>
-
-<style lang="less" scoped>
-// responsive
-@media (max-width: @screen-lg) {
-  .container {
-    .banner {
-      width: 25%;
-    }
   }
 }
 </style>
