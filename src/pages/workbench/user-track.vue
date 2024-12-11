@@ -119,7 +119,7 @@ watch(regeoInfo, (info?: RegeoModel) => {
         ${info.formatted_address}
       </div>
       <div>
-        <span mr2>${t('created')}</span> <span>${new Date(selectedMarker.value?.getExtData().created * 1000).toLocaleString()}</span>
+        <span mr2>${t('time')}</span> <span>${new Date(selectedMarker.value?.getExtData().created * 1000).toLocaleString()}</span>
       </div>
       <div>
         <span mr2>${t('longitude')}</span> <span>${selectedMarker.value?.getExtData().longitude}</span>

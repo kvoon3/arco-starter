@@ -23,7 +23,8 @@
     "lint": "eslint .",
     "mock": "apipost-mock-gen fixtures/mock/weila.md --output generated/mock/weila.ts",
     "zip": "esno scripts/zip.ts",
-    "test": "vitest"
+    "test": "vitest",
+    "release": "npx bumpp"
   },
   "dependencies": {
     "@antfu/utils": "^0.7.10",
@@ -88,6 +89,7 @@
     "@vuemap/vue-amap-extra": "^2.1.5",
     "@vuemap/vue-amap-loca": "^2.1.2",
     "apipost-mock-gen": "^0.1.2",
+    "bumpp": "^9.9.0",
     "consola": "^3.2.3",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",

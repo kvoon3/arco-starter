@@ -1,5 +1,5 @@
-import { $ } from 'zx'
-import { name } from '../package.json'
+import { $, echo } from 'zx'
+import { name, version } from '../package.json'
 
 export function genFormatDate(date: Date) {
   const Y = date.getFullYear()
@@ -14,7 +14,10 @@ export function genFormatDate(date: Date) {
 async function run() {
   const input = `./dist/*`
   // const input = `./dist/${name}`
-  const output = `pkg/${name}_${genFormatDate(new Date())}.zip`
+  const output = `pkg/${name}_${version}_${genFormatDate(new Date())}.zip`
+
+  echo`${output}`
+
   await $`7z a ${output} ${input}`
 }
 
