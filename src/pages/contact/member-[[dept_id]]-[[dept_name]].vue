@@ -59,10 +59,9 @@ const { data: _members, refetch } = useQuery({
       org_num: corp.value!.num,
       dept_id: route.params.dept_id,
     },
-  }).then(i => i.members
-    .sort((a, b) => {
-      return b.dept_id + a.dept_id
-    }),
+  }).then(i => i.members.sort((a, b) => {
+    return a.dept_id - b.dept_id
+  }),
   ),
 })
 

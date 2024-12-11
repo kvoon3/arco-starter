@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { RegeoModel, UserTrackModel } from '~/api/track'
-import { isNull, isNumber, isUndefined, objectEntries } from '@antfu/utils'
+import { isNull, isNumber, isUndefined } from '@antfu/utils'
 import { Message } from '@arco-design/web-vue'
 import { useQuery } from '@tanstack/vue-query'
 import { ElAmap } from '@vuemap/vue-amap'
@@ -92,7 +92,11 @@ $inspect(selectedMarker)
 
 const { data: regeoInfo } = useQuery({
   enabled: computed(() => Boolean(selectedMarker.value?.getPosition()?.toArray().length)),
-  queryKey: ['regeo', weilaApiUrl['/corp/web/location-get-regeo'], computed(() => selectedMarker.value?.getPosition())],
+  queryKey: [
+    'regeo',
+    weilaApiUrl['/corp/web/location-get-regeo'],
+    computed(() => selectedMarker.value?.getPosition()),
+  ],
   queryFn: async () => {
     if (!selectedMarker.value)
       return
