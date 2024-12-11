@@ -8,10 +8,8 @@ const { t } = useI18n()
 <template>
   <div class="container">
     <div class="logo">
-      <img
-        alt="logo"
-        src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image"
-      >
+      <img alt="logo"
+        src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image">
       <div class="logo-text">
         {{ t('project.name') }}
       </div>
@@ -29,7 +27,7 @@ const { t } = useI18n()
 </template>
 
 <style lang="less" scoped>
-  .container {
+.container {
   display: flex;
   height: 100vh;
 
@@ -73,7 +71,7 @@ const { t } = useI18n()
 </style>
 
 <style lang="less" scoped>
-  // responsive
+// responsive
 @media (max-width: @screen-lg) {
   .container {
     .banner {

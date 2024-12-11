@@ -1,4 +1,4 @@
-const generateMember = (id: number) => ({
+export const generateMember = (id: number) => ({
   user_id: 1253400 + id,
   user_num: `7001${(Math.floor(Math.random() * 10000) + 10000).toString().substring(1)}`,
   sex: Math.random() > 0.5 ? 1 : 0,

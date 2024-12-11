@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { MemberGetallModel } from 'generated/mock/weila'
+import type { MemberChangePayload, MemberGetallModel } from 'generated/mock/weila'
 import { objectPick } from '@antfu/utils'
 import { Message } from '@arco-design/web-vue'
 import { useMutation, useQuery } from '@tanstack/vue-query'
@@ -35,19 +35,6 @@ const { data: depts } = useQuery<Array<{ id: number, name: string }>>({
   }).then(i => i.depts),
 })
 
-interface Payload {
-  org_num: number
-  member_id: number
-  name: string
-  dept_id: number
-  sex: 0 | 1
-  avatar: string
-  phone: string
-  tts: 0 | 1
-  loc_share: 0 | 1
-  track: TrackType
-}
-
 // const TrackTypeNameMap = {
 //   [TrackType.Close]: t('track-type.close'),
 //   [TrackType.High]: t('track-type.high'),
@@ -62,7 +49,7 @@ interface Payload {
 //     value,
 //   }))
 
-let form = reactive<Payload>({
+let form = reactive<MemberChangePayload>({
   ...objectPick(props.member || {} as any, [
     'name',
     'dept_id',
@@ -75,6 +62,7 @@ let form = reactive<Payload>({
   ], false),
   org_num: org_num.value,
   member_id: props.member?.user_id || 0,
+  job_num: String(props.member?.job_num || 0),
 })
 
 watch(() => props.member, (member) => {
@@ -94,6 +82,7 @@ watch(() => props.member, (member) => {
     ], false),
     org_num: org_num.value,
     member_id: member?.user_id,
+    job_num: String(member.job_num || 0),
   })
 }, { immediate: true })
 
@@ -103,7 +92,7 @@ corpStore.$subscribe((_, state) => {
 }, { immediate: true })
 
 const { mutate: createMember, isPending } = useMutation({
-  mutationFn: (payload: Payload) => {
+  mutationFn: (payload: MemberChangePayload) => {
     return weilaRequest.post(weilaApiUrl['/corp/web/member-change'], {
       ...payload,
       tts: payload.tts ? 1 : 0,
@@ -183,6 +172,10 @@ function handleSubmit() {
           </a-form-item>
           <a-form-item field="avatar" :label="t('member.form.avatar.label')" :validate-trigger="['change', 'blur']">
             <AvatarUploader ref="avatarUploaderRef" v-model:src="form.avatar" />
+          </a-form-item>
+          <a-form-item field="job_num" :label="t('member.form.job-num.label')" :rules="[{}]"
+            :validate-trigger="['change', 'blur']">
+            <a-input v-model="form.job_num" />
           </a-form-item>
           <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
             <a-switch v-model="form.tts" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"
