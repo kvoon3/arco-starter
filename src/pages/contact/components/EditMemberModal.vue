@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { MemberChangePayload, MemberGetallModel } from 'generated/mock/weila'
-import type { MemberModel } from '~/api/contact'
 import { objectPick } from '@antfu/utils'
 import { Message } from '@arco-design/web-vue'
 import { useMutation, useQuery } from '@tanstack/vue-query'
@@ -143,8 +142,7 @@ function handleSubmit() {
           </a-form-item>
           <a-form-item field="job_num" :label="t('member.form.job-num.label')" :rules="[{}]"
             :validate-trigger="['change', 'blur']">
-            <!-- @vue-expect-error type error -->
-            <a-input-number v-model="form.job_num" :parser="Number" />
+            <a-input v-model="form.job_num" />
           </a-form-item>
           <a-form-item field="phone" :label="t('member.form.phone.label')" :rules="[{}]"
             :validate-trigger="['change', 'blur']">
