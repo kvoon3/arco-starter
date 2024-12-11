@@ -281,14 +281,14 @@ export default [
       return Object.assign({ "errcode": 0, "errmsg": "请求成功", "data": { "members": [{ "user_id": 1253444, "prority": 0, "tts": 0, "loc_share": 0, "user_num": "70015325", "sex": 0, "name": "ent19949504", "avatar": "http://favicon.weila.hk/default/user.png" }, { "user_id": 1253446, "prority": 0, "tts": 0, "loc_share": 0, "user_num": "70011173", "sex": 0, "name": "222222", "avatar": "http://favicon.weila.hk/default/user.png" }] } }, check(body, { "group_id": 80000528, "member_ids": [1253464] }))
     }
   },
-  {
-    url: '/v1/corp/web/group-member-getall',
-    method: 'POST',
-    response: (res: any) => {
-      const { body = {} } = res
-      return Object.assign({ "errcode": 0, "errmsg": "请求成功", "data": { "members": [{ "user_id": 1253497, "user_num": "70014622", "sex": 0, "name": "清湖-企业主", "avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100067/u/1253497/a/3f69a555.jpg", "dept_id": 0, "country_code": "86", "phone": "18926020729", "type": 255, "tts": 1, "loc_share": 0, "track": 0, "state": 0, "created": 1732263378, "online": 0, "dept_name": "" }, { "user_id": 1253500, "user_num": "70012637", "sex": 0, "name": "技术-王五", "avatar": "http://favicon.weila.hk/default/user.png", "dept_id": 2, "country_code": "86", "phone": "13800005555", "type": 0, "tts": 0, "loc_share": 1, "track": 0, "state": 0, "created": 1732264968, "online": 0, "dept_name": "技术部" }] } }, check(body, { "group_id": 81000738 }))
-    }
-  },
+  // {
+  //   url: '/v1/corp/web/group-member-getall',
+  //   method: 'POST',
+  //   response: (res: any) => {
+  //     const { body = {} } = res
+  //     return Object.assign({ "errcode": 0, "errmsg": "请求成功", "data": { "members": [{ "user_id": 1253497, "user_num": "70014622", "sex": 0, "name": "清湖-企业主", "avatar": "http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100067/u/1253497/a/3f69a555.jpg", "dept_id": 0, "country_code": "86", "phone": "18926020729", "type": 255, "tts": 1, "loc_share": 0, "track": 0, "state": 0, "created": 1732263378, "online": 0, "dept_name": "" }, { "user_id": 1253500, "user_num": "70012637", "sex": 0, "name": "技术-王五", "avatar": "http://favicon.weila.hk/default/user.png", "dept_id": 2, "country_code": "86", "phone": "13800005555", "type": 0, "tts": 0, "loc_share": 1, "track": 0, "state": 0, "created": 1732264968, "online": 0, "dept_name": "技术部" }] } }, check(body, { "group_id": 81000738 }))
+  //   }
+  // },
   // {
   //   url: '/v1/corp/web/location-get-track',
   //   method: 'POST',

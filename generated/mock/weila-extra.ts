@@ -1,3 +1,21 @@
+const generateMember = (id: number) => ({
+  user_id: 1253400 + id,
+  user_num: `7001${(Math.floor(Math.random() * 10000) + 10000).toString().substring(1)}`,
+  sex: Math.random() > 0.5 ? 1 : 0,
+  name: `${['张', '李', '王', '赵', '陈', '黄', '周', '吴', '刘', '孙'][Math.floor(Math.random() * 10)]}${['伟', '芳', '娜', '秀英', '敏', '静', '丽', '强', '磊', '军'][Math.floor(Math.random() * 10)]}`,
+  avatar: Math.random() > 0.7 ? `http://weilacorp.oss-cn-shenzhen.aliyuncs.com/corp/100067/u/${1253400 + id}/a/${Math.random().toString(36).substring(2, 10)}.jpg` : "http://favicon.weila.hk/default/user.png",
+  dept_id: Math.floor(Math.random() * 5),
+  country_code: "86",
+  phone: `1${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 100000000).toString().padStart(8, '0')}`,
+  type: Math.floor(Math.random() * 256),
+  tts: Math.random() > 0.5 ? 1 : 0,
+  loc_share: Math.random() > 0.5 ? 1 : 0,
+  track: Math.random() > 0.8 ? 1 : 0,
+  state: Math.floor(Math.random() * 3),
+  created: Math.floor(Date.now() / 1000) - Math.floor(Math.random() * 31536000), // Random timestamp within the last year
+  online: Math.random() > 0.7 ? 1 : 0,
+  dept_name: ['技术部', '营销部', '人事部', '财务部', '行政部'][Math.floor(Math.random() * 5)]
+});
 
 // NOTE: 根据实际需求调整模拟数据的 mock api，此处的 api 将会替换掉生成的 mock api
 export default [
@@ -89,6 +107,22 @@ export default [
       }, check(body, { "latitude": Number((Math.random() * (25.31 - 20.13) + 20.13).toFixed(5)), "longitude": Number((Math.random() * (117.19 - 109.66) + 109.66).toFixed(5)) }))
     }
   },
+  // {
+  //   url: '/v1/corp/web/member-getall',
+  //   method: 'POST',
+  //   response: (res: any) => {
+  //     const { body = {} } = res
+  //     const members = Array.from({ length: 20 }, (_, i) => generateMember(i));
+
+  //     return Object.assign({
+  //       "errcode": 0,
+  //       "errmsg": "请求成功",
+  //       "data": {
+  //         "members": members
+  //       }
+  //     }, check(body, { "org_num": 100130 }))
+  //   }
+  // },
 ] as const
 
 
@@ -107,7 +141,7 @@ export function check(obj1: object, obj2: object) {
     const val2 = obj2[key as keyof typeof obj2]
 
     if (typeof val1 !== typeof val2) {
-      if (isString(val1) && val1 === '' && val2 !== '')
+      if (typeof val1 === 'string' && val1 === '' && val2 !== '')
         return { errcode: 1, errmsg: `${key} is empty string` }
       return { errcode: 1, errmsg: `Type mismatch for key: ${key}` }
     }
