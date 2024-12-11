@@ -35,7 +35,7 @@ const form = reactive<Model>({
 
 const { mutate: submit, isPending: isSubmiting } = useMutation({
   mutationFn: async (data: Model) => {
-    return await weilaRequest.post(weilaApiUrl['/corp/web/reset-password'], {
+    return await weilaRequest.post(weilaApiUrl('/corp/web/reset-password'), {
       ...data,
       password: md5(data.password),
     })

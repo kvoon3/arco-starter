@@ -27,8 +27,8 @@ const open = defineModel('open', { default: false })
 
 const { data: depts } = useQuery<Array<{ id: number, name: string }>>({
   enabled: computed(() => Boolean(org_num.value)),
-  queryKey: [weilaApiUrl['/corp/web/dept-getall'], org_num],
-  queryFn: () => weilaFetch(weilaApiUrl['/corp/web/dept-getall'], {
+  queryKey: [weilaApiUrl('/corp/web/dept-getall'), org_num],
+  queryFn: () => weilaFetch(weilaApiUrl('/corp/web/dept-getall'), {
     body: {
       org_num: org_num.value,
     },
@@ -93,7 +93,7 @@ corpStore.$subscribe((_, state) => {
 
 const { mutate: createMember, isPending } = useMutation({
   mutationFn: (payload: MemberChangePayload) => {
-    return weilaRequest.post(weilaApiUrl['/corp/web/member-change'], {
+    return weilaRequest.post(weilaApiUrl('/corp/web/member-change'), {
       ...payload,
       tts: payload.tts ? 1 : 0,
       loc_share: payload.loc_share ? 1 : 0,

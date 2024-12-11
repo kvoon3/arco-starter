@@ -13,8 +13,8 @@ const { t } = useI18n()
 const { data: corp } = storeToRefs(useCorpStore())
 const { data, refetch } = useQuery<Array<DeptModel>>({
   enabled: computed(() => Boolean(corp.value?.num)),
-  queryKey: [weilaApiUrl['/corp/web/dept-getall'], corp],
-  queryFn: () => weilaFetch(weilaApiUrl['/corp/web/dept-getall'], {
+  queryKey: [weilaApiUrl('/corp/web/dept-getall'), corp],
+  queryFn: () => weilaFetch(weilaApiUrl('/corp/web/dept-getall'), {
     body: {
       org_num: corp.value!.num,
     },

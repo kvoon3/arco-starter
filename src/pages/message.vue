@@ -36,8 +36,8 @@ const { data: corp } = storeToRefs(corpStore)
 
 const { data: groups } = useQuery<GroupModel[]>({
   enabled: computed(() => Boolean(corp.value)),
-  queryKey: ['groups', weilaApiUrl['/corp/web/group-getall'], corp],
-  queryFn: () => weilaFetch(weilaApiUrl['/corp/web/group-getall'], {
+  queryKey: ['groups', weilaApiUrl('/corp/web/group-getall'), corp],
+  queryFn: () => weilaFetch(weilaApiUrl('/corp/web/group-getall'), {
     body: { org_num: String(corp.value!.num) },
   }).then(i => i.groups),
 })

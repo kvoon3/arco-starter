@@ -34,8 +34,8 @@ const { org_num } = storeToRefs(useCorpStore())
 
 const { data: members } = useQuery<Array<MemberModel>>({
   enabled: computed(() => Boolean(org_num.value)),
-  queryKey: [weilaApiUrl['/corp/web/member-getall'], org_num.value],
-  queryFn: () => weilaFetch(weilaApiUrl['/corp/web/member-getall'], {
+  queryKey: [weilaApiUrl('/corp/web/member-getall'), org_num.value],
+  queryFn: () => weilaFetch(weilaApiUrl('/corp/web/member-getall'), {
     body: {
       org_num: org_num.value,
     },
@@ -44,8 +44,8 @@ const { data: members } = useQuery<Array<MemberModel>>({
 
 const { data: groupMembers, refetch: refetchGroupMembers } = useQuery<GroupMemberGetallModel['data']['members']>({
   enabled: computed(() => Boolean(open.value)),
-  queryKey: [weilaApiUrl['/corp/web/group-member-getall'], props.groupId],
-  queryFn: () => weilaFetch(weilaApiUrl['/corp/web/group-member-getall'], {
+  queryKey: [weilaApiUrl('/corp/web/group-member-getall'), props.groupId],
+  queryFn: () => weilaFetch(weilaApiUrl('/corp/web/group-member-getall'), {
     body: {
       group_id: props.groupId,
     },

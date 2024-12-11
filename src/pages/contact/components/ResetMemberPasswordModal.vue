@@ -43,7 +43,7 @@ corpStore.$subscribe((_, state) => {
 
 const { mutate, isPending } = useMutation({
   mutationFn: (payload: Payload) => {
-    return weilaRequest.post(weilaApiUrl['/corp/web/member-reset-password'], {
+    return weilaRequest.post(weilaApiUrl('/corp/web/member-reset-password'), {
       ...payload,
       password: md5(payload.password),
     })

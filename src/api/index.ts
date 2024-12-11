@@ -38,13 +38,12 @@ export const weilaApiFullUrl = {
   ...Object.fromEntries(weilaExtraApiList.map(api => [api.url, api.url])),
 } as Record<WeilaApiUrl, WeilaApiUrl>
 
-/**
- * @description type safe api url
- */
-export const weilaApiUrl = {
-  ...Object.fromEntries(weilaApiList.map(api => [api.url, api.url].map(noBaseUrl))),
-  ...Object.fromEntries(weilaExtraApiList.map(api => [api.url, api.url].map(noBaseUrl))),
-} as Record<WeilaApiUrlShort, WeilaApiUrlShort>
+export function weilaApiUrl(key: WeilaApiUrlShort) {
+  return ({
+    ...Object.fromEntries(weilaApiList.map(api => [api.url, api.url].map(noBaseUrl))),
+    ...Object.fromEntries(weilaExtraApiList.map(api => [api.url, api.url].map(noBaseUrl))),
+  } as Record<WeilaApiUrlShort, WeilaApiUrlShort>)[key] || key
+}
 
 export const publicApi: WeilaApiUrl[] = [
   '/v1/corp/web/login',

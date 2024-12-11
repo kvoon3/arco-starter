@@ -45,8 +45,8 @@ const trackTypeNameMap = {
 
 const url = computed(() => {
   return route.params.dept_id
-    ? weilaApiUrl['/corp/web/dept-member-getall']
-    : weilaApiUrl['/corp/web/member-getall']
+    ? weilaApiUrl('/corp/web/dept-member-getall')
+    : weilaApiUrl('/corp/web/member-getall')
 })
 
 const filterInput = ref('')
@@ -84,8 +84,8 @@ const members = computed(() => {
 
 const { data: depts } = useQuery<Array<{ id: number, name: string }>>({
   enabled: computed(() => Boolean(org_num.value)),
-  queryKey: [weilaApiUrl['/corp/web/dept-getall'], org_num],
-  queryFn: () => weilaFetch(weilaApiUrl['/corp/web/dept-getall'], {
+  queryKey: [weilaApiUrl('/corp/web/dept-getall'), org_num],
+  queryFn: () => weilaFetch(weilaApiUrl('/corp/web/dept-getall'), {
     body: {
       org_num: org_num.value,
     },
@@ -115,7 +115,7 @@ function onSelect(member: MemberGetallModel['data']['members'][number], _: Point
 }
 
 const { mutateAsync: changeMemberState } = useMutation({
-  mutationFn: (payload: { member_id: number, state: 0 | 1 }) => weilaRequest.post(weilaApiUrl['/corp/web/member-change-state'], {
+  mutationFn: (payload: { member_id: number, state: 0 | 1 }) => weilaRequest.post(weilaApiUrl('/corp/web/member-change-state'), {
     org_num: corp.value!.num,
     ...payload,
   }),

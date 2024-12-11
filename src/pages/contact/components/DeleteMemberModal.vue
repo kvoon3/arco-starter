@@ -19,7 +19,7 @@ const { org_num } = storeToRefs(useCorpStore())
 
 const { mutate, isPending } = useMutation({
   mutationFn: () => weilaRequest.post(
-    weilaApiUrl['/corp/web/member-delete'],
+    weilaApiUrl('/corp/web/member-delete'),
     {
       org_num: org_num.value,
       member_id: props.member?.user_id,

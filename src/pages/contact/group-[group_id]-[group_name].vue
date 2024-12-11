@@ -13,8 +13,8 @@ const route = useRoute('/contact/group-[group_id]-[group_name]')
 
 const { data: members, refetch } = useQuery<Array<GroupMemberModel>>({
   enabled: computed(() => Boolean(corp.value)),
-  queryKey: [weilaApiUrl['/corp/web/group-member-getall'], route.params.group_id],
-  queryFn: () => weilaFetch(weilaApiUrl['/corp/web/group-member-getall'], {
+  queryKey: [weilaApiUrl('/corp/web/group-member-getall'), route.params.group_id],
+  queryFn: () => weilaFetch(weilaApiUrl('/corp/web/group-member-getall'), {
     body: {
       group_id: route.params.group_id,
     },

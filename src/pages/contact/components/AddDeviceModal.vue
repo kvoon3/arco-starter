@@ -20,8 +20,8 @@ const avatarUploaderRef = templateRef('avatarUploaderRef')
 
 const { data: depts } = useQuery<Array<{ id: number, name: string }>>({
   enabled: computed(() => Boolean(org_num.value)),
-  queryKey: [weilaApiUrl['/corp/web/dept-getall'], org_num],
-  queryFn: () => weilaFetch(weilaApiUrl['/corp/web/dept-getall'], {
+  queryKey: [weilaApiUrl('/corp/web/dept-getall'), org_num],
+  queryFn: () => weilaFetch(weilaApiUrl('/corp/web/dept-getall'), {
     body: {
       org_num: org_num.value,
     },

@@ -94,7 +94,7 @@ const { data: regeoInfo } = useQuery({
   enabled: computed(() => Boolean(selectedMarker.value?.getPosition()?.toArray().length)),
   queryKey: [
     'regeo',
-    weilaApiUrl['/corp/web/location-get-regeo'],
+    weilaApiUrl('/corp/web/location-get-regeo'),
     computed(() => selectedMarker.value?.getPosition()),
   ],
   queryFn: async () => {
@@ -106,7 +106,7 @@ const { data: regeoInfo } = useQuery({
     if (!pos)
       throw new Error('No position')
 
-    return weilaFetch<{ regeo: RegeoModel }>(weilaApiUrl['/corp/web/location-get-regeo'], {
+    return weilaFetch<{ regeo: RegeoModel }>(weilaApiUrl('/corp/web/location-get-regeo'), {
       body: {
         longitude: pos?.getLng(),
         latitude: pos?.getLat(),

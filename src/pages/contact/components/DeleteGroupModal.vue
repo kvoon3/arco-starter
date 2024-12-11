@@ -17,7 +17,7 @@ const open = defineModel('open', { default: false })
 
 const { mutate, isPending } = useMutation({
   mutationFn: () => weilaRequest.post(
-    weilaApiUrl['/corp/web/group-delete'],
+    weilaApiUrl('/corp/web/group-delete'),
     {
       group_id: props.group?.id,
     },

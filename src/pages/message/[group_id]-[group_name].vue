@@ -21,10 +21,10 @@ interface MessageModel {
 // }
 
 const { data: messages } = useQuery({
-  queryKey: [weilaApiUrl['/corp/web/message-get-group-history-message'], route.params.group_id],
+  queryKey: [weilaApiUrl('/corp/web/message-get-group-history-message'), route.params.group_id],
   queryFn: () => weilaFetch<{
     messages: MessageModel[]
-  }>(weilaApiUrl['/corp/web/message-get-group-history-message'], {
+  }>(weilaApiUrl('/corp/web/message-get-group-history-message'), {
     body: {
       group_id: Number(route.params.group_id),
       msg_id: 1,
