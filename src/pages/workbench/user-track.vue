@@ -217,11 +217,6 @@ watch(markers, (val, oldVal) => {
     }, { immediate: true })
   }
 })
-
-// AMap.plugin('AMap.GraspRoad', () => {
-//   const grasp = new AMap.GraspRoad()
-//   console.log('grasp', grasp)
-// })
 </script>
 
 <template>

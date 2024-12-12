@@ -5,6 +5,7 @@ import { VueAmapResolver } from '@vuemap/unplugin-resolver'
 import RadixVueResolver from 'radix-vue/resolver'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import Unused from 'unplugin-unused/vite'
 import Components from 'unplugin-vue-components/vite'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
@@ -142,5 +143,7 @@ export default defineConfig({
     ConfigArcoStyleImportPlugin(),
 
     mkcert(),
+
+    Unused(),
   ],
 })
