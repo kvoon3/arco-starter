@@ -46,13 +46,13 @@ watch(router.currentRoute, (curRoute) => {
         </a-space>
       </a-skeleton>
       <a-menu v-else v-model:selected-keys="selectedKeys" auto-open-selected :default-open-keys="[corp?.name]">
-        <a-menu-item v-for="label, path in menus" :key="path" @click="router.push(path)">
-          {{ path === '/contact/org' ? corp?.name || t(label) : t(label) }}
-        </a-menu-item>
-        <button
-          v-if="!corp" hover="bg-primary-300" bg-primary color-white list-btn
-          @click="isCreateCorpModalVisible = true"
-        >
+        <template v-if="corp">
+          <a-menu-item v-for="label, path in menus" :key="path" @click="router.push(path)">
+            {{ path === '/contact/org' ? corp?.name || t(label) : t(label) }}
+          </a-menu-item>
+        </template>
+        <button v-if="!corp" hover="bg-primary-300" bg-primary color-white list-btn
+          @click="isCreateCorpModalVisible = true">
           {{ t('corp.create.form.title') }}
         </button>
       </a-menu>

@@ -111,7 +111,6 @@ function handleSubmit() {
           </a-form-item>
           <a-form-item field="dept_id" :label="t('member.form.dept.label')">
             <a-select allow-search :empty="t('no-data')" @change="(value) => form.dept_id = Number(value)">
-              <a-option :value="0" label="无部门" />
               <a-option v-for="{ name, id }, key in depts" :key :value="id" :label="name" />
             </a-select>
           </a-form-item>

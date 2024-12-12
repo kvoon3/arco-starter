@@ -17,10 +17,8 @@ definePage({
 
 <template>
   <DefineTemplate v-slot="{ title, icon }">
-    <RouterLink
-      to="/workbench/user-track"
-      class="rounded-lg bg-white p-6 shadow-md transition-shadow duration-300 dark:bg-gray-800 hover:shadow-lg"
-    >
+    <RouterLink to="/workbench/user-track"
+      class="rounded-lg bg-white p-6 shadow-md transition-shadow duration-300 dark:bg-gray-800 hover:shadow-lg">
       <div class="mb-4 flex items-center">
         <i class="mr-3 text-2xl text-primary-600 dark:text-primary-400" :class="[icon]" />
         <h3 class="text-xl text-gray-900 font-semibold dark:text-gray-100">
