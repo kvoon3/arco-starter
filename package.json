@@ -1,7 +1,7 @@
 {
   "name": "corp-manager",
   "type": "module",
-  "version": "1.0.1-beta.9",
+  "version": "1.0.1-beta.10",
   "private": true,
   "packageManager": "pnpm@9.15.0",
   "description": "Arco Design Pro for Vue",
