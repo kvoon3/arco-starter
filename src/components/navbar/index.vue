@@ -71,7 +71,7 @@ function tryLogout() {
         </template>
       </UseImage>
       <i v-else i-carbon-user-avatar-filled size-10 class="block rounded-full" :src="user?.avatar" alt="Avatar" />
-      <!-- <a-avatar :style="{ backgroundColor: '#3370ff' }" :image-url="user?.avatar" /> -->
+      <!-- <a-avatar :image-url="avatar?.replace(/^https?:/, '')"  :style="{ backgroundColor: '#3370ff' }" :image-url="user?.avatar" /> -->
     </div>
   </DefineTemplate>
 

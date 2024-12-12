@@ -58,12 +58,10 @@ function onSelect(member: GroupMemberModel, e: PointerEvent) {
         </AddGroupMemberModal>
       </section>
       <!-- @vue-expect-error type error when arco's row-click -->
-      <a-table
-        :columns="cols" :data="members" size="medium" :column-resizable="true" :scroll="{
-          x: 1000,
-          y: 600,
-        }" :scrollbar="true" @row-click="(...args) => onSelect(...args)"
-      >
+      <a-table :columns="cols" :data="members" size="medium" :column-resizable="true" :scroll="{
+        x: 1000,
+        y: 600,
+      }" :scrollbar="true" @row-click="(...args) => onSelect(...args)">
         <template #columns>
           <a-table-column :title="t('type')">
             <template #cell="{ record: { type } }">
@@ -77,7 +75,7 @@ function onSelect(member: GroupMemberModel, e: PointerEvent) {
           </a-table-column>
           <a-table-column :title="t('avatar')">
             <template #cell="{ record: { avatar } }">
-              <a-avatar :style="{ backgroundColor: '#3370ff' }">
+              <a-avatar :image-url="avatar?.replace(/^https?:/, '')" :style="{ backgroundColor: '#3370ff' }">
                 <img alt="avatar" :src="avatar">
                 <IconUser />
               </a-avatar>
@@ -134,18 +132,14 @@ function onSelect(member: GroupMemberModel, e: PointerEvent) {
           <a-table-column :title="t('controls')">
             <template #cell>
               <div flex gap2>
-                <EditGroupMemberModal
-                  :group-id="Number(route.params.group_id)" :member="selectedMember"
-                  @success="refetch"
-                >
+                <EditGroupMemberModal :group-id="Number(route.params.group_id)" :member="selectedMember"
+                  @success="refetch">
                   <a-button>
                     {{ t('button.edit') }}
                   </a-button>
                 </EditGroupMemberModal>
-                <DeleteGroupMemberModal
-                  :group-id="Number(route.params.group_id)" :member="selectedMember"
-                  @success="refetch"
-                >
+                <DeleteGroupMemberModal :group-id="Number(route.params.group_id)" :member="selectedMember"
+                  @success="refetch">
                   <a-button status="danger">
                     {{ t('button.delete') }}
                   </a-button>

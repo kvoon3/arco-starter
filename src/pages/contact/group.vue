@@ -55,16 +55,15 @@ function onSelect(group: GroupModel, e: PointerEvent) {
         </CreateGroupModal>
       </section>
       <!-- @vue-expect-error type error -->
-      <a-table
-        :data="groups" size="medium" :column-resizable="true" :scroll="{
-          x: 1000,
-          y: 600,
-        }" :scrollbar="true" @row-click="(...args) => onSelect(...args)"
-      >
+      <a-table :data="groups" size="medium" :column-resizable="true" :scroll="{
+        x: 1000,
+        y: 600,
+      }" :scrollbar="true" @row-click="(...args) => onSelect(...args)">
         <template #columns>
           <a-table-column :title="t('avatar')">
             <template #cell="{ record: { avatar } }">
-              <a-avatar :style="{ backgroundColor: '#3370ff' }" :image-url="avatar" />
+              <a-avatar :image-url="avatar?.replace(/^https?:/, '')" :style="{ backgroundColor: '#3370ff' }"
+                :image-url="avatar" />
             </template>
           </a-table-column>
           <a-table-column :title="t('name')">
