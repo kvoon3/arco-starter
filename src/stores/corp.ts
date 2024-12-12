@@ -32,6 +32,7 @@ export const useCorpStore = defineStore('corp', () => {
       'isFetching',
       'isSuccess',
       'refetch',
+      'isStale',
     ]),
     org_num,
   }

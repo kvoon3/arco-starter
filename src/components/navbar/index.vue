@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useQuery } from '@tanstack/vue-query'
+import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { UseImage } from '@vueuse/components'
 import { createReusableTemplate, useFullscreen, useToggle } from '@vueuse/core'
 import { computed, inject } from 'vue'
@@ -38,6 +38,8 @@ interface User {
   country_code: string
   avatar: string
 }
+
+const qc = useQueryClient()
 const { data: user, refetch } = useQuery({
   queryKey: ['user'],
   queryFn: () => weilaFetch<{ user: User }>('/corp/web/user-selfinfo').then(({ user }) => user),
@@ -45,15 +47,22 @@ const { data: user, refetch } = useQuery({
 
 const resetPasswordModalVisible = ref(false)
 const bindingPhoneModalVisible = ref(false)
+
+function tryLogout() {
+  logout().then(() => {
+    qc.invalidateQueries().then(() => {
+      router.push('/login')
+    })
+    qc.clear()
+  })
+}
 </script>
 
 <template>
   <DefineTemplate>
     <div inline-block size-10>
-      <UseImage
-        v-if="user?.avatar" :src="user.avatar" alt="upload avatar"
-        class="mb-2 of-hidden rounded-full object-cover"
-      >
+      <UseImage v-if="user?.avatar" :src="user.avatar" alt="upload avatar"
+        class="mb-2 of-hidden rounded-full object-cover">
         <template #loading>
           <div class="animate-pulse rounded-full bg-gray-200 size-10" />
         </template>
@@ -69,17 +78,13 @@ const bindingPhoneModalVisible = ref(false)
   <div class="navbar">
     <div class="left-side" space-x-2>
       <a-space>
-        <img
-          alt="logo"
-          src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image"
-        >
+        <img alt="logo"
+          src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image">
         <a-typography-title :style="{ margin: 0, fontSize: '18px' }" :heading="5" max-lg:hidden>
           {{ t('project.name') }}
         </a-typography-title>
-        <icon-menu-fold
-          v-if="!topMenu && appStore.device === 'mobile'" style="font-size: 22px; cursor: pointer"
-          @click="toggleDrawerMenu"
-        />
+        <icon-menu-fold v-if="!topMenu && appStore.device === 'mobile'" style="font-size: 22px; cursor: pointer"
+          @click="toggleDrawerMenu" />
       </a-space>
       <a-space>
         <a-tag>{{ version }}</a-tag>
@@ -108,12 +113,10 @@ const bindingPhoneModalVisible = ref(false)
         </a-button>
       </li>
       <li>
-        <a-tooltip
-          :content="isFullscreen
-            ? t('settings.navbar.screen.toExit')
-            : t('settings.navbar.screen.toFull')
-          "
-        >
+        <a-tooltip :content="isFullscreen
+          ? t('settings.navbar.screen.toExit')
+          : t('settings.navbar.screen.toFull')
+          ">
           <a-button class="nav-btn" type="outline" shape="circle" @click="toggleFullScreen">
             <template #icon>
               <icon-fullscreen-exit v-if="isFullscreen" />
@@ -126,15 +129,13 @@ const bindingPhoneModalVisible = ref(false)
         <HoverCardRoot v-model:open="hoverState" :open-delay="0">
           <HoverCardTrigger
             class="inline-block cursor-pointer rounded-full shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] outline-none focus:shadow-[0_0_0_2px_white]"
-            target="_blank" rel="noreferrer noopener"
-          >
+            target="_blank" rel="noreferrer noopener">
             <ReuseTemplate />
           </HoverCardTrigger>
           <HoverCardPortal>
             <HoverCardContent
               class="data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade w-[300px] w-fit rounded-md p8 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] bg-base data-[state=open]:transition-all"
-              :side-offset="5"
-            >
+              :side-offset="5">
               <div v-if="user" class="flex flex-col gap-[7px]">
                 <ReuseTemplate class="mx-auto" />
                 <div class="flex-col gap-[15px] text-center">
@@ -158,7 +159,7 @@ const bindingPhoneModalVisible = ref(false)
                     <a-button @click="resetPasswordModalVisible = true">
                       {{ t('button.reset-password') }}
                     </a-button>
-                    <a-button @click="() => logout().then(() => router.push('/login'))">
+                    <a-button @click="tryLogout">
                       {{ t('logout') }}
                     </a-button>
                   </div>

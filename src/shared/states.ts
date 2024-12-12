@@ -1,5 +1,4 @@
 import CryptoJS from 'crypto-js'
-
 import md5 from 'md5'
 import { ENCRYPTION_KEY } from './const'
 
