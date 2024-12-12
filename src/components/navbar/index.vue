@@ -78,8 +78,7 @@ function tryLogout() {
   <div class="navbar">
     <div class="left-side" space-x-2>
       <a-space>
-        <img alt="logo"
-          src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image">
+        <img alt="logo" rounded-full size-10 src="/src/assets/logo.png">
         <a-typography-title :style="{ margin: 0, fontSize: '18px' }" :heading="5" max-lg:hidden>
           {{ t('project.name') }}
         </a-typography-title>
