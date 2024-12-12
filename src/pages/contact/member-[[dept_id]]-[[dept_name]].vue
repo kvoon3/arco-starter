@@ -36,13 +36,6 @@ const memberIdxTitleMap: Partial<Record<keyof MemberGetallModel['data']['members
   dept_name: 'dept.name',
 }
 
-const trackTypeNameMap = {
-  [TrackType.Close]: t('track-type.close'),
-  [TrackType.High]: t('track-type.high'),
-  [TrackType.Medium]: t('track-type.medium'),
-  [TrackType.Low]: t('track-type.low'),
-}
-
 const url = computed(() => {
   return route.params.dept_id
     ? weilaApiUrl('/corp/web/dept-member-getall')
@@ -155,9 +148,11 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
             <i i-ph-plus inline-block /> {{ t('button.add-device') }}
           </a-button>
         </AddDeviceModal>
-        <a-input v-model="filterInput"
+        <a-input
+          v-model="filterInput" :max-length="20" show-word-limit
           :placeholder="`${t('name')}/${t('job-number')}/${t('weila-number')}/${t('phone-number')}`" allow-clear
-          max-w-80 />
+          max-w-80
+        />
         <!-- <a-select v-model:model-value="selectedDepts" :placeholder="t('dept.name')" allow-search allow-clear
           size="large" w-50>
           <a-option v-for="dept in depts" :key="dept.id">
@@ -166,18 +161,22 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
         </a-select> -->
       </section>
       <!-- @vue-expect-error type error when arco's row-click -->
-      <a-table :columns="cols" :data="members" :column-resizable="true" :scroll="{
-        x: 700,
-        y: 600,
-      }" :scrollbar="true" @row-click="(...args) => onSelect(...args)">
+      <a-table
+        :columns="cols" :data="members" :column-resizable="true" :scroll="{
+          x: 700,
+          y: 600,
+        }" :scrollbar="true" @row-click="(...args) => onSelect(...args)"
+      >
         <template #columns>
           <a-table-column :title="t('member.state')" :width="90">
             <template #cell="{ record: { state, user_id } }">
-              <a-switch :default-checked="Boolean(!state)" :checked-value="0" :unchecked-value="1"
+              <a-switch
+                :default-checked="Boolean(!state)" :checked-value="0" :unchecked-value="1"
                 :checked-color="themeColor" unchecked-color="#ddd" :before-change="(state) => toggleMemberState(
                   user_id,
                   Number(state) ? 0 : 1,
-                )">
+                )"
+              >
                 <template #checked>
                   {{ t('member-state.enabled') }}
                 </template>
@@ -187,20 +186,22 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
               </a-switch>
             </template>
           </a-table-column>
-          <a-table-column :title="t('type')" :filterable="{
-            filters: [{
-              text: t('user-type.member'),
-              value: '0',
-            }, {
-              text: t('user-type.device'),
-              value: '1',
-            }, {
-              text: t('user-type.owner'),
-              value: '2',
-            }],
-            filter: (value, record) => Number(record.type) === Number(value),
-            multiple: false,
-          }" :width="80">
+          <a-table-column
+            :title="t('type')" :filterable="{
+              filters: [{
+                text: t('user-type.member'),
+                value: '0',
+              }, {
+                text: t('user-type.device'),
+                value: '1',
+              }, {
+                text: t('user-type.owner'),
+                value: '2',
+              }],
+              filter: (value, record) => Number(record.type) === Number(value),
+              multiple: false,
+            }" :width="80"
+          >
             <template #cell="{ record: { type } }">
               {{ {
                 0: t('user-type.member'),
@@ -234,14 +235,16 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
               {{ job_num }}
             </template>
           </a-table-column>
-          <a-table-column :title="t('dept.name')" :width="100" data-index="dept_name" :filterable="{
-            filters: depts?.map((dept) => ({
-              text: dept.name,
-              value: String(dept.id),
-            })) || [],
-            filter: (value, record) => Number(record.dept_id) === Number(value),
-            multiple: false,
-          }">
+          <a-table-column
+            :title="t('dept.name')" :width="100" data-index="dept_name" :filterable="{
+              filters: depts?.map((dept) => ({
+                text: dept.name,
+                value: String(dept.id),
+              })) || [],
+              filter: (value, record) => Number(record.dept_id) === Number(value),
+              multiple: false,
+            }"
+          >
             <template #cell="{ record: { dept_name } }">
               {{ dept_name }}
             </template>
@@ -270,7 +273,14 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
             <template #cell="{ record: { track } }">
               <a-tag>
                 <!-- @vue-expect-error type error -->
-                {{ trackTypeNameMap[track] }}
+
+                {{
+                  {
+                    [TrackType.Close]: t('track-type.close'),
+                    [TrackType.High]: t('track-type.high'),
+                    [TrackType.Medium]: t('track-type.medium'),
+                    [TrackType.Low]: t('track-type.low'),
+                  }[track] }}
               </a-tag>
             </template>
           </a-table-column>
@@ -290,9 +300,11 @@ function toggleMemberState(targetId: number, state: 0 | 1) {
                 <a-dropdown :popup-max-height="false">
                   <a-button>{{ t('controls') }}<icon-down /></a-button>
                   <template #content>
-                    <a-doption @click="type === 1
-                      ? isEditDeviceModalVisible = true
-                      : isEditMemberModalVisible = true">
+                    <a-doption
+                      @click="type === 1
+                        ? isEditDeviceModalVisible = true
+                        : isEditMemberModalVisible = true"
+                    >
                       {{ t('button.edit') }}
                     </a-doption>
                     <a-doption @click="isResetPasswordModalVisible = true">

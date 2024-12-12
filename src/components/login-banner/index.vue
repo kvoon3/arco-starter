@@ -30,7 +30,7 @@ const carouselItem = computed(() => [
 </script>
 
 <template>
-  <div class="banner">
+  <div class="banner" w-550px>
     <div class="banner-inner">
       <a-carousel class="carousel" animation-name="fade">
         <a-carousel-item v-for="item in carouselItem" :key="item.slogan" flex items-center bg="#f7f7f7">

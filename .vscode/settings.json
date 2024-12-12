@@ -94,6 +94,5 @@
     "axios",
     "doption",
     "weila"
-  ],
-  "autoHide.mode": "auto"
+  ]
 }

@@ -111,16 +111,16 @@ async function handleSubmit({ values, errors }: any) {
         <a-form ref="formRef" :model="form" auto-label-width @submit="handleSubmit">
           <a-form-item field="name" :label="t('name')" :rules="[{ required: true }]"
             :validate-trigger="['change', 'blur']">
-            <a-input v-model="form.name" />
+            <a-input v-model="form.name" :max-length="20" show-word-limit />
           </a-form-item>
           <a-form-item field="verify_code" :label="t('verify-code')" :rules="[{ required: true }]"
             :validate-trigger="['change', 'blur']">
-            <a-input v-model="form.verify_code" />
+            <a-input v-model="form.verify_code" :max-length="20" show-word-limit />
           </a-form-item>
           <a-form-item :label="t('phone-number')" field="phone"
             :rules="[{ required: false, message: t('binding-phone-form.err-msg.phone-number') }]"
             :validate-trigger="['blur', 'change']">
-            <a-input v-model="form.phone" />
+            <a-input v-model="form.phone" :max-length="12" show-word-limit />
           </a-form-item>
           <a-form-item field="dept_id" :label="t('member.form.dept.label')">
             <a-select allow-search :empty="t('no-data')" @change="(value) => form.dept_id = Number(value)">

@@ -63,10 +63,10 @@ function handleSubmit() {
 
         <a-form ref="formRef" :model="form" @submit="handleSubmit">
           <a-form-item field="old_password" :label="t('old-password')" :rules="[{ required: true }]">
-            <a-input v-model="form.old_password" type="password" />
+            <a-input v-model="form.old_password" :max-length="20" show-word-limit type="password" />
           </a-form-item>
           <a-form-item field="new_password" :label="t('new-password')" :rules="[{ required: true }]">
-            <a-input v-model="form.new_password" type="password" />
+            <a-input v-model="form.new_password" :max-length="20" show-word-limit type="password" />
           </a-form-item>
         </a-form>
 

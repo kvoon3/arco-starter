@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { MemberCreatePayload } from 'generated/mock/weila'
 import { Message } from '@arco-design/web-vue'
 import { useMutation, useQuery } from '@tanstack/vue-query'
 import md5 from 'md5'
@@ -29,20 +30,7 @@ const { data: depts } = useQuery<Array<{ id: number, name: string }>>({
 })
 const avatarUploaderRef = templateRef('avatarUploaderRef')
 
-interface NewMemberPayload {
-  org_num: number
-  name: string
-  password: string
-  dept_id: number
-  sex: number
-  avatar: string
-  phone: string
-  tts: number
-  loc_share: number
-  job_num: number
-}
-
-const form = reactive<NewMemberPayload>({
+const form = reactive<MemberCreatePayload>({
   org_num: corpStore.data?.num || 0,
   name: '',
   password: '',
@@ -52,7 +40,7 @@ const form = reactive<NewMemberPayload>({
   phone: '',
   tts: 0,
   loc_share: 0,
-  job_num: 0,
+  job_num: '',
 })
 
 $inspect(form)
@@ -63,7 +51,7 @@ corpStore.$subscribe((_, state) => {
 }, { immediate: true })
 
 const { mutate: createMember, isPending } = useMutation({
-  mutationFn: (payload: NewMemberPayload) => {
+  mutationFn: (payload: MemberCreatePayload) => {
     return weilaRequest.post('/corp/web/member-create', {
       ...payload,
       password: md5(payload.password),
@@ -119,7 +107,7 @@ function handleSubmit() {
         <a-form ref="formRef" :model="form" @submit="handleSubmit">
           <a-form-item field="name" :label="t('member.form.name.label')" :rules="[{ required: true }]"
             :validate-trigger="['change', 'blur']">
-            <a-input v-model="form.name" />
+            <a-input v-model="form.name" :max-length="20" show-word-limit />
           </a-form-item>
           <a-form-item field="dept_id" :label="t('member.form.dept.label')">
             <a-select allow-search :empty="t('no-data')" @change="(value) => form.dept_id = Number(value)">
@@ -129,11 +117,11 @@ function handleSubmit() {
           </a-form-item>
           <a-form-item field="job_num" :label="t('member.form.job-num.label')" :rules="[{ required: false }]"
             :validate-trigger="['change', 'blur']">
-            <a-input-number v-model="form.job_num" />
+            <a-input v-model="form.job_num" :max-length="12" show-word-limit />
           </a-form-item>
           <a-form-item field="phone" :label="t('member.form.phone.label')" :rules="[{ required: false }]"
             :validate-trigger="['change', 'blur']">
-            <a-input v-model="form.phone" />
+            <a-input v-model="form.phone" :max-length="12" show-word-limit />
           </a-form-item>
           <a-form-item field="password" :label="t('member.form.password.label')" :rules="[{ required: true }]"
             :validate-trigger="['change', 'blur']">

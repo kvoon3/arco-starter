@@ -84,11 +84,13 @@ const { data: groups } = useQuery<GroupModel[]>({
         </ListboxContent>
       </ListboxRoot> -->
       <a-empty v-if="!groups || !groups.length" absolute position-center />
-      <RouterLink v-for="group in groups" :key="group.id" :to="`/message/${group.id}-${group.name}`"
+      <RouterLink
+        v-for="group in groups" :key="group.id" :to="`/message/${group.id}-${group.name}`"
         class="flex items-center gap-2 list-btn" :class="route.params.group_id && group.id === Number(route.params.group_id)
           ? 'bg-gray-100 dark:bg-dark-2'
           : ''
-          ">
+        "
+      >
         <UseImage :src="group.avatar" class="mr-4 h-12 w-12 rounded-full" alt="Group Avatar">
           <template #loading>
             <div class="mr-4 h-12 w-12 animate-pulse rounded-full bg-gray-200" />

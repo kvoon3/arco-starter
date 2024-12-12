@@ -21,13 +21,6 @@ const { data: members, refetch } = useQuery<Array<GroupMemberModel>>({
   }).then(i => i.members),
 })
 
-const trackTypeNameMap = {
-  [TrackType.Close]: t('track-type.close'),
-  [TrackType.High]: t('track-type.high'),
-  [TrackType.Medium]: t('track-type.medium'),
-  [TrackType.Low]: t('track-type.low'),
-}
-
 $inspect(members)
 
 const isEditModalVisible = ref(false)
@@ -65,10 +58,12 @@ function onSelect(member: GroupMemberModel, e: PointerEvent) {
         </AddGroupMemberModal>
       </section>
       <!-- @vue-expect-error type error when arco's row-click -->
-      <a-table :columns="cols" :data="members" size="medium" :column-resizable="true" :scroll="{
-        x: 1000,
-        y: 600,
-      }" :scrollbar="true" @row-click="(...args) => onSelect(...args)">
+      <a-table
+        :columns="cols" :data="members" size="medium" :column-resizable="true" :scroll="{
+          x: 1000,
+          y: 600,
+        }" :scrollbar="true" @row-click="(...args) => onSelect(...args)"
+      >
         <template #columns>
           <a-table-column :title="t('type')">
             <template #cell="{ record: { type } }">
@@ -127,21 +122,30 @@ function onSelect(member: GroupMemberModel, e: PointerEvent) {
             <template #cell="{ record: { track } }">
               <a-tag>
                 <!-- @vue-expect-error type error -->
-                {{ trackTypeNameMap[track] }}
+                {{ {
+                  [TrackType.Close]: t('track-type.close'),
+                  [TrackType.High]: t('track-type.high'),
+                  [TrackType.Medium]: t('track-type.medium'),
+                  [TrackType.Low]: t('track-type.low'),
+                }[track] }}
               </a-tag>
             </template>
           </a-table-column>
           <a-table-column :title="t('controls')">
             <template #cell>
               <div flex gap2>
-                <EditGroupMemberModal :group-id="Number(route.params.group_id)" :member="selectedMember"
-                  @success="refetch">
+                <EditGroupMemberModal
+                  :group-id="Number(route.params.group_id)" :member="selectedMember"
+                  @success="refetch"
+                >
                   <a-button>
                     {{ t('button.edit') }}
                   </a-button>
                 </EditGroupMemberModal>
-                <DeleteGroupMemberModal :group-id="Number(route.params.group_id)" :member="selectedMember"
-                  @success="refetch">
+                <DeleteGroupMemberModal
+                  :group-id="Number(route.params.group_id)" :member="selectedMember"
+                  @success="refetch"
+                >
                   <a-button status="danger">
                     {{ t('button.delete') }}
                   </a-button>

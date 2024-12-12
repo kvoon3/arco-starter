@@ -118,7 +118,10 @@ function onVerifyImgCodeError() {
         field="phone" :rules="[{ required: true, message: t('register.form.phone.errMsg') }]"
         :validate-trigger="['change', 'blur']" hide-label
       >
-        <a-input v-model="form.phone" :placeholder="t('register.form.phone.placeholder')" allow-clear w-320px>
+        <a-input
+          v-model="form.phone" :max-length="20" show-word-limit
+          :placeholder="t('register.form.phone.placeholder')" allow-clear w-320px
+        >
           <template #prepend>
             <a-tag>
               +86
@@ -187,7 +190,7 @@ function onVerifyImgCodeError() {
       <div mt8 w-full flex justify-between>
         <div>
           <p>
-            {{ t('account.txt') }} <a-input w-fit :model-value="account" />
+            {{ t('account.txt') }} <a-input :max-length="20" show-word-limit w-fit :model-value="account" />
           </p>
         </div>
         <a-button type="primary" :disabled="!isSupported" @click="copy(account)">

@@ -64,11 +64,15 @@ onMounted(() => {
     </div>
     <!-- @vue-expect-error type error -->
     <a-form :model="form" class="login-form" layout="vertical" @submit="handleSubmit">
-      <a-form-item field="account" :rules="[{ required: true, message: t('login.form.userName.errMsg') }]"
-        :validate-trigger="['change', 'blur']" hide-label>
-        <a-auto-complete v-model="form.account" :data="Array.from(accountHistoryRecord.keys())"
+      <a-form-item
+        field="account" :rules="[{ required: true, message: t('login.form.userName.errMsg') }]"
+        :validate-trigger="['change', 'blur']" hide-label
+      >
+        <a-auto-complete
+          v-model="form.account" :data="Array.from(accountHistoryRecord.keys())"
           :placeholder="t('login.form.userName.placeholder')" allow-clear relative
-          @select="(account) => form.password = accountHistoryRecord.get(account) || form.password">
+          @select="(account) => form.password = accountHistoryRecord.get(account) || form.password"
+        >
           <template #option="{ data: { label } }">
             <div w-full flex justify-between>
               <span>
@@ -78,11 +82,15 @@ onMounted(() => {
           </template>
         </a-auto-complete>
       </a-form-item>
-      <a-form-item field="password" :rules="[{ required: true, message: t('login.form.password.errMsg') }]"
-        :validate-trigger="['change', 'blur']" hide-label>
-        <a-input-password v-model="form.password"
+      <a-form-item
+        field="password" :rules="[{ required: true, message: t('login.form.password.errMsg') }]"
+        :validate-trigger="['change', 'blur']" hide-label
+      >
+        <a-input-password
+          v-model="form.password"
           :input-attrs="{ password: 'password', autocomplete: 'current-password' }"
-          :placeholder="t('login.form.password.placeholder')" allow-clear :invisible-button="false">
+          :placeholder="t('login.form.password.placeholder')" allow-clear :invisible-button="false"
+        >
           <template #prefix>
             <icon-lock />
           </template>
@@ -90,8 +98,10 @@ onMounted(() => {
       </a-form-item>
       <a-space :size="16" direction="vertical">
         <div class="login-form-password-actions">
-          <a-checkbox checked="rememberPassword" :model-value="isRememberPassword"
-            @change="() => toggleRememberPassword()">
+          <a-checkbox
+            checked="rememberPassword" :model-value="isRememberPassword"
+            @change="() => toggleRememberPassword()"
+          >
             {{ t('login.form.rememberPassword') }}
           </a-checkbox>
           <RouterLink to="/reset-password">

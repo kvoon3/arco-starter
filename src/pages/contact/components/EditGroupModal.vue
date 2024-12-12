@@ -94,7 +94,7 @@ function handleSubmit() {
 
         <a-form ref="formRef" :model="form" auto-label-width @submit="handleSubmit">
           <a-form-item field="name" :label="t('org-form.name.label')" :rules="[{ required: true }]">
-            <a-input v-model="form.name" />
+            <a-input v-model="form.name" :max-length="20" show-word-limit />
           </a-form-item>
           <a-form-item field="avatar" :label="t('avatar')" :rules="[{}]">
             <AvatarUploader ref="avatarUploaderRef" v-model:src="form.avatar" />

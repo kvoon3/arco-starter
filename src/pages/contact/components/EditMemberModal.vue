@@ -46,7 +46,7 @@ let form = reactive<MemberChangePayload>({
   org_num: org_num.value || 0,
   member_id: props.member?.user_id || 0,
   track: TrackType.Close,
-  job_num: String(props.member?.job_num),
+  job_num: String(props.member?.job_num) || '',
 })
 
 watch(open, (val) => {
@@ -66,7 +66,7 @@ watch(open, (val) => {
     org_num: org_num.value || 0,
     member_id: props.member?.user_id,
     track: props.member.track,
-    job_num: String(props.member.job_num),
+    job_num: String(props.member.job_num) || '',
   })
 }, { immediate: true })
 
@@ -131,10 +131,10 @@ function handleSubmit() {
         <a-form ref="formRef" :model="form" @submit="handleSubmit">
           <a-form-item field="name" :label="t('member.form.name.label')" :rules="[{ required: true }]"
             :validate-trigger="['change', 'blur']">
-            <a-input v-model="form.name" placeholder="Enter name" />
+            <a-input v-model="form.name" :max-length="20" show-word-limit />
           </a-form-item>
           <a-form-item field="dept_id" :label="t('member.form.dept.label')">
-            <a-select :default-value="form.dept_id" allow-search :empty="t('no-data')" placeholder="Please select ..."
+            <a-select :default-value="form.dept_id" allow-search :empty="t('no-data')"
               @change="(value) => form.dept_id = Number(value)">
               <a-option :value="0" label="无部门" />
               <a-option v-for="{ name, id }, key in depts" :key :value="id" :label="name" />
@@ -142,11 +142,11 @@ function handleSubmit() {
           </a-form-item>
           <a-form-item field="job_num" :label="t('member.form.job-num.label')" :rules="[{}]"
             :validate-trigger="['change', 'blur']">
-            <a-input v-model="form.job_num" />
+            <a-input v-model="form.job_num" :max-length="12" show-word-limit />
           </a-form-item>
           <a-form-item field="phone" :label="t('member.form.phone.label')" :rules="[{}]"
             :validate-trigger="['change', 'blur']">
-            <a-input v-model="form.phone" placeholder="Enter phone number" />
+            <a-input v-model="form.phone" :max-length="12" show-word-limit />
           </a-form-item>
           <a-form-item field="sex" :label="t('member.form.gender.label')" :validate-trigger="['change', 'blur']">
             <a-radio-group v-model="form.sex">

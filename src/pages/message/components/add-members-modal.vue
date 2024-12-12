@@ -67,24 +67,20 @@ function handleSubmit() {
     </template>
     <a-form ref="formRef" :model="form" layout="vertical" @submit="handleSubmit">
       <a-form-item
-        label="ID" name="member_ids" :rules="[{ validator(value, callback) {
-          if (value.length === 0) {
-            callback('at least one member ID')
-            return
-          }
+        label="ID" name="member_ids" :rules="[{
+          validator(value, callback) {
+            if (value.length === 0) {
+              callback('at least one member ID')
+              return
+            }
 
-          callback()
-        } }]" :validate-trigger="['change', 'blur']"
+            callback()
+          },
+        }]" :validate-trigger="['change', 'blur']"
       >
         <a-input-tag
-          v-model:model-value="form.member_ids"
-          :min-tag-text-length="1"
-          :max-tag-text-length="10"
-          :max="10"
-          allow-clear
-          class="w-full"
-          placeholder="Enter member IDs and press Enter"
-          unique-value
+          v-model:model-value="form.member_ids" :min-tag-text-length="1" :max-tag-text-length="10" :max="10"
+          allow-clear class="w-full" unique-value
         />
       </a-form-item>
     </a-form>

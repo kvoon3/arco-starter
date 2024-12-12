@@ -35,20 +35,6 @@ const { data: depts } = useQuery<Array<{ id: number, name: string }>>({
   }).then(i => i.depts),
 })
 
-// const TrackTypeNameMap = {
-//   [TrackType.Close]: t('track-type.close'),
-//   [TrackType.High]: t('track-type.high'),
-//   [TrackType.Medium]: t('track-type.medium'),
-//   [TrackType.Low]: t('track-type.low'),
-//   [TrackType.Keep]: t('track-type.keep'),
-// }
-
-// const trackOptions = objectEntries(TrackTypeNameMap)
-//   .map(([value, key]) => ({
-//     label: key,
-//     value,
-//   }))
-
 let form = reactive<MemberChangePayload>({
   ...objectPick(props.member || {} as any, [
     'name',
@@ -62,7 +48,7 @@ let form = reactive<MemberChangePayload>({
   ], false),
   org_num: org_num.value,
   member_id: props.member?.user_id || 0,
-  job_num: String(props.member?.job_num || 0),
+  job_num: String(props.member?.job_num) || '',
 })
 
 watch(() => props.member, (member) => {
@@ -82,7 +68,7 @@ watch(() => props.member, (member) => {
     ], false),
     org_num: org_num.value,
     member_id: member?.user_id,
-    job_num: String(member.job_num || 0),
+    job_num: String(member.job_num) || '',
   })
 }, { immediate: true })
 
@@ -147,10 +133,10 @@ function handleSubmit() {
         <a-form ref="formRef" :model="form" @submit="handleSubmit">
           <a-form-item field="name" :label="t('member.form.name.label')" :rules="[{ required: true }]"
             :validate-trigger="['change', 'blur']">
-            <a-input v-model="form.name" placeholder="Enter name" />
+            <a-input v-model="form.name" :max-length="20" show-word-limit />
           </a-form-item>
           <a-form-item field="dept_id" :label="t('member.form.dept.label')">
-            <a-select :default-value="form.dept_id" allow-search :empty="t('no-data')" placeholder="Please select ..."
+            <a-select :default-value="form.dept_id" allow-search :empty="t('no-data')"
               @change="(value) => form.dept_id = Number(value)">
               <a-option :value="0" label="无部门" />
               <a-option v-for="{ name, id }, key in depts" :key :value="id" :label="name" />
@@ -158,7 +144,7 @@ function handleSubmit() {
           </a-form-item>
           <a-form-item field="phone" :label="t('member.form.phone.label')" :rules="[{ required: false }]"
             :validate-trigger="['change', 'blur']">
-            <a-input v-model="form.phone" placeholder="Enter phone number" />
+            <a-input v-model="form.phone" :max-length="12" show-word-limit />
           </a-form-item>
           <a-form-item field="sex" :label="t('member.form.gender.label')" :validate-trigger="['change', 'blur']">
             <a-radio-group v-model="form.sex">
@@ -175,7 +161,7 @@ function handleSubmit() {
           </a-form-item>
           <a-form-item field="job_num" :label="t('member.form.job-num.label')" :rules="[{}]"
             :validate-trigger="['change', 'blur']">
-            <a-input v-model="form.job_num" />
+            <a-input v-model="form.job_num" :max-length="12" show-word-limit />
           </a-form-item>
           <a-form-item field="tts" label="TTS" :validate-trigger="['change', 'blur']">
             <a-switch v-model="form.tts" :checked-value="1" :unchecked-value="0" :checked-color="themeColor"

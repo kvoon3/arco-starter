@@ -61,7 +61,7 @@ const { mutate: submit, isPending: isSubmiting } = useMutation({
       <a-form-item :label="t('phone-number')" field="phone"
         :rules="[{ required: true, message: t('binding-phone-form.err-msg.phone-number') }]"
         :validate-trigger="['blur', 'change']">
-        <a-input v-model="form.phone" />
+        <a-input v-model="form.phone" :max-length="12" show-word-limit />
       </a-form-item>
 
       <a-form-item :label="t('verify-image-code')" field="verify_img_code"
@@ -77,7 +77,7 @@ const { mutate: submit, isPending: isSubmiting } = useMutation({
         :rules="[{ required: true, message: t('binding-phone-form.err-msg.verify-code') }]"
         :validate-trigger="['blur', 'change']">
         <div class="flex items-center">
-          <a-input v-model="form.verify_code" class="mr-2 flex-grow" />
+          <a-input v-model="form.verify_code" :max-length="20" show-word-limit class="mr-2 flex-grow" />
           <SendSmsButton classes="flex-shrink-0" :opts="{
             phone: form.phone,
             verify_code: form.verify_img_code,
