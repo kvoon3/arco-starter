@@ -2,7 +2,7 @@ import type { WeilaRes } from '..'
 import { Message } from '@arco-design/web-vue'
 import { ofetch } from 'ofetch'
 import { access_token, app_id, app_sign, isLogin, isNeedRefresh, logout, timestamp } from '~/shared/states'
-import defaultConfig, { isPublicApi, WeilaErrorCode } from '..'
+import defaultConfig, { isPublicApi, WeilaErrorCode, weilaLogoutErrorCodes } from '..'
 import { tryRefreshToken } from '../refresh'
 
 export const weilaFetch = ofetch.create({
@@ -34,7 +34,10 @@ export const weilaFetch = ofetch.create({
       // response._data = { data: undefined, ...response._data.data }
       response._data = response._data.data
     }
-    else if (errcode === WeilaErrorCode.TOKEN_INVALID) {
+    else if (
+      weilaLogoutErrorCodes
+        .findIndex(i => errcode === i) >= 0
+    ) {
       logout()
     }
     else {

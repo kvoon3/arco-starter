@@ -135,10 +135,10 @@ function tryLogout() {
             <HoverCardContent
               class="data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade w-[300px] w-fit rounded-md p8 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] bg-base data-[state=open]:transition-all"
               :side-offset="5">
-              <div v-if="user" class="flex flex-col gap-[7px]">
+              <div class="flex flex-col gap-[7px]">
                 <ReuseTemplate class="mx-auto" />
                 <div class="flex-col gap-[15px] text-center">
-                  <div class="flex flex-col gap-2">
+                  <div v-if="user" class="flex flex-col gap-2">
                     <div class="text-lg text-primary font-semibold">
                       {{ user.name }}
                     </div>

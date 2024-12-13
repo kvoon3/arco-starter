@@ -3,7 +3,7 @@ import type { WeilaRes } from '..'
 import { Message } from '@arco-design/web-vue'
 import axios from 'axios'
 import { access_token, app_id, app_sign, isLogin, isNeedRefresh, logout, timestamp } from '~/shared/states'
-import defaultConfig, { isPublicApi, WeilaErrorCode } from '..'
+import defaultConfig, { isPublicApi, WeilaErrorCode, weilaLogoutErrorCodes } from '..'
 import { tryRefreshToken } from '../refresh'
 
 interface WeilaRequestInstance extends AxiosInstance {
@@ -62,7 +62,10 @@ weilaRequest.interceptors.response.use(
       return response.data
       // return { data: undefined, ...response.data }
     }
-    else if (errcode === WeilaErrorCode.TOKEN_INVALID) {
+    else if (
+      weilaLogoutErrorCodes
+        .findIndex(i => errcode === i) >= 0
+    ) {
       logout()
     }
     else {

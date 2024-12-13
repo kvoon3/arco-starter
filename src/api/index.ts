@@ -22,7 +22,13 @@ const config = {
 export enum WeilaErrorCode {
   SUCCESS = 0,
   TOKEN_INVALID = 31,
+  USER_IS_NOT_REGIST_CORP = 45016,
 }
+
+export const weilaLogoutErrorCodes = [
+  WeilaErrorCode.TOKEN_INVALID,
+  WeilaErrorCode.USER_IS_NOT_REGIST_CORP,
+]
 
 export type WeilaApiUrl = typeof weilaApiList[number]['url'] | typeof weilaExtraApiList[number]['url']
 export type WeilaApiUrlShort = WeilaApiUrl extends `${typeof config.baseURL}${infer Suffix}` ? Suffix : never
