@@ -6,14 +6,14 @@ import { isLogin } from '~/shared/states'
 
 export const useContactStore = defineStore('contact', () => {
   const corpStore = useCorpStore()
-  const { org_num, isStale } = storeToRefs(corpStore)
+  const { org_num } = storeToRefs(corpStore)
+  const enabled = computed(() =>
+    isLogin.value
+    && typeof org_num.value === 'number',
+  )
 
   const query = useQuery({
-    enabled: computed(() =>
-      isLogin.value
-      && typeof org_num.value === 'number'
-      && !isStale.value,
-    ),
+    enabled,
     queryKey: ['contact', org_num],
     queryFn: () => (weilaFetch<ContactModel>(
       '/corp/web/get-address-list',
