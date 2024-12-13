@@ -5,20 +5,21 @@ import { Message } from '@arco-design/web-vue'
 import { useQuery } from '@tanstack/vue-query'
 import { ElAmap } from '@vuemap/vue-amap'
 import { ElAmapLoca, ElAmapLocaLine } from '@vuemap/vue-amap-loca'
+import { nanoid } from 'nanoid'
 import { weilaApiUrl } from '~/api'
 import { weilaFetch } from '~/api/instances/fetcher'
 
 const { t } = useI18n()
 
-const selectedId = ref()
+const selectedUserId = ref()
 const selectedDate = ref('')
 
 const contactStore = useContactStore()
 const { data: contact } = storeToRefs(contactStore)
 const { data: tracks } = useQuery({
-  enabled: computed(() => Boolean(selectedId.value) && Boolean(selectedDate.value)),
+  enabled: computed(() => Boolean(selectedUserId.value) && Boolean(selectedDate.value)),
   refetchOnWindowFocus: false,
-  queryKey: ['user track', selectedId, selectedDate],
+  queryKey: ['user track', selectedUserId, selectedDate],
   queryFn: ({ queryKey }) => weilaFetch<{ tracks: UserTrackModel[] }>('/corp/web/location-get-track', {
     body: { user_id: queryKey[1], date: queryKey[2] },
   }).then(i => i.tracks.sort((a, b) => b.created - a.created)),
@@ -91,11 +92,11 @@ watch(selectedMarker, (marker) => {
 $inspect(selectedMarker)
 
 const { data: regeoInfo } = useQuery({
-  enabled: computed(() => Boolean(selectedMarker.value?.getPosition()?.toArray().length)),
+  enabled: computed(() => Boolean(selectedMarker.value?.getExtData().id)),
   queryKey: [
     'regeo',
     weilaApiUrl('/corp/web/location-get-regeo'),
-    computed(() => selectedMarker.value?.getPosition()),
+    computed(() => selectedMarker.value?.getExtData().id),
   ],
   queryFn: async () => {
     if (!selectedMarker.value)
@@ -162,7 +163,8 @@ watch(tracks, (val) => {
       const marker = new AMap.Marker({
         position: [longitude, latitude],
         extData: {
-          id: selectedId,
+          id: nanoid(),
+          userId: selectedUserId.value,
           created,
           longitude,
           latitude,
@@ -230,7 +232,7 @@ watch(markers, (val, oldVal) => {
   </div>
   <div flex gap2 p4 bg-base>
     <!-- @vue-expect-error type error -->
-    <a-tree-select v-model="selectedId" :data="data" :field-names="{
+    <a-tree-select v-model="selectedUserId" :data="data" :field-names="{
       key: 'id',
       title: 'name',
       children: 'members',
